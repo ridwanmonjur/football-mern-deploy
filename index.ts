@@ -62,7 +62,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(upload.array()); 
 app.use(cors())
 // Priority serve any static files.
-app.use(express.static(path.resolve(__dirname, 'client/dist')));
+app.use(express.static(path.resolve(__dirname, 'client/build')));
 // connect Database
 connectDB()
 // error handler
@@ -77,9 +77,9 @@ app.get('/api/v1/resetData', function (req: Request, res: Response){
 })
 
 // All remaining requests return the React app, so it can handle routing.
-// app.get('*', function (req, res) {
-//     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-// });
+app.get('*', function (req, res) {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
 app.listen(process.env.PORT || 5000, function () {
     console.log(rainbow('Hello my friend')) // outputs green text
 })
