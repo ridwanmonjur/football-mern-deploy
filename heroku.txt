@@ -7,7 +7,9 @@ git push -f heroku
 
 heroku apps:destroy football-ecommerce-mern
 
+
 heroku logs --tail
+heroku logs -a football-mern-shop 
 
 heroku create ecommerce-mern-app
 
