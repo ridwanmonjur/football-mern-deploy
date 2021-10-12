@@ -1,0 +1,23 @@
+Heroku ammend
+
+heroku git:clone -a thawing-brushlands-17102  
+git add .
+git commit -am "ammend"
+git push -f heroku
+
+heroku apps:destroy football-ecommerce-mern
+
+heroku logs --tail
+
+heroku create ecommerce-mern-app
+
+heroku local web
+
+heroku config:set NPM_CONFIG_PRODUCTION=false  
+
+"dev:server": "nodemon --watch './*.ts' --exec ts-node index.ts",
+    "dev:seed": "nodemon --watch './*.ts' --exec ts-node seeder_ecommerce.ts -i",
+    "dev:delete": "nodemon --watch './*.ts' --exec ts-node seeder_ecommerce.ts -d",
+
+
+    

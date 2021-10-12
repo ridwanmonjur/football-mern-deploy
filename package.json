@@ -1,0 +1,41 @@
+{
+  "name": "mine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
+  "scripts": {
+    "dev:server": "nodemon --watch './*.ts' --exec ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "start": "npm run dev:server"
+  },
+  "author": "ridwan-monjur",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "bcrypt": "^5.0.1",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "faker": "^5.5.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.7",
+    "@types/node": "^16.10.2",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.0",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.0",
+    "typescript": "^4.3.5"
+  },
+  "engines": {
+    "node": "14.x"
+  }
+}
