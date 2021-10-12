@@ -135,7 +135,7 @@ export const resetData = async () => {
     await deleteData()
     await importData()
     console.log(colors.red.inverse('Data Replaced...'))
-    process.exit()
+    // process.exit()
   } catch (err) {
     console.error(err)
   }
