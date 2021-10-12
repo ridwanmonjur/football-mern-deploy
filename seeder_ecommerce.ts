@@ -83,9 +83,13 @@ const importData = async () => {
     role: "admin"
   }))
 
+  try{
   await User.create(users)
   await Cart.create(carts)
-
+  }
+  catch{
+    console.log("error")
+  }
   let JSONStringToObject: Array<ProductInterface> = [...readFiles("accessories"), ...readFiles("boots"), ...readFiles("jerseys")]
 
   JSONStringToObject.forEach(function (value) {
