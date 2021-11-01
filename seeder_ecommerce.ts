@@ -145,6 +145,5 @@ export const resetData = async () => {
   }
 }
 
-resetData()
 
 
