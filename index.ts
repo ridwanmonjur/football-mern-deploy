@@ -65,6 +65,7 @@ app.use(cors())
 connectDB()
 // error handler
 // app.use() for mounting routes
+app.use('/', (req, res)=>res.json({success: true}))
 app.use('/api/v1', routesAuth)
 app.use('/api/v1/product', routesProduct)
 app.use('/api/v1/cart', routesCart)
