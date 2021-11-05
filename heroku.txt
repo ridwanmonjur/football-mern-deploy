@@ -12,6 +12,7 @@ heroku logs --tail
 heroku logs -a football-mern-shop 
 
 heroku create ecommerce-mern-app
+heroku git:remote -a nodejs-events-app
 
 heroku local web
 
