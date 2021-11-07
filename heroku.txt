@@ -11,8 +11,10 @@ heroku apps:destroy football-ecommerce-mern
 heroku logs --tail
 heroku logs -a football-mern-shop 
 
-heroku create ecommerce-mern-app
-heroku git:remote -a nodejs-events-app
+heroku create thawing-brushlands-17102
+heroku git:remote -a thawing-brushlands-17102
+
+heroku run bash -a thawing-brushlands-17102
 
 heroku local web
 
