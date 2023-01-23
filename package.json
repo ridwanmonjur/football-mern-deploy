@@ -11,7 +11,10 @@
     "dev:server": "nodemon --watch './*.ts' --exec ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "npm run install-client && npm run build",
-    "start": "npm run dev:server"
+    "start": "pnpm run dev:server",
+    "db:locally": "mongosh \"mongodb://localhost:27017\"",
+    "db:seed": "nodemon --watch './*.ts' --exec ts-node seed.ts",
+    "mongo:start:ubuntu": "sudo systemctl start mongod"
   },
   "author": "ridwan-monjur",
   "license": "ISC",

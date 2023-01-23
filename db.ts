@@ -2,12 +2,19 @@ import { connect } from 'mongoose'
 import { red, rainbow } from 'colors'
 
 import * as dotenv from "dotenv"
-dotenv.config({ path: __dirname+ "\\env\\config.env" })
+// WINDOWS USER
+// dotenv.config({ path: __dirname+ "\env\\config.env" })
+// UBUNTU USER
+dotenv.config({ path: __dirname+ "/env/config.env" })
 
 // let connectionString: string = process.env.DB_CONNECTION + '/' + process.env.DB_TABLE_2
 
+// mongodb://localhost:27017/exampleDb
+// let connectionString = process.env['DB_CONNECTION']  as any as string
+let connectionString = "mongodb://localhost:27017/ecommerce"
 
-let connectionString:string = process.env['DB_CONNECTION'] as string
+console.log({connectionString, path: __dirname+ "\\env\\config.env"})
+
 function connectDB(): void {
   try {
     connect(connectionString, {
