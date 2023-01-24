@@ -1,51 +1,23 @@
-/* 0.a. SAMPLE COMMENT */
 
+/*  Imported libraries */
 
-/* 0.b. What I learnt */
-// import "express"
-// cannot access express in:  
-// const app= express()
-
-// Solution: 
-// import express from 'express'
-// import * as express from 'express'
-
-
-// 1. extend typescript request object
-
-
-declare global {
-    namespace Express {
-        interface Request {
-            newUser: string
-            role: string
-        }
-    }
-    namespace NodeJS {
-        interface ProcessEnv {
-            DB_CONNECTION: string;
-        }
-      }
-}
-
-/* 2. Imported libraries */
-
-import express, { Application, Request, Response, NextFunction } from 'express'
+import * as express from 'express'
+import { Application, Request, Response, NextFunction } from 'express'
 import { rainbow } from 'colors'
 import * as dotenv from "dotenv"
 const path= require("path")
 
-/* 3. My libraries */
+/*  My libraries */
 
 import { connectDB } from './db'
-import { resetData } from './seeder_ecommerce'
+import { resetData } from './seed_function'
 import { UserInterface } from './models/User';
 // import routes
 const routesAuth = require('./routes/auth')
 const routesProduct = require('./routes/product')
 const routesCart = require('./routes/cart')
 
-/* 4. Setting up Express */
+/*  Setting up Express */
 
 dotenv.config({ path: './env/config.env' })
 const app: Application = express()
@@ -65,6 +37,11 @@ app.use(cors())
 connectDB()
 // error handler
 // app.use() for mounting routes
+process.on('uncaughtException', 
+    function(err) {
+        // Handle the error safely
+        console.log(err)
+})
 app.get('/', (req, res)=>res.json({success: true}))
 app.use('/api/v1', routesAuth)
 app.use('/api/v1/product', routesProduct)
@@ -82,8 +59,5 @@ app.get('/api/v1/resetData', function (req: Request, res: Response){
 app.listen(process.env.PORT || 5000, function () {
     console.log(rainbow('Hello my friend')) // outputs green text
 })
-
-
-/* 4. Exporting Express */
 
 module.exports = app;

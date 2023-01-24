@@ -12,7 +12,7 @@ export async function getCart(req: Request, res: Response, next: NextFunction): 
     let cart;
     /* /api/v1/user/:userId */
     try {
-        cart = await Cart.findOne({ user: req.newUser, status: "active" }).populate('products', 'name image price type')
+        cart = await Cart.findOne({ user: req.user, status: "active" }).populate('products', 'name image price type')
         if (cart !== null) {
             res.json({ "success": true, cart })
         }
@@ -29,7 +29,7 @@ export async function getCart(req: Request, res: Response, next: NextFunction): 
 export async function getCarts(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     try {
-        let cart = await Cart.find({ user: req.newUser }).populate('products', 'name image price type')
+        let cart = await Cart.find({ user: req.user }).populate('products', 'name image price type')
         res.json({ "success": true, cart })
     }
     catch (err) {
@@ -46,7 +46,7 @@ export async function getCarts(req: Request, res: Response, next: NextFunction):
 export async function addToCartPartTwo(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     try {
-        if (req.params.productId && req.newUser) {
+        if (req.params.productId && req.user) {
             let cart: CartInterface | null = await addToEditCartPartTwo("add", req, res, next)
             if (cart === null) res.json({ cart, success: false })
             else res.json({ cart, success: true })
@@ -64,7 +64,7 @@ export async function addToCartPartTwo(req: Request, res: Response, next: NextFu
 export async function editCartQuantity(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
 
-        if (req.params.productId && req.newUser) {
+        if (req.params.productId && req.user) {
             let cart: CartInterface | null = await addToEditCartPartTwo("editQuantity", req, res, next)
             if (cart === null) res.json({ cart, success: false })
             else res.json({ cart, success: true })
@@ -84,7 +84,7 @@ export async function editCartQuantity(req: Request, res: Response, next: NextFu
 export async function deleteCart(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
 
-        if (req.newUser && req.params.deleteProductIndex) {
+        if (req.user && req.params.deleteProductIndex) {
 
             let { productId, quantity } = await deleteCartHelper(req, res, next)
 
@@ -111,7 +111,7 @@ export async function getProductOfCart(req: Request, res: Response, next: NextFu
     try {
 
         // guard routes
-        if (req.params.productId && req.newUser) {
+        if (req.params.productId && req.user) {
 
             let index
             index = await getTwoArrays(req, res, next)
@@ -134,14 +134,14 @@ export async function getNewCart(req: Request, res: Response, next: NextFunction
     try {
 
         // guard routes
-        if (req.newUser) {
+        if (req.user) {
 
             await Cart.updateMany(
-                { user: ObjectID(req.newUser), status: "active" },
+                { user: ObjectID(req.user), status: "active" },
                 { status: "paid", paidAt: new Date() }
             )
             let cart = await Cart.create({
-                user: ObjectID(req.newUser),
+                user: ObjectID(req.user),
                 status: "active"
             })
             res.json({ "success": true, cart })
@@ -160,7 +160,7 @@ export async function getNewCart(req: Request, res: Response, next: NextFunction
 export async function editStatus(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
         // guard routes
-        if (req.newUser && req.params.cartId) {
+        if (req.user && req.params.cartId) {
             await Cart.findByIdAndUpdate(
                 { user: ObjectID(req.params.cartId) },
                 { status: req.body.status }
@@ -184,7 +184,7 @@ export async function editStatus(req: Request, res: Response, next: NextFunction
 
   // if (index != -1) {
             // let filter = {
-            //     user: req.newUser,
+            //     user: req.user,
             //     status: "active"
             //     products: {
             //         "$in": [req.params.productId],

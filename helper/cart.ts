@@ -17,7 +17,7 @@ export async function addToEditCartPartTwo(addOrEdit: string, req: Request, res:
 
     let isSame: boolean = false
     let currentQuantity: number = 0;
-    let cart: CartInterface | null = await Cart.findOne({ user: ObjectID(req.newUser), status: "active" })
+    let cart: CartInterface | null = await Cart.findOne({ user: ObjectID(req.user), status: "active" })
 
     if (cart !== null && cart.description !== undefined) {
         cart.products.forEach(async function (value, index,) {
@@ -39,7 +39,7 @@ export async function addToEditCartPartTwo(addOrEdit: string, req: Request, res:
         else {
             if (addOrEdit === "add") {
                 await Cart.updateOne(
-                    { user: ObjectID(req.newUser), status: "active" },
+                    { user: ObjectID(req.user), status: "active" },
                     { $push: { products: req.params.productId, description: { quantity: parseInt(req.body.quantity), size: req.body.size } } },
                 )
             }
@@ -60,7 +60,7 @@ export async function deleteCartHelper(req: Request, res: Response, next: NextFu
     let index: number = parseInt(req.params.deleteProductIndex)
     let quantity: number | null= null
     let productId: string | null= null
-    let cart: CartInterface | null = await Cart.findOne({ user: ObjectID(req.newUser), status: "active" })
+    let cart: CartInterface | null = await Cart.findOne({ user: ObjectID(req.user), status: "active" })
 
     if (cart !== null && cart.description !== undefined && cart.products !== undefined) {
     
@@ -83,7 +83,7 @@ export async function deleteCartHelper(req: Request, res: Response, next: NextFu
 export async function getTwoArrays(req: Request, res: Response, next: NextFunction): Promise<Array<IndexInterface>> {
     let index;
     index = await Cart.aggregate(
-        [{ $match: { user: ObjectID(req.newUser), status: "active" } },
+        [{ $match: { user: ObjectID(req.user), status: "active" } },
         {
             "$project": {
                 "_id": 0,

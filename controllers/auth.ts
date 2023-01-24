@@ -43,8 +43,8 @@ export async function getUser(req: Request, res: Response, next: NextFunction): 
 export async function getCurrentUser(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
 
-        let user = await User.findById(ObjectID(req.newUser))
-        res.json({ "success": true, user, userId: req.newUser })
+        let user = await User.findById(ObjectID(req.user))
+        res.json({ "success": true, user, userId: req.user })
     }
     catch (err) {
         res.json({ success: false, error: err })
@@ -56,48 +56,48 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
 
         let user: UserInterface | null = null;
         if (req.body.creditCardNumber !== undefined && req.body.addressFirst !== undefined) {
-            user = await User.findByIdAndUpdate(ObjectID(req.newUser), {
+            user = await User.findByIdAndUpdate(ObjectID(req.user), {
                 creditCardNumber: req.body.creditCardNumber,
                 creditCardCVV: req.body.creditCardCVV,
                 addressFirst: req.body.addressFirst,
                 addressSecond: req.body.addressSecond
             })
-            res.json({ "success": true, user, userId: req.newUser, number: 0 })
+            res.json({ "success": true, user, userId: req.user, number: 0 })
         }
 
         else if (req.body.creditCardNumber !== undefined && req.body.creditCardCVV !== undefined) {
-            user = await User.findByIdAndUpdate(ObjectID(req.newUser), {
+            user = await User.findByIdAndUpdate(ObjectID(req.user), {
                 creditCardNumber: req.body.creditCardNumber,
                 creditCardCVV: req.body.creditCardCVV
             })
-            res.json({ "success": true, user, userId: req.newUser, number: 1 })
+            res.json({ "success": true, user, userId: req.user, number: 1 })
         }
         else if (req.body.addressFirst !== undefined && req.body.addressSecond !== undefined) {
             console.log({ addressFirst: req.body.addressFirst, addressSecond: req.body.addressSecond })
-            user = await User.findByIdAndUpdate(ObjectID(req.newUser), {
+            user = await User.findByIdAndUpdate(ObjectID(req.user), {
                 addressFirst: req.body.addressFirst,
                 addressSecond: req.body.addressSecond
             }, { new: true }
             )
-            res.json({ "success": true, user, userId: req.newUser, number: 2 })
+            res.json({ "success": true, user, userId: req.user, number: 2 })
         }
         else if (req.body.addressFirst !== undefined && req.body.addressSecond !== undefined) {
             console.log({ addressFirst: req.body.addressFirst, addressSecond: req.body.addressSecond })
-            user = await User.findByIdAndUpdate(ObjectID(req.newUser), {
+            user = await User.findByIdAndUpdate(ObjectID(req.user), {
                 addressFirst: req.body.addressFirst,
                 addressSecond: req.body.addressSecond
             }, { new: true }
             )
-            res.json({ "success": true, user, userId: req.newUser, number: 2 })
+            res.json({ "success": true, user, userId: req.user, number: 2 })
         }
         else if (req.body.totalPurchase !== undefined) {
-            user = await User.findByIdAndUpdate(ObjectID(req.newUser),
+            user = await User.findByIdAndUpdate(ObjectID(req.user),
                 {
                     totalPurchase: req.body.totalPurchase,
                 },
                 { new: true }
             )
-            res.json({ "success": true, user, userId: req.newUser, number: 2 })
+            res.json({ "success": true, user, userId: req.user, number: 2 })
         }
         else {
             res.json({ "success": false, user, message: "Empty Body!" })
@@ -133,11 +133,11 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
 
         // promise can be awaited !!!
         let hashedPassword = await hash(password, saltRounds)
-        let newUser = new User({ name, email, password: hashedPassword, role: "buyer" })
-        let cart = new Cart({ user: newUser._id, })
-        await newUser.save()
+        let user = new User({ name, email, password: hashedPassword, role: "buyer" })
+        let cart = new Cart({ user: user._id, })
+        await user.save()
         await cart.save()
-        res.json({ newUser, success: true })
+        res.json({ user, success: true })
     }
     catch (err) {
         res.json({ success: false, error: err })
@@ -151,20 +151,20 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
         let { email, password }: { email: string; password: string } = req.body
 
         // .select("+password") gets field select= false
-        let newUser = await User.findOne({ email }).select("+password")
+        let user = await User.findOne({ email }).select("+password")
 
-        console.log(rainbow(JSON.stringify(newUser)))
+        console.log(rainbow(JSON.stringify(user)))
 
-        if (newUser) {
+        if (user) {
 
             let match = false;
-            match = await compare(password, newUser.password)
+            match = await compare(password, user.password)
 
             if (match) {
                 console.log(rainbow('success'))
                 var jwt = require('jsonwebtoken');
-                newUser._id = newUser._id.toString()
-                var token = jwt.sign({ "newUser": newUser._id, "role": newUser.role }, JWT_SECRET)
+                user._id = user._id.toString()
+                var token = jwt.sign({ "user": user._id, "role": user.role }, JWT_SECRET)
                 console.log({ token })
                 const options = {
                     expires: new Date(
@@ -179,7 +179,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
                     .json({
                         success: true,
                         token,
-                        newUser
+                        user
                     });
             }
             else {
