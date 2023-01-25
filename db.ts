@@ -1,5 +1,5 @@
 import { connect } from 'mongoose'
-import { red, rainbow } from 'colors'
+// import { red, rainbow } from 'colors'
 
 import * as dotenv from "dotenv"
 import { winstonLogger } from './winston/logger'
@@ -29,6 +29,7 @@ function connectDB(): void {
   }
   catch {
     winstonLogger.error("Failed to connect to Database")
+    //  UnhandledPromiseRejectionWarning: MongooseServerSelectionError: connect ECONNREFUSED 127.0.0.1:27017
     // console.log(red('Failed to connect to Database')) // outputs green text
   }
   winstonLogger.info("Connected to Database")

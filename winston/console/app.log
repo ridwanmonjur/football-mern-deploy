@@ -347,3 +347,49 @@ undefined
   level: 'info',
   timestamp: '1/25/2023, 7:58:16 AM'
 }
+[32m{[39m
+[32m  message: {[39m
+[32m    connectionString: 'mongodb://localhost:27017/ecommerce',[39m
+[32m    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'[39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '1/25/2023, 2:13:09 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '1/25/2023, 2:13:11 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '1/25/2023, 2:13:16 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 4000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '1/25/2023, 2:13:16 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: {[39m
+[32m    connectionString: 'mongodb://localhost:27017/ecommerce',[39m
+[32m    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'[39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '1/25/2023, 2:14:21 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '1/25/2023, 2:14:23 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '1/25/2023, 2:14:30 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 4000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '1/25/2023, 2:14:30 PM'[39m
+[32m}[39m

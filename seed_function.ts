@@ -1,6 +1,6 @@
 const fs = require('fs');
 import { Schema, model, Document, Types } from 'mongoose'
-const colors = require('colors');
+// const colors = require('colors');
 var faker = require('faker');
 const { hashSync } = require("bcrypt")
 const saltRounds: number = 10
@@ -122,7 +122,7 @@ const deleteData = async () => {
     await Product.deleteMany()
     await User.deleteMany()
     await Cart.deleteMany()
-    winstonLogger.info(colors.red.inverse('Data Destroyed...'))
+    winstonLogger.info('Data Destroyed...')
   } catch (err) {
     winstonLogger.error(err)
   }

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 
 import { Product } from "../models/Product"    // need to specify the object imported from the module to use it later
-import { rainbow, red, green } from 'colors'
+// import { rainbow, red, green } from 'colors'
 
 export async function getProducts(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
