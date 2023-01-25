@@ -16,6 +16,7 @@ const yourModuleName = require('module-name');
 import { User, UserInterface } from "../models/User"    // need to specify the object imported from the module to use it later
 import { rainbow, red, green } from 'colors'
 import { Cart } from '../models/Cart';
+import { winstonLogger } from '../winston/logger';
 
 let JWT_SECRET = 'secret'
 
@@ -73,7 +74,7 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
             res.json({ "success": true, user, userId: req.user, number: 1 })
         }
         else if (req.body.addressFirst !== undefined && req.body.addressSecond !== undefined) {
-            console.log({ addressFirst: req.body.addressFirst, addressSecond: req.body.addressSecond })
+            winstonLogger.info({ addressFirst: req.body.addressFirst, addressSecond: req.body.addressSecond })
             user = await User.findByIdAndUpdate(ObjectID(req.user), {
                 addressFirst: req.body.addressFirst,
                 addressSecond: req.body.addressSecond
@@ -82,7 +83,7 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
             res.json({ "success": true, user, userId: req.user, number: 2 })
         }
         else if (req.body.addressFirst !== undefined && req.body.addressSecond !== undefined) {
-            console.log({ addressFirst: req.body.addressFirst, addressSecond: req.body.addressSecond })
+            winstonLogger.info({ addressFirst: req.body.addressFirst, addressSecond: req.body.addressSecond })
             user = await User.findByIdAndUpdate(ObjectID(req.user), {
                 addressFirst: req.body.addressFirst,
                 addressSecond: req.body.addressSecond
@@ -129,7 +130,7 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
 
         let { name, email, password }: { name: string; email: string; password: string } = req.body
 
-        console.log(rainbow(JSON.stringify(req.body)))
+        winstonLogger.info(JSON.stringify(req.body))
 
         // promise can be awaited !!!
         let hashedPassword = await hash(password, saltRounds)
@@ -153,7 +154,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
         // .select("+password") gets field select= false
         let user = await User.findOne({ email }).select("+password")
 
-        console.log(rainbow(JSON.stringify(user)))
+        winstonLogger.info(rainbow(JSON.stringify(user)))
 
         if (user) {
 
@@ -161,11 +162,11 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
             match = await compare(password, user.password)
 
             if (match) {
-                console.log(rainbow('success'))
+                winstonLogger.info(rainbow('success'))
                 var jwt = require('jsonwebtoken');
                 user._id = user._id.toString()
                 var token = jwt.sign({ "user": user._id, "role": user.role }, JWT_SECRET)
-                console.log({ token })
+                winstonLogger.info({ token })
                 const options = {
                     expires: new Date(
                         Date.now() + 30 * 24 * 60 * 60 * 1000
@@ -183,7 +184,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
                     });
             }
             else {
-                console.log("started")
+                winstonLogger.info("started")
                 setTimeout(() => res.json({ success: false, error: "Password and username failed" }), 3000);
             }
         }

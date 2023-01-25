@@ -1,4 +1,5 @@
 import { Schema, model, Document, Types } from 'mongoose'
+import { winstonLogger } from '../winston/logger';
 // var slugify = require('slugify')
 var faker = require('faker')
 
@@ -79,7 +80,7 @@ const Product = model<ProductInterface>('Product', ProductSchema)
 
 ProductSchema.pre('save', function () {
     this.slug = faker.helpers.slugify(this.name)
-    console.log(this.slug)
+    winstonLogger.info(this.slug)
 })
 
 // ProductSchema.post('save',  function (error: Error , doc: Document) {

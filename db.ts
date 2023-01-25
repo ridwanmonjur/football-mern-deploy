@@ -2,6 +2,7 @@ import { connect } from 'mongoose'
 import { red, rainbow } from 'colors'
 
 import * as dotenv from "dotenv"
+import { winstonLogger } from './winston/logger'
 // WINDOWS USER
 // dotenv.config({ path: __dirname+ "\env\\config.env" })
 // UBUNTU USER
@@ -13,7 +14,7 @@ dotenv.config({ path: __dirname+ "/env/config.env" })
 // let connectionString = process.env['DB_CONNECTION']  as any as string
 let connectionString = "mongodb://localhost:27017/ecommerce"
 
-console.log({connectionString, path: __dirname+ "\\env\\config.env"})
+winstonLogger.info({connectionString, path: __dirname+ "\\env\\config.env"})
 
 function connectDB(): void {
   try {
@@ -27,9 +28,12 @@ function connectDB(): void {
 
   }
   catch {
-    console.log(red('Failed to connect to Database')) // outputs green text
+    winstonLogger.error("Failed to connect to Database")
+    // console.log(red('Failed to connect to Database')) // outputs green text
   }
-  console.log(rainbow('Connected to Database')) // outputs green text
+  winstonLogger.info("Connected to Database")
+
+  // console.log(rainbow('Connected to Database')) // outputs green text
 
 }
 export { connectDB }

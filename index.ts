@@ -12,6 +12,7 @@ const path= require("path")
 import { connectDB } from './db'
 import { resetData } from './seed_function'
 import { UserInterface } from './models/User';
+import { winstonLogger } from './winston/logger'
 // import routes
 const routesAuth = require('./routes/auth')
 const routesProduct = require('./routes/product')
@@ -40,7 +41,7 @@ connectDB()
 process.on('uncaughtException', 
     function(err) {
         // Handle the error safely
-        console.log(err)
+        winstonLogger.error(err)
 })
 app.get('/', (req, res)=>res.json({success: true}))
 app.use('/api/v1', routesAuth)
@@ -56,8 +57,10 @@ app.get('/api/v1/resetData', function (req: Request, res: Response){
 // app.get('*', function (req, res) {
 //     res.sendFile(path.resolve(__dirname, './build', 'index.html'));
 // });
-app.listen(process.env.PORT || 5000, function () {
-    console.log(rainbow('Hello my friend')) // outputs green text
+const port = process.env.PORT || 5000
+app.listen(port, function () {
+    // console.log(rainbow('Hello my friend')) // outputs green text
+    winstonLogger.info(`App started at port ${port}`)
 })
 
 module.exports = app;

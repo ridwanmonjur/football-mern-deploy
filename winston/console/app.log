@@ -1,0 +1,349 @@
+2023-01-25 06:57:18: [32minfo[39m : Connected to Database  
+
+2023-01-25 06:57:24: [32minfo[39m : Connected to Database  
+
+2023-01-25 06:59:09: ([32minfo[39m) Connected to Database  
+
+2023-01-25 06:59:16: ([32minfo[39m) Connected to Database  
+
+3 2023-01-25 07:01:34: ([32minfo[39m) Connected to Database  
+
+3 2023-01-25 07:01:38: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 2:07:45 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 2:07:50 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:09:26 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:09:30 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:16:52 AM: ([32minfo[39m) [object Object]  
+
+1/25/2023, 7:16:54 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:16:59 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:16:59 AM: ([32minfo[39m) App started at port 4000  
+
+1/25/2023, 7:18:55 AM: ([32minfo[39m) 
+Connection details  
+
+1/25/2023, 7:18:57 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:19:02 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:19:02 AM: ([32minfo[39m) App started at port 4000  
+
+1/25/2023, 7:19:14 AM: ([32minfo[39m) Connection details  
+
+1/25/2023, 7:19:16 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:19:21 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:19:21 AM: ([32minfo[39m) App started at port 4000  
+
+{
+  connectionString: 'mongodb://localhost:27017/ecommerce',
+  path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env',
+  level: '\x1B[32minfo\x1B[39m',
+  message: 'Connection details',
+  timestamp: '2023-01-24T23:20:49.006Z'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '2023-01-24T23:20:51.388Z'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '2023-01-24T23:20:55.867Z'
+}
+{
+  message: 'App started at port 4000',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '2023-01-24T23:20:55.870Z'
+}
+Connection details
+Connected to Database
+Connected to Database
+App started at port 4000
+Connection details
+Connected to Database
+Connected to Database
+App started at port 4000
+{"connectionString":"mongodb://localhost:27017/ecommerce","level":"\u001b[32minfo\u001b[39m","message":"Connection details","path":"/home/ridwan/Projects/football-shop-mern-api\\env\\config.env"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Connected to Database"}
+{"level":"\u001b[32minfo\u001b[39m","message":"Connected to Database"}
+{"level":"\u001b[32minfo\u001b[39m","message":"App started at port 4000"}
+{
+  connectionString: 'mongodb://localhost:27017/ecommerce',
+  path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env',
+  level: '\x1B[32minfo\x1B[39m',
+  message: 'Connection details'
+}
+{ message: 'Connected to Database', level: '\x1B[32minfo\x1B[39m' }
+{ message: 'Connected to Database', level: '\x1B[32minfo\x1B[39m' }
+{ message: 'App started at port 4000', level: '\x1B[32minfo\x1B[39m' }
+1/25/2023, 7:26:36 AM: ([32minfo[39m) Connection details  
+
+1/25/2023, 7:26:39 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:26:43 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:26:43 AM: ([32minfo[39m) App started at port 4000  
+
+1/25/2023, 7:27:02 AM: ([32minfo[39m) Connection details  
+
+1/25/2023, 7:27:05 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:27:09 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:27:09 AM: ([32minfo[39m) App started at port 4000  
+
+{
+  connectionString: 'mongodb://localhost:27017/ecommerce',
+  path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env',
+  level: '\x1B[32minfo\x1B[39m',
+  message: 'Connection details',
+  timestamp: '1/25/2023, 7:29:27 AM'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:29:29 AM'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:29:34 AM'
+}
+{
+  message: 'App started at port 4000',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:29:34 AM'
+}
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+{
+  connectionString: 'mongodb://localhost:27017/ecommerce',
+  path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env',
+  level: '\x1B[32minfo\x1B[39m',
+  message: 'Connection details'
+}
+{ message: 'Connected to Database', level: '\x1B[32minfo\x1B[39m' }
+{ message: 'Connected to Database', level: '\x1B[32minfo\x1B[39m' }
+{ message: 'App started at port 4000', level: '\x1B[32minfo\x1B[39m' }
+{
+  connectionString: 'mongodb://localhost:27017/ecommerce',
+  path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env',
+  level: '\x1B[32minfo\x1B[39m',
+  message: 'Connection details'
+}
+{ message: 'Connected to Database', level: '\x1B[32minfo\x1B[39m' }
+{ message: 'Connected to Database', level: '\x1B[32minfo\x1B[39m' }
+{ message: 'App started at port 4000', level: '\x1B[32minfo\x1B[39m' }
+{
+  connectionString: 'mongodb://localhost:27017/ecommerce',
+  path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env',
+  level: '\x1B[32minfo\x1B[39m',
+  message: 'Connection details'
+}
+{ message: 'Connected to Database', level: '\x1B[32minfo\x1B[39m' }
+{ message: 'Connected to Database', level: '\x1B[32minfo\x1B[39m' }
+{ message: 'App started at port 4000', level: '\x1B[32minfo\x1B[39m' }
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+1/25/2023, 7:34:36 AM: ([32minfo[39m) Connection details  
+
+1/25/2023, 7:34:38 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:34:43 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:34:43 AM: ([32minfo[39m) App started at port 4000  
+
+1/25/2023, 7:35:19 AM: ([32minfo[39m) Connection details  
+
+1/25/2023, 7:35:21 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:35:26 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:35:26 AM: ([32minfo[39m) App started at port 4000  
+
+{
+  connectionString: 'mongodb://localhost:27017/ecommerce',
+  path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env',
+  level: '\x1B[32minfo\x1B[39m',
+  message: 'Connection details',
+  timestamp: '2023-01-24T23:35:39.083Z'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '2023-01-24T23:35:41.286Z'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '2023-01-24T23:35:45.866Z'
+}
+{
+  message: 'App started at port 4000',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '2023-01-24T23:35:45.869Z'
+}
+1/25/2023, 7:36:32 AM: ([32minfo[39m) Connection details  
+
+1/25/2023, 7:36:34 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:36:38 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:36:38 AM: ([32minfo[39m) App started at port 4000  
+
+1/25/2023, 7:38:02 AM: ([32minfo[39m) [object Object]  
+
+1/25/2023, 7:38:04 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:38:09 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:38:09 AM: ([32minfo[39m) App started at port 4000  
+
+1/25/2023, 7:42:12 AM: ([32minfo[39m) {
+   "connectionString": "mongodb://localhost:27017/ecommerce",
+   "path": "/home/ridwan/Projects/football-shop-mern-api\\env\\config.env"
+}  
+
+1/25/2023, 7:42:14 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:42:19 AM: ([32minfo[39m) Connected to Database  
+
+1/25/2023, 7:42:19 AM: ([32minfo[39m) App started at port 4000  
+
+{
+  message: {
+    connectionString: 'mongodb://localhost:27017/ecommerce',
+    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'
+  },
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:49:54 AM'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:49:57 AM'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:50:01 AM'
+}
+{
+  message: 'App started at port 4000',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:50:01 AM'
+}
+{
+  message: {
+    connectionString: 'mongodb://localhost:27017/ecommerce',
+    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'
+  },
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:51:05 AM'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:51:08 AM'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:51:12 AM'
+}
+{
+  message: 'App started at port 4000',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:51:12 AM'
+}
+{
+  message: {
+    connectionString: 'mongodb://localhost:27017/ecommerce',
+    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'
+  },
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:55:43 AM'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:55:46 AM'
+}
+{
+  message: 'Connected to Database',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:55:51 AM'
+}
+{
+  message: 'App started at port 4000',
+  level: '\x1B[32minfo\x1B[39m',
+  timestamp: '1/25/2023, 7:55:51 AM'
+}
+{
+  message: {
+    connectionString: 'mongodb://localhost:27017/ecommerce',
+    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'
+  },
+  level: 'info',
+  timestamp: '1/25/2023, 7:57:54 AM'
+}
+{
+  message: 'Connected to Database',
+  level: 'info',
+  timestamp: '1/25/2023, 7:57:56 AM'
+}
+{
+  message: 'Connected to Database',
+  level: 'info',
+  timestamp: '1/25/2023, 7:58:01 AM'
+}
+{
+  message: 'App started at port 4000',
+  level: 'info',
+  timestamp: '1/25/2023, 7:58:01 AM'
+}
+{
+  message: {
+    connectionString: 'mongodb://localhost:27017/ecommerce',
+    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'
+  },
+  level: 'info',
+  timestamp: '1/25/2023, 7:58:09 AM'
+}
+{
+  message: 'Connected to Database',
+  level: 'info',
+  timestamp: '1/25/2023, 7:58:11 AM'
+}
+{
+  message: 'Connected to Database',
+  level: 'info',
+  timestamp: '1/25/2023, 7:58:16 AM'
+}
+{
+  message: 'App started at port 4000',
+  level: 'info',
+  timestamp: '1/25/2023, 7:58:16 AM'
+}

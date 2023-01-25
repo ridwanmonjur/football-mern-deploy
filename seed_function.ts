@@ -11,6 +11,7 @@ import { Cart, CartInterface } from './models/Cart'
 
 
 import { connectDB } from './db'
+import { winstonLogger } from './winston/logger';
 interface ProductObject {
   name: string, price: number | string, productOwner: string, manufacturer: string, type: string, quantity: number,
 }
@@ -88,7 +89,7 @@ const importData = async () => {
   await Cart.create(carts)
   }
   catch{
-    console.log("error")
+    winstonLogger.error("error")
   }
   let JSONStringToObject: Array<ProductInterface> = [...readFiles("accessories"), ...readFiles("boots"), ...readFiles("jerseys")]
 
@@ -107,10 +108,11 @@ const importData = async () => {
     await Product.create(JSONStringToObject)
 
 
-    console.log(colors.green.inverse('Data Imported...'))
+    // console.log(colors.green.inverse('Data Imported...'))
+    winstonLogger.info("Data imported.... ")
 
   } catch (err) {
-    console.error(err)
+    winstonLogger.error(err)
   }
 };
 
@@ -120,9 +122,9 @@ const deleteData = async () => {
     await Product.deleteMany()
     await User.deleteMany()
     await Cart.deleteMany()
-    console.log(colors.red.inverse('Data Destroyed...'))
+    winstonLogger.info(colors.red.inverse('Data Destroyed...'))
   } catch (err) {
-    console.error(err)
+    winstonLogger.error(err)
   }
 }
 
@@ -138,10 +140,11 @@ export const resetData = async () => {
   try {
     await deleteData()
     await importData()
-    console.log(colors.red.inverse('Data Replaced...'))
+    winstonLogger.info("Data replaced...")
+    // console.log(colors.red.inverse('Data Replaced...'))
     // process.exit()
   } catch (err) {
-    console.error(err)
+    winstonLogger.error(err)
   }
 }
 
