@@ -11,7 +11,6 @@ const path= require("path")
 
 import { connectDB } from './db'
 import { resetData } from './seed_function'
-import { UserInterface } from './models/User';
 import { winstonLogger } from './winston/logger'
 // import routes
 const routesAuth = require('./routes/auth')
@@ -36,14 +35,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors())
 // connect Database
 connectDB()
-// error handler
-// app.use() for mounting routes
+// error handler using event emmitter approach
 process.on('uncaughtException', 
     function(err) {
-        // Handle the error safely
         winstonLogger.error(err)
 })
 app.get('/', (req, res)=>res.json({success: true}))
+app.use(express.static(__dirname + '/assets/'));
 app.use('/api/v1', routesAuth)
 app.use('/api/v1/product', routesProduct)
 app.use('/api/v1/cart', routesCart)
@@ -53,7 +51,7 @@ app.get('/api/v1/resetData', function (req: Request, res: Response){
     res.json({success: true})
 })
 
-// // All remaining requests return the React app, so it can handle routing.
+// All remaining requests return the React app, so it can handle routing.
 // app.get('*', function (req, res) {
 //     res.sendFile(path.resolve(__dirname, './build', 'index.html'));
 // });
