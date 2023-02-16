@@ -49,4 +49,3 @@ const schema = new Schema<UserInterface>({
 const User = model('User', schema)
 
 export { User, UserInterface }
-Footer
