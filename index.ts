@@ -29,7 +29,13 @@ process.on('uncaughtException',
     function(err) {
         winstonLogger.error(err)
 })
-app.get('/', (req, res)=>res.json({success: true}))
+app.get('/', (req, res)=> {
+    const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    res.json(
+        {success: true,
+        resetData: `${fullUrl}api/v1/resetData`
+            })
+})
 app.use(express.static(__dirname + '/assets/'));
 app.use('/api/v1', routesAuth)
 app.use('/api/v1/product', routesProduct)
