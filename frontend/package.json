@@ -1,0 +1,44 @@
+{
+  "name": "your-app",
+  "version": "0.1.0",
+  "private": true,
+  "// If You want to install mdbreact from our GitLab repository, please replace '5.1.0' with gitURL provided here ->": "git+https://oauth2:<YOUR-TOKEN-GOES-HERE>@git.mdbootstrap.com/mdb/react/re-pro.git",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.5.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "mdbreact": "5.1.0",
+    "react-google-recaptcha-v3": "^1.9.5",
+    "react-redux": "^7.2.3",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "4.0.1",
+    "redux-thunk": "^2.3.0",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

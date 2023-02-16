@@ -1,0 +1,50 @@
+.overlay-div{
+    height: 70vh;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+    padding: 0;
+}
+
+.overlay-text{
+     z-index: 100;
+}
+
+.overlay-text h1,.overlay-text h2,.overlay-text h3,
+.overlay-text h4, .overlay-text h5{
+    font-size: 4rem;
+    font-weight: 1000;
+}
+.overlay-text p{
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+@media only screen and (max-width: 1000px) {
+    .overlay-text h1,.overlay-text h2,.overlay-text h3,
+.overlay-text h4, .overlay-text h5{
+    font-size: 2.8rem;
+}
+.overlay-text p{
+    font-size: 2rem;
+}
+}
+
+@media only screen and (max-width: 600px) {
+.overlay-text h1,.overlay-text h2,.overlay-text h3,
+.overlay-text h4, .overlay-text h5{
+    font-size: 3rem;
+    padding: 0 20px;
+}
+.overlay-text p{
+    font-size: 2rem;
+}
+.overlay-div{
+    background-size: contain;
+    background-repeat: repeat;
+}
+}

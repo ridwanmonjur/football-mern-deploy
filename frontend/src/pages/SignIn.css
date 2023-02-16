@@ -1,0 +1,64 @@
+.scaffold{
+    margin-bottom: 5vh;    
+    min-height: 70vh; 
+}
+
+.scaffold a{
+    color: goldenrod I !important;   
+}
+
+.real-signin-container{
+    width: 30vw;
+}
+
+.real-profile-container{
+    width: 50vw;
+}
+
+.text-align-center{
+    text-align: center;
+}
+
+.img-edit{
+    width: 100px;
+    margin: auto;
+}
+
+@media only screen and (max-width: 1200px) {
+    .real-signin-container{
+        width: 50vw;
+    }
+    .real-profile-container{
+        width: 50vw;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .real-signin-container{
+        width: 75vw;
+    }
+    .real-profile-container{
+        width: 75vw;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .real-signin-container{
+        width: 100vw;
+    }
+    .real-profile-container{
+        width: 100vw;
+    }
+}
+
+.prepostTitle::before{
+    content: "";
+    border: 1px solid gold;
+    display: block;
+}
+
+.prepostTitle::after{
+    content: "";
+    border: 1px solid gold;
+    display: block;
+}
