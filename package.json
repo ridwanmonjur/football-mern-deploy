@@ -2,7 +2,7 @@
   "name": "mine",
   "version": "1.0.0",
   "description": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.ts",
   "cacheDirectories": [
     "node_modules",
