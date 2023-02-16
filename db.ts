@@ -11,8 +11,8 @@ dotenv.config({ path: __dirname+ "/env/config.env" })
 // let connectionString: string = process.env.DB_CONNECTION + '/' + process.env.DB_TABLE_2
 
 // mongodb://localhost:27017/exampleDb
-// let connectionString = process.env['DB_CONNECTION']  as any as string
-let connectionString = "mongodb://localhost:27017/ecommerce"
+let connectionString = process.env['DB_CONNECTION']  as any as string
+// let connectionString = "mongodb://localhost:27017/ecommerce"
 
 winstonLogger.info({connectionString, path: __dirname+ "\\env\\config.env"})
 
