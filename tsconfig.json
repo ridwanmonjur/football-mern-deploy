@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "esModuleInterop": false,
+      "esModuleInterop": true,
       "moduleResolution": "node",
       "typeRoots": ["./types"]
     },
