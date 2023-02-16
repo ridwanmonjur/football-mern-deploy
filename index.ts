@@ -1,5 +1,5 @@
 import * as express from 'express'
-import { Application, Request, Response, NextFunction } from 'express'
+import {  Application, Request, Response, NextFunction } from 'express'
 import * as dotenv from "dotenv"
 const path= require("path")
 import { connectDB } from './db'
@@ -29,7 +29,7 @@ process.on('uncaughtException',
     function(err) {
         winstonLogger.error(err)
 })
-app.get('/', (req, res)=> {
+app.get('/', (req: Request, res: Response)=> {
     const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     res.json(
         {success: true,

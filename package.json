@@ -2,7 +2,6 @@
   "name": "mine",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "index.ts",
   "cacheDirectories": [
     "node_modules",
