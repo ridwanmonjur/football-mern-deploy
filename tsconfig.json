@@ -1,5 +1,9 @@
 {
     "compilerOptions": {
-        "typeRoots": ["./types"]
-    }
-}
+      "esModuleInterop": false,
+      "moduleResolution": "node",
+      "typeRoots": ["./types"]
+    },
+    "include": ["/**/*.ts"],
+    "exclude": ["node_modules"]
+  }
