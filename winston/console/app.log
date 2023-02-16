@@ -686,3 +686,56 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '2/16/2023, 6:34:10 PM'[39m
 [32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:13:04 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:13:04 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:13:04 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  code: 'EADDRINUSE',[39m
+[31m  errno: -98,[39m
+[31m  syscall: 'listen',[39m
+[31m  address: '::',[39m
+[31m  port: 8000,[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/16/2023, 7:15:20 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:15:20 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:15:20 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  code: 'EADDRINUSE',[39m
+[31m  errno: -98,[39m
+[31m  syscall: 'listen',[39m
+[31m  address: '::',[39m
+[31m  port: 8000,[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/16/2023, 7:16:05 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:16:05 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:16:05 PM'[39m
+[32m}[39m

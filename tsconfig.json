@@ -1,5 +1,5 @@
 {
-    "compilerOptions": {
-        "typeRoots": ["./types"]
-    }
+  "compilerOptions": {
+      "typeRoots": ["./types"]
+  }
 }
