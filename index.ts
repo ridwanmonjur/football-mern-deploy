@@ -46,13 +46,8 @@ app.get('/api/v1/resetData', function (req: Request, res: Response){
     res.json({success: true})
 })
 
-// All remaining requests return the React app, so it can handle routing.
-// app.get('*', function (req, res) {
-//     res.sendFile(path.resolve(__dirname, './build', 'index.html'));
-// });
 const port = process.env.PORT || 8000
 app.listen(port, function () {
-    // console.log(rainbow('Hello my friend')) // outputs green text
     winstonLogger.info(`App started at port ${port}`)
 })
 

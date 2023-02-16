@@ -462,3 +462,193 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '2/16/2023, 5:09:13 PM'[39m
 [32m}[39m
+[32m{[39m
+[32m  message: {[39m
+[32m    connectionString: 'mongodb://localhost:27017/ecommerce',[39m
+[32m    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'[39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:47:22 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:47:27 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:47:32 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:47:32 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: {[39m
+[32m    connectionString: 'mongodb://localhost:27017/ecommerce',[39m
+[32m    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'[39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:47:22 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:47:27 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:47:32 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  code: 'EADDRINUSE',[39m
+[31m  errno: -98,[39m
+[31m  syscall: 'listen',[39m
+[31m  address: '::',[39m
+[31m  port: 8000,[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/16/2023, 5:47:32 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: {[39m
+[32m    connectionString: 'mongodb://localhost:27017/ecommerce',[39m
+[32m    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'[39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:47:57 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:47:59 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:48:04 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  code: 'EADDRINUSE',[39m
+[31m  errno: -98,[39m
+[31m  syscall: 'listen',[39m
+[31m  address: '::',[39m
+[31m  port: 8000,[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/16/2023, 5:48:04 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: {[39m
+[32m    connectionString: 'mongodb://localhost:27017/ecommerce',[39m
+[32m    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'[39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:49:15 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:49:23 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: {[39m
+[32m    connectionString: 'mongodb://localhost:27017/ecommerce',[39m
+[32m    path: '/home/ridwan/Projects/football-shop-mern-api\\env\\config.env'[39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:49:15 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  code: 'EADDRINUSE',[39m
+[31m  errno: -98,[39m
+[31m  syscall: 'listen',[39m
+[31m  address: '::',[39m
+[31m  port: 8000,[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/16/2023, 5:49:23 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:50:31 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:50:31 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:50:31 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  code: 'EADDRINUSE',[39m
+[31m  errno: -98,[39m
+[31m  syscall: 'listen',[39m
+[31m  address: '::',[39m
+[31m  port: 8000,[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/16/2023, 5:50:31 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:50:31 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:50:31 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:51:14 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:51:14 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:51:14 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:51:30 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:51:30 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:51:30 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  code: 'EADDRINUSE',[39m
+[31m  errno: -98,[39m
+[31m  syscall: 'listen',[39m
+[31m  address: '::',[39m
+[31m  port: 8000,[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/16/2023, 5:51:30 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:51:30 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 5:51:30 PM'[39m
+[32m}[39m

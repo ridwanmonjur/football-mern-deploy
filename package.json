@@ -1,8 +1,8 @@
 {
   "name": "mine",
-  "type": "module",
   "version": "1.0.0",
   "description": "",
+  "type": "commonjs",
   "main": "index.ts",
   "cacheDirectories": [
     "node_modules",
@@ -11,6 +11,7 @@
   "scripts": {
     "dev:server": "nodemon --watch './*.ts' --exec ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm run install-client && npm run build",
     "start": "npm run dev:server",
     "start:me": "pnpm run mongo:start:ubuntu && pnpm run dev:server",
     "db:locally": "mongosh \"mongodb://localhost:27017\"",
