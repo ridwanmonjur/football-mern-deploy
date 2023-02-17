@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-redeclare */
 import React, { useState, Fragment, useEffect } from "react";
-import { MDBRow, MDBCard, MDBCardBody, MDBTable, MDBTableBody, MDBTableHead, MDBBtn, MDBCollapse, MDBIcon } from "mdbreact";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCart, editProduct, fetchCart, deleteProduct } from "../redux/slices/CartSlice";
+import { MDBRow, MDBCard, MDBCardBody, MDBTable, MDBTableBody, MDBTableHead, MDBCollapse, MDBIcon } from "mdbreact";
+import { useDispatch } from "react-redux";
+import { editProduct, deleteProduct } from "../redux/slices/CartSlice";
 import { useHistory } from "react-router";
 import "./Cart.css"
 import { editProfile } from "../redux/slices/ProfileSlice";
@@ -291,8 +293,8 @@ export function Cart({ data }) {
         }
       </div>
       {
-        !data.products ||
-        data.products[0] === null &&
+        (!data.products ||
+        data.products[0] === null) &&
         <div style={{ textAlign: "center" }}>
           Added nothing to cart !
         </div>

@@ -97,6 +97,7 @@ export default function Cart() {
       controller?.abort();
 
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.length])
   let handleInputChange = async (event, index) => {
     let quantity = parseInt(event.target.value);
@@ -216,8 +217,8 @@ export default function Cart() {
               }
             </div>
             {
-              !data.products ||
-              data.products[0] === null &&
+              (!data.products ||
+              data.products[0] === null) &&
               <div style={{ textAlign: "center", marginTop: "10px" }}>
                 Added nothing to cart !
               </div>

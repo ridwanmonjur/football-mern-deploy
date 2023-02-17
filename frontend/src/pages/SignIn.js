@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React, { useState } from "react";
 import {
     MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBBtn
@@ -19,6 +20,7 @@ function SignIn() {
 
     const dispatch = useDispatch()    
 
+    // eslint-disable-next-line no-lone-blocks
     {/* Notification handler */ }
     // initial value
     let [notification, setNotification] = useState({

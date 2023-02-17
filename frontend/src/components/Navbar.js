@@ -4,13 +4,13 @@ import { setProfileNull, selectIsSignedIn } from "../redux/slices/ProfileSlice";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBContainer, MDBIcon } from 'mdbreact';
 import NavbarBrandImg from "../assets/navbarBrand.gif"
 import "./Navbar.css"
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { getCookie, setCookie } from '../api/api';
 import { cookieKey } from '../api/env';
 
 function FullPageIntroWithNonFixedNavbar() {
 
-    let history = useHistory();
+    // let history = useHistory();
 
     let isSignedIn = useSelector(selectIsSignedIn);
 

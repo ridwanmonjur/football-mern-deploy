@@ -49,6 +49,7 @@ function JerseysPartTwo() {
         return () => {
             return () => controller?.abort();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [elem.length])
 
     return (

@@ -106,6 +106,7 @@ function DescriptionPartTwo() {
     useEffect(() => {
         // fetch Data
         async function fetchData() {
+            // eslint-disable-next-line no-unused-vars
             const originalPromiseResult = await dispatch(fetchProduct(userId)).unwrap()
         }
         // S0 CAN ACCESS ENTIRE PAGE
@@ -125,6 +126,7 @@ function DescriptionPartTwo() {
             controller?.abort();
 
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product.name, userId])
 
     return (

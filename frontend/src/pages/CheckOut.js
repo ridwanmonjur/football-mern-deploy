@@ -1,5 +1,6 @@
+/* eslint-disable no-lone-blocks */
 import React, { useState, useEffect } from "react";
-import { MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody, MDBBtn, MDBTabPane, MDBNav, MDBIcon } from "mdbreact";
+import { MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody, MDBBtn, MDBNav } from "mdbreact";
 import "./CheckOut.css";
 import { useSelector, useDispatch } from "react-redux";
 import { selectProfileDetails, fetchProfile, editProfile } from "../redux/slices/ProfileSlice";
@@ -86,6 +87,7 @@ function CheckOut() {
             controller?.abort();
 
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.creditCardNumber])
 
     return (
