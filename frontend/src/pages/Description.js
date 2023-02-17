@@ -110,13 +110,7 @@ function DescriptionPartTwo() {
             console.log("okay")
             const originalPromiseResult = await dispatch(fetchProduct(userId)).unwrap()
             console.log({ okay: originalPromiseResult.product })
-            // if (typeof originalPromiseResult.product !== undefined) {
-            //     setProduct(originalPromiseResult.product)
-            //     setCartStateToReducer({ rate: product.ratings, size: product.size, quantity: 1 })
-            // }
-            // else {
-            //     setProduct({})
-            // }
+           
         }
         // S0 CAN ACCESS ENTIRE PAGE
         let cartIcon = document.querySelector('.cart-icon')

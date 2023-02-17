@@ -1,14 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
-// import { APP_SECRET } from '../config';
-
-// import { VendorPayload } from '../dto';
-// import { AuthPayload } from '../dto/Auth.dto';
 import * as dotenv from "dotenv"
-// WINDOWS USER
-// dotenv.config({ path: __dirname+ "\env\\config.env" })
-// UBUNTU USER
 dotenv.config({ path: __dirname+ "/env/config.env" })
 
 export const generateSalt = async () => {
