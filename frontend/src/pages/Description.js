@@ -5,7 +5,7 @@ import "./Description.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from "../redux/slices/CartSlice";
 import { fetchProduct, selectCurrentProduct } from '../redux/slices/ProductSlice';
-import { cookieKey } from '../api/env';
+import { cookieKey, hostNameWithoutAPI } from '../api/env';
 import { getCookie } from '../api/api';
 
 const BreadcrumbPage = ({ type, productName, productid }) => {
@@ -46,8 +46,8 @@ function generateProductAd(productNameForAdd) {
 
 function DescriptionPartTwo() {
 
-    const { userPath } = useParams();
-    console.log({ userPath })
+    const { userId, productName } = useParams();
+    console.log({ userId, productName })
     let product = useSelector(selectCurrentProduct)
     let [cartStateToReducer, setCartStateToReducer] = useState({
         rate: 0,
@@ -93,7 +93,7 @@ function DescriptionPartTwo() {
             }
             else {
                 alert("Added to cart.")
-                await dispatch(addProduct({productId: userPath, body }))
+                await dispatch(addProduct({productId: userId, body }))
 
             }
             
@@ -108,7 +108,7 @@ function DescriptionPartTwo() {
         // fetch Data
         async function fetchData() {
             console.log("okay")
-            const originalPromiseResult = await dispatch(fetchProduct(userPath)).unwrap()
+            const originalPromiseResult = await dispatch(fetchProduct(userId)).unwrap()
             console.log({ okay: originalPromiseResult.product })
             // if (typeof originalPromiseResult.product !== undefined) {
             //     setProduct(originalPromiseResult.product)
@@ -135,21 +135,19 @@ function DescriptionPartTwo() {
             controller?.abort();
 
         }
-    }, [product.name, userPath])
+    }, [product.name, userId])
 
     return (
-        // Interpreter thinks that you return undefined and doesn't 
-        // check your next line. That's the return operator thing.
-        // Put your opened bracket on the same line with the return.
+       
         <Fragment>
             {product.name !== undefined &&
-                < div style={{ marginTop: "-80px" }}>
+                < div style={{ marginTop: "-80px", minHeight: "100vh" }}>
                     <br />
                     <BreadcrumbPage type={product.type} productName={product.name} productid={product._id} />
                     <MDBContainer className="pt-0">
                         <MDBRow style={{ marginTop: 0, paddingTop: 0 }} className="pt-0">
                             <MDBCol xs="12" lg="6" className="col-xs-12-imageWraper" >
-                                <img src={`/assets/${product.type}/imageL${product.image.substring(5)}`} alt={`${product.name}`}
+                                <img src={`${hostNameWithoutAPI}/assets/${product.type}/imageL${product.image.substring(5)}`} alt={`${product.name}`}
                                     className="description-img frame"
                                 />
                             </MDBCol>

@@ -15,8 +15,7 @@ import Purchases from './Purchases';
 function Routes() {
 
   return (
-    <div>
-
+    <>
       <Route exact path="/">
         <Home />
       </Route>
@@ -42,12 +41,11 @@ function Routes() {
       <Route exact path="/products/:productName">
         <JerseysPartTwo />
       </Route>
-      <Route path="products/:productName/:userPath">
+      <Route path="/products/:productName/:userId">
         <DescriptionPartTwo />
       </Route>
+    </>
 
-
-    </div>
   )
 }
 

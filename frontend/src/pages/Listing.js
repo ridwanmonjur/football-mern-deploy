@@ -10,8 +10,8 @@ import { useParams } from 'react-router-dom'
 
 function JerseysPartTwo() {
 
-    const { userPath, productName } = useParams();
-    console.log({ userPath, productName})
+    const { userId, productName } = useParams();
+    console.log({ userId, productName})
 
     let elem = useSelector(selectProducts)
     const dispatch = useDispatch()

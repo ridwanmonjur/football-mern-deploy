@@ -43,7 +43,7 @@ function EcommerceGridVertical({ productName, data }) {
                                 <Fragment key={`${index}${value._id}`}>
                                     <MDBCard className="px-0 mx-0" style={{ border: "1px solid gold" }}>
 
-                                        <NavLink to={`/${productName}/${value._id}`} className="image-hyperlink">
+                                        <NavLink to={`/products/${productName}/${value._id}`} className="image-hyperlink">
                                             <MDBCardImage className="card-image" src={`${hostNameWithoutAPI}/assets/${productName}/image${index}.jpg`} alt={`image${index}`} waves />
 
                                             <MDBCardBody className="d-flex flex-column justify-content-center align-items-center">
