@@ -10,7 +10,7 @@
   "scripts": {
     "dev:server": "nodemon --watch './*.ts' --exec ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run dev:server",
+    "start": "nts-node index.ts",
     "render": "ts-node index.ts",
     "db:locally": "mongosh \"mongodb://localhost:27017\"",
     "db:seed": "nodemon --watch './*.ts' --exec ts-node seed.ts",

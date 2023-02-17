@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import EcommerceGridVertical from '../components/EcommerceGridVertical'
 import Overlay from '../components/Overlay'
 import JerseyImg from "../assets/Jerseys.jpg"
 import AccessoriesImg from "../assets/Accessories.jpg"
 import BootsImg from "../assets/Boots.jpg"
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchAll, selectProducts } from '../redux/slices/ProductSlice'
 import { useParams } from 'react-router-dom'
+import { FetchAll } from '../api/product'
 
 const description = {
     jerseys: {
@@ -26,41 +25,64 @@ const description = {
     },
 }
 
-function JerseysPartTwo() {
+function Listing() {
 
     const { productName } = useParams();
 
-    let elem = useSelector(selectProducts)
-    const dispatch = useDispatch()
+    let [data, setData] = useState({
+        loading: true,
+        data: [],
+        error: false
+    })
+
     useEffect(() => {
         let controller = new AbortController();
+
         async function fetchData() {
-            try {
-                const originalPromiseResult = await dispatch(fetchAll(productName)).unwrap()
-                if (originalPromiseResult.product)
-                    console.log({ okay: originalPromiseResult })
-            } catch (rejectedValueOrSerializedError) {
-                console.log({ failed: rejectedValueOrSerializedError })
-            }
+            await FetchAll(productName)
+                .then((result) => {
+                    setData({ error: false, data: result, loading: false })
+                })
+                .catch((err) => {
+                    setData({ loading: true, data: [], error: false })
+                })
         }
 
         fetchData()
-
         return () => {
             return () => controller?.abort();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [elem.length])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data.length])
+
 
     return (
+
         <div>
             <Overlay imgSrc={description[productName]['img']} alt={productName} >
                 <h1>{description[productName]['h1']}</h1>
                 <h2>{description[productName]['h2']}</h2>
             </Overlay>
-            <EcommerceGridVertical productName={productName} data={elem} />
+            {
+                !data.error && !data.loading ?
+                    (
+                        data.data && data.data[0] !== undefined ?
+                            <EcommerceGridVertical productName={productName} data={data.data} />
+                            :
+                            <h1>No products to display</h1>
+                    ) :
+                    <>
+                        {
+                            data.error && <> Error </>
+                        }
+                        {
+                            data.loading && <> loading </>
+                        }
+
+                    </>
+            }
         </div>
     )
 }
 
-export default JerseysPartTwo
+export default Listing

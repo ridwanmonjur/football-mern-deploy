@@ -8,7 +8,7 @@ import SignIn from './SignIn';
 import CheckOut from './CheckOut';
 import SignUp from './SignUp';
 import Profile from './Profile';
-import DescriptionPartTwo from './Description';
+import Description from './Description';
 import JerseysPartTwo from './Listing';
 import Purchases from './Purchases';
 
@@ -42,7 +42,7 @@ function Routes() {
         <JerseysPartTwo />
       </Route>
       <Route path="/products/:productName/:userId">
-        <DescriptionPartTwo />
+        <Description/>
       </Route>
     </>
 

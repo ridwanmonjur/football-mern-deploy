@@ -7,6 +7,7 @@ import { addProduct } from "../redux/slices/CartSlice";
 import { fetchProduct, selectCurrentProduct } from '../redux/slices/ProductSlice';
 import { cookieKey, hostNameWithoutAPI } from '../api/env';
 import { getCookie } from '../api/api';
+import { FetchProduct } from '../api/product';
 
 const BreadcrumbPage = ({ type, productName, productid }) => {
     return (
@@ -44,11 +45,14 @@ function generateProductAd(productNameForAdd) {
     return productAd
 }
 
-function DescriptionPartTwo() {
+function Description() {
 
     const { userId, productName } = useParams();
-    console.log({ userId, productName })
-    let product = useSelector(selectCurrentProduct)
+    const [product, setProduct] = useState({
+        loading: true,
+        data: [],
+        error: false
+    })
     let [cartStateToReducer, setCartStateToReducer] = useState({
         rate: 0,
         size: "SM",
@@ -105,28 +109,26 @@ function DescriptionPartTwo() {
 
     useEffect(() => {
         // fetch Data
-        async function fetchData() {
-            // eslint-disable-next-line no-unused-vars
-            const originalPromiseResult = await dispatch(fetchProduct(userId)).unwrap()
-        }
-        // S0 CAN ACCESS ENTIRE PAGE
-        let cartIcon = document.querySelector('.cart-icon')
-        cartIcon.classList.add('glow-icon')
-        window.setTimeout(() => {
-            cartIcon.classList.remove('glow-icon')
-        }, 3000)
-
         let controller = new AbortController();
-        try {
-            fetchData()
-        } catch (rejectedValueOrSerializedError) {
-            console.log({ failed: rejectedValueOrSerializedError })
+
+        async function fetchData() {
+
+            await FetchProduct(userId)
+                .then((result) => {
+                    setProduct({ error: false, data: result, loading: false })
+                })
+                .catch((err) => {
+                    setProduct({ loading: true, data: [], error: false })
+                })
+            // eslint-disable-next-line no-unused-vars
         }
+        
+        fetchData()
         return () => {
             controller?.abort();
 
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product.name, userId])
 
     return (
@@ -217,4 +219,4 @@ function DescriptionPartTwo() {
     )
 }
 
-export default DescriptionPartTwo
+export default Description
