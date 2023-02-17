@@ -36,7 +36,7 @@ app.get('/', (req: Request, res: Response)=> {
         resetData: `${fullUrl}api/v1/resetData`
             })
 })
-app.use(express.static(__dirname + '/assets/'));
+app.use('/assets/', express.static(__dirname + '/assets/'));
 app.use('/api/v1', routesAuth)
 app.use('/api/v1/product', routesProduct)
 app.use('/api/v1/cart', routesCart)

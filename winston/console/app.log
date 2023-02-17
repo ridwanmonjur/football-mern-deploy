@@ -758,3 +758,94 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '2/16/2023, 7:25:44 PM'[39m
 [32m}[39m
+[31m{[39m
+[31m  code: 'EADDRINUSE',[39m
+[31m  errno: -98,[39m
+[31m  syscall: 'listen',[39m
+[31m  address: '::',[39m
+[31m  port: 8000,[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/16/2023, 7:32:09 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:32:10 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:32:10 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Data Destroyed...',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:32:39 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Data imported.... ',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:32:39 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Data replaced...',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:32:39 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:51:25 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  errno: -5,[39m
+[31m  syscall: 'write',[39m
+[31m  code: 'EIO',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/16/2023, 7:51:25 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:51:25 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/16/2023, 7:51:25 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/17/2023, 12:48:06 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Failed to connect to Database',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/17/2023, 12:48:30 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/17/2023, 12:48:30 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/17/2023, 12:50:40 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/17/2023, 12:51:05 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Failed to connect to Database',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/17/2023, 12:51:31 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/17/2023, 12:51:31 PM'[39m
+[32m}[39m

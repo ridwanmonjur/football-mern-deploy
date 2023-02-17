@@ -2,9 +2,10 @@ import React, { useState, useEffect, Fragment } from 'react'
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle,  MDBTooltip} from 'mdbreact';
 import { NavLink } from 'react-router-dom';
 import "../components/EcommerceGridVertical.css"
+import { hostNameWithoutAPI } from '../api/env';
 // JS for loop doesnt work inside html
 
-function EcommerceGridVertical({ product, data }) {
+function EcommerceGridVertical({ productName, data }) {
     let [begin, setBegin] = useState(0);
     let length = 16;
     let dataLength = data.length;
@@ -27,12 +28,12 @@ function EcommerceGridVertical({ product, data }) {
     for (var i = 0; i < num; i++) {
         arr.push(i)
     }
-    console.log({updated: true, begin})
+    console.log({updated: true, begin, productName})
 
     return (
         <Fragment>
             <div>
-                <h1 className="text-center text-uppercase font-weight-bolder text-warning my-5 py-3"> Our {product} </h1>
+                <h1 className="text-center text-uppercase font-weight-bolder text-warning my-5 py-3"> Our {productName} </h1>
                 <div className="loadGrid__gridItems">
                     {
                         data !== null &&
@@ -42,8 +43,8 @@ function EcommerceGridVertical({ product, data }) {
                                 <Fragment key={`${index}${value._id}`}>
                                     <MDBCard className="px-0 mx-0" style={{ border: "1px solid gold" }}>
 
-                                        <NavLink to={`/${product}/${value._id}`} className="image-hyperlink">
-                                            <MDBCardImage className="card-image" src={`/assets/${product}/image${index}.jpg`} alt={`image${index}`} waves />
+                                        <NavLink to={`/${productName}/${value._id}`} className="image-hyperlink">
+                                            <MDBCardImage className="card-image" src={`${hostNameWithoutAPI}/assets/${productName}/image${index}.jpg`} alt={`image${index}`} waves />
 
                                             <MDBCardBody className="d-flex flex-column justify-content-center align-items-center">
                                                 <MDBCardTitle >

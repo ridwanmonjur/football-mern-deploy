@@ -8,7 +8,7 @@
     "client/node_modules"
   ],
   "scripts": {
-    "dev": "nodemon --watch './*.ts' --exec ts-node index.ts",
+    "dev:server": "nodemon --watch './*.ts' --exec ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run dev:server",
     "render": "ts-node index.ts",

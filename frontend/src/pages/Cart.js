@@ -6,17 +6,9 @@ import { useHistory } from "react-router";
 import "./Cart.css"
 import { editProfile } from "../redux/slices/ProfileSlice";
 import { roundOff } from "../helper/roundOff";
-// name, price, imageSrc, type
-// inputs: rate, size, quantity
-
 
 export default function Cart() {
-  /*
-          name, price, imageSrc, type
-          inputs: rate, size, quantity
-      */
-
-
+ 
   let data = useSelector(selectCart);
   let [collapse, setCollapse] = useState(Array(data.length).fill(false));
   let toggleCollapse = index => () => {

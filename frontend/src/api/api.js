@@ -1,20 +1,18 @@
 import { cookieKey, hostName } from "./env"
 export function api(methodName, endpoint, { body, ...customConfig } = {}) {
-    /* 
-    customConfig= {
-        body: "XXX"
-        method: "XXX"
-        header: {
-            "yyy": "yyy"
-        }
-    }
-    */
+    /***  
+    *   customConfig= {
+    *        body: "XXX"
+    *        method: "XXX"
+    *        header: {
+    *            "yyy": "yyy"
+    *        }
+    *    }
+    ***/
     const headers = { 'content-type': 'application/json' }
     const token = getCookie(cookieKey)
     console.log({ token })
-    // 1. default we send {'content-type': 'application/json'}
     if (token) {
-        //  2. Add auth token
         headers.authorization = token
     }
     let config = {
@@ -25,31 +23,15 @@ export function api(methodName, endpoint, { body, ...customConfig } = {}) {
             ...customConfig.headers,
         },
     }
-
-    //   3. stringify the body
     if (body) {
         config.body = JSON.stringify(body)
     }
-    console.log(body)
-
     return window
         .fetch(`${hostName}/${endpoint}`, config)
         .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            return response
-        })
-
-    //   if (response.status === 401) {
-    //     logout()
-    //     window.location.assign(window.location)
-    //     return
-    //   }
-
-    // 4. handle action
+        .then(response => response)
 }
 
-// 5. getCooke(name)
 export function getCookie(cName) {
     const name = cName + "=";
     const cDecoded = decodeURIComponent(document.cookie); //to be careful
@@ -58,7 +40,6 @@ export function getCookie(cName) {
     cArr.forEach(val => {
         if (val.indexOf(name) === 0) res = val.substring(name.length);
     })
-    
     return res
 }
 

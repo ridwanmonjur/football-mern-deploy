@@ -17,7 +17,8 @@
 .card-image{
     width: 100%;
     margin: 10px auto;
-    height: 200px
+    height: 200px;
+    object-fit: center;
 }
 
 .no-overflow{

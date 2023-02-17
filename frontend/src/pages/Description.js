@@ -43,39 +43,17 @@ function generateProductAd(productNameForAdd) {
     }
     return productAd
 }
-// 1. Variable must be in a different function
-// 2. Variable must be in a different component
-// 3. Try to find patterns and replicate documentation
-// instead of creativity.
-// Because often only a particular pattern works 
 
-// Your natural program flow is not important
-// Documentation structure and flow is more important
-/* DERIVED STATE FROM PROPS? NO NEED */
-/* DERIVED STATE FROM PROPS? */
-
-
-
-// let productAd= generateProductAd(product)
-//  product is product's name
-/*
-    name, price, imageSrc, type
-    inputs: rate, size, quantity
-*/
 function DescriptionPartTwo() {
 
     const { userPath } = useParams();
     console.log({ userPath })
     let product = useSelector(selectCurrentProduct)
     let [cartStateToReducer, setCartStateToReducer] = useState({
-        // INPUT
         rate: 0,
         size: "SM",
         quantity: 1
-        // INPUT
     })
-
-    console.log("okay")
 
     let handleInputChange = (event) => {
         console.log({ product })

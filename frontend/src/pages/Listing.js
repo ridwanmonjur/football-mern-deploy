@@ -59,7 +59,7 @@ function JerseysPartTwo() {
                 <h1>{description[productName]['h1']}</h1>
                 <h2>{description[productName]['h2']}</h2>
             </Overlay>
-            <EcommerceGridVertical product={productName} data={elem} />
+            <EcommerceGridVertical productName={productName} data={elem} />
         </div>
     )
 }
