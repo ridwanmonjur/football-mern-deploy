@@ -15,9 +15,9 @@
 }
 
 .card-image{
-    width: 100%;
-    margin: 10px auto;
-    height: 200px;
+    width: 80%;
+    margin: 5% 10%;
+    /* height: 200px; */
     object-fit: center;
 }
 

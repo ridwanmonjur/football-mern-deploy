@@ -3,7 +3,7 @@ import {  Application, Request, Response, NextFunction } from 'express'
 import * as dotenv from "dotenv"
 const path= require("path")
 import { connectDB } from './db'
-import { resetData } from './seed_function'
+import { resetData } from './resetData/seed_function'
 import { winstonLogger } from './winston/logger'
 const routesAuth = require('./routes/auth')
 const routesProduct = require('./routes/product')

@@ -5,13 +5,13 @@ var faker = require('faker');
 const { hashSync } = require("bcrypt")
 const saltRounds: number = 10
 
-import { Product, ProductInterface, Comment, CommentInterface } from './models/Product'
-import { User, UserInterface } from './models/User'
-import { Cart, CartInterface } from './models/Cart'
+import { Product, ProductInterface, Comment, CommentInterface } from '../models/Product'
+import { User, UserInterface } from '../models/User'
+import { Cart, CartInterface } from '../models/Cart'
 
 
-import { connectDB } from './db'
-import { winstonLogger } from './winston/logger';
+import { connectDB } from '../db'
+import { winstonLogger } from '../winston/logger';
 interface ProductObject {
   name: string, price: number | string, productOwner: string, manufacturer: string, type: string, quantity: number,
 }

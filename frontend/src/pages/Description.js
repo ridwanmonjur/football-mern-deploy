@@ -16,12 +16,12 @@ const BreadcrumbPage = ({ type, productName, productid }) => {
                     <Link to="/" className="text-warning font-weight-bold"> Home </Link>
                 </MDBBreadcrumbItem>
                 <MDBBreadcrumbItem className="text-capitalize">
-                    <Link to={`/${type.toLowerCase()}`} className="text-warning font-weight-bold">
+                    <Link to={`/products/${type.toLowerCase()}`} className="text-warning font-weight-bold">
                         {type}
                     </Link>
                 </MDBBreadcrumbItem>
                 <MDBBreadcrumbItem >
-                    <Link to={`/${type.toLowerCase()}/${productid}`} className="text-warning font-weight-bold">
+                    <Link to={`/products/${type.toLowerCase()}/${productid}`} className="text-warning font-weight-bold">
                         {productName}
                     </Link>
                 </MDBBreadcrumbItem>
@@ -84,7 +84,7 @@ function DescriptionPartTwo() {
         console.log({ size, quantity })
 
         if (cartStateToReducer.quantity > 0) {
-            
+
             const token = getCookie(cookieKey)
             if (token === "null" || token === null || token === undefined) {
 
@@ -93,10 +93,9 @@ function DescriptionPartTwo() {
             }
             else {
                 alert("Added to cart.")
-                await dispatch(addProduct({productId: userId, body }))
-
+                await dispatch(addProduct({ productId: userId, body }))
             }
-            
+
         }
         else {
             alert("Quantity can't be less than zero")
@@ -107,10 +106,7 @@ function DescriptionPartTwo() {
     useEffect(() => {
         // fetch Data
         async function fetchData() {
-            console.log("okay")
             const originalPromiseResult = await dispatch(fetchProduct(userId)).unwrap()
-            console.log({ okay: originalPromiseResult.product })
-           
         }
         // S0 CAN ACCESS ENTIRE PAGE
         let cartIcon = document.querySelector('.cart-icon')
@@ -132,16 +128,16 @@ function DescriptionPartTwo() {
     }, [product.name, userId])
 
     return (
-       
+
         <Fragment>
             {product.name !== undefined &&
-                < div style={{ marginTop: "-80px", minHeight: "100vh" }}>
+                < div style={{ marginTop: "-80px", minHeight: "80vh" }}>
                     <br />
                     <BreadcrumbPage type={product.type} productName={product.name} productid={product._id} />
                     <MDBContainer className="pt-0">
                         <MDBRow style={{ marginTop: 0, paddingTop: 0 }} className="pt-0">
                             <MDBCol xs="12" lg="6" className="col-xs-12-imageWraper" >
-                                <img src={`${hostNameWithoutAPI}/assets/${product.type}/imageL${product.image.substring(5)}`} alt={`${product.name}`}
+                                <img src={`${hostNameWithoutAPI}assets/${product.type}/imageL${product.image.substring(5)}`} alt={`${product.name}`}
                                     className="description-img frame"
                                 />
                             </MDBCol>
@@ -166,29 +162,18 @@ function DescriptionPartTwo() {
                                         <label htmlFor="star1" title="text">1 star</label>
                                     </div>
                                 </div>
-                                <br />
-                                <hr />
-                                <br />
+                                <br /> <hr /> <br />
                                 <div className="special-font">
-                                    <p>
-                                        Premium quality {product.type}
-                                    </p>
+                                    <p> Premium quality {product.type} </p>
                                     <p> {generateProductAd(product.type)}</p>
                                     <br />
-                                    <p className="text">
-                                        Please cross-check your size with the size chart to ensure a good fit.
-                                        <br />
-
-                                    </p>
+                                    <p className="text"> Please cross-check your size with the size chart to ensure a good fit. <br /> </p>
                                 </div>
-
                                 <br />
                                 <table>
                                     <tbody >
                                         <tr className="mb-4">
-                                            <td className="text-left ml-0 px-0">
-                                                <span>SIZE: </span>
-                                            </td>
+                                            <td className="text-left ml-0 px-0"> <span>SIZE: </span> </td>
                                             <td>
                                                 {product.type !== "accessories" &&
                                                     <select className="form-control" style={{ width: "100px" }} onChange={(evt) => { handleInputChange(evt) }} name="size">
@@ -207,32 +192,21 @@ function DescriptionPartTwo() {
                                         </tr>
                                         <br />
                                         <tr>
-                                            <td className="text-left ml-0 px-0">
-                                                <span>QUANTITY: </span>
-                                            </td>
+                                            <td className="text-left ml-0 px-0"> <span>QUANTITY: </span> </td>
                                             <td>
                                                 <input type="number" name="quantity" style={{ width: "100px" }} value={cartStateToReducer.quantity} className="form-control" onChange={(evt) => { handleInputChange(evt) }} />,
-                                                {/* <MDBInput type="number" name="quantity" default={sentObject.qty} className="form-control" style={{ width: "80px" }} onChange={(evt) => { handleInputChange(evt) }} />, */}
                                             </td>
                                         </tr>
                                     </tbody>
 
                                 </table>
-                                <br />
-                                <br />
+                                <br /> <br />
                                 <MDBBtn outline color="amber" className="mx-auto" onClick={addToCart}>ADD TO CART</MDBBtn>
-
                             </MDBCol>
                         </MDBRow>
-
                         <MDBRow>
-                            <MDBCol >
-                            </MDBCol>
-                            <MDBCol xs="12" lg="6">
-                                <i>
-                                    Note: Your Product will be dispatched/ shipped within 7-10 days
-                                </i>
-                            </MDBCol>
+                            <MDBCol > </MDBCol>
+                            <MDBCol xs="12" lg="6"> <i> Note: Your Product will be dispatched/ shipped within 7-10 days </i> </MDBCol>
                         </MDBRow>
                     </MDBContainer>
                 </div>
