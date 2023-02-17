@@ -1,14 +1,6 @@
 import { cookieKey, hostName } from "./env"
 export function api(methodName, endpoint, { body, ...customConfig } = {}) {
-    /***  
-    *   customConfig= {
-    *        body: "XXX"
-    *        method: "XXX"
-    *        header: {
-    *            "yyy": "yyy"
-    *        }
-    *    }
-    ***/
+    
     const headers = { 'content-type': 'application/json' }
     const token = getCookie(cookieKey)
     console.log({ token })
@@ -23,13 +15,20 @@ export function api(methodName, endpoint, { body, ...customConfig } = {}) {
             ...customConfig.headers,
         },
     }
+
     if (body) {
         config.body = JSON.stringify(body)
     }
+    console.log(body)
+
     return window
         .fetch(`${hostName}/${endpoint}`, config)
         .then(response => response.json())
-        .then(response => response)
+        .then(response => {
+            console.log(response)
+            return response
+        })
+
 }
 
 export function getCookie(cName) {
@@ -40,6 +39,7 @@ export function getCookie(cName) {
     cArr.forEach(val => {
         if (val.indexOf(name) === 0) res = val.substring(name.length);
     })
+    
     return res
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React, { useState } from "react";
 import {
     MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody,  MDBCardTitle, MDBBtn
@@ -8,7 +9,7 @@ import { Link } from "react-router-dom";
 import Spinner from "../components/notifications/spinner";
 import AlertPage from "../components/notifications/alert";
 import Success from "../components/notifications/success";
-import { signup } from "../api/auth";
+import { Signup } from "../api/auth";
 import { useHistory } from "react-router-dom";
 
 
@@ -56,7 +57,7 @@ function SignIn() {
             success: false
         })
         try {
-            let response = await signup({
+            let response = await Signup({
                 name: input.fname.trim() + input.lname.trim(),
                 password: input.password,
                 email: input.email

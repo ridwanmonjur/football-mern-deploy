@@ -6,4 +6,7 @@ build
 /node_modules
 npm-debug.log
 .DS_Store
-winston/console
+winston/console/**
+.eslintcache
+frontend/.eslintcache
+winston/console/app.log

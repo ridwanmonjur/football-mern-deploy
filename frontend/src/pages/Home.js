@@ -56,7 +56,7 @@ function Home() {
                     // centerSlidePercentage={5}
                     infiniteLoop={true}
                     showArrows={true}
-                    interval={2000}>
+                    interval={1500}>
                     {
                         carouselInput.map((value) => (
                             <div>

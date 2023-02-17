@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../api/api';
+import { AddProduct, DeleteProduct, EditProduct, FetchCart } from '../../api/cart';
 
 // createSlice is more convenient than the createAction and createReducer combo
 
@@ -7,30 +8,24 @@ import { api } from '../../api/api';
 // First, create the thunk
 export const addProduct = createAsyncThunk(
   'cart/addProduct',
-  async ({ productId, body }, thunkAPI) => {
-    const response = await api('POST', `user/cart/product/${productId}`, {
-      mode: 'cors', body
-    })
+  async ({ productId, body }, _thunkAPI) => {
+    const response = await AddProduct(body, productId) 
     return response
   }
 )
 
 export const editProduct = createAsyncThunk(
   'cart/editProduct',
-  async ({ productId, body, index }, thunkAPI) => {
-    const response = await api('PUT', `user/cart/product/${productId}`, {
-      mode: 'cors', body
-    })
+  async ({ productId, body }, _thunkAPI) => {
+    const response = await EditProduct(body, productId)
     return response
   }
 )
 
 export const deleteProduct = createAsyncThunk(
   'cart/deleteProduct',
-  async (deleteIndex, thunkAPI) => {
-    const response = await api('DELETE', `user/cart/delete/${deleteIndex}`, {
-      mode: 'cors'
-    })
+  async (deleteIndex, _thunkAPI) => {
+    const response = await DeleteProduct(deleteIndex)
     return response
   }
 )
@@ -39,9 +34,7 @@ export const deleteProduct = createAsyncThunk(
 export const fetchCart = createAsyncThunk(
   'product/fetchProduct',
   async () => {
-    const response = await api('GET', `cart/projection/cart`, {
-      mode: 'cors',
-    })
+    const response = await FetchCart()
     return response
   }
 )
@@ -125,8 +118,8 @@ export const slice = createSlice({
       if (payload.success) {
         let { index } = payload
         index= parseInt(index)
-        state.cartValues.products= state.cartValues.products.filter((val, currIndex)=> index!== currIndex)
-        state.cartValues.description= state.cartValues.description.filter((val, currIndex)=> index!== currIndex)
+        state.cartValues.products= state.cartValues.products.filter((_val, currIndex)=> index!== currIndex)
+        state.cartValues.description= state.cartValues.description.filter((_val, currIndex)=> index!== currIndex)
       }
     })
   }

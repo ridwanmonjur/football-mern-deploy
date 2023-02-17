@@ -3,7 +3,7 @@ import {  Application, Request, Response, NextFunction } from 'express'
 import * as dotenv from "dotenv"
 const path= require("path")
 import { connectDB } from './db'
-import { resetData } from './seed_function'
+import { resetData } from './resetData/seed_function'
 import { winstonLogger } from './winston/logger'
 const routesAuth = require('./routes/auth')
 const routesProduct = require('./routes/product')
@@ -34,9 +34,9 @@ app.get('/', (req: Request, res: Response)=> {
     res.json(
         {success: true,
         resetData: `${fullUrl}api/v1/resetData`
-            })
+        })
 })
-app.use('/assets/', express.static(__dirname + '/assets/'));
+app.use('/assets/', express.static(__dirname + 'assets/'));
 app.use('/api/v1', routesAuth)
 app.use('/api/v1/product', routesProduct)
 app.use('/api/v1/cart', routesCart)

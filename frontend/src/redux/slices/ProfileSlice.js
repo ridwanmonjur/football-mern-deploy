@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../api/api';
+import { GetProfile, EditProfile} from '../../api/profile';
 
 // createSlice is more convenient than the createAction and createReducer combo
 
@@ -8,10 +9,7 @@ import { api } from '../../api/api';
 export const fetchProfile = createAsyncThunk(
   'profile/fetchProfile',
   async () => {
-    const response = await api('GET', 'current', {
-      mode: 'cors',
-    })
-    console.log({ response })
+    const response = GetProfile()
     return response
   }
 )
@@ -19,10 +17,7 @@ export const fetchProfile = createAsyncThunk(
 export const editProfile = createAsyncThunk(
   'profile/editProfile',
   async ({ body}) => {
-    const response = await api('PUT', 'current', {
-      mode: 'cors', body
-    })
-    console.log({ response })
+    const response = await EditProfile(body)
     return response
   }
 )
@@ -46,7 +41,7 @@ export const slice = createSlice({
       name: "",
       role: ""
     },
-
+    
     isSignedIn: false,
   },
 

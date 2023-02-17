@@ -21,8 +21,6 @@ export const fetchProduct = createAsyncThunk(
         const response = await api('GET', `product/${productId}`, {
             mode: 'cors',
         })
-        console.log({hi: response})
-
         return response
     }
 )

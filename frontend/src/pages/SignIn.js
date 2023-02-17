@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React, { useState } from "react";
 import {
     MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBBtn
@@ -8,7 +9,7 @@ import { Link } from "react-router-dom";
 import Spinner from "../components/notifications/spinner";
 import AlertPage from "../components/notifications/alert";
 import Success from "../components/notifications/success";
-import { login } from "../api/auth";
+import { Login } from "../api/auth";
 import { setCookie } from "../api/api";
 import { useDispatch } from "react-redux";
 import { fetchProfile, setSignedIn } from "../redux/slices/ProfileSlice";
@@ -19,6 +20,7 @@ function SignIn() {
 
     const dispatch = useDispatch()    
 
+    // eslint-disable-next-line no-lone-blocks
     {/* Notification handler */ }
     // initial value
     let [notification, setNotification] = useState({
@@ -61,7 +63,7 @@ function SignIn() {
                 ...notification,
                 loading: true
             })
-            let response = await login({
+            let response = await Login({
                 password: input.password,
                 email: input.email
             })
