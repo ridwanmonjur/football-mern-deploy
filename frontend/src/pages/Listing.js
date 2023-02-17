@@ -8,10 +8,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchAll, selectProducts } from '../redux/slices/ProductSlice'
 import { useParams } from 'react-router-dom'
 
+const description = {
+    jerseys: {
+        img: JerseyImg,
+        h1: "THE HEROES",
+        h2: "OF OLD"
+    },
+    boots: {
+        img: BootsImg,
+        h1: "PREMIUM QUALITY",
+        h2: "BOOTS AND FOOTWEAR"
+    },
+    accessories: {
+        img: AccessoriesImg,
+        h1: "THE VERY BEST",
+        h2: "FOOTBALL ACCESSORIES"
+    },
+}
+
 function JerseysPartTwo() {
 
-    const { userId, productName } = useParams();
-    console.log({ userId, productName})
+    const { productName } = useParams();
 
     let elem = useSelector(selectProducts)
     const dispatch = useDispatch()
@@ -33,25 +50,6 @@ function JerseysPartTwo() {
             return () => controller?.abort();
         }
     }, [elem.length])
-
-    const description = {
-        jerseys : {
-            img: JerseyImg,
-            h1:  "THE HEROES",
-            h2: "OF OLD"
-        },
-        boots : {
-            img: BootsImg,
-            h1:  "PREMIUM QUALITY",
-            h2: "BOOTS AND FOOTWEAR"
-        },
-        accessories : {
-            img: AccessoriesImg,
-            h1:  "THE VERY BEST",
-            h2: "FOOTBALL ACCESSORIES"
-        },
-
-    }
 
     return (
         <div>
