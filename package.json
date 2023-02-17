@@ -8,8 +8,7 @@
     "client/node_modules"
   ],
   "scripts": {
-    "start": "ts-node index.ts",
-    "build": "npm install -g ts-node"
+    "start": "npx ts-node index.ts"
   },
   "author": "ridwan-monjur",
   "license": "ISC",

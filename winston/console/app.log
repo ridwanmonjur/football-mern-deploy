@@ -899,3 +899,8 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '2/17/2023, 10:40:55 PM'[39m
 [32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/17/2023, 10:57:20 PM'[39m
+[32m}[39m
