@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "start": "ts-node index.ts",
-    "build": "npm install"
+    "build": "npm install -g ts-node"
   },
   "author": "ridwan-monjur",
   "license": "ISC",
