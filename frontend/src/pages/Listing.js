@@ -41,6 +41,7 @@ function Listing() {
         async function fetchData() {
             await FetchAll(productName)
                 .then((result) => {
+                    console.log({data})
                     setData({ error: false, data: result, loading: false })
                 })
                 .catch((err) => {

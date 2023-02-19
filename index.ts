@@ -35,13 +35,13 @@ app.get('/', (req: Request, res: Response)=> {
         {success: true,
         resetData: `${fullUrl}api/v1/resetData`,
         assets: `${fullUrl}assets/boots/image0.jpg`,
-        assetsLink: `${__dirname}/assets/`
+        assetsLink: `${__dirname}/assets/`,
+        boots: `${fullUrl}api/v1/product`
         })
 })
 app.use('/assets', express.static(__dirname + '/assets'));
 app.use('/api/v1', routesAuth)
 app.use('/api/v1/product', routesProduct)
-app.use('/api/v1/cart', routesCart)
 app.use('/api/v1/cart', routesCart)
 app.get('/api/v1/resetData', function (req: Request, res: Response){
     resetData()

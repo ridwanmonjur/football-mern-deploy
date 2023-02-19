@@ -1,25 +1,22 @@
 const fs = require('fs');
 import { Schema, model, Document, Types } from 'mongoose'
-// const colors = require('colors');
 var faker = require('faker');
 const { hashSync } = require("bcrypt")
 const saltRounds: number = 10
-
 import { Product, ProductInterface, Comment, CommentInterface } from '../models/Product'
 import { User, UserInterface } from '../models/User'
 import { Cart, CartInterface } from '../models/Cart'
-
-
 import { connectDB } from '../db'
 import { winstonLogger } from '../winston/logger';
+
 interface ProductObject {
   name: string, price: number | string, productOwner: string, manufacturer: string, type: string, quantity: number,
 }
 
 // Read JSON files: NOT ASYNC IF CALL ASYNC PROBLEM
-function readFiles(fileName_: string): Array<ProductInterface> {
+function readFiles(_fileName: string): Array<ProductInterface> {
   // get JSON string
-  let JSONString = fs.readFileSync(`${__dirname}/json/${fileName_}.json`, 'utf-8')
+  let JSONString = fs.readFileSync(`${__dirname}/${_fileName}.json`, 'utf-8')
 
   let JSONObject: Array<ProductObject> = JSON.parse(JSONString)
 
@@ -27,7 +24,7 @@ function readFiles(fileName_: string): Array<ProductInterface> {
     return {
       name: value['name'],
       manufacturer: value['productOwner'],
-      type: fileName_,
+      type: _fileName,
       image: `image${index}.jpg`,
       stock: 20,
       price: Number(value['price'].toString().substring(1)),
@@ -107,6 +104,7 @@ const importData = async () => {
   try {
     await Product.create(JSONStringToObject)
 
+    winstonLogger.info(JSONStringToObject)
 
     // console.log(colors.green.inverse('Data Imported...'))
     winstonLogger.info("Data imported.... ")
