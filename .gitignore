@@ -10,3 +10,5 @@ winston/console/**
 .eslintcache
 frontend/.eslintcache
 winston/console/app.log
+frontend/.eslintcache
+winston/console/app.log
