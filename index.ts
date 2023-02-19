@@ -33,10 +33,12 @@ app.get('/', (req: Request, res: Response)=> {
     const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     res.json(
         {success: true,
-        resetData: `${fullUrl}api/v1/resetData`
+        resetData: `${fullUrl}api/v1/resetData`,
+        assets: `${fullUrl}assets/boots/image0.jpg`,
+        assetsLink: `${__dirname}/assets/`
         })
 })
-app.use('/assets/', express.static(__dirname + 'assets/'));
+app.use('/assets', express.static(__dirname + '/assets'));
 app.use('/api/v1', routesAuth)
 app.use('/api/v1/product', routesProduct)
 app.use('/api/v1/cart', routesCart)
