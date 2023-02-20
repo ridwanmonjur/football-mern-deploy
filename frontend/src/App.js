@@ -1,3 +1,4 @@
+import { MDBContainer } from 'mdbreact';
 import React from 'react';
 import Footer from './components/layout/Footer';
 import Navbar from './components/layout/Navbar';
@@ -7,11 +8,13 @@ function App() {
 
 
   return (
-    <div>
+    <>
       <Navbar />
-      <Routes />
+      <MDBContainer fluid className="main-container">
+        <Routes />
+      </MDBContainer>
       <Footer />
-    </div>
+    </>
   )
 }
 

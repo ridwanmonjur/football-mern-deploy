@@ -101,7 +101,7 @@ function SignIn() {
     return (
         <MDBContainer>
             <div className="scaffold">
-                <MDBRow className="my-2" center>
+                <MDBRow className="my-2 px-2" center>
                     <MDBCard className="mx-auto real-signin-container">
                         <MDBCardImage className="img-edit" waves src={NavbarBrandImg} />
                         <MDBCardTitle className="text-align-center">
@@ -115,10 +115,8 @@ function SignIn() {
                                         <div className="input-group my-2">
                                             <input type="email" id="email" className="form-control py-0" onChange={(event) => { onChange(event) }} placeholder="Enter your email address" aria-describedby="basic-addon1" />
                                         </div>
-
                                         <label htmlFor="password" className="d-block my-3"> Password </label>
                                         <input type="password" id="password" className="form-control my-2"  onChange={(event) => { onChange(event) }} placeholder="Enter your password" />
-                                        <br />
                                         <br />
                                         {notification.loading && <Spinner />}
                                         {notification.error && <AlertPage text="Not signed in" />}

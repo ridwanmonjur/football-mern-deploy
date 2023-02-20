@@ -6,7 +6,7 @@ import AccessoriesImg from "../assets/Accessories.jpg"
 import BootsImg from "../assets/Boots.jpg"
 import { useParams } from 'react-router-dom'
 import { FetchAll } from '../api/product'
-import useLoadingFetchError from '../helper/loader.js/useFetchHook'
+import useLoadingFetchError from '../helper/loader/useFetchHook'
 import Spinner from '../components/notifications/spinner'
 import Error from '../components/notifications/error'
 

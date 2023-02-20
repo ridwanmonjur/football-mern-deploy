@@ -99,7 +99,7 @@ function Home() {
             </MDBRow>
 
 
-            <h1 class="brand-title-display2 font-myfirstFont text-warning text-center mt-4 mb-1 mx-auto">WE HAVE YOUR BRAND</h1>
+            <h1 className="brand-title-display2 font-myfirstFont text-warning text-center mt-4 mb-1 mx-auto">WE HAVE YOUR BRAND</h1>
 
             <MDBRow className="mx-auto ">
                 <div className="gridNew">
