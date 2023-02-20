@@ -1,8 +1,8 @@
 import React, { useState,  Fragment } from 'react'
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle,  MDBTooltip} from 'mdbreact';
 import { NavLink } from 'react-router-dom';
-import "../components/GridVertical.css"
-import { hostNameWithoutAPI } from '../api/env';
+import "./GridVertical.css"
+import { hostNameWithoutAPI } from '../../api/env';
 // JS for loop doesnt work inside html
 
 function GridVertical({ productName, data }) {

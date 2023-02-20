@@ -13,7 +13,7 @@ import KwikGoal from "../assets/KwikGoal.png"
 import Adidas from "../assets/Adidas.png"
 
 import { MDBCol, MDBRow } from 'mdbreact'
-import Overlay from '../components/Overlay'
+import Overlay from '../components/listing/Overlay'
 import BootsImg from "../assets/Boots.jpg"
 import JerseyImg from "../assets/Jerseys.jpg"
 import AccessoriesImg from "../assets/Accessories.jpg"

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import GridVertical from '../components/GridVertical'
-import Overlay from '../components/Overlay'
+import GridVertical from '../components/common/GridVertical'
+import Overlay from '../components/listing/Overlay'
 import JerseyImg from "../assets/Jerseys.jpg"
 import AccessoriesImg from "../assets/Accessories.jpg"
 import BootsImg from "../assets/Boots.jpg"
