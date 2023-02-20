@@ -172,7 +172,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
             }
             else {
                 winstonLogger.info("started")
-                setTimeout(() => res.json({ success: false, error: "Password and username failed" }), 9000);
+                setTimeout(() => res.json({ success: false, error: "Time out happened" }), 9000);
             }
         }
         else
