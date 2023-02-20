@@ -20,5 +20,15 @@ export async function EditProfile(body) {
 
 }
 
-  
+export async function GetOneUser() {
+    
+  const response = await api('GET', 'user', {
+      mode: 'cors',
+    })
+  if (!response || ("users" in response) === false) throw new Error("Missing products data")
+  const {users} = response
+  console.log({ response })
+  return users[0]
+
+}
   

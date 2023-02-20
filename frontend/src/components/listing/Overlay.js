@@ -1,5 +1,5 @@
 import React from 'react'
-import "../components/Overlay.css"
+import "./Overlay.css"
 
 
 function Overlay({imgSrc, alt, children}) {

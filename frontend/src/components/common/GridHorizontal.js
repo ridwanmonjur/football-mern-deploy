@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBTooltip } from 'mdbreact';
 import { NavLink } from 'react-router-dom';
-import "./EcommerceGridHorizontal.css"
+import "./GridHorizontal.css"
 
-function EcommerceGridHorizontalPartTwo({ product, data, numberOfItems, headingTrue }) {
+function GridHorizontalPartTwo({ product, data, numberOfItems, headingTrue }) {
 
     let [jsonData, setJsonData] = useState([
     ]);
@@ -56,4 +56,4 @@ function EcommerceGridHorizontalPartTwo({ product, data, numberOfItems, headingT
     )
 }
 
-export default EcommerceGridHorizontalPartTwo
+export default GridHorizontalPartTwo

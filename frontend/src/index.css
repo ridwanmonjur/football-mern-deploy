@@ -50,7 +50,9 @@ table.product-table tr{
   border: 1px solid gold !important;
 }
 
-
+.main-container{
+  min-height: 80vh;
+}
 /* table.product-table th{
   border: 1px solid gold !important;
 }

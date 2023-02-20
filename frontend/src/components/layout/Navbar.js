@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setProfileNull, selectIsSignedIn } from "../redux/slices/ProfileSlice";
+import { setProfileNull, selectIsSignedIn } from "../../redux/slices/ProfileSlice";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBContainer, MDBIcon } from 'mdbreact';
-import NavbarBrandImg from "../assets/navbarBrand.gif"
+import NavbarBrandImg from "../../assets/navbarBrand.gif"
 import "./Navbar.css"
 // import { useHistory } from "react-router-dom";
-import { getCookie, setCookie } from '../api/api';
-import { cookieKey } from '../api/env';
+import { getCookie, setCookie } from '../../api/api';
+import { cookieKey } from '../../api/env';
 
 function FullPageIntroWithNonFixedNavbar() {
 

@@ -8,9 +8,9 @@ import SignIn from './SignIn';
 import CheckOut from './CheckOut';
 import SignUp from './SignUp';
 import Profile from './Profile';
-import Description from './Description';
 import JerseysPartTwo from './Listing';
 import Purchases from './Purchases';
+import DescriptionPage from './Description';
 
 function Routes() {
 
@@ -42,7 +42,7 @@ function Routes() {
         <JerseysPartTwo />
       </Route>
       <Route path="/products/:productName/:userId">
-        <Description/>
+        <DescriptionPage/>
       </Route>
     </>
 

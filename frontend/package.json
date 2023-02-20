@@ -4,6 +4,7 @@
   "private": true,
   "// If You want to install mdbreact from our GitLab repository, please replace '5.1.0' with gitURL provided here ->": "git+https://oauth2:<YOUR-TOKEN-GOES-HERE>@git.mdbootstrap.com/mdb/react/re-pro.git",
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.5.2",
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -14,10 +15,14 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^5.1.2",
     "react-scripts": "4.0.1",
+    "react-toast-notifications": "^2.5.1",
     "redux-thunk": "^2.3.0",
+    "rodal": "^1.8.3",
+    "spinners-react": "^1.0.7",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "dev": "react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

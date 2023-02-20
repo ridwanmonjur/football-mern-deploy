@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { selectNotifications, setNotificationStatus } from "../redux/slices/NotificationSlice";
+import { selectNotifications, setNotificationStatus } from "../../redux/slices/NotificationSlice";
 
 function ScrollToTop({ history, children }) {
   const state = useSelector(selectNotifications)
