@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import EcommerceGridVertical from '../components/EcommerceGridVertical'
+import React, { useEffect } from 'react'
+import GridVertical from '../components/GridVertical'
 import Overlay from '../components/Overlay'
 import JerseyImg from "../assets/Jerseys.jpg"
 import AccessoriesImg from "../assets/Accessories.jpg"
 import BootsImg from "../assets/Boots.jpg"
 import { useParams } from 'react-router-dom'
 import { FetchAll } from '../api/product'
+import useLoadingFetchError from '../helper/loader.js/useFetchHook'
+import Spinner from '../components/notifications/spinner'
+import Error from '../components/notifications/error'
 
 const description = {
     jerseys: {
@@ -29,32 +32,18 @@ function Listing() {
 
     const { productName } = useParams();
 
-    let [data, setData] = useState({
-        loading: true,
-        data: [],
-        error: false
-    })
+    let { data, error, loading } = useLoadingFetchError(FetchAll, productName)
+
+    console.log( { data, error, loading } )
 
     useEffect(() => {
         let controller = new AbortController();
 
-        async function fetchData() {
-            await FetchAll(productName)
-                .then((result) => {
-                    console.log({data})
-                    setData({ error: false, data: result, loading: false })
-                })
-                .catch((err) => {
-                    setData({ loading: true, data: [], error: false })
-                })
-        }
-
-        fetchData()
         return () => {
             return () => controller?.abort();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data.length])
+    }, [])
 
 
     return (
@@ -65,19 +54,18 @@ function Listing() {
                 <h2>{description[productName]['h2']}</h2>
             </Overlay>
             {
-                !data.error && !data.loading ?
+                !error && !loading ?
                     (
-                        data.data && data.data[0] !== undefined ?
-                            <EcommerceGridVertical productName={productName} data={data.data} />
-                            :
-                            <h1>No products to display</h1>
+                        data && data[0] !== undefined &&
+                        <GridVertical productName={productName} data={data} />
+
                     ) :
                     <>
                         {
-                            data.error && <> Error </>
+                            error && <> <Error /> </>
                         }
                         {
-                            data.loading && <> loading </>
+                            loading && <> <Spinner /> </>
                         }
 
                     </>

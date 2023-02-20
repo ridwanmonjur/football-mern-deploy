@@ -19,6 +19,7 @@
     margin: 5% 10%;
     /* height: 200px; */
     object-fit: center;
+    object-position: center;
 }
 
 .no-overflow {
@@ -68,12 +69,13 @@
 
 @media only screen and (max-width: 1000px) {
     .loadGrid__gridItems {
-        grid-template-columns: repeat(3, 1fr);
-        padding: 0 5vw;
+        grid-template-columns: repeat(2, 1fr);
+        padding: auto 5vw;
+        margin: 5vh 0;
     }
 
     .card-image {
-        width: 60%;
+        margin: auto
     }
 }
 
@@ -83,11 +85,7 @@
 @media only screen and (max-width: 600px) {
 
     .loadGrid__gridItems {
-        margin: 0vw;
         grid-template-columns: 1fr;
-        position: relative;
-        padding: 0 10vw;
-
     }
 
     hr {

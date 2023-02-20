@@ -1,11 +1,11 @@
 import React, { useState,  Fragment } from 'react'
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle,  MDBTooltip} from 'mdbreact';
 import { NavLink } from 'react-router-dom';
-import "../components/EcommerceGridVertical.css"
+import "../components/GridVertical.css"
 import { hostNameWithoutAPI } from '../api/env';
 // JS for loop doesnt work inside html
 
-function EcommerceGridVertical({ productName, data }) {
+function GridVertical({ productName, data }) {
     let [begin, setBegin] = useState(0);
     let length = 16;
     let dataLength = data.length;
@@ -97,4 +97,4 @@ function EcommerceGridVertical({ productName, data }) {
     )
 }
 
-export default EcommerceGridVertical
+export default GridVertical

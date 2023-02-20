@@ -5,6 +5,7 @@ export async function FetchAll(productType) {
     const response = await api('GET', `product/type/${productType}`, {
         mode: 'cors',
     })
+    console.log({response})
     if (!response || ("product" in response) === false) throw new Error("Missing products data")
 
     else return response.product

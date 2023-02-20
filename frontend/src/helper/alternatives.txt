@@ -1,0 +1,5 @@
+loader:
+1. render props
+2. children props
+3. provider pattern
+4. parent pattern 
