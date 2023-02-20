@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 const useLoadingFetchError = (fetchFunction, args) => {
     const [state, setState] = useState({
-        loading: false, eror: false, data: []
+        loading: true, eror: false, data: []
     });
 
     useEffect(() => {
@@ -10,7 +10,7 @@ const useLoadingFetchError = (fetchFunction, args) => {
 
         fetchFunction(args)
             .then((data) => setState({ data, loading: false, error: false }))
-            .catch(() => setState({ loading: false, error: true, data: null }))
+            .catch((error) => setState({ loading: false, error: error, data: null }))
             // .finally(() => { setState((prev) => { return { data: prev.data, loading: false, eror: true } }) });
 
         return () => {

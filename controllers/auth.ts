@@ -1,23 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 var jwt = require('jsonwebtoken');
 const ObjectID = require("mongodb").ObjectID
-
-// cannot bcrypt has no types so importing causes problem
 const { hash, compare } = require("bcrypt")
-/*
-When a module is not yours - try to install types from @types:
-
-npm install -D @types/module-name
-If the above install errors - try changing import statements to require:
-
-// import * as yourModuleName from 'module-name';
-const yourModuleName = require('module-name');
-*/
 import { User, UserInterface } from "../models/User"    // need to specify the object imported from the module to use it later
 // import { rainbow, red, green } from 'colors'
 import { Cart } from '../models/Cart';
 import { winstonLogger } from '../winston/logger';
-
 let JWT_SECRET = 'secret'
 
 export async function sayHi(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -163,7 +151,6 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
 
             if (match) {
                 winstonLogger.info('success')
-                var jwt = require('jsonwebtoken');
                 user._id = user._id.toString()
                 var token = jwt.sign({ "user": user._id, "role": user.role }, JWT_SECRET)
                 winstonLogger.info({ token })
@@ -185,7 +172,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
             }
             else {
                 winstonLogger.info("started")
-                setTimeout(() => res.json({ success: false, error: "Password and username failed" }), 3000);
+                setTimeout(() => res.json({ success: false, error: "Password and username failed" }), 9000);
             }
         }
         else

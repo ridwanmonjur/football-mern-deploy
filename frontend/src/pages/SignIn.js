@@ -1,7 +1,7 @@
 /* eslint-disable no-lone-blocks */
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
-    MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBBtn
+    MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBBtn,
 } from "mdbreact";
 import "./SignIn.css"
 import NavbarBrandImg from "../assets/navbarBrand.gif"
@@ -13,21 +13,33 @@ import { Login } from "../api/auth";
 import { setCookie } from "../api/api";
 import { useDispatch } from "react-redux";
 import { fetchProfile, setSignedIn } from "../redux/slices/ProfileSlice";
+import { GetOneUser } from "../api/profile";
+import useLoadingFetchError from "../helper/loader/useFetchHook";
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
 
 function SignIn() {
 
     // fetch dispatch
+    const { loading: loadingUser, data: user, error: errorUser } = useLoadingFetchError(GetOneUser)
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
 
-    const dispatch = useDispatch()    
+    const dispatch = useDispatch()
 
+    const [modalVisible, setModalVisible] = useState(false)
     // eslint-disable-next-line no-lone-blocks
     {/* Notification handler */ }
     // initial value
     let [notification, setNotification] = useState({
         loading: false,
         error: false,
-        success: false
+        success: false,
     })
+
+    useEffect(() => {
+        !loadingUser && !errorUser && setModalVisible(true)
+    }, [errorUser, loadingUser])
 
     {/* Form values handler */ }
 
@@ -48,6 +60,12 @@ function SignIn() {
         });
     }
 
+    useEffect(() => {
+        if (!loadingUser && !errorUser) {
+            console.log({ user })
+
+        }
+    }, [errorUser, loadingUser])
 
     {/* Form values submit */ }
 
@@ -67,13 +85,13 @@ function SignIn() {
                 password: input.password,
                 email: input.email
             })
-           
-            console.log({response, notification})
+
+            console.log({ response, notification })
 
             if (response.success === true) {
                 setCookie("signInToken", response.token, 4)
                 dispatch(setSignedIn());
-        
+
                 setNotification({
                     ...notification,
                     loading: false,
@@ -113,10 +131,10 @@ function SignIn() {
                                     <MDBCol>
                                         <label htmlFor="email" className="d-block my-3" > Email address </label>
                                         <div className="input-group my-2">
-                                            <input type="email" id="email" className="form-control py-0" onChange={(event) => { onChange(event) }} placeholder="Enter your email address" aria-describedby="basic-addon1" />
+                                            <input ref={emailRef} type="email" id="email" className="form-control py-0" onChange={(event) => { onChange(event) }} placeholder="Enter your email address" aria-describedby="basic-addon1" />
                                         </div>
                                         <label htmlFor="password" className="d-block my-3"> Password </label>
-                                        <input type="password" id="password" className="form-control my-2"  onChange={(event) => { onChange(event) }} placeholder="Enter your password" />
+                                        <input type="password" ref={passwordRef} id="password" className="form-control my-2" onChange={(event) => { onChange(event) }} placeholder="Enter your password" />
                                         <br />
                                         {notification.loading && <Spinner />}
                                         {notification.error && <AlertPage text="Not signed in" />}
@@ -133,6 +151,17 @@ function SignIn() {
                         </MDBCardBody>
                     </MDBCard>
                 </MDBRow >
+                <Rodal visible={modalVisible} onClose={()=> setModalVisible(false)}>
+                    <h5 className="pb-2 border-bottom border-warning">Visitor view</h5>
+                    <h5 className="pt-5 text-align-center mb-5  bot">Choose the login view.</h5> 
+                    <div className="d-flex justify-content-center mt-1 pt-2 border-warning border-top"> 
+                        <MDBBtn size='md' outline color="warning" onClick={(event) => { 
+                            setModalVisible(false); 
+                            emailRef.current.value= user.email;
+                            passwordRef.current.value = "123456"
+                            onSubmit(event); }}  > Customer </MDBBtn>
+                    </div>
+                </Rodal>
             </div>
         </MDBContainer >
 
