@@ -3,7 +3,7 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBTooltip } from 'md
 import { NavLink } from 'react-router-dom';
 import "./GridHorizontal.css"
 
-function GridHorizontalPartTwo({ product, data, numberOfItems, headingTrue }) {
+function GridHorizontal({ product, data, numberOfItems, headingTrue }) {
 
     let [jsonData, setJsonData] = useState([
     ]);
@@ -56,4 +56,4 @@ function GridHorizontalPartTwo({ product, data, numberOfItems, headingTrue }) {
     )
 }
 
-export default GridHorizontalPartTwo
+export default GridHorizontal

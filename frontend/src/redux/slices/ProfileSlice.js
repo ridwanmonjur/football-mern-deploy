@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { api } from '../../api/api';
 import { GetProfile, EditProfile } from '../../api/profile';
 
 // createSlice is more convenient than the createAction and createReducer combo

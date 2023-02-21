@@ -1,9 +1,9 @@
 
-import React, { useEffect } from "react";
+import React from "react";
 import { MDBContainer, MDBCol, MDBRow, MDBBtn, MDBCard, MDBNav, MDBIcon, MDBAlert } from "mdbreact";
 import "./SignIn.css"
 import { useSelector, useDispatch } from "react-redux";
-import { selectProfileDetails, fetchProfile, editProfile, selectStatusProfile } from "../redux/slices/ProfileSlice";
+import { selectProfileDetails, editProfile, selectStatusProfile } from "../redux/slices/ProfileSlice";
 import { useForm } from "react-hook-form";
 
 function Profile() {

@@ -1,17 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-redeclare */
 import React, { useState, Fragment, useEffect } from "react";
-import { MDBRow, MDBCard, MDBCardBody, MDBTable, MDBTableBody, MDBTableHead, MDBCollapse, MDBIcon } from "mdbreact";
+import { MDBRow, MDBCard, MDBCardBody } from "mdbreact";
 import { useDispatch } from "react-redux";
-import { editProduct, deleteProduct } from "../redux/slices/CartSlice";
-import { useHistory } from "react-router";
 import "./Cart.css"
-import { editProfile } from "../redux/slices/ProfileSlice";
 import { api } from "../api/api";
 import Cart from "./Cart";
-import { roundOff } from "../helper/roundOff";
-// name, price, imageSrc, type
-// inputs: rate, size, quantity
+
 
 function returnDateFormatted(dateString){
   var dateObj= new Date(dateString)
