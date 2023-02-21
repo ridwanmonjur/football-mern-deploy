@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+
 const useLoadingFetchError = (fetchFunction, args) => {
     const [state, setState] = useState({
         loading: true, eror: false, data: []
@@ -10,8 +12,11 @@ const useLoadingFetchError = (fetchFunction, args) => {
 
         fetchFunction(args)
             .then((data) => setState({ data, loading: false, error: false }))
-            .catch((error) => setState({ loading: false, error: error, data: null }))
-            // .finally(() => { setState((prev) => { return { data: prev.data, loading: false, eror: true } }) });
+            .catch((error) => {
+                setState({ loading: false, error: error, data: null })
+                toast.error(error.message)
+            })
+        // .finally(() => { setState((prev) => { return { data: prev.data, loading: false, eror: true } }) });
 
         return () => {
             return () => controller?.abort();

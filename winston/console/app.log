@@ -2989,3 +2989,38 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '2/19/2023, 2:10:45 PM'[39m
 [32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/20/2023, 8:35:32 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Failed to connect to Database',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/20/2023, 8:35:58 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/20/2023, 8:35:58 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/21/2023, 10:49:19 AM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Failed to connect to Database',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/21/2023, 10:49:44 AM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/21/2023, 10:49:44 AM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/21/2023, 11:14:25 AM'[39m
+[32m}[39m

@@ -1,11 +1,14 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { MDBRow, MDBCard, MDBCardBody, MDBTable, MDBTableBody, MDBTableHead, MDBBtn, MDBCollapse, MDBIcon } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCart, editProduct, fetchCart, deleteProduct } from "../redux/slices/CartSlice";
+import { selectCart, editProduct, fetchCart, deleteProduct, selectCartStatus } from "../redux/slices/CartSlice";
 import { useHistory } from "react-router";
 import "./Cart.css"
 import { editProfile } from "../redux/slices/ProfileSlice";
 import { roundOff } from "../helper/roundOff";
+import { hostNameWithoutAPI } from "../api/env";
+import { toast } from "react-toastify";
+import Empty from "../components/notifications/empty";
 
 export default function Cart() {
  
@@ -61,7 +64,7 @@ export default function Cart() {
         total += roundOff(totalPrice)
         rows.push(
           {
-            'imageSrc': <img src={`/assets/${value.type}/${value.image}`} alt="" style={{ width: "50px" }} />,
+            'imageSrc': <img src={`${hostNameWithoutAPI}assets/${value.type}/${value.image}`} alt="" style={{ width: "50px" }} />,
             'name': <strong> {value.name}</strong>,
             'size': <strong> {data.description[index].size} </strong>,
             'price': <strong> £ {roundOff(value.price)} </strong>,
@@ -79,26 +82,26 @@ export default function Cart() {
       });
     }
   }
+
+  const cartStatus = useSelector(selectCartStatus)
+  
   useEffect(() => {
-    // fetch Data
     async function fetchData() {
-      await dispatch(fetchCart()).unwrap()
-      // if (originalPromiseResult.cart)
-      //   setData(originalPromiseResult.cart)
+      await dispatch(fetchCart())
     }
 
     let controller = new AbortController();
     try {
       fetchData()
-    } catch (rejectedValueOrSerializedError) {
-      console.log({ failed: rejectedValueOrSerializedError })
+    } catch (error) {
+      toast.error(error)
     }
     return () => {
       controller?.abort();
-
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.length])
+
   let handleInputChange = async (event, index) => {
     let quantity = parseInt(event.target.value);
     let size = data.description[index].size
@@ -109,7 +112,6 @@ export default function Cart() {
     else {
       let body = { size, quantity }
       let productId = data.products[index]._id
-      // console.log({ size, quantity, productId })
       let returnValue = await dispatch(editProduct({ productId, index, body })).unwrap()
       console.log(returnValue)
 
@@ -135,9 +137,7 @@ export default function Cart() {
       <MDBRow className="my-2 special-margin" center>
         <MDBCard style={{ marginTop: "50px" }}>
           <MDBCardBody>
-
             <h3 className="text-warning my-2 text-center"> Shopping Cart </h3>
-            {/* Table */}
             <br />
             <MDBTable className="product-table d-none d-lg-table w-80">
               <MDBTableHead className="form-control font-weight-bold" color="amber lighten-5" columns={columns} />
@@ -155,7 +155,6 @@ export default function Cart() {
               >
                 <span
                 >
-                  
                 </span>
                 <span>
                   Image
@@ -187,7 +186,7 @@ export default function Cart() {
                           <  MDBIcon icon="angle-down" />
                         </span>
                         <span>
-                          {val.imageSrc}
+                          <img src={`${val.imageSrc}`} alt={val.name}/>
                         </span>
                         <span>
                           {val.name}
@@ -220,7 +219,7 @@ export default function Cart() {
               (!data.products ||
               data.products[0] === null) &&
               <div style={{ textAlign: "center", marginTop: "10px" }}>
-                Added nothing to cart !
+                <Empty />
               </div>
 
             }

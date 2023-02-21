@@ -1,4 +1,6 @@
 import { useState, useCallback } from "react";
+import { toast } from "react-toastify";
+
 const useLoadingError = (action) => {
   const [state, setState] = useState({
     loading: false, eror: false
@@ -7,7 +9,10 @@ const useLoadingError = (action) => {
   const doAction = useCallback((...args) => {
     setState({ loading: true, eror: false });
     return action(...args)
-      .catch(() => setState({ loading: false, eror: false }))
+      .catch((error) => {
+        setState({ loading: false, error })
+        toast.error(error.message)
+    })
       // .finally(() => setState({ loading: false, eror: true }));
   }, [action]
   )

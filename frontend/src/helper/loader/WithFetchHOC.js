@@ -2,6 +2,7 @@ import { MDBContainer } from "mdbreact";
 import React, { useState, useCallback, useEffect } from "react";
 import Error from "../../components/notifications/error";
 import Spinner from "../../components/notifications/spinner";
+import { toast } from "react-toastify";
 
 const WithFetchHOC = (WrappedComponent, fetchFunction, args) => {
     const WithStateComponent = () => {
@@ -12,7 +13,10 @@ const WithFetchHOC = (WrappedComponent, fetchFunction, args) => {
         const handleFetch = useCallback(async () => {
             fetchFunction(args)
                 .then((data) => setState({ data, loading: false, error: false }))
-                .catch((error) => setState({ data: [], loading: false, error }))
+                .catch((error) => {
+                    setState({ data: [], loading: false, error })
+                    toast.error(error.message)
+                })
             // .finally(() => { setState((prev) => { return { data: prev.data, loading: false, error: true } }) });
         }, []);
 
