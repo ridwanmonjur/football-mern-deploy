@@ -9,10 +9,14 @@ import { roundOff } from "../helper/roundOff";
 import { hostNameWithoutAPI } from "../api/env";
 import { toast } from "react-toastify";
 import Empty from "../components/notifications/empty";
+import Spinner from "../components/notifications/spinner";
+import { deepCopyObj } from "./Purchases";
 
-export default function Cart() {
- 
-  let data = useSelector(selectCart);
+export default function Cart({ data = null, isPartOfPurchaseView = false }) {
+  let data2 = useSelector(selectCart)
+  console.log({ data, data2 })
+  if (!isPartOfPurchaseView)
+    data = deepCopyObj(data2)
   let [collapse, setCollapse] = useState(Array(data.length).fill(false));
   let toggleCollapse = index => () => {
     setCollapse((prev) => {
@@ -23,6 +27,7 @@ export default function Cart() {
   }
   const dispatch = useDispatch();
   const history = useHistory();
+
   let columns = [
     {
       label: <strong>Image</strong>,
@@ -48,10 +53,10 @@ export default function Cart() {
       label: <strong>Amount</strong>,
       field: 'amount'
     },
-    {
+    ...(!isPartOfPurchaseView ? [{
       label: <strong>Delete</strong>,
       field: 'button'
-    }
+    }] : []),
   ]
 
   let total = 0;
@@ -71,12 +76,10 @@ export default function Cart() {
             'quantity':
               <input name="quantity" value={data.description[index].quantity} className="specialInput border-warning" style={{ width: "100px" }} onChange={(evt) => { handleInputChange(evt, index) }} />,
             'amount': <strong> £ {totalPrice}</strong>,
-            'button':
-              <MDBIcon far icon="times-circle" className="amber-text" onClick={() => { deleteCart(index) }} />
-
-            // <MDBBtn outline color="amber" size="sm" onClick={() => { deleteCart(index) }}>
-            //   X
-            // </MDBBtn>
+            ...(!isPartOfPurchaseView && {
+              'button':
+                <MDBIcon far icon="times-circle" className="amber-text" onClick={() => { deleteCart(index) }} />
+            })
           }
         )
       });
@@ -84,7 +87,7 @@ export default function Cart() {
   }
 
   const cartStatus = useSelector(selectCartStatus)
-  
+
   useEffect(() => {
     async function fetchData() {
       await dispatch(fetchCart())
@@ -92,14 +95,14 @@ export default function Cart() {
 
     let controller = new AbortController();
     try {
-      fetchData()
+      !isPartOfPurchaseView && fetchData()
     } catch (error) {
       toast.error(error)
     }
     return () => {
       controller?.abort();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.length])
 
   let handleInputChange = async (event, index) => {
@@ -133,11 +136,11 @@ export default function Cart() {
   }
 
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div style={ {...(!isPartOfPurchaseView && {  minHeight: "100vh" }) } }>
       <MDBRow className="my-2 special-margin" center>
-        <MDBCard style={{ marginTop: "50px" }}>
+        <MDBCard border="light" style={{ marginTop: "50px", boxShadow: "0px 0px black !important", borderWidth: "0", outlineWidth: "0 important" }} shadow="0">
           <MDBCardBody>
-            <h3 className="text-warning my-2 text-center"> Shopping Cart </h3>
+            {!isPartOfPurchaseView && <h3 className="text-warning my-2 text-center"> Shopping Cart </h3> }
             <br />
             <MDBTable className="product-table d-none d-lg-table w-80">
               <MDBTableHead className="form-control font-weight-bold" color="amber lighten-5" columns={columns} />
@@ -146,7 +149,7 @@ export default function Cart() {
 
             {/* Table */}
             <div className="px-3">
-              <div  className="d-grid d-lg-none w-80 border border-warning py-2"
+              <div className="d-grid d-lg-none w-80 border border-warning py-2"
                 style={{
                   display: "grid ", gridTemplateColumns: "0.5fr 1fr 3fr 1fr", justifyContent: "center",
                   alignItems: "center", background: "#FFF8E1"
@@ -168,6 +171,7 @@ export default function Cart() {
                 </div>
               </div>
               {
+                cartStatus === "success" &&
                 data.products &&
                 data.products[0] !== null &&
                 rows.map((val, index) => {
@@ -186,7 +190,7 @@ export default function Cart() {
                           <  MDBIcon icon="angle-down" />
                         </span>
                         <span>
-                          <img src={`${val.imageSrc}`} alt={val.name}/>
+                          <img src={`${val.imageSrc}`} alt={val.name} />
                         </span>
                         <span>
                           {val.name}
@@ -216,17 +220,23 @@ export default function Cart() {
               }
             </div>
             {
-              (!data.products ||
-              data.products[0] === null) &&
-              <div style={{ textAlign: "center", marginTop: "10px" }}>
+              (data.products &&
+                !data.products[0]) &&
+              cartStatus === "success" &&
+              <div className="text-align-center mx-auto mt-5">
                 <Empty />
               </div>
-
             }
             {
-
+              cartStatus === "loading" &&
+              <div className="text-align-center mx-auto mt-5">
+                <Spinner />
+              </div>
+            }
+            {
               data.products &&
               data.products[0] !== null &&
+              !isPartOfPurchaseView &&
               <div className="pr-5">
                 <div className="mt-3 d-flex justify-content-end">
                   <strong>TOTAL : &nbsp;</strong>
@@ -236,41 +246,42 @@ export default function Cart() {
             }
           </MDBCardBody>
 
-
-
-          <MDBCardBody>
-            <div className="mb-3">
-              <div className="pt-1">
-                <p className="text-amber lighten-1 mb-0"><i className="fas fa-info-circle mr-1"></i> Do not delay the purchase, adding
-                  items to your cart does not mean booking them.</p>
-                {/* <Redirect to="/checkOut"> */}
+          {
+            !isPartOfPurchaseView &&
+            <>
+              <MDBCardBody>
                 <div className="mb-3">
-                  <MDBBtn onClick={() => { checkOut(total) }} outline color="amber lighten-1">Check Out</MDBBtn>
+                  <div className="pt-1">
+                    <p className="text-amber lighten-1 mb-0"><i className="fas fa-info-circle mr-1"></i> Do not delay the purchase, adding
+                      items to your cart does not mean booking them.</p>
+                    {/* <Redirect to="/checkOut"> */}
+                    <div className="mb-3">
+                      <MDBBtn onClick={() => { checkOut(total) }} outline color="amber lighten-1">Check Out</MDBBtn>
+                    </div>
+                    {/* </Redirect> */}
+                  </div>
                 </div>
-                {/* </Redirect> */}
-              </div>
-            </div>
 
-            <div className="mb-3">
-              <div className="pt-2">
-                <p className="mb-1">We accept the following payment methods:</p>
-                <img className="mr-2" width="30px"
-                  src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
-                  alt="Visa" />
-                <img className="mr-2" width="30px"
-                  src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
-                  alt="American Express" />
-                <img className="mr-2" width="30px"
-                  src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
-                  alt="Mastercard" />
-                <img className="mr-2" width="30px"
-                  src="https://mdbootstrap.com/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
-                  alt="PayPal acceptance mark" />
-              </div>
-            </div>
-
-
-          </MDBCardBody>
+                <div className="mb-3">
+                  <div className="pt-2">
+                    <p className="mb-1">We accept the following payment methods:</p>
+                    <img className="mr-2" width="30px"
+                      src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+                      alt="Visa" />
+                    <img className="mr-2" width="30px"
+                      src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+                      alt="American Express" />
+                    <img className="mr-2" width="30px"
+                      src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+                      alt="Mastercard" />
+                    <img className="mr-2" width="30px"
+                      src="https://mdbootstrap.com/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png"
+                      alt="PayPal acceptance mark" />
+                  </div>
+                </div>
+              </MDBCardBody>
+            </>
+          }
         </MDBCard>
       </MDBRow>
     </div >

@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { fetchProfile } from './redux/slices/ProfileSlice';
+import 'rodal/lib/rodal.css';
 
 function App() {
   const dispatch = useDispatch()

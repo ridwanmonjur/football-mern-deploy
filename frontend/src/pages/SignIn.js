@@ -13,7 +13,6 @@ import { fetchProfile, setSignedIn } from "../redux/slices/ProfileSlice";
 import { GetOneUser } from "../api/profile";
 import useLoadingFetchError from "../helper/loader/useFetchHook";
 import Rodal from 'rodal';
-import 'rodal/lib/rodal.css';
 import { toast } from "react-toastify";
 
 function SignIn() {
