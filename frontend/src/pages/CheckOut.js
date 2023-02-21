@@ -13,9 +13,6 @@ function CheckOut() {
     let history = useHistory()
     const dispatch = useDispatch()
 
-    {/* Form values handler */ }
-
-    // initial value
     let [input, setInput] = useState({
         addressFirst: "",
         addressSecond: "",

@@ -5,6 +5,7 @@ import "./SignIn.css"
 import { useSelector, useDispatch } from "react-redux";
 import { selectProfileDetails, editProfile, selectStatusProfile } from "../redux/slices/ProfileSlice";
 import { useForm } from "react-hook-form";
+import Spinner from "../components/notifications/spinner";
 
 function Profile() {
     let user = useSelector(selectProfileDetails)
@@ -30,8 +31,8 @@ function Profile() {
                 <MDBRow center>
                     <MDBCard className="mx-auto real-profile-container px-5 mb-5">
                         {
-                            user && statusProfile === "loading" &&
-                            <div>Loading</div>
+                            (statusProfile === "loading" || statusProfile === "idle") &&
+                            <div><Spinner /></div>
                         }
                         {
                             user && statusProfile === "success" &&

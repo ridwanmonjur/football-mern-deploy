@@ -39,6 +39,7 @@ function SignIn() {
             if (response.success === true) {
                 setCookie("signInToken", response.token, 4)
                 dispatch(setSignedIn());
+                toast.dismiss()
                 toast.success('Logged in! Now you can make your purchases.');
                 await dispatch(fetchProfile())
             } else {
@@ -46,6 +47,7 @@ function SignIn() {
             }
         }
         catch (error) {
+            toast.dismiss()
             toast.error(error.message);
         }
     }

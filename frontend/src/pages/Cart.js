@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import Empty from "../components/notifications/empty";
 import Spinner from "../components/notifications/spinner";
 import { deepCopyObj } from "./Purchases";
-
+import Rodal from "rodal";
 export default function Cart({ data = null, isPartOfPurchaseView = false }) {
   let data2 = useSelector(selectCart)
   console.log({ data, data2 })
@@ -117,12 +117,11 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
       let productId = data.products[index]._id
       let returnValue = await dispatch(editProduct({ productId, index, body })).unwrap()
       console.log(returnValue)
-
     }
   }
   let checkOut = async (totalPurchase) => {
     if (rows.length === 0 && totalPurchase > 0) {
-      alert("Purchase an item first!");
+      toast("Purchase an item first!");
     }
     else {
       let returnValue = await dispatch(editProfile({ body: { totalPurchase } })).unwrap()
@@ -136,11 +135,11 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
   }
 
   return (
-    <div style={ {...(!isPartOfPurchaseView && {  minHeight: "100vh" }) } }>
+    <div style={{ ...(!isPartOfPurchaseView && { minHeight: "100vh" }) }}>
       <MDBRow className="my-2 special-margin" center>
         <MDBCard border="light" style={{ marginTop: "50px", boxShadow: "0px 0px black !important", borderWidth: "0", outlineWidth: "0 important" }} shadow="0">
           <MDBCardBody>
-            {!isPartOfPurchaseView && <h3 className="text-warning my-2 text-center"> Shopping Cart </h3> }
+            {!isPartOfPurchaseView && <h3 className="text-warning my-2 text-center"> Shopping Cart </h3>}
             <br />
             <MDBTable className="product-table d-none d-lg-table w-80">
               <MDBTableHead className="form-control font-weight-bold" color="amber lighten-5" columns={columns} />
@@ -190,7 +189,8 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
                           <  MDBIcon icon="angle-down" />
                         </span>
                         <span>
-                          <img src={`${val.imageSrc}`} alt={val.name} />
+                          {val.imageSrc}
+                          {/* <img src={`${val.imageSrc}`} alt={val.name} /> */}
                         </span>
                         <span>
                           {val.name}
@@ -228,12 +228,6 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
               </div>
             }
             {
-              cartStatus === "loading" &&
-              <div className="text-align-center mx-auto mt-5">
-                <Spinner />
-              </div>
-            }
-            {
               data.products &&
               data.products[0] !== null &&
               !isPartOfPurchaseView &&
@@ -245,7 +239,14 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
               </div>
             }
           </MDBCardBody>
+          {
 
+            <Rodal visible={cartStatus === "loading"} >
+              <div className="d-flex justify-content-center align-items-center mt-1 pt-2 h-100">
+                <Spinner />
+              </div>
+            </Rodal>
+          }
           {
             !isPartOfPurchaseView &&
             <>

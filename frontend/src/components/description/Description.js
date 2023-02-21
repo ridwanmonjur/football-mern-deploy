@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { MDBCol, MDBContainer, MDBRow, MDBBtn } from "mdbreact";
 import "./Description.css"
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct, selectCartStatus } from "../../redux/slices/CartSlice";
+import { addProduct, selectCartStatus, setCartStatusIdle } from "../../redux/slices/CartSlice";
 import { cookieKey, hostNameWithoutAPI } from '../../api/env';
 import { getCookie } from '../../api/api';
 import { Breadcrumb } from './Breadcrumb';
@@ -63,16 +63,20 @@ export function Description({data}) {
     }
 
     useEffect(()=>{
-        if (cartStatus==="rejected") {
-            toast.error("Failed to add to cart.")
-        }
-        if (cartStatus==="success") {
-            toast.success("Added to cart successfully.")
-        }
-        if (cartStatus==="loading") {
-            toast.info("Trying to add to cart...")
-        }
-    }, [cartStatus])
+        dispatch(setCartStatusIdle())
+    }, [])
+
+    // useEffect(()=>{
+    //     if (cartStatus==="rejected") {
+    //         toast.error("Failed to add to cart.")
+    //     }
+    //     if (cartStatus==="success") {
+    //         toast.success("Added to cart successfully.")
+    //     }
+    //     if (cartStatus==="loading") {
+    //         toast.info("Trying to add to cart...")
+    //     }
+    // }, [cartStatus])
 
     return (
 

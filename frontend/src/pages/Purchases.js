@@ -1,19 +1,23 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-redeclare */
-import React, { useState, Fragment, useEffect } from "react";
-import { MDBRow, MDBCard, MDBCardBody } from "mdbreact";
+import React, { useState, useEffect } from "react";
+import { MDBRow, MDBCard, MDBCardBody, MDBContainer, MDBCol } from "mdbreact";
 import { useDispatch } from "react-redux";
 import "./Cart.css"
-import { api } from "../api/api";
+import { GetAllCarts } from "../api/cart";
 import Cart from "./Cart";
+import { toast } from "react-toastify";
+import Spinner from "../components/notifications/spinner";
+import Empty from "../components/notifications/empty";
+import Error from "../components/notifications/error";
 
 
-function returnDateFormatted(dateString){
-  var dateObj= new Date(dateString)
-  console.log({dateString, dateObj})
+function returnDateFormatted(dateString) {
+  var dateObj = new Date(dateString)
+  console.log({ dateString, dateObj })
   var hour = dateObj.getHours();
   var minutes = dateObj.getMinutes();
-  var seconds = dateObj.getSeconds() ;
+  var seconds = dateObj.getSeconds();
 
   var day = dateObj.getDate();
   var year = dateObj.getYear();
@@ -48,57 +52,56 @@ export function deepCopyObj(obj) {
 export default function Purchases() {
 
   let [data, setData] = useState([]);
-  const dispatch = useDispatch();
-  console.log({ data })
-
+  let [loading, setLoading] = useState(true);
+  let [error, setError] = useState(false)
   useEffect(() => {
-    // fetch Data
     async function fetchData() {
-      const response = await api('GET', `cart`, {
-        mode: 'cors',
-      })
-      if (response.cart !== undefined){
-        console.log({response})
+      const response = await GetAllCarts()
+      if (response.cart !== undefined) {
+        await setLoading(false)
         setData(deepCopyObj(response.cart))
+      }
+      else {
+        throw Error("Failed to fetch the data!")
       }
     }
 
     let controller = new AbortController();
     try {
       fetchData()
-    } catch (rejectedValueOrSerializedError) {
-      console.log({ failed: rejectedValueOrSerializedError })
+    } catch (error) {
+      toast.error(error)
+      setError(true)
     }
-    return () => {
+    return () =>
       controller?.abort();
-
-    }
   }, [data.length])
 
   return <>
-    <MDBRow className="my-0 special-margin" center>
-      <MDBCard style={{ marginTop: "45px", boxShadow: "none !important", borderWidth:"0 !important" }} shadow="0">
-        <MDBCardBody>
-          <h3 className="w-100 text-warning my-0 text-center"> Purchases </h3>
-          <br />
-          {data.map((value, index) => {
-            console.log({value})
-            if (value.status === 'active' && data.length===1) return (
-              <div style={{width: "60vw"}}>
-                <p className="text-center">No purchases yet!</p>
-              </div>
-            )
-            if (value.status === 'active') return null
-
-            return (
-              <>
-                {value.paidAt && <p className="my-2 text-center"> {returnDateFormatted(value.paidAt)} </p> }
-                <Cart key={`${value}${index}history`} data={value} isPartOfPurchaseView={true} />
-              </>
-            )
-          })}
-        </MDBCardBody>
-      </MDBCard>
-    </MDBRow>
+    <MDBContainer fluid>
+      <MDBRow className="my-4 special-margin" center>
+        <MDBCol size="10">
+          <MDBCard classNmae="w-100" style={{ marginTop: "45px", boxShadow: "none !important", borderWidth: "0 !important" }} shadow="0">
+            <MDBCardBody className="w-100">
+              <h3 className="w-100 text-warning my-4 text-center"> Purchases </h3>
+              {loading && <Spinner />}
+              {error && <Error />}
+              {data.map((value, index) => {
+                if (value.status === 'active' && data.length === 1) return (
+                  <Empty />
+                )
+                if (value.status === 'active') return null
+                return (
+                  <>
+                    {value.paidAt && <p className="my-2 text-center"> {returnDateFormatted(value.paidAt)} </p>}
+                    <Cart key={`${value}${index}history`} data={value} isPartOfPurchaseView={true} />
+                  </>
+                )
+              })}
+            </MDBCardBody>
+          </MDBCard>
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
   </>
 }

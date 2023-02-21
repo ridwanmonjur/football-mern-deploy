@@ -46,7 +46,7 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProfile.fulfilled, (state, { payload }) => {
-      if (payload.success) {
+      if (payload.success ) {
         state.profileDetails = { ...payload.user }
         state.isSignedIn = true;
         state.status = "success";

@@ -9,6 +9,18 @@ export async function AddProduct(body, productId) {
 
 }
 
+export async function GetAllCarts() {
+
+    const response = await api('GET', `cart`, {
+        mode: 'cors',
+      })
+    return response
+
+}
+
+
+
+
 export async function EditProduct(body, productId) {
 
     const response = await api('PUT', `user/cart/product/${productId}`, {

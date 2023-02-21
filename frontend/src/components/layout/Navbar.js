@@ -4,13 +4,14 @@ import { setProfileNull, selectIsSignedIn } from "../../redux/slices/ProfileSlic
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBContainer, MDBIcon } from 'mdbreact';
 import NavbarBrandImg from "../../assets/navbarBrand.gif"
 import "./Navbar.css"
-// import { useHistory } from "react-router-dom";
 import { getCookie, setCookie } from '../../api/api';
 import { cookieKey } from '../../api/env';
+import {toast} from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
 function FullPageIntroWithNonFixedNavbar() {
 
-    // let history = useHistory();
+    let history = useHistory();
 
     let isSignedIn = useSelector(selectIsSignedIn);
 
@@ -36,12 +37,10 @@ function FullPageIntroWithNonFixedNavbar() {
 
         const token = getCookie(cookieKey)
         console.log({ token })
-        alert("Log out")
         event.preventDefault()
         dispatch(setProfileNull())
-
-        window.location.reload()
-
+        history.replace("/")
+        toast.info("Logged out successfully")
         setCookie(cookieKey, null, 1)
         setState((prevState) => {
             return {

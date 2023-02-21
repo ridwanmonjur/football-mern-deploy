@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { AddProduct, DeleteProduct, EditProduct, FetchCart } from '../../api/cart';
-
+import {toast} from 'react-toastify'
 export const addProduct = createAsyncThunk(
   'cart/addProduct',
   async ({ productId, body }, _thunkAPI) => {
@@ -56,6 +56,9 @@ export const slice = createSlice({
     setDeleteQuantity: (state, action) => {
       let { index } = action.payload
       state.cartValues.splice(index, 1);
+    },
+    setCartStatusIdle: (state) => {
+      state.status = "idle"
     }
   },
   extraReducers: (builder) => {
@@ -80,19 +83,26 @@ export const slice = createSlice({
     builder.addCase(addProduct.fulfilled, (state, { payload }) => {
       if (payload.success) {
         state.status = "success"
+        toast.dismiss()
+        toast.success("Added product to cart!")
       }
       else{
         state.status = "failed"
         state.cartValues = { ...initialState.cartValues }
         if (payload.error) state.error = payload.error
+        toast.dismiss()
+        toast.error("Failed to add product to cart!")
       }
     })
     builder.addCase(addProduct.pending, (state) => {
       state.status = "loading"
+      toast.info("Adding the product to cart...Hang on please!")
     })
     builder.addCase(addProduct.rejected, (state, { error }) => {
       state.status = "rejected"
       state.error = error
+      toast.dismiss()
+      toast.error("Failed to add product to cart!")
     })
 
     builder.addCase(editProduct.fulfilled, (state, { payload }) => {
@@ -120,6 +130,7 @@ export const slice = createSlice({
     builder.addCase(deleteProduct.fulfilled, (state, { payload }) => {
       if (payload.success) {
         let { index } = payload
+        state.status = "success";
         index= parseInt(index)
         state.cartValues.products= state.cartValues.products.filter((_val, currIndex)=> index!== currIndex)
         state.cartValues.description= state.cartValues.description.filter((_val, currIndex)=> index!== currIndex)
@@ -139,7 +150,7 @@ export const slice = createSlice({
   }
 })
 
-export const { setCart, setIndexQuantity, setDeleteQuantity } = slice.actions;
+export const { setCart, setIndexQuantity, setDeleteQuantity, setCartStatusIdle } = slice.actions;
 export const selectCart = state => { return { ...state.cart.cartValues } };
 export const selectCartStatus = state => { return state.cart.status  };
 export const selectCartError = state => { return state.cart.error  };
