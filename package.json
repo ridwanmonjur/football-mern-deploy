@@ -28,6 +28,10 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.7",
     "nodemon": "^2.0.12",
+<<<<<<< HEAD
+=======
+    "react-hook-form": "^7.43.1",
+>>>>>>> parent of 78b94ed... feat(deploy): add rect-hook-form
     "ts-node": "^10.2.0",
     "typescript": "^4.3.5",
     "winston": "^3.8.2"
