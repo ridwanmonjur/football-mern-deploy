@@ -1,6 +1,5 @@
 export function returnDateFormatted(dateString) {
     var dateObj = new Date(dateString)
-    console.log({ dateString, dateObj })
     var hour = dateObj.getHours();
     var minutes = dateObj.getMinutes();
     var seconds = dateObj.getSeconds();

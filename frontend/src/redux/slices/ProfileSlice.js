@@ -65,7 +65,6 @@ export const slice = createSlice({
     })
 
     builder.addCase(editProfile.fulfilled, (state, { payload }) => {
-      console.log({ payload })
       if (payload.success) {
         state.profileDetails = { ...payload.user }
         state.status = "success";

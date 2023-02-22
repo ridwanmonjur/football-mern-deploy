@@ -26,7 +26,6 @@ function CheckOut() {
         const target = event.target;
         const value = target.value;
         const name = target.id;
-        console.log(input)
         if (input.changed) {
             setInput({
                 ...input,
@@ -47,10 +46,9 @@ function CheckOut() {
             if (input.changed) {
                 await dispatch(editProfile({ body: { addressFirst: input.addressFirst, addressSecond: input.addressSecond, creditCardNumber: input.creditCardNumber, creditCardCVV: input.creditCardCVV } }))
             }
-            const response = await api('POST', 'cart', {
+            await api('POST', 'cart', {
                 mode: 'cors'
             })
-            console.log({ response })
             history.replace("/purchases")
         }
         else {
@@ -70,15 +68,15 @@ function CheckOut() {
                     creditCardCVV: user.creditCardCVV,
                     creditCardNumber: user.creditCardNumber
                 })
-            } catch (rejectedValueOrSerializedError) {
-                console.log({ failed: rejectedValueOrSerializedError })
+            } catch (error) {
+                toast.error(error.message)
             }
         }
 
         try {
             fetchData()
-        } catch (rejectedValueOrSerializedError) {
-            console.log({ failed: rejectedValueOrSerializedError })
+        } catch (error) {
+            toast.error(error.message)
         }
         return () => {
             controller?.abort();

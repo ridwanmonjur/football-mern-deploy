@@ -4,9 +4,9 @@ import { setProfileNull, selectIsSignedIn } from "../../redux/slices/ProfileSlic
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBContainer, MDBIcon } from 'mdbreact';
 import NavbarBrandImg from "../../assets/navbarBrand.gif"
 import "./Navbar.css"
-import { getCookie, setCookie } from '../../api/api';
+import { setCookie } from '../../api/api';
 import { cookieKey } from '../../api/env';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { setCartNull } from '../../redux/slices/CartSlice';
 
@@ -35,9 +35,6 @@ function FullPageIntroWithNonFixedNavbar() {
     }
 
     function resetUser(event) {
-
-        const token = getCookie(cookieKey)
-        console.log({ token })
         event.preventDefault()
         dispatch(setProfileNull())
         history.replace("/")

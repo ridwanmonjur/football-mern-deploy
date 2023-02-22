@@ -12,10 +12,9 @@ import Spinner from "../components/notifications/spinner";
 import { deepCopyObj } from "../helper/deepCopy";
 import Rodal from "rodal";
 import { CustomCollpsibleTable, generateColumns, generateRows, Checkout } from "../components/cart";
-
+import { selectIsSignedIn } from "../redux/slices/ProfileSlice";
 export default function Cart({ data = null, isPartOfPurchaseView = false }) {
   let data2 = useSelector(selectCart)
-  console.log({ data, data2 })
   if (!isPartOfPurchaseView)
     data = deepCopyObj(data2)
   let [collapse, setCollapse] = useState(Array(data.length).fill(false));
@@ -30,18 +29,21 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
   const history = useHistory();
 
   let columns = generateColumns({ isPartOfPurchaseView })
-
-
+  let isSignedIn = useSelector(selectIsSignedIn)
   const cartStatus = useSelector(selectCartStatus)
 
   useEffect(() => {
     async function fetchData() {
       await dispatch(fetchCart())
     }
-
+    if (isSignedIn) fetchData().catch((error) => {
+      toast.error(error.message)
+    })
     let controller = new AbortController();
     try {
-      !isPartOfPurchaseView && fetchData()
+      !isPartOfPurchaseView && isSignedIn && fetchData().catch((error) => {
+        toast.error(error.message)
+      })
     } catch (error) {
       toast.error(error)
     }
@@ -61,8 +63,7 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
     else {
       let body = { size, quantity }
       let productId = data.products[index]._id
-      let returnValue = await dispatch(editProduct({ productId, index, body })).unwrap()
-      console.log(returnValue)
+      await dispatch(editProduct({ productId, index, body }))
     }
   }
   let checkOut = async (totalPurchase) => {
@@ -70,8 +71,7 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
       toast("Purchase an item first!");
     }
     else {
-      let returnValue = await dispatch(editProfile({ body: { totalPurchase } })).unwrap()
-      console.log(returnValue)
+      await dispatch(editProfile({ body: { totalPurchase } }))
       history.replace("/checkOut")
     }
   }
@@ -94,11 +94,12 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
               <MDBTableHead className="form-control font-weight-bold" color="amber lighten-5" columns={columns} />
               <MDBTableBody rows={rows} />
             </MDBTable>
-            <CustomCollpsibleTable {...{data, deleteCart, cartStatus, rows, toggleCollapse, collapse}}/>
+
+            <CustomCollpsibleTable {...{ data, deleteCart, cartStatus, rows, toggleCollapse, collapse }} />
+
             {
-              (data.products &&
-                !data.products[0]) &&
-              cartStatus === "success" &&
+              (((data.products &&
+                !data.products[0] && cartStatus === "success") || !isSignedIn) && !isPartOfPurchaseView) &&
               <div className="text-align-center mx-auto mt-5">
                 <Empty />
               </div>

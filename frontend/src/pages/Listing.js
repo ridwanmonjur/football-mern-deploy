@@ -34,8 +34,6 @@ function Listing() {
 
     let { data, error, loading } = useLoadingFetchError(FetchAll, productName)
 
-    console.log( { data, error, loading } )
-
     useEffect(() => {
         let controller = new AbortController();
 

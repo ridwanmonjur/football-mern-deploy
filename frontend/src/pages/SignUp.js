@@ -23,7 +23,6 @@ function SignUp() {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        console.log(input)
         setInput({
             ...input,
             [name]: value

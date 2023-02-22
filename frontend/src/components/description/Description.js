@@ -43,7 +43,6 @@ export function Description({data}) {
         let size = document.querySelector('select[name=size]').value
         let quantity = parseFloat(document.querySelector('input[name=quantity]').value)
         let body = { size, quantity }
-        console.log({ size, quantity })
 
         if (cartStateToReducer.quantity > 0) {
 
