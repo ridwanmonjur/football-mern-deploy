@@ -3024,3 +3024,22 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '2/21/2023, 11:14:25 AM'[39m
 [32m}[39m
+[31m{[39m
+[31m  code: 'EADDRINUSE',[39m
+[31m  errno: -98,[39m
+[31m  syscall: 'listen',[39m
+[31m  address: '::',[39m
+[31m  port: 8000,[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/22/2023, 5:54:13 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  message: 'Failed to connect to Database',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '2/22/2023, 5:54:38 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '2/22/2023, 5:54:38 PM'[39m
+[32m}[39m
