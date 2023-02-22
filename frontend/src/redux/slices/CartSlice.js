@@ -1,11 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { api } from '../../api/api';
 import { AddProduct, DeleteProduct, EditProduct, FetchCart } from '../../api/cart';
-
-// createSlice is more convenient than the createAction and createReducer combo
-
-// Version 1:
-// First, create the thunk
+import {toast} from 'react-toastify'
 export const addProduct = createAsyncThunk(
   'cart/addProduct',
   async ({ productId, body }, _thunkAPI) => {
@@ -30,7 +25,6 @@ export const deleteProduct = createAsyncThunk(
   }
 )
 
-
 export const fetchCart = createAsyncThunk(
   'product/fetchProduct',
   async () => {
@@ -39,97 +33,130 @@ export const fetchCart = createAsyncThunk(
   }
 )
 
+const initialState = {
+  cartValues: null,
+  // {
+  //   // Redux needs immutale changes, but JS 2D arrays are diffucult to change immutably
+  //   products: null,
+  //   description: [{ quantity: 0, size: "" }],
+  //   total: 0,
+  //   paid: false
+  // },
+  status: "idle",
+  error: "",
+}
 
-
-// ANY GET AND POST REQUEST WILL RESET REDUCER
 export const slice = createSlice({
   name: 'cart',
-  // A slice is a combination of reducers
-  // Slice's name is cart slice and state can be accessed by state.cart
-  // state has 2 objects: state.sesiSemesterValues
-
-  // Creates state also by initialState
-
-  // Actions:
-  // Action has type and payload
-  // action type is "[sliceName]/[reducerPropertyName]"
-
-  initialState: {
-    cartValues: {
-      // redux can't go very deep. may need to change backend
-      products: [null],
-      description: [{ quantity: 0, size: "" }],
-      total: 0,
-      paid: false
-    },
-  },
-
+  initialState,
   reducers: {
-    // Although it's written as reducers, it's better called action
-    // [action1] exported as slice.actions.[action1]
-    // ...action.payload (payload is the parameter sent) :       
-    // Example in this slice file:      state.cartValues = { ...action.payload };
-    // Example in actual js file:       setCart({imageSrc: " ", cartName: "" ...})
-    // What it does in the reducer:     state.cartValues= {imageSrc: " ", cartName: "" ...}
-
-
-    /*
-      name, price, imageSrc, type, 
-      inputs: rate, size, quantity
-    */
+    setCartNull : (state) => {
+      state.cartValues = null
+    },
     setIndexQuantity: (state, action) => {
-      // Will handle the action type `'cart/setIndexQuantity'`
-      // dispatch(setIndexQuantity(index, value))
-      // NOT:
-      // dispatch(setIndexQuantity(idx, newValue))
-
       let { index, value } = action.payload
       state.cartValues[index].quantity = value;
     },
     setDeleteQuantity: (state, action) => {
-      // Will handle the action type `'cart/setIndexQuantity'`
       let { index } = action.payload
-      // state.cartValues= state.cartValues.splice(index, 1);
       state.cartValues.splice(index, 1);
+    },
+    setCartStatusIdle: (state) => {
+      state.status = "idle"
     }
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchCart.fulfilled, (state, { payload }) => {
       if (payload.success) {
         state.cartValues = { ...payload.cart }
+        state.status = "success"
+      }
+      else{
+        state.status = "failed"
+        if (payload.error) state.error = payload.error
       }
     })
+    builder.addCase(fetchCart.pending, (state) => {
+      state.status = "loading"
+    })
+    builder.addCase(fetchCart.rejected, (state, { error }) => {
+      state.status = "rejected"
+      state.error = error
+    })
+
     builder.addCase(addProduct.fulfilled, (state, { payload }) => {
       if (payload.success) {
-        state.cartValues = { ...payload.cart }
+        state.status = "success"
+        toast.dismiss()
+        toast.success("Added product to cart!")
+      }
+      else{
+        state.status = "failed"
+        state.cartValues = { ...initialState.cartValues }
+        if (payload.error) state.error = payload.error
+        toast.dismiss()
+        toast.error("Failed to add product to cart!")
       }
     })
+    builder.addCase(addProduct.pending, (state) => {
+      state.status = "loading"
+      toast.info("Adding the product to cart...Hang on please!")
+    })
+    builder.addCase(addProduct.rejected, (state, { error }) => {
+      state.status = "rejected"
+      state.error = error
+      toast.dismiss()
+      toast.error("Failed to add product to cart!")
+    })
+
     builder.addCase(editProduct.fulfilled, (state, { payload }) => {
       if (payload.success) {
         let { cart } = payload
+        state.status = "success";
         state.cartValues = {
           ...state.cartValues,
           description: [...cart.description],
-        }
+        };
+      }
+      else{
+        state.status = "failed"
+        if (payload.error) state.error = payload.error
       }
     })
+    builder.addCase(editProduct.pending, (state) => {
+      state.status = "loading"
+    })
+    builder.addCase(editProduct.rejected, (state, { error }) => {
+      state.status = "rejected"
+      state.error = error
+    })
+
     builder.addCase(deleteProduct.fulfilled, (state, { payload }) => {
       if (payload.success) {
         let { index } = payload
+        state.status = "success";
         index= parseInt(index)
         state.cartValues.products= state.cartValues.products.filter((_val, currIndex)=> index!== currIndex)
         state.cartValues.description= state.cartValues.description.filter((_val, currIndex)=> index!== currIndex)
       }
+      else{
+        state.status = "failed"
+        if (payload.error) state.error = payload.error
+      }
+    })
+    builder.addCase(deleteProduct.pending, (state) => {
+      state.status = "loading"
+    })
+    builder.addCase(deleteProduct.rejected, (state, { error }) => {
+      state.status = "rejected"
+      state.error = error
     })
   }
 })
 
-// exporting the actions. Later imported as useDispatch([actionName]) ?? 95% SURE
-export const { setCart, setIndexQuantity, setDeleteQuantity } = slice.actions;
-
-// exporting the states. Later imported as useSelector([stateName])  ?? 95% SURE
+export const { setCart, setIndexQuantity, setDeleteQuantity, setCartStatusIdle, setCartNull } = slice.actions;
 export const selectCart = state => { return { ...state.cart.cartValues } };
+export const selectCartStatus = state => { return state.cart.status  };
+export const selectCartError = state => { return state.cart.error  };
 
-// exporting the slice (combination of reducers, so more apt name should be slice.slice???) for combination in the store
 export default slice.reducer;

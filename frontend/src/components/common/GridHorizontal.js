@@ -1,13 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment, useEffect, useState } from 'react'
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBTooltip } from 'mdbreact';
 import { NavLink } from 'react-router-dom';
 import "./GridHorizontal.css"
 
-function GridHorizontalPartTwo({ product, data, numberOfItems, headingTrue }) {
+function GridHorizontal({ product, data, numberOfItems, headingTrue }) {
 
     let [jsonData, setJsonData] = useState([
     ]);
-    console.log({data})
     useEffect( () => {
         setJsonData(data[3], data[6], data[9], data[12])
     }, [data.length])
@@ -24,7 +24,6 @@ function GridHorizontalPartTwo({ product, data, numberOfItems, headingTrue }) {
                         jsonData !== null &&
                         data[0].hasOwnProperty('value')== undefined &&
                         jsonData.map((value, index) => {
-                            console.log({ jsonData })
                             if (index > numberOfItems - 1) return null
                             return (
                                 <Fragment key={index}>
@@ -56,4 +55,4 @@ function GridHorizontalPartTwo({ product, data, numberOfItems, headingTrue }) {
     )
 }
 
-export default GridHorizontalPartTwo
+export default GridHorizontal

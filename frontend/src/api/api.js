@@ -3,7 +3,7 @@ export function api(methodName, endpoint, { body, ...customConfig } = {}) {
     
     const headers = { 'content-type': 'application/json' }
     const token = getCookie(cookieKey)
-    console.log({ token })
+    // console.log({ token })
     if (token) {
         headers.authorization = token
     }
@@ -19,15 +19,15 @@ export function api(methodName, endpoint, { body, ...customConfig } = {}) {
     if (body) {
         config.body = JSON.stringify(body)
     }
-    console.log(body)
 
     return window
         .fetch(`${hostName}/${endpoint}`, config)
         .then(response => response.json())
-        .then(response => {
-            console.log(response)
-            return response
-        })
+        .then(response=> response)
+        // .then(response => {
+        //     console.log(response)
+        //     return response
+        // })
 
 }
 
@@ -48,5 +48,4 @@ export function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    console.log(getCookie(cname))
 }

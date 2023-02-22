@@ -6,16 +6,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectProfileDetails, fetchProfile, editProfile } from "../redux/slices/ProfileSlice";
 import { useHistory } from "react-router";
 import { api } from "../api/api";
-
+import {toast } from "react-toastify"
 function CheckOut() {
 
     let user = useSelector(selectProfileDetails)
     let history = useHistory()
     const dispatch = useDispatch()
 
-    {/* Form values handler */ }
-
-    // initial value
     let [input, setInput] = useState({
         addressFirst: "",
         addressSecond: "",
@@ -29,7 +26,6 @@ function CheckOut() {
         const target = event.target;
         const value = target.value;
         const name = target.id;
-        console.log(input)
         if (input.changed) {
             setInput({
                 ...input,
@@ -50,14 +46,13 @@ function CheckOut() {
             if (input.changed) {
                 await dispatch(editProfile({ body: { addressFirst: input.addressFirst, addressSecond: input.addressSecond, creditCardNumber: input.creditCardNumber, creditCardCVV: input.creditCardCVV } }))
             }
-            const response = await api('POST', 'cart', {
+            await api('POST', 'cart', {
                 mode: 'cors'
             })
-            console.log({ response })
             history.replace("/purchases")
         }
         else {
-            alert("First add a credit card.")
+            toast.error("First add a credit card.")
         }
     }
 
@@ -73,15 +68,15 @@ function CheckOut() {
                     creditCardCVV: user.creditCardCVV,
                     creditCardNumber: user.creditCardNumber
                 })
-            } catch (rejectedValueOrSerializedError) {
-                console.log({ failed: rejectedValueOrSerializedError })
+            } catch (error) {
+                toast.error(error.message)
             }
         }
 
         try {
             fetchData()
-        } catch (rejectedValueOrSerializedError) {
-            console.log({ failed: rejectedValueOrSerializedError })
+        } catch (error) {
+            toast.error(error.message)
         }
         return () => {
             controller?.abort();

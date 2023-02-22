@@ -1,36 +1,25 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { Fragment, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { MDBCol, MDBContainer, MDBRow, MDBBtn } from "mdbreact";
 import "./Description.css"
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addProduct } from "../../redux/slices/CartSlice";
-// import { fetchProduct, selectCurrentProduct } from '../redux/slices/ProductSlice';
 import { cookieKey, hostNameWithoutAPI } from '../../api/env';
 import { getCookie } from '../../api/api';
-// import { FetchProduct } from '../../api/product';
 import { Breadcrumb } from './Breadcrumb';
 import { generateProductAd } from './generateProductAd';
+import { toast } from 'react-toastify';
 
 export function Description({data}) {
 
-    const { userId, productName } = useParams();
-    // const [product, setProduct] = useState({
-    //     loading: true,
-    //     data: [],
-    //     error: false
-    // })
+    const { userId } = useParams();
     let [cartStateToReducer, setCartStateToReducer] = useState({
         rate: 0,
         size: "SM",
         quantity: 1
     })
 
-    console.log({ data })
-    console.log({ rendered: "here" })
-
     let handleInputChange = (event) => {
-      
-
         const target = event.target;
         let value = target.value;
         value = (Object.is(parseInt(value), NaN)) ? value : parseInt(value);
@@ -39,7 +28,7 @@ export function Description({data}) {
             return;
         }
         else if (name === "quantity" && value < 0) {
-            alert("Value can't be less than zero")
+            toast.error("Value can't be less than zero")
             return;
         }
         setCartStateToReducer({
@@ -54,27 +43,34 @@ export function Description({data}) {
         let size = document.querySelector('select[name=size]').value
         let quantity = parseFloat(document.querySelector('input[name=quantity]').value)
         let body = { size, quantity }
-        console.log({ size, quantity })
 
         if (cartStateToReducer.quantity > 0) {
 
             const token = getCookie(cookieKey)
             if (token === "null" || token === null || token === undefined) {
-
-                alert("Sign in first!")
+                toast.error("Sign in first!")
                 return "";
             }
             else {
-                alert("Added to cart.")
                 await dispatch(addProduct({ productId: userId, body }))
             }
-
         }
         else {
-            alert("Quantity can't be less than zero")
+            toast.error("Quantity can't be less than zero")
         }
     }
 
+     // useEffect(()=>{
+    //     if (cartStatus==="rejected") {
+    //         toast.error("Failed to add to cart.")
+    //     }
+    //     if (cartStatus==="success") {
+    //         toast.success("Added to cart successfully.")
+    //     }
+    //     if (cartStatus==="loading") {
+    //         toast.info("Trying to add to cart...")
+    //     }
+    // }, [cartStatus])
 
     return (
 
@@ -157,6 +153,7 @@ export function Description({data}) {
                             <MDBCol > </MDBCol>
                             <MDBCol xs="12" lg="6"> <i> Note: Your Product will be dispatched/ shipped within 7-10 days </i> </MDBCol>
                         </MDBRow>
+                       
                     </MDBContainer>
                 </div>
             }

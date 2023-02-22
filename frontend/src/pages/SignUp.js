@@ -1,105 +1,63 @@
 /* eslint-disable no-lone-blocks */
 import React, { useState } from "react";
 import {
-    MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody,  MDBCardTitle, MDBBtn
+    MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody, MDBCardTitle, MDBBtn
 } from "mdbreact";
 import "./SignIn.css"
 import { Link } from "react-router-dom";
-
-import Spinner from "../components/notifications/spinner";
-import AlertPage from "../components/notifications/alert";
-import Success from "../components/notifications/success";
 import { Signup } from "../api/auth";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
-
-function SignIn() {
-
-    {/* Notification handler */ }
-    // initial value
-    let [notification, setNotification] = useState({
-        loading: false,
-        error: false,
-        success: false
-    })
+function SignUp() {
 
     let history = useHistory();
 
-    {/* Form values handler */ }
-
-    // initial value
     let [input, setInput] = useState({
         fname: "",
         lname: "",
         password: "",
         email: ""
     })
-    // change value
     let onChange = async (event) => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        console.log(input)
         setInput({
             ...input,
             [name]: value
         });
     }
 
-
-    {/* Form values submit */ }
-
     let onSubmit = async (event) => {
         event.preventDefault();
-        setNotification({
-            loading: false,
-            error: false,
-            success: false
-        })
+        toast.warning('Trying to create an account !');
         try {
             let response = await Signup({
                 name: input.fname.trim() + input.lname.trim(),
                 password: input.password,
                 email: input.email
             })
-            setNotification({
-                ...notification,
-                loading: true
-            })
+
             if (response.success === true) {
-                setNotification({
-                    ...notification,
-                    loading: false,
-                    success: true
-                })
+                toast.success('Created an account! Now you can login.');
 
                 history.push("/");
 
             } else {
-                setNotification({
-                    ...notification,
-                    loading: false,
-                    error: true
-                })
+                throw new Error("Failed to create an account.")
             }
         }
         catch (error) {
-            setNotification({
-                ...notification,
-                loading: false,
-                error: true
-            })        }
+            toast.error(error.message);
+        }
     }
 
-    {/* Recaptcha */}
-
-     // initial value
-    
     return (
         <MDBContainer>
             <div className="scaffold">
-                <MDBRow className="my-2" center>
-                    <MDBCard className="mx-auto real-signin-container">
+                <MDBRow className="my-2 px-5" center>
+                    <MDBCard className="mx-auto real-signin-container px-5">
                         <MDBCardTitle className="text-align-center mt-5">
                             <b > GLOBAL SOCCER SHOP </b>
                         </MDBCardTitle>
@@ -121,12 +79,7 @@ function SignIn() {
                                         <div className="input-group my-3">
                                             <input type="password" id="password" name="password" className="form-control" onChange={(event) => { onChange(event) }} placeholder="Enter your password" />
                                         </div>
-                                     
-                                        {notification.loading && <Spinner />}
-                                        {notification.error && <AlertPage text="Not signed in"/>}
-                                        {notification.success && <Success text="Signed in"/>}
-                                        <br />
-                                        <br />
+
                                         <div className="text-align-center">
                                             <MDBBtn outline color="amber lighten-1" type="submit" onClick={(event) => { onSubmit(event) }} > Sign Up </MDBBtn>
                                         </div>
@@ -143,7 +96,6 @@ function SignIn() {
         </MDBContainer >
 
     );
-
 }
 
-export default SignIn;
+export default SignUp;

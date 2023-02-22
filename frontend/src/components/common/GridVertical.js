@@ -28,7 +28,7 @@ function GridVertical({ productName, data }) {
     for (var i = 0; i < num; i++) {
         arr.push(i)
     }
-    console.log({updated: true, begin, productName})
+    // console.log({updated: true, begin, productName})
 
     return (
         <Fragment>
@@ -38,7 +38,6 @@ function GridVertical({ productName, data }) {
                     {
                         data !== null &&
                         data.map((value, index) => {
-                            console.log({image: `${hostNameWithoutAPI}assets/${productName}/image${index}.jpg`})
                             if (  index<begin || index>= length+begin ) return null
                             else return (
                                 <Fragment key={`${index}${value._id}`}>
