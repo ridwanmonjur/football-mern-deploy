@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { MDBCol, MDBContainer, MDBRow, MDBBtn } from "mdbreact";
 import "./Description.css"
