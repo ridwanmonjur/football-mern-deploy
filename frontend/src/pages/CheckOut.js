@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectProfileDetails, fetchProfile, editProfile } from "../redux/slices/ProfileSlice";
 import { useHistory } from "react-router";
 import { api } from "../api/api";
-
+import {toast } from "react-toastify"
 function CheckOut() {
 
     let user = useSelector(selectProfileDetails)
@@ -54,7 +54,7 @@ function CheckOut() {
             history.replace("/purchases")
         }
         else {
-            alert("First add a credit card.")
+            toast.error("First add a credit card.")
         }
     }
 

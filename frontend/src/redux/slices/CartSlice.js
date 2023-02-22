@@ -34,13 +34,14 @@ export const fetchCart = createAsyncThunk(
 )
 
 const initialState = {
-  cartValues: {
-    // Redux needs immutale changes, but JS 2D arrays are diffucult to change immutably
-    products: null,
-    description: [{ quantity: 0, size: "" }],
-    total: 0,
-    paid: false
-  },
+  cartValues: null,
+  // {
+  //   // Redux needs immutale changes, but JS 2D arrays are diffucult to change immutably
+  //   products: null,
+  //   description: [{ quantity: 0, size: "" }],
+  //   total: 0,
+  //   paid: false
+  // },
   status: "idle",
   error: "",
 }
@@ -49,6 +50,9 @@ export const slice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+    setCartNull : (state) => {
+      state.cartValues = null
+    },
     setIndexQuantity: (state, action) => {
       let { index, value } = action.payload
       state.cartValues[index].quantity = value;
@@ -150,7 +154,7 @@ export const slice = createSlice({
   }
 })
 
-export const { setCart, setIndexQuantity, setDeleteQuantity, setCartStatusIdle } = slice.actions;
+export const { setCart, setIndexQuantity, setDeleteQuantity, setCartStatusIdle, setCartNull } = slice.actions;
 export const selectCart = state => { return { ...state.cart.cartValues } };
 export const selectCartStatus = state => { return state.cart.status  };
 export const selectCartError = state => { return state.cart.error  };

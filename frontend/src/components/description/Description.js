@@ -2,8 +2,8 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { MDBCol, MDBContainer, MDBRow, MDBBtn } from "mdbreact";
 import "./Description.css"
-import { useDispatch, useSelector } from 'react-redux';
-import { addProduct, selectCartStatus, setCartStatusIdle } from "../../redux/slices/CartSlice";
+import { useDispatch } from 'react-redux';
+import { addProduct } from "../../redux/slices/CartSlice";
 import { cookieKey, hostNameWithoutAPI } from '../../api/env';
 import { getCookie } from '../../api/api';
 import { Breadcrumb } from './Breadcrumb';
@@ -13,7 +13,6 @@ import { toast } from 'react-toastify';
 export function Description({data}) {
 
     const { userId } = useParams();
-    let cartStatus = useSelector(selectCartStatus)
     let [cartStateToReducer, setCartStateToReducer] = useState({
         rate: 0,
         size: "SM",
@@ -62,11 +61,7 @@ export function Description({data}) {
         }
     }
 
-    useEffect(()=>{
-        dispatch(setCartStatusIdle())
-    }, [])
-
-    // useEffect(()=>{
+     // useEffect(()=>{
     //     if (cartStatus==="rejected") {
     //         toast.error("Failed to add to cart.")
     //     }

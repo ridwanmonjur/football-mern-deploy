@@ -8,6 +8,7 @@ import { getCookie, setCookie } from '../../api/api';
 import { cookieKey } from '../../api/env';
 import {toast} from 'react-toastify';
 import { useHistory } from 'react-router-dom';
+import { setCartNull } from '../../redux/slices/CartSlice';
 
 function FullPageIntroWithNonFixedNavbar() {
 
@@ -40,14 +41,9 @@ function FullPageIntroWithNonFixedNavbar() {
         event.preventDefault()
         dispatch(setProfileNull())
         history.replace("/")
+        dispatch(setCartNull())
         toast.info("Logged out successfully")
         setCookie(cookieKey, null, 1)
-        setState((prevState) => {
-            return {
-                ...prevState,
-                isSignedIn: false
-            }
-        });
     }
 
     useEffect(() => {
