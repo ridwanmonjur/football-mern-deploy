@@ -8,7 +8,6 @@ dotenv.config({ path: __dirname + "/env/config.env" });
 
 class ErrorHandler {
   public handleError(error: Error | BaseError, response?: Response): void {
-    winstonLogger.info("entered");
     if (this.isTrustedError(error) && response) {
       this.handleTrustedError(error as BaseError, response);
     } else {
@@ -17,8 +16,6 @@ class ErrorHandler {
   }
 
   public isTrustedError(error: Error): boolean {
-    winstonLogger.info({ isOperational: error instanceof BaseError });
-
     if (error instanceof BaseError) {
       return error.isOperational;
     }

@@ -4,11 +4,10 @@ import { StatusCodes } from 'http-status-codes';
 import { APIError } from '../exceptions/AppError';
 import { deleteData, resetData } from '../resetData/seed_function'
 const router = express.Router();
-require('express-async-errors')
 
 router.get('/', (req: Request, res: Response) => {
     const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-    res.json(
+    res.status(StatusCodes.OK).json(
         {
             success: true,
             resetData: `${fullUrl}api/v1/resetData`,

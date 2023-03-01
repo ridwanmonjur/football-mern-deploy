@@ -23,6 +23,29 @@ export class UserRepository {
         }
     }
 
+    async findOne(body: any, select: any): Promise<UserInterface> {
+        try {
+            console.log({body, select})
+            return await User.findOne({ ...body }).select(select);
+        }
+        catch {
+            throw new HTTP500InternalServerrror("Unable to query user by body");
+        }
+    }
+
+    async createOne(body: any): Promise<UserInterface> {
+        try {
+            let user = new User({ ...body });
+            
+            await user.save();
+
+            return user;
+        }
+        catch {
+            throw new HTTP500InternalServerrror("Unable to create user.");
+        }
+    }
+
     async findByIdAndUpdate(userId: ObjectId, body: EditUserProfileInput): Promise<UserInterface> {
         try {
             return await User.findByIdAndUpdate(userId, { ...body }, { new: true });
@@ -31,9 +54,7 @@ export class UserRepository {
             throw new HTTP500InternalServerrror("Unable to update user with the body");
         }
     }
-// User.findByIdAndUpdate(userId, {
-    //     ...editInputs
-    // }, { new: true });
+
 
 }
 

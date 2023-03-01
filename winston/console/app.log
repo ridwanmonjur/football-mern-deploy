@@ -13861,3 +13861,327 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '3/1/2023, 6:34:21 PM'[39m
 [32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 7:23:52 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 7:23:53 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 7:23:53 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: '{"role":"Buyer","_id":"63fb04e6265c4f17ecabfc4f","name":"Miss Carla2","email":"Oscar17@gmail.com","password":"$2b$10$/Oer9Rxo4tWeEObZ.tcUtOYDKLVH/4L2WLw.j4W1fS2qkqxwVFgrW","addressFirst":"2222","addressSecond":"London, UK","creditCardNumber":"6767-1924-2626-9986-51","creditCardCVV":"484","__v":0}',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:07:34 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'success',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:07:34 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: {[39m
+[32m    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjNmYjA0ZTYyNjVjNGYxN2VjYWJmYzRmIiwicm9sZSI6IkJ1eWVyIiwiaWF0IjoxNjc3NjcyNDU0fQ.F4hRKW5kJ5_NdCxwyPuzb7xIctNdhgQT0lUAf3IEE8I'[39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:07:34 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:45:44 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:45:45 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:45:45 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:45:52 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'entered',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:45:52 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: { isOperational: true },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:45:52 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:46:01 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'entered',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:46:01 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: { isOperational: true },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:46:01 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:46:02 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'entered',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:46:02 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: { isOperational: true },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:46:02 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:46:27 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'entered',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:46:27 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: { isOperational: true },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:46:27 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:48:26 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'entered',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:48:26 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: { isOperational: true },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:48:26 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:49:24 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:49:25 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:49:25 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:49:25 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:50:44 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:51:02 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:51:03 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:51:03 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:51:04 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:54:30 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:54:46 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:54:47 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:54:47 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Attempting a graceful shutdown with code 0',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:55:28 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:55:40 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:55:41 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:55:41 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:56:02 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:56:03 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:57:57 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:57:59 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:57:59 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:57:59 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:58:00 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/1/2023, 8:58:02 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:59:26 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:59:28 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 8:59:28 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 9:02:35 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 9:02:36 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 9:02:36 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: '{"name":"Ridwan","email":"mjrrdn@gmail.com","password":"123456"}',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 10:46:45 PM'[39m
+[32m}[39m

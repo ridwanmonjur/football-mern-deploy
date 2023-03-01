@@ -4,8 +4,9 @@ export class CreateUserInput {
     @IsEmail()
     email: string;
     
-    @Length(7,12)
-    phone: string;
+    @IsString()
+    @Length(3,32)
+    name: string;
     
     @Length(6,12)
     password: string;
