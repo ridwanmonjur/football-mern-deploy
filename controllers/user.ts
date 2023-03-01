@@ -5,14 +5,14 @@ const { hash, compare } = require("bcrypt");
 import { User, UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
 import { Cart } from '../models/Cart';
 import { winstonLogger } from '../winston/logger';
-import { APIError,  HTTP401UnauthorizedError, HTTP404NotFoundError } from '../exceptions/AppError';
+import { APIError, HTTP401UnauthorizedError, HTTP404NotFoundError } from '../exceptions/AppError';
 import { ObjectId } from 'mongoose';
 import { UserService } from '../service/Auth';
 let JWT_SECRET = process.env.JWT_SECRET;
 import { plainToClass } from 'class-transformer';
 import { EditUserProfileInput } from '../inputs/user';
 import { validate } from 'class-validator';
-import { validateAndThrowError } from '../helper/validation';
+import { validateAndThrowError } from '../helper/validateAndThrowError';
 
 // just deal with request and response object here
 
@@ -40,9 +40,9 @@ export async function getCurrentUser(req: Request, res: Response, next: NextFunc
         user = await service.getUserById(userId);
         res.json({ success: true, user });
     }
-    catch {
+    catch (error) {
         if (!userId) throw new APIError("Current user is missing in the request header.");
-        else throw new HTTP404NotFoundError();
+        else next(error);
     }
 }
 
@@ -52,37 +52,30 @@ export async function getUsers(req: Request, res: Response, next: NextFunction):
         user = await service.getAllUsers();
         res.json({ success: true, user });
     }
-    catch {
-        if (!user) throw new HTTP404NotFoundError();
+    catch (error) {
+        next(error);
     }
 }
-
-
 
 export async function editCurrentUser(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     let userId: undefined | ObjectId;
     let user: UserInterface | null = null;
-    console.log({body: req.body})
     const editInputs = plainToClass(EditUserProfileInput, req.body);
     const validationError = await validate(editInputs, { validationError: { target: true } });
     validateAndThrowError(validationError);
-    winstonLogger.info({editInputs, validationError})
     try {
         userId = ObjectID(req.user);
-        user = await User.findByIdAndUpdate(userId, {
+        user = await service.findByIdAndUpdate(userId, {
             ...editInputs
-        }, { new: true });
+        }) 
         res.json({ success: true, user, userId: req.user, number: 0 });
     }
-    catch {
+    catch (error) {
         if (!userId) throw new APIError("Current user is missing in the request header.");
-        else throw new HTTP404NotFoundError();
+        else next(error);
     }
 }
-
-
-
 
 
 export async function signup(req: Request, res: Response, next: NextFunction): Promise<void> {

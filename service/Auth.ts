@@ -1,8 +1,7 @@
 import { ObjectId } from "mongoose";
-import { APIError } from "../exceptions/AppError";
+import { EditUserProfileInput } from "../inputs/user";
 import { UserInterface } from "../models/User";
 import { UserRepository } from "../repository/User";
-
 
 // All Business logic will be here
 export class UserService {
@@ -15,18 +14,25 @@ export class UserService {
 
     async getUserById(userId: ObjectId): Promise<UserInterface> {
         try {
-            return this.repository.findById(userId);
+            return await this.repository.findById(userId);
         } catch (err) {
-            throw new APIError('Data Not found', err);
+            throw err
         }
     }
 
     async getAllUsers(): Promise<Array<UserInterface>> {
         try {
-            throw new APIError("in repository...");
-            return this.repository.find();
+            return await this.repository.find();
         } catch (err) {
-            throw new APIError('Data Not found', err);
+            throw err
+        }
+    }
+
+    async findByIdAndUpdate(userId: ObjectId, editInputs: EditUserProfileInput): Promise<UserInterface> {
+        try {
+            return await this.repository.findByIdAndUpdate(userId, editInputs);
+        } catch (err) {
+            throw err
         }
     }
 

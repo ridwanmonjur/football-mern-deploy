@@ -13822,3 +13822,42 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '3/1/2023, 5:39:41 PM'[39m
 [32m}[39m
+[32m{[39m
+[32m  message: {[39m
+[32m    editInputs: EditUserProfileInput { addressFirst: 'ppppp' },[39m
+[32m    validationError: [][39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 6:33:40 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: {[39m
+[32m    editInputs: EditUserProfileInput { addressFirst: 'ppppp', name: 'hjjj' },[39m
+[32m    validationError: [][39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 6:33:57 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: {[39m
+[32m    editInputs: EditUserProfileInput { addressFirst: 'ppppp', name: 'Miss Carla' },[39m
+[32m    validationError: [][39m
+[32m  },[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 6:34:05 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 6:34:20 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 6:34:21 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 6:34:21 PM'[39m
+[32m}[39m

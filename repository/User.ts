@@ -1,5 +1,6 @@
 import { ObjectId } from "mongoose";
 import { HTTP500InternalServerrror } from "../exceptions/AppError";
+import { EditUserProfileInput } from "../inputs/user";
 import { User, UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
 
 export class UserRepository {
@@ -22,7 +23,7 @@ export class UserRepository {
         }
     }
 
-    async findByIdAndUpdate(userId: ObjectId, body: any): Promise<UserInterface> {
+    async findByIdAndUpdate(userId: ObjectId, body: EditUserProfileInput): Promise<UserInterface> {
         try {
             return await User.findByIdAndUpdate(userId, { ...body }, { new: true });
         }
@@ -30,7 +31,9 @@ export class UserRepository {
             throw new HTTP500InternalServerrror("Unable to update user with the body");
         }
     }
-
+// User.findByIdAndUpdate(userId, {
+    //     ...editInputs
+    // }, { new: true });
 
 }
 
