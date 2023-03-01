@@ -2,7 +2,6 @@ var express = require('express');
 import { addToCartPartTwo, getCart, getCarts, getProductOfCart, editCartQuantity, deleteCart, editStatus, getNewCart } from "../controllers/cart"
 import { protect } from "../middleware/auth"
 var router = express.Router({ mergeParams: true }); /* mergeParams: true so this route gets routes from other routers, especially auth route*/
-require('express-async-errors')
 
 router.use(protect)
 

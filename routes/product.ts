@@ -1,6 +1,5 @@
 var express = require('express');
 import {getProducts, getProduct, getProductBytType} from "../controllers/product"
-require('express-async-errors')
 
 var router = express.Router();
 

@@ -3,7 +3,6 @@ import { signup, login,  getUser, getUsers, getCurrentUser, editCurrentUser } fr
 import { protect } from "../middleware/auth";
 const cartRouter = require("./cart");
 const router = express.Router();
-require('express-async-errors')
 
 router.post('/signup', signup);
 

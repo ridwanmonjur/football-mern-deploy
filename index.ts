@@ -20,7 +20,6 @@ const port = process.env.PORT || 8000
 // Configure application
 
 const app: Application = express()
-require('express-async-errors')
 export const server = http.createServer(app);
 export const httpTerminator = createHttpTerminator({ server });
 app.use(cors()) // For all fetch requests for JSON fetch that involves datatype: Application/ json Must specify Content-Type: application/json in req.body
