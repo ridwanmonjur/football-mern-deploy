@@ -1,20 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
-var jwt = require('jsonwebtoken');
 const ObjectID = require("mongodb").ObjectID;
-const { hash, compare } = require("bcrypt");
-import { User, UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
-import { Cart } from '../models/Cart';
-import { winstonLogger } from '../winston/logger';
-import { APIError, HTTP401UnauthorizedError, HTTP404NotFoundError } from '../exceptions/AppError';
+import {  UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
+import { APIError } from '../exceptions/AppError';
 import { ObjectId } from 'mongoose';
 import { UserService } from '../service/Auth';
-let JWT_SECRET = process.env.JWT_SECRET;
 import { plainToClass } from 'class-transformer';
 import { CreateUserInput, EditUserProfileInput, UserLoginInput } from '../inputs/user';
 import { validate } from 'class-validator';
 import { validateAndThrowError } from '../helper/validateAndThrowError';
+import { StatusCodes } from 'http-status-codes';
 
-// just deal with request and response object here
+// controller: just deal with request and response object 
 
 const service = new UserService();
 
@@ -27,7 +23,7 @@ export async function getUser(req: Request, res: Response, next: NextFunction): 
 
         user = await service.getUserById(userId);
 
-        res.json({ success: true, user });
+        res.status(StatusCodes.OK).json({ success: true, user });
     }
     catch (error) {
         if (!userId) throw new APIError("UserId must be string");
@@ -45,7 +41,7 @@ export async function getCurrentUser(req: Request, res: Response, next: NextFunc
 
         user = await service.getUserById(userId);
 
-        res.json({ success: true, user });
+        res.status(StatusCodes.OK).json({ success: true, user });
     }
     catch (error) {
         if (!userId) throw new APIError("Current user is missing in the request header.");
@@ -59,7 +55,7 @@ export async function getUsers(req: Request, res: Response, next: NextFunction):
     try {
         user = await service.getAllUsers();
 
-        res.json({ success: true, user });
+        res.status(StatusCodes.OK).json({ success: true, user });
     }
     catch (error) {
         next(error);
@@ -82,7 +78,7 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
 
         user = await service.findByIdAndUpdate(userId, { ...editInputs });
 
-        res.json({ success: true, user, userId: req.user, number: 0 });
+        res.status(StatusCodes.CREATED).json({ success: true, user, userId: req.user, number: 0 });
     }
     catch (error) {
         if (!userId) throw new APIError("Current user is missing in the request header.");
@@ -102,7 +98,7 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
 
         const { user, cart } = await service.signupUser(signupInputs);
 
-        res.json({ user, cart, success: true });
+        res.status(StatusCodes.CREATED).json({ user, cart, success: true });
     }
     catch (error) {
         next(error);
@@ -125,7 +121,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
             httpOnly: true
         };
 
-        res.cookie('signInToken', token, options).json({ success: true, token, user });
+        res.status(StatusCodes.OK).cookie('signInToken', token, options).json({ success: true, token, user });
     }
     catch (error) {
         next(error);
