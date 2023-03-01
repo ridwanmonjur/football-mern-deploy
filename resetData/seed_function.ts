@@ -1,5 +1,5 @@
 const fs = require('fs');
-import { Schema, model, Document, Types } from 'mongoose'
+import { Types } from 'mongoose'
 var faker = require('faker');
 const { hashSync } = require("bcrypt")
 const saltRounds: number = 10
@@ -13,9 +13,8 @@ interface ProductObject {
   name: string, price: number | string, productOwner: string, manufacturer: string, type: string, quantity: number,
 }
 
-// Read JSON files: NOT ASYNC IF CALL ASYNC PROBLEM
 function readFiles(_fileName: string): Array<ProductInterface> {
-  // get JSON string
+
   let JSONString = fs.readFileSync(`${__dirname}/${_fileName}.json`, 'utf-8')
 
   let JSONObject: Array<ProductObject> = JSON.parse(JSONString)
@@ -33,28 +32,12 @@ function readFiles(_fileName: string): Array<ProductInterface> {
     } as ProductInterface
   })
 }
-/*
-    user: PopulatedDoc<UserInterface>,
-    products: [
-        {
-            quantity: number,
-            productDetails: PopulatedDoc<ProductInterface>
-        },
-    ],
-    paid: boolean,
-    total: number
-*/
-// Import into DB
+
 const importData = async () => {
-  // not async connectDB
-  // not async readfiles
-  // await readFiles("accessories")
 
   let loop: number = 0
-
   let users: Array<UserInterface> = []
   let carts: Array<CartInterface> = []
-
   for (loop = 0; loop < 10; loop++) {
     users.push(new User({
       name: faker.name.findName(),
@@ -103,19 +86,15 @@ const importData = async () => {
   })
   try {
     await Product.create(JSONStringToObject)
-
     winstonLogger.info(JSONStringToObject)
-
-    // console.log(colors.green.inverse('Data Imported...'))
     winstonLogger.info("Data imported.... ")
-
   } catch (err) {
     winstonLogger.error(err)
   }
 };
 
 // Delete data
-const deleteData = async () => {
+export const deleteData = async () => {
   try {
     await Product.deleteMany()
     await User.deleteMany()
@@ -139,8 +118,6 @@ export const resetData = async () => {
     await deleteData()
     await importData()
     winstonLogger.info("Data replaced...")
-    // console.log(colors.red.inverse('Data Replaced...'))
-    // process.exit()
   } catch (err) {
     winstonLogger.error(err)
   }

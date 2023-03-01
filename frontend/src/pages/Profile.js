@@ -35,7 +35,7 @@ function Profile() {
                             <div><Spinner /></div>
                         }
                         {
-                            user && statusProfile === "success" &&
+                            user && statusProfile === success &&
                             <>
                                 <MDBRow className="px-5 my-0 mx-auto w-75 ">
                                     <MDBNav pills className="mx-auto amber-text my-0 prepostTitle d-flex flex-column justify-content-center">

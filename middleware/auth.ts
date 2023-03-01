@@ -1,37 +1,36 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { APIError, HTTP401UnauthorizedError } from '../exceptions/AppError';
 
-let JWT_SECRET = 'secret'
+let JWT_SECRET = process.env.JWT_SECRET;
 
-const protect= (req: Request, res: Response, next: NextFunction) => {
+const protect = (req: Request, res: Response, next: NextFunction) => {
     const token = req.header('authorization');
-
-    // Check for token
-    if (!token)
-        return res.status(401).json({ msg: 'No token, authorization denied' });
+    if (!token)     // Check for token
+        throw new HTTP401UnauthorizedError(); // return res.status(StatusCodes.UNAUTHORIZED).json({ msg: 'No token, authorization denied' });
 
     try {
-        // Verify token
-        const decoded = jwt.verify(token, JWT_SECRET);
-        // Add user from payload
-        let {user, role} = decoded
+        const decoded = jwt.verify(token, JWT_SECRET);  // Verify token
+        let { user, role } = decoded;  // Add user from payload
         req.user = user;
         req.role = role;
         next();
     } catch (e) {
-        res.status(400).json({ success: false, msg: 'Token is not valid' });
+        throw new APIError('Token is not valid', StatusCodes.BAD_REQUEST);
     }
 };
 
 const authorize = (...roles: string[]) => {
     return (req: Request, res: Response, next: NextFunction) => {
         if (!roles.includes(req.role)) {
-            res.status(400).json({ success: false, msg: 'Token is not valid' })
+            throw new APIError('Token is not valid', StatusCodes.BAD_REQUEST);
         }
+
         else {
             next();
         }
     };
 };
 
-export {authorize, protect}
+export { authorize, protect };

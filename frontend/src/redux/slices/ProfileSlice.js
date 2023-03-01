@@ -49,7 +49,7 @@ export const slice = createSlice({
       if (payload.success ) {
         state.profileDetails = { ...payload.user }
         state.isSignedIn = true;
-        state.status = "success";
+        state.status = success;
       }
       else {
         state.isSignedIn = false;
@@ -67,7 +67,7 @@ export const slice = createSlice({
     builder.addCase(editProfile.fulfilled, (state, { payload }) => {
       if (payload.success) {
         state.profileDetails = { ...payload.user }
-        state.status = "success";
+        state.status = success;
       }
       else {
         state.status = "failed";

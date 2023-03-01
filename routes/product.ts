@@ -1,6 +1,6 @@
 var express = require('express');
 import {getProducts, getProduct, getProductBytType} from "../controllers/product"
-const cartRouter= require("./cart")
+require('express-async-errors')
 
 var router = express.Router();
 
@@ -13,7 +13,4 @@ router.route('/:productId')
 router.route('/type/:productType')
         .get(getProductBytType)
 
-// module.exports? or 
-// export {router} does not work
-// export router gives error
 module.exports= router

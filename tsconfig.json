@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+      "experimentalDecorators": true,
       "typeRoots": ["./types"],
   },
   "exclude": [
 		"node_modules",
-		"wwwroot"
+		"wwwroot",
+    "frontend"
 	]
 }

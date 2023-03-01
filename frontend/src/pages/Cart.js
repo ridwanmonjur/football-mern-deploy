@@ -99,7 +99,7 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
 
             {
               (((data.products &&
-                !data.products[0] && cartStatus === "success") || !isSignedIn) && !isPartOfPurchaseView) &&
+                !data.products[0] && cartStatus === success) || !isSignedIn) && !isPartOfPurchaseView) &&
               <div className="text-align-center mx-auto mt-5">
                 <Empty />
               </div>
