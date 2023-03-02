@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { ObjectId } from 'mongoose';
-import { APIError, HTTP404NotFoundError } from '../exceptions/AppError';
+import { HTTP404NotFoundError, HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { ProductInterface } from '../models/Product';
 import { ProductService } from '../service/Product';
 const ObjectID = require("mongodb").ObjectID;
@@ -19,19 +19,21 @@ export async function getProducts(_req: Request, res: Response, next: NextFuncti
     }
 }
 
-export async function getProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function getProductById(req: Request, res: Response, next: NextFunction): Promise<void> {
     let productId: undefined | ObjectId;
 
     let product: undefined | ProductInterface;
     try {
-        productId = ObjectID(req.params.userId);
+        productId = ObjectID(req.params.productId);
 
         product = await service.getProductById(productId);
+
+        if(!product) throw new HTTP404NotFoundError("Product is not found");
 
         res.status(StatusCodes.OK).json({ success: true, product });
     }
     catch (error) {
-        if (!productId) throw new APIError("UserId must be string");
+        if (!productId) throw new HTTP422UnproccessableEntity("UserId must be string");
 
         else next(error);
     }
@@ -45,11 +47,13 @@ export async function getProductBytType(req: Request, res: Response, next: NextF
         type = req.params.productType;
         
         product = await service.findOneProduct({ type });
+
+        if(!product) throw new HTTP404NotFoundError("Products are not found");
         
         res.status(StatusCodes.OK).json({ success: true, product });
     }
     catch (error) {
-        if (!type) throw new APIError("Type of product must be passed in request parameter correctly.");
+        if (!type) throw new HTTP422UnproccessableEntity("Type of product must be passed in request parameter correctly.");
 
         else next(error);
     }

@@ -1,43 +1,41 @@
 import { ObjectId } from "mongoose";
 import { HTTP500InternalServerrror } from "../exceptions/AppError";
-import { EditUserProfileInput } from "../inputs/user";
 import { Cart, CartInterface } from "../models/Cart";
-import { User, UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
 
 export class CartRepository {
 
-    // async findById(userId: ObjectId): Promise<UserInterface> {
-    //     try {
-    //         return await User.findById(userId);
-    //     }
-    //     catch {
-    //         throw new HTTP500InternalServerrror("Unable to query user by ID");
-    //     }
-    // }
 
-    // async find(): Promise<Array<UserInterface>> {
-    //     try {
-    //         return await User.find({});
-    //     }
-    //     catch {
-    //         throw new HTTP500InternalServerrror("Unable to query all users");
-    //     }
-    // }
+    async findOne(where: any, populate?: Array<string>): Promise<CartInterface> {
 
-    // async findOne(body: any, select: any): Promise<UserInterface> {
-    //     try {
-    //         console.log({body, select})
-    //         return await User.findOne({ ...body }).select(select);
-    //     }
-    //     catch {
-    //         throw new HTTP500InternalServerrror("Unable to query user by body");
-    //     }
-    // }
+        try {
+            if (populate) {
+                const [_, __] = populate;
+
+                return await Cart.findOne({ ...where }).populate(_, __);
+            }
+            else {
+                return await Cart.findOne({ ...where })
+            }
+        }
+        catch {
+            throw new HTTP500InternalServerrror("Unable to query user by body");
+        }
+    }
+
+    async find(populate: Array<string>): Promise<Array<CartInterface>> {
+        const [_, __] = populate;
+        try {
+            return await Cart.find({}).populate(_, __);
+        }
+        catch {
+            throw new HTTP500InternalServerrror("Unable to query user by body");
+        }
+    }
 
     async createOne(body: any): Promise<CartInterface> {
         try {
             let cart = new Cart({ ...body });
-            
+
             await cart.save();
 
             return cart;
@@ -47,6 +45,33 @@ export class CartRepository {
         }
     }
 
+    async updateOne(where: any, body: any): Promise<void> {
+        try {
+            await Cart.updateOne(
+                { ...where },
+                { ...body }
+            );
+        }
+        catch {
+            throw new HTTP500InternalServerrror("Unable to update carts");
+        }
+    }
+
+    async updateMany(where: any, body: any): Promise<void> {
+        try {
+            await Cart.updateMany(
+                { ...where },
+                { ...body }
+            );
+        }
+        catch {
+            throw new HTTP500InternalServerrror("Unable to update carts");
+        }
+    }
+
+
+
 
 }
+
 

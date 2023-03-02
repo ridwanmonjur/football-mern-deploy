@@ -68,7 +68,7 @@ export class HTTP406NotAccpetable extends BaseError {
     }
 }
 
-export class HTPP422UnproccessableEntity extends BaseError {
+export class HTTP422UnproccessableEntity extends BaseError {
     constructor(description = "Wrong request body") {
         super('UNPROCESSABLE ENTITY', StatusCodes.UNPROCESSABLE_ENTITY, description, true);
     }

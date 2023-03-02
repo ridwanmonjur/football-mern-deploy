@@ -23,10 +23,10 @@ export class UserRepository {
         }
     }
 
-    async findOne(body: any, select: any): Promise<UserInterface> {
+    async findOne(where: any, select: any): Promise<UserInterface> {
         try {
-            console.log({body, select})
-            return await User.findOne({ ...body }).select(select);
+            console.log({where, select})
+            return await User.findOne({ ...where }).select(select);
         }
         catch {
             throw new HTTP500InternalServerrror("Unable to query user by body");

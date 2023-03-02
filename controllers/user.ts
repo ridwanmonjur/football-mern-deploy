@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 const ObjectID = require("mongodb").ObjectID;
 import {  UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
-import { APIError } from '../exceptions/AppError';
+import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { ObjectId } from 'mongoose';
 import { UserService } from '../service/Auth';
 import { plainToClass } from 'class-transformer';
@@ -26,7 +26,7 @@ export async function getUser(req: Request, res: Response, next: NextFunction): 
         res.status(StatusCodes.OK).json({ success: true, user });
     }
     catch (error) {
-        if (!userId) throw new APIError("UserId must be string");
+        if (!userId) throw new HTTP422UnproccessableEntity("UserId must be string");
 
         else next(error);
     }
@@ -44,13 +44,13 @@ export async function getCurrentUser(req: Request, res: Response, next: NextFunc
         res.status(StatusCodes.OK).json({ success: true, user });
     }
     catch (error) {
-        if (!userId) throw new APIError("Current user is missing in the request header.");
+        if (!userId) throw new HTTP422UnproccessableEntity("Current user is missing in the request header.");
 
         else next(error);
     }
 }
 
-export async function getUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function getUsers(_req: Request, res: Response, next: NextFunction): Promise<void> {
     let user: undefined | Array<UserInterface>;
     try {
         user = await service.getAllUsers();
@@ -81,7 +81,7 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
         res.status(StatusCodes.CREATED).json({ success: true, user, userId: req.user, number: 0 });
     }
     catch (error) {
-        if (!userId) throw new APIError("Current user is missing in the request header.");
+        if (!userId) throw new HTTP422UnproccessableEntity("Current user is missing in the request header.");
 
         else next(error);
     }

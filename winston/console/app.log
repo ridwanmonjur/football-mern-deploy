@@ -14185,3 +14185,147 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '3/1/2023, 10:46:45 PM'[39m
 [32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 11:48:59 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 11:49:00 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 11:49:00 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 11:50:58 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 11:50:59 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/1/2023, 11:50:59 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 12:01:57 AM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Application encountered an untrusted error.',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/2/2023, 12:01:57 AM'[39m
+[31m}[39m
+[31m{[39m
+[31m  errno: -5,[39m
+[31m  syscall: 'write',[39m
+[31m  code: 'EIO',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/2/2023, 12:01:57 AM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 12:01:58 AM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 12:01:58 AM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Attempting a graceful shutdown with code 0',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/2/2023, 12:02:37 AM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 2:32:18 AM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 2:32:19 AM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 2:32:19 AM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'No authentication done.',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/2/2023, 4:08:54 AM'[39m
+[31m}[39m
+[31m{[39m
+[31m  message: 'Attempting a graceful shutdown with code 0',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/2/2023, 4:24:41 AM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 8:55:29 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 8:55:30 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 8:55:30 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 9:10:23 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 9:10:24 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 9:10:24 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Application encountered an untrusted error.',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/2/2023, 9:30:06 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  code: 'EADDRINUSE',[39m
+[31m  errno: -98,[39m
+[31m  syscall: 'listen',[39m
+[31m  address: '::',[39m
+[31m  port: 8000,[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/2/2023, 9:30:06 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 9:30:07 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '3/2/2023, 9:30:07 PM'[39m
+[32m}[39m

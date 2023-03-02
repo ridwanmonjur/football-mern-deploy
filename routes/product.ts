@@ -1,5 +1,5 @@
 var express = require('express');
-import {getProducts, getProduct, getProductBytType} from "../controllers/product"
+import {getProducts, getProductById, getProductBytType} from "../controllers/product"
 
 var router = express.Router();
 
@@ -7,7 +7,7 @@ router.route('/')
         .get(getProducts)
 
 router.route('/:productId')
-        .get(getProduct)
+        .get(getProductById)
 
 router.route('/type/:productType')
         .get(getProductBytType)
