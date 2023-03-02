@@ -23,7 +23,7 @@ export async function GetOneUser() {
   const response = await api('GET', 'user', {
       mode: 'cors',
     })
-  if (!response || ("users" in response) === false) throw new Error("Missing products data")
+  if (!response || ("users" in response) === false) throw new Error("Missing user's data")
   const {users} = response
   return users[0]
 

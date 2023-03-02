@@ -11,7 +11,10 @@ const useLoadingFetchError = (fetchFunction, args) => {
         setState({ loading: true, eror: false, data: [] });
 
         fetchFunction(args)
-            .then((data) => setState({ data, loading: false, error: false }))
+            .then((data) => {
+                console.log({ data })
+                setState({ data, loading: false, error: false })
+            })
             .catch((error) => {
                 setState({ loading: false, error: error, data: null })
                 toast.error(error.message)

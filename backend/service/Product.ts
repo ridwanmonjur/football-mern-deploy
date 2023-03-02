@@ -20,9 +20,10 @@ export class ProductService {
         }
     }
 
-    async getAllProducts(): Promise<Array<ProductInterface>> {
+    async getAllProducts(where?: any): Promise<Array<ProductInterface>> {
+        where ??= {}
         try {
-            return await this.repository.find();
+            return await this.repository.find(where);
         } catch (err) {
             throw err;
         }

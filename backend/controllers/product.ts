@@ -10,9 +10,9 @@ const service = new ProductService();
 
 export async function getProducts(_req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        let products = await service.getAllProducts();
+        let product = await service.getAllProducts();
 
-        res.status(StatusCodes.OK).json({ success: true, products });
+        res.status(StatusCodes.OK).json({ success: true, product });
     }
     catch (err) {
         next(err);
@@ -42,11 +42,11 @@ export async function getProductById(req: Request, res: Response, next: NextFunc
 export async function getProductBytType(req: Request, res: Response, next: NextFunction): Promise<void> {
     let type: undefined | string;
 
-    let product: undefined | ProductInterface;
+    let product: undefined | Array<ProductInterface>;
     try {
         type = req.params.productType;
         
-        product = await service.findOneProduct({ type });
+        product = await service.getAllProducts({ type });
 
         if(!product) throw new HTTP404NotFoundError("Products are not found");
         
