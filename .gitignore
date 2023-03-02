@@ -1,6 +1,5 @@
 *node_modules
 **/node_modules
-/env
 node_modules
 build
 /node_modules
@@ -10,6 +9,9 @@ winston/console/**
 .eslintcache
 frontend/.eslintcache
 winston/console/app.log
+<<<<<<< HEAD
 frontend/.eslintcache
 winston/console/app.log
+=======
+>>>>>>> 4b617b00cb265052eac033eb6556a18c983a2bab
 backend/env/config.env

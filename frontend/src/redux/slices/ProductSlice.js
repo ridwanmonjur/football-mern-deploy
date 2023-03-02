@@ -36,7 +36,7 @@ export const product = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchAll.fulfilled, (state, { payload }) => {
             state.products = [...payload.product]
-            state.status = "success"
+            state.status = success
         })
         builder.addCase(fetchAll.pending, (state) => {
             state.status = "loading"
