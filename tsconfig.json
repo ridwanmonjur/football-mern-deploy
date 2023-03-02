@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-      "typeRoots": ["./types"],
-  },
-  "exclude": [
-		"node_modules",
-		"wwwroot"
-	]
-}

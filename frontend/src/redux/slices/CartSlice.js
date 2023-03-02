@@ -69,7 +69,7 @@ export const slice = createSlice({
     builder.addCase(fetchCart.fulfilled, (state, { payload }) => {
       if (payload.success) {
         state.cartValues = { ...payload.cart }
-        state.status = "success"
+        state.status = success
       }
       else{
         state.status = "failed"
@@ -86,7 +86,7 @@ export const slice = createSlice({
 
     builder.addCase(addProduct.fulfilled, (state, { payload }) => {
       if (payload.success) {
-        state.status = "success"
+        state.status = success
         toast.dismiss()
         toast.success("Added product to cart!")
       }
@@ -112,7 +112,7 @@ export const slice = createSlice({
     builder.addCase(editProduct.fulfilled, (state, { payload }) => {
       if (payload.success) {
         let { cart } = payload
-        state.status = "success";
+        state.status = success;
         state.cartValues = {
           ...state.cartValues,
           description: [...cart.description],
@@ -134,7 +134,7 @@ export const slice = createSlice({
     builder.addCase(deleteProduct.fulfilled, (state, { payload }) => {
       if (payload.success) {
         let { index } = payload
-        state.status = "success";
+        state.status = success;
         index= parseInt(index)
         state.cartValues.products= state.cartValues.products.filter((_val, currIndex)=> index!== currIndex)
         state.cartValues.description= state.cartValues.description.filter((_val, currIndex)=> index!== currIndex)
