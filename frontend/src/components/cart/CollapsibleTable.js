@@ -27,7 +27,7 @@ export function CustomCollpsibleTable({ data, deleteCart, cartStatus, rows, togg
                     </div>
                 </div>
                 {
-                    cartStatus === success &&
+                    cartStatus === "success" &&
                     data.products &&
                     data.products[0] !== null &&
                     rows.map((val, index) => {

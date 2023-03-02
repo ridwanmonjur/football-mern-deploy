@@ -19,6 +19,8 @@ export async function GetAllCarts() {
 }
 
 
+
+
 export async function EditProduct(body, productId) {
 
     const response = await api('PUT', `user/cart/product/${productId}`, {
@@ -43,4 +45,3 @@ export async function FetchCart() {
     return response
 
 }
-

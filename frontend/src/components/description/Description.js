@@ -64,7 +64,7 @@ export function Description({data}) {
     //     if (cartStatus==="rejected") {
     //         toast.error("Failed to add to cart.")
     //     }
-    //     if (cartStatus===success) {
+    //     if (cartStatus==="success") {
     //         toast.success("Added to cart successfully.")
     //     }
     //     if (cartStatus==="loading") {
