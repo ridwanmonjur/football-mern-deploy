@@ -1,5 +1,5 @@
 import { ValidationError } from 'class-validator/types/validation/ValidationError';
-import { HTPP422UnproccessableEntity } from '../exceptions/AppError';
+import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
 
 export function validateAndThrowError(validationError: ValidationError[]) {
     const validationLength = validationError.length;
@@ -13,7 +13,7 @@ export function validateAndThrowError(validationError: ValidationError[]) {
         }
     ) as any as string;
     if (validationLength > 0) {
-        throw new HTPP422UnproccessableEntity(
+        throw new HTTP422UnproccessableEntity(
             `${allValidations} properties failed validation.`
         );
     }
