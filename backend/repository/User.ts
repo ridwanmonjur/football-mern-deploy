@@ -36,7 +36,7 @@ export class UserRepository {
     async createOne(body: any): Promise<UserInterface> {
         try {
             let user = new User({ ...body });
-            
+
             await user.save();
 
             return user;
