@@ -18,8 +18,14 @@ export async function GetAllCarts() {
 
 }
 
+export async function PostNewCart(body) {
 
+    const response = await api('POST', `cart`, {
+        mode: 'cors', body
+      })
+    return response
 
+}
 
 export async function EditProduct(body, productId) {
 

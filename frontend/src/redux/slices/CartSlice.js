@@ -35,13 +35,7 @@ export const fetchCart = createAsyncThunk(
 
 const initialState = {
   cartValues: null,
-  // {
-  //   // Redux needs immutale changes, but JS 2D arrays are diffucult to change immutably
-  //   products: null,
-  //   description: [{ quantity: 0, size: "" }],
-  //   total: 0,
-  //   paid: false
-  // },
+  total: 0,
   status: "idle",
   error: "",
 }
@@ -116,6 +110,7 @@ export const slice = createSlice({
         state.cartValues = {
           ...state.cartValues,
           description: [...cart.description],
+          total: cart.total
         };
       }
       else{

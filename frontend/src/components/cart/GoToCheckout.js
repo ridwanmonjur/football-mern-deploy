@@ -1,5 +1,5 @@
 import { MDBCardBody, MDBBtn } from "mdbreact"
-export function Checkout({ isPartOfPurchaseView, checkOut, total }) {
+export function GoToCheckout({ isPartOfPurchaseView, checkOut, total }) {
     return (
       <>
         {
@@ -12,7 +12,7 @@ export function Checkout({ isPartOfPurchaseView, checkOut, total }) {
                     items to your cart does not mean booking them.</p>
                   {/* <Redirect to="/checkOut"> */}
                   <div className="mb-3">
-                    <MDBBtn onClick={() => { checkOut(total) }} outline color="amber lighten-1">Check Out</MDBBtn>
+                    <MDBBtn onClick={() => { checkOut(total) }} outline color="amber lighten-1">Go to check out confirmation</MDBBtn>
                   </div>
                   {/* </Redirect> */}
                 </div>

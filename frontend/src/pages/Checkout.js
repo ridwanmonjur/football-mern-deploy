@@ -6,55 +6,29 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectProfileDetails, fetchProfile, editProfile } from "../redux/slices/ProfileSlice";
 import { useHistory } from "react-router";
 import { api } from "../api/api";
-import {toast } from "react-toastify"
+import { toast } from "react-toastify"
+import { PostNewCart } from "../api/cart";
+import StripeCheckout from 'react-stripe-checkout';
+
 function CheckOut() {
 
     let user = useSelector(selectProfileDetails)
     let history = useHistory()
     const dispatch = useDispatch()
 
-    let [input, setInput] = useState({
-        addressFirst: "",
-        addressSecond: "",
-        creditCardCVV: "",
-        creditCardNumber: "",
-        changed: false
-    })
 
-    // change value
-    let onChange = async (event) => {
-        const target = event.target;
-        const value = target.value;
-        const name = target.id;
-        if (input.changed) {
-            setInput({
-                ...input,
-                [name]: value
-            });
-        } else {
-            setInput({
-                ...input,
-                changed: true,
-                [name]: value
-            });
-        }
-    }
-
-
-    let updateAddressCard = async () => {
-        if (user.addressFirst && user.addressSecond && user.creditCardNumber && user.creditCardCVV) {
-            if (input.changed) {
-                await dispatch(editProfile({ body: { addressFirst: input.addressFirst, addressSecond: input.addressSecond, creditCardNumber: input.creditCardNumber, creditCardCVV: input.creditCardCVV } }))
-            }
-            await api('POST', 'cart', {
-                mode: 'cors'
+    const onToken = (token) => {
+        PostNewCart({ token })
+            .then(response => {
+                response.json()
             })
-            history.replace("/purchases")
-        }
-        else {
-            toast.error("First add a credit card.")
-        }
+            .then(data => {
+                alert(`We are in business, ${data.email}`);
+            }).catch((error) => {
+                toast.error(error.message)
+            })
     }
+
 
 
     useEffect(() => {
@@ -82,7 +56,7 @@ function CheckOut() {
             controller?.abort();
 
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.creditCardNumber])
 
     return (
@@ -140,7 +114,7 @@ function CheckOut() {
 
                                 <MDBCard>
                                     <MDBCardBody>
-                                        
+
                                         <h4 className="my-1 text-center text-warning">Summary</h4>
                                         <hr />
                                         <MDBRow>

@@ -1,3 +1,4 @@
 export function roundOff(a){
-    return  Math.round(a * 100.0) / 100.0
+    return a.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+
 }

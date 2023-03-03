@@ -42,7 +42,7 @@ export function Description({data}) {
     let addToCart = async () => {
         let size = document.querySelector('select[name=size]').value
         let quantity = parseFloat(document.querySelector('input[name=quantity]').value)
-        let body = { size, quantity }
+        let body = { size, quantity, price: data.price }
 
         if (cartStateToReducer.quantity > 0) {
 

@@ -1,11 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-
 import Home from './Home';
 import Cart from './Cart';
 import SignIn from './SignIn';
-import CheckOut from './CheckOut';
+import CheckOutConfirm from './CheckOutConfirm';
 import SignUp from './SignUp';
 import Profile from './Profile';
 import JerseysPartTwo from './Listing';
@@ -25,8 +24,8 @@ function Routes() {
       <Route path="/purchases">
         <Purchases />
       </Route>
-      <Route path="/checkOut">
-        <CheckOut />
+      <Route path="/confirmCheckOut">
+        <CheckOutConfirm />
       </Route>
       <Route path="/signIn">
         <SignIn />
@@ -37,7 +36,6 @@ function Routes() {
       <Route path="/profile">
         <Profile />
       </Route>
-
       <Route exact path="/products/:productName">
         <JerseysPartTwo />
       </Route>

@@ -10,7 +10,7 @@ import Empty from "../components/notifications/empty";
 import Spinner from "../components/notifications/spinner";
 import { deepCopyObj } from "../helper/deepCopy";
 import Rodal from "rodal";
-import { CustomCollpsibleTable, generateColumns, generateRows, Checkout } from "../components/cart";
+import { CustomCollpsibleTable, generateColumns, generateRows, GoToCheckout } from "../components/cart";
 import { selectIsSignedIn } from "../redux/slices/ProfileSlice";
 export default function Cart({ data = null, isPartOfPurchaseView = false }) {
   let data2 = useSelector(selectCart)
@@ -32,6 +32,7 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
   const cartStatus = useSelector(selectCartStatus)
 
   useEffect(() => {
+    console.log({isSignedIn})
     async function fetchData() {
       await dispatch(fetchCart())
     }
@@ -50,7 +51,7 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
       controller?.abort();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.length])
+  }, [data.length, isSignedIn])
 
   let handleInputChange = async (event, index) => {
     let quantity = parseInt(event.target.value);
@@ -70,7 +71,7 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
       toast("Purchase an item first!");
     }
     else {
-      history.replace("/checkOut")
+      history.replace("/confirmCheckOut")
     }
   }
 
@@ -78,8 +79,8 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
     dispatch(deleteProduct(index))
   }
 
-  let { total, rows } = generateRows({ isPartOfPurchaseView, data, deleteCart, handleInputChange })
-
+  let { rows } = generateRows({ isPartOfPurchaseView, data, deleteCart, handleInputChange })
+  let { total } = data
 
   return (
     <div style={{ ...(!isPartOfPurchaseView && { minHeight: "100vh" }) }}>
@@ -122,7 +123,7 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
               </div>
             </Rodal>
           }
-          <Checkout {...{ isPartOfPurchaseView, checkOut, total }} />
+          <GoToCheckout {...{ isPartOfPurchaseView, checkOut, total }} />
         </MDBCard>
       </MDBRow>
     </div >

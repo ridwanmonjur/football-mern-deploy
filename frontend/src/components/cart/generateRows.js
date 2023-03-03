@@ -3,14 +3,11 @@ import { hostNameWithoutAPI } from "../../api/env";
 import { MDBIcon } from "mdbreact";
 
 export function generateRows({ isPartOfPurchaseView, data, deleteCart, handleInputChange }) {
-    let total = 0
     let rows = []
     if (data.products) {
       if (data.products[0] !== null) {
         data.products.forEach((value, index) => {
-          let totalPrice = 0
-          totalPrice = parseFloat(data.description[index].quantity) * roundOff(parseFloat(value.price))
-          total += roundOff(totalPrice)
+          let totalPrice  = roundOff(data.description[index].subtotal)
           rows.push(
             {
               'imageSrc': <img src={`${hostNameWithoutAPI}assets/${value.type}/${value.image}`} alt="" style={{ width: "50px" }} />,
@@ -29,5 +26,5 @@ export function generateRows({ isPartOfPurchaseView, data, deleteCart, handleInp
         });
       }
     }
-    return { rows, total }
+    return { rows }
   }

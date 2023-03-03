@@ -56,24 +56,36 @@ export class CartService {
 
     async addToCart(body: any, userId: ObjectId, productId: string): Promise<CartInterface | null> {
         let cart: CartInterface | null;
+
         let quantity: number = parseInt(body.quantity);
+
         let size: string = body.size;
+
+        let price: number = body.price;
+
         let isSame: boolean = false;
+
         const whereCart = { user: userId, status: "active" }
         try {
             cart = await this.repository.findOne(whereCart);
             if (cart && cart.description) {
                 // If existing product in the cart, then just can edit quanity.
+                let { total } = cart
                 cart.products.forEach(async function (value, index,) {
                     if (value.toString() === productId && cart?.description[index].size === size) {
                         cart.description[index].quantity += quantity;
+                        cart.description[index].subtotal += price * quantity
                         isSame = true;
                     }
                 });
                 if (isSame) await cart?.save();
                 // Else push in the new product
                 else {
-                    const update = { $push: { products: productId, description: { quantity, size } } }
+                    const update = {
+                        total: (total + (price * quantity)),
+                        $push: { products: productId, description: { quantity, size, price, subtotal: price * quantity } }
+                    }
+
                     await this.repository.updateOne(whereCart, update);
                 }
                 // Update the stock
@@ -89,28 +101,41 @@ export class CartService {
 
     async editCart(body: any, userId: ObjectId, productId: string): Promise<CartInterface | null> {
         let cart: CartInterface | null;
+        
         let quantity: number = parseInt(body.quantity);
+        
         let size: string = body.size;
-        let isSame: boolean = false;
+        
         let currentQuantity: number = 0;
+        
         const whereCart = { user: userId, status: "active" }
+        
         try {
             cart = await this.repository.findOne(whereCart);
-            if (cart  && cart.description) {
+        
+            let { total } = cart
+        
+            if (cart && cart.description) {
                 // Since the existing product is in the cart, then just can edit quanity.
                 cart.products.forEach(async function (value, index,) {
                     if (value.toString() === productId && cart?.description[index].size === size) {
                         currentQuantity = quantity;
-                        if (cart) cart.description[index].quantity = quantity;
-                        isSame = true;
+                
+                        cart.description[index].quantity = quantity;
+                
+                        cart.total -= cart.description[index].subtotal
+                
+                        cart.description[index].subtotal = cart.description[index].price * quantity
+                
+                        cart.total += cart.description[index].subtotal
                     }
                 });
-                if (isSame) await cart?.save();
+                await cart?.save();
                 // Update the stock
                 const increment = { $inc: { "stock": currentQuantity + (-1 * quantity) } }
+                
                 await this.productRepository.findByIdAndUpdate(productId, increment);
             }
-            console.log({ cart, whereCart, size, quantity })
             return cart;
         }
         catch (error) {
@@ -135,6 +160,8 @@ export class CartService {
 
                 quantity = cart.description[deleteProductIndex].quantity;
 
+                cart.total -= cart.description[deleteProductIndex].subtotal
+
                 cart.products = cart.products.filter((_value, currindex) => currindex !== deleteProductIndex);
 
                 cart.description = cart.description.filter((_value, currindex) => currindex !== deleteProductIndex);
@@ -142,13 +169,11 @@ export class CartService {
                 await cart.save();
             }
 
-            else throw new APIError ("Malformed cart")
+            else throw new APIError("Malformed cart")
 
             const incrementBody = { $inc: { "stock": quantity } };
 
             await this.productRepository.findByIdAndUpdate(productId, incrementBody);
-
-            console.log({ cart, productId, deleteProductIndex, userId, quantity })
 
             return deleteProductIndex;
         }
