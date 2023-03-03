@@ -10,7 +10,7 @@ import Empty from "../components/notifications/empty";
 import Spinner from "../components/notifications/spinner";
 import { deepCopyObj } from "../helper/deepCopy";
 import Rodal from "rodal";
-import { CustomCollpsibleTable, generateColumns, generateRows, GoToCheckout } from "../components/cart";
+import { CustomCollpsibleTable, generateColumns, generateRows, GoToCheckout, returnDateFormatted } from "../components/cart";
 import { selectIsSignedIn } from "../redux/slices/ProfileSlice";
 export default function Cart({ data = null, isPartOfPurchaseView = false }) {
   let data2 = useSelector(selectCart)
@@ -88,6 +88,8 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
         <MDBCard border="light" style={{ marginTop: "50px", boxShadow: "0px 0px black !important", borderWidth: "0", outlineWidth: "0 important" }} shadow="0">
           <MDBCardBody>
             {!isPartOfPurchaseView && <h3 className="text-warning my-2 text-center"> Shopping Cart </h3>}
+            {isPartOfPurchaseView && <h5 className="text-warning my-2 text-center"> {returnDateFormatted(data.paidAt)} </h5>}
+
             <br />
             <MDBTable className="product-table d-none d-lg-table w-80">
               <MDBTableHead className="form-control font-weight-bold" color="amber lighten-5" columns={columns} />
@@ -110,7 +112,7 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
               <div className="pr-5">
                 <div className="mt-3 d-flex justify-content-end">
                   <strong>TOTAL : &nbsp;</strong>
-                  <strong className="ml-4">{roundOff(total)}</strong>
+                  <strong className="ml-4">£{roundOff(total)}</strong>
                 </div>
               </div>
             }

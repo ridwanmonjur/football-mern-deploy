@@ -1,5 +1,5 @@
-import React, { useState,  Fragment } from 'react'
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle,  MDBTooltip} from 'mdbreact';
+import React, { useState, Fragment } from 'react'
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBTooltip } from 'mdbreact';
 import { NavLink } from 'react-router-dom';
 import "./GridVertical.css"
 import { hostNameWithoutAPI } from '../../api/env';
@@ -38,7 +38,7 @@ function GridVertical({ productName, data }) {
                     {
                         data !== null &&
                         data.map((value, index) => {
-                            if (  index<begin || index>= length+begin ) return null
+                            if (index < begin || index >= length + begin) return null
                             else return (
                                 <Fragment key={`${index}${value._id}`}>
                                     <MDBCard className="px-0 mx-0" style={{ border: "1px solid gold" }}>
@@ -57,7 +57,7 @@ function GridVertical({ productName, data }) {
                                                     </MDBTooltip>
                                                 </MDBCardTitle>
                                                 <p className="card-text-custom text-bold">
-                                                    {value.price}
+                                                    £ {value.price}
                                                 </p>
                                             </MDBCardBody>
                                         </NavLink>

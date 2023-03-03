@@ -60,10 +60,11 @@ export default function Purchases() {
                       )
                       if (value.status === 'active') return null
                       return (
-                        <>
-                          {value.paidAt && <p className="my-2 text-center"> {returnDateFormatted(value.paidAt)} </p>}
+                        <div key={value._id}>
+                          <div className="text-center">
+                          </div>
                           <Cart key={`${value}${index}history`} data={value} isPartOfPurchaseView={true} />
-                        </>
+                        </div>
                       )
                     })}
                   </>

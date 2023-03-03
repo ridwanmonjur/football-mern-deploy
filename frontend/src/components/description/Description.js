@@ -10,7 +10,7 @@ import { Breadcrumb } from './Breadcrumb';
 import { generateProductAd } from './generateProductAd';
 import { toast } from 'react-toastify';
 
-export function Description({data}) {
+export function Description({ data }) {
 
     const { userId } = useParams();
     let [cartStateToReducer, setCartStateToReducer] = useState({
@@ -60,18 +60,6 @@ export function Description({data}) {
         }
     }
 
-     // useEffect(()=>{
-    //     if (cartStatus==="rejected") {
-    //         toast.error("Failed to add to cart.")
-    //     }
-    //     if (cartStatus==="success") {
-    //         toast.success("Added to cart successfully.")
-    //     }
-    //     if (cartStatus==="loading") {
-    //         toast.info("Trying to add to cart...")
-    //     }
-    // }, [cartStatus])
-
     return (
 
         <Fragment>
@@ -92,7 +80,7 @@ export function Description({data}) {
                                         {data.name}
                                     </h5>
                                     <h5 className="font-weight-bold ">
-                                        {data.price}
+                                        £ {data.price}
                                     </h5>
                                     <div className="rate" onChange={(evt) => { handleInputChange(evt) }}>
                                         <input type="radio" id="star5" name="rate" value="5" />
@@ -153,7 +141,7 @@ export function Description({data}) {
                             <MDBCol > </MDBCol>
                             <MDBCol xs="12" lg="6"> <i> Note: Your Product will be dispatched/ shipped within 7-10 days </i> </MDBCol>
                         </MDBRow>
-                       
+
                     </MDBContainer>
                 </div>
             }

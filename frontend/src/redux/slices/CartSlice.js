@@ -131,9 +131,15 @@ export const slice = createSlice({
         let { index } = payload
         state.status = "success";
         index= parseInt(index)
-        console.log({index})
-        state.cartValues.products= state.cartValues.products.filter((_val, currIndex)=> index!== currIndex)
-        state.cartValues.description= state.cartValues.description.filter((_val, currIndex)=> index!== currIndex)
+        let total = state.cartValues.total - state.cartValues.description[index].subtotal
+        let products = state.cartValues.products.filter((_val, currIndex)=> index!== currIndex)
+        let description = state.cartValues.description.filter((_val, currIndex)=> index!== currIndex)
+        state.cartValues = {
+          ...state.cartValues,
+          description: [...description],
+          products: [...products],
+          total
+        };
       }
       else{
         state.status = "failed"

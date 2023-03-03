@@ -15,7 +15,7 @@ export function generateRows({ isPartOfPurchaseView, data, deleteCart, handleInp
               'size': <strong> {data.description[index].size} </strong>,
               'price': <strong> £ {roundOff(value.price)} </strong>,
               'quantity':
-                <input name="quantity" value={data.description[index].quantity} className="specialInput border-warning" style={{ width: "100px" }} onChange={(evt) => { handleInputChange(evt, index) }} />,
+                <input type="number" name="quantity" value={data.description[index].quantity} className="specialInput border-warning pl-2" style={{ width: "200px" }} onChange={(evt) => { handleInputChange(evt, index) }} />,
               'amount': <strong> £ {totalPrice}</strong>,
               ...(!isPartOfPurchaseView && {
                 'button':
