@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCart, editProduct, fetchCart, deleteProduct, selectCartStatus } from "../redux/slices/CartSlice";
 import { useHistory } from "react-router";
 import "./Cart.css"
-import { editProfile } from "../redux/slices/ProfileSlice";
 import { roundOff } from "../helper/roundOff";
 import { toast } from "react-toastify";
 import Empty from "../components/notifications/empty";
@@ -71,7 +70,6 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
       toast("Purchase an item first!");
     }
     else {
-      await dispatch(editProfile({ body: { totalPurchase } }))
       history.replace("/checkOut")
     }
   }

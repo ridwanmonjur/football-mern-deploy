@@ -22,10 +22,20 @@ export class CartRepository {
         }
     }
 
-    async find(populate: Array<string>): Promise<Array<CartInterface>> {
+    async find(where?: any, populate?: Array<string>): Promise<Array<CartInterface>> {
+        where ??= {};
+
         const [_, __] = populate;
         try {
-            return await Cart.find({}).populate(_, __);
+
+            if (populate) {
+                const [_, __] = populate;
+
+                return await Cart.find({ ...where }).populate(_, __);
+            }
+            else {
+                return await Cart.find({ ...where })
+            }
         }
         catch {
             throw new HTTP500InternalServerrror("Unable to query user by body");
@@ -47,10 +57,12 @@ export class CartRepository {
 
     async updateOne(where: any, body: any): Promise<void> {
         try {
-            await Cart.updateOne(
+            console.log({ where, body})
+            let z= await Cart.updateOne(
                 { ...where },
                 { ...body }
             );
+            console.log({z, where, body})
         }
         catch {
             throw new HTTP500InternalServerrror("Unable to update carts");

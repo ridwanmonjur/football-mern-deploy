@@ -39,8 +39,6 @@ export class EditUserProfileInput {
     @IsString()
     addressSecond: string;
 
-    @IsOptional()
-    @IsString()
-    totalPurchase: number;
+
 }
  

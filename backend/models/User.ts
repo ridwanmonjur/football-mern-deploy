@@ -42,7 +42,6 @@ const schema = new Schema<UserInterface>({
     addressSecond: String,
     creditCardNumber: String,
     creditCardCVV: String,
-    totalPurchase: Number
 })
 
 

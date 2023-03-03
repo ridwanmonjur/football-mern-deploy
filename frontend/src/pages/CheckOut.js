@@ -42,7 +42,7 @@ function CheckOut() {
 
 
     let updateAddressCard = async () => {
-        if (user.totalPurchase > 0) {
+        if (user.addressFirst && user.addressSecond && user.creditCardNumber && user.creditCardCVV) {
             if (input.changed) {
                 await dispatch(editProfile({ body: { addressFirst: input.addressFirst, addressSecond: input.addressSecond, creditCardNumber: input.creditCardNumber, creditCardCVV: input.creditCardCVV } }))
             }

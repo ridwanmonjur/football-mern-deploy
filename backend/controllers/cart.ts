@@ -24,7 +24,7 @@ export async function getCarts(req: Request, res: Response, next: NextFunction):
 
     let cart: undefined | Array<CartInterface>;
     try {
-        cart = await service.findAllCarts();
+        cart = await service.findAllCarts({ user: req.user });
 
         res.status(StatusCodes.OK).json({ success: true, cart });
     } catch (error) {
@@ -33,19 +33,16 @@ export async function getCarts(req: Request, res: Response, next: NextFunction):
 }
 
 export async function addProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
-
     let userId: undefined | ObjectId;
-    let productId = req.params.productId;
 
+    let productId = req.params.productId;
     try {
         userId = ObjectID(req.user);
 
         if (req.params.productId && req.user) {
             let cart: CartInterface | null = await service.addToCart(req.body, userId, productId);
 
-            if (cart === null) res.json({ cart, success: false });
-
-            else res.status(StatusCodes.CREATED).json({ cart, success: true });
+            res.status(StatusCodes.CREATED).json({ cart, success: true });
         }
     }
     catch (error) {
@@ -55,18 +52,17 @@ export async function addProduct(req: Request, res: Response, next: NextFunction
 
 
 export async function editProductQuantity(req: Request, res: Response, next: NextFunction): Promise<void> {
-
     let userId: undefined | ObjectId;
 
     let productId = req.params.productId;
-
     try {
+        userId = ObjectID(req.user);
+
         if (req.params.productId && req.user) {
-            let cart: CartInterface | null = await service.addToCart(req.body, userId, productId);
 
-            if (cart === null) res.json({ cart, success: false });
+            let cart: CartInterface | null = await service.editCart(req.body, userId, productId);
 
-            else res.json({ cart, success: true });
+            res.json({ cart, success: true });
         }
     }
     catch (error) {
@@ -83,14 +79,20 @@ export async function deleteCartProduct(req: Request, res: Response, next: NextF
 
     let deleteProductIndex: number | undefined;
 
+    console.log({ deleteProductIndex, userId })
+
     try {
         deleteProductIndex = parseInt(req.params.deleteProductIndex);
 
         userId = ObjectID(req.user);
 
-        await service.deleteCartProduct(userId, deleteProductIndex);
+        console.log({ deleteProductIndex, userId })
 
-        res.status(StatusCodes.NO_CONTENT).json({ success: true, index: req.params.deleteProductIndex });
+        let index = await service.deleteCartProduct(userId, deleteProductIndex);
+
+        console.log({ deleteProductIndex, userId, index })
+
+        res.status(StatusCodes.OK).json({ success: true, index });
     }
     catch (error) {
         if (!userId) throw new HTTP422UnproccessableEntity("UserId cannot be converted to ObjectID");
