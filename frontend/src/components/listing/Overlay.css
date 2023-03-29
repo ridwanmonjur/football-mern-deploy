@@ -1,26 +1,35 @@
 .overlay-div {
     height: 70vh;
-    background-position: center;
+    background-position: bottom;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 80%;
-    margin: auto;
-    margin-top: 10px;
-    padding: 0;
+    margin: 0;
+    padding: 25vh;
+    width: 110vw;
+    position: relative;
+    left: -10vw;
+    top: -10vh;
 }
 
 .overlay-text {
-    z-index: 100;
+    z-index: 999;
 }
 
-.overlay-text h1,
-.overlay-text h2,
-.overlay-text h3,
-.overlay-text h4,
-.overlay-text h5 {
-    font-size: 4rem;
+.overlay-text h1 {
+    font-size: 6rem;
+    color: #e9ebe4;
     font-weight: 1000;
+}
+
+.overlay-text h5 {
+    font-size: 2.5rem;
+    font-weight: 1000;
+    color: rgb(243, 43, 43);
+    letter-spacing: 10px;
+    display: inline-block;
+    padding: 5px 20px;
+    background-color: #3a0e11;
 }
 
 .overlay-text p {
@@ -31,9 +40,6 @@
 @media only screen and (max-width: 1000px) {
 
     .overlay-text h1,
-    .overlay-text h2,
-    .overlay-text h3,
-    .overlay-text h4,
     .overlay-text h5 {
         font-size: 2.8rem;
     }
@@ -50,9 +56,6 @@
 @media only screen and (max-width: 600px) {
 
     .overlay-text h1,
-    .overlay-text h2,
-    .overlay-text h3,
-    .overlay-text h4,
     .overlay-text h5 {
         font-size: 3rem;
         padding: 0 20px;
@@ -60,8 +63,5 @@
 
     .overlay-text p {
         font-size: 2rem;
-    }
-
-    .overlay-div {
     }
 }

@@ -13,6 +13,8 @@ import Error from "../components/notifications/error";
 import { selectIsSignedIn } from "../redux/slices/ProfileSlice";
 import { returnDateFormatted } from "../components/cart/returnDateFormatted";
 import { deepCopyObj } from "../helper/deepCopy";
+import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
 
 export default function Purchases() {
   let isSignedIn = useSelector(selectIsSignedIn)
@@ -43,38 +45,44 @@ export default function Purchases() {
   }, [data.length, isSignedIn])
 
   return <>
-    <MDBContainer fluid>
-      <MDBRow className="my-4 special-margin" center>
-        <MDBCol size="10">
-          <MDBCard classNmae="w-100" style={{ marginTop: "45px", boxShadow: "none !important", borderWidth: "0 !important" }} shadow="0">
-            <MDBCardBody className="w-100">
-              <h3 className="w-100 text-warning my-4 text-center"> Purchases </h3>
-              {!isSignedIn ?
-                <Empty /> : (
-                  <>
-                    {loading && <Spinner />}
-                    {error && <Error />}
-                    {data.map((value, index) => {
-                      if (value.status === 'active' && data.length === 1) return (
-                        <Empty />
-                      )
-                      if (value.status === 'active') return null
-                      return (
-                        <div key={value._id}>
-                          <div className="text-center">
-                          </div>
-                          <Cart key={`${value}${index}history`} data={value} isPartOfPurchaseView={true} />
-                        </div>
-                      )
-                    })}
-                  </>
-                )
-              }
+    <FullPageIntroWithNonFixedNavbar />
+    <MDBContainer fluid className="main-container">
+      <div className="wrapper">
+        <MDBContainer fluid>
+          <MDBRow className="my-4 special-margin" center>
+            <MDBCol size="10">
+              <MDBCard className="w-100" style={{ boxShadow: "none !important", borderWidth: "0 !important" }} shadow="0">
+                <MDBCardBody className="w-100">
+                  <h3 className="w-100 text-warning mb-4 text-center font-myfirstFont"> Purchases </h3>
+                  {!isSignedIn ?
+                    <Empty /> : (
+                      <>
+                        {loading && <Spinner />}
+                        {error && <Error />}
+                        {data.map((value, index) => {
+                          if (value.status === 'active' && data.length === 1) return (
+                            <Empty />
+                          )
+                          if (value.status === 'active') return null
+                          return (
+                            <div key={value._id}>
+                              <div className="text-center">
+                              </div>
+                              <Cart key={`${value}${index}history`} data={value} isPartOfPurchaseView={true} />
+                            </div>
+                          )
+                        })}
+                      </>
+                    )
+                  }
 
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-      </MDBRow>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+      </div>
     </MDBContainer>
+    <Footer />
   </>
 }

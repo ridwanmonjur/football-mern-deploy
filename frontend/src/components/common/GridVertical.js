@@ -33,7 +33,7 @@ function GridVertical({ productName, data }) {
     return (
         <Fragment>
             <div>
-                <h1 className="text-center text-uppercase font-weight-bolder text-warning my-5 py-3"> Our {productName} </h1>
+                <h1 className="text-center text-uppercase font-weight-bolder text-warning mb-5 py-3 font-myfirstFont"> Our {productName} </h1>
                 <div className="loadGrid__gridItems">
                     {
                         data !== null &&

@@ -7,24 +7,27 @@ import BootsImg from "../assets/Boots.jpg"
 import { useParams } from 'react-router-dom'
 import { FetchAll } from '../api/product'
 import useLoadingFetchError from '../helper/loader/useFetchHook'
+import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
+import { MDBContainer } from 'mdbreact'
 import Spinner from '../components/notifications/spinner'
 import Error from '../components/notifications/error'
 
 const description = {
     jerseys: {
         img: JerseyImg,
-        h1: "THE HEROES",
-        h2: "OF OLD"
+        h1: "WEAR YOUR BEST",
+        h5: "IN THE FIELD"
     },
     boots: {
         img: BootsImg,
         h1: "PREMIUM QUALITY",
-        h2: "BOOTS AND FOOTWEAR"
+        h5: "BOOTS AND FOOTWEAR"
     },
     accessories: {
         img: AccessoriesImg,
         h1: "THE VERY BEST",
-        h2: "FOOTBALL ACCESSORIES"
+        h5: "FOOTBALL ACCESSORIES"
     },
 }
 
@@ -45,31 +48,35 @@ function Listing() {
 
 
     return (
+        <>
+            <FullPageIntroWithNonFixedNavbar />
+            <MDBContainer fluid className="main-container">
+                <div>
+                    <Overlay imgSrc={description[productName]['img']} alt={productName} >
+                        {description[productName]['h1'] && <h5>{description[productName]['h1']}</h5>}
+                        <h1>{description[productName]['h5'] ?? ""}</h1>
+                    </Overlay>
+                    {
+                        !error && !loading ?
+                            (
+                                data && data[0] !== undefined &&
+                                <GridVertical productName={productName} data={data} />
+                            ) :
+                            <>
+                                {
+                                    error && <> <Error /> </>
+                                }
+                                {
+                                    loading && <> <Spinner /> </>
+                                }
 
-        <div>
-            <Overlay imgSrc={description[productName]['img']} alt={productName} >
-                <h1>{description[productName]['h1']}</h1>
-                <h2>{description[productName]['h2']}</h2>
-            </Overlay>
-            {
-                !error && !loading ?
-                    (
-                        data && data[0] !== undefined &&
-                        <GridVertical productName={productName} data={data} />
-
-                    ) :
-                    <>
-                        {
-                            error && <> <Error /> </>
-                        }
-                        {
-                            loading && <> <Spinner /> </>
-                        }
-
-                    </>
-            }
-            <br/>
-        </div>
+                            </>
+                    }
+                    <br />
+                </div>
+            </MDBContainer>
+            <Footer />
+        </>
     )
 }
 

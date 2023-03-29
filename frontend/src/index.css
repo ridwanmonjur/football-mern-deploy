@@ -11,8 +11,24 @@
   }
 }
 
+@font-face {
+  font-family: permenantMarker;
+  src: url('./assets/PermanentMarker-Regular.ttf');
+}
+
+.font-myfirstFont {
+  font-family: permenantMarker;
+  font-size: 80px;
+}
+
+.wrapper{
+  margin-top: 100px;
+}
+
 body {
   background-color: #F6EFE8;
+  overflow-x: hidden;
+  margin-left: 0;
 }
 
 td {

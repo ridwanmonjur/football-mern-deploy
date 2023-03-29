@@ -17,12 +17,8 @@ function App() {
 
   return (
     <>
-      <Navbar />
-      <MDBContainer fluid className="main-container">
           <Routes />
           <ToastContainer />
-      </MDBContainer>
-      <Footer />
     </>
   )
 }

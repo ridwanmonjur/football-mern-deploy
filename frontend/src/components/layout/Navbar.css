@@ -1,13 +1,8 @@
-header {
-   margin-bottom: 150px;
-}
-
 .header-img {
    width: 50px;
-   height: "50px"
 }
 
-.navbar-custom {
+.nav-colored {
    margin: auto;
    width: 80%;
    border-radius: 15px;
@@ -16,8 +11,34 @@ header {
    background-color: white;
 }
 
+.nav-transparent {
+   width: 100%;
+   border-radius: 0px;
+   border: 0px solid red;
+   font-weight: 900;
+   box-shadow: 0 0 black;
+   margin-top: 0px;
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 99;
+   background-color: transparent;
+}
+
+.nav-transparent span, .nav-transparent a, .nav-transparent div{
+   color: goldenrod !important;
+
+}
+
+.nav-transparent a.nav-link:hover {
+   background: transparent;
+   font-size: larger;
+   color: red !important; 
+}
+
 a.nav-link:hover {
-   background: rgb(187, 187, 187);
+   background: rgb(218, 214, 214);
+   font-weight: bold;
 }
 
 .glow-icon {
@@ -28,9 +49,7 @@ a.nav-link:hover {
 }
 
 @media only screen and (max-width: 600px) {
-   header {
-      margin-bottom: 150px;
-   }
+   
    .navbar-toggler-special {
       position: absolute;
       top: 80vh;

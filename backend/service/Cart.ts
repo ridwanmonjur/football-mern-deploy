@@ -81,18 +81,16 @@ export class CartService {
                 if (isSame) await cart?.save();
                 // Else push in the new product
                 else {
-                    const update = {
-                        total: (total + (price * quantity)),
-                        $push: { products: productId, description: { quantity, size, price, subtotal: price * quantity } }
-                    }
-
-                    await this.repository.updateOne(whereCart, update);
+                    cart.total = total + (price * quantity)
+                    cart.products.push(productId)
+                    cart.description.push({ quantity, size, price, subtotal: price * quantity })
+                    await cart?.save();
                 }
                 // Update the stock
                 const increment = { $inc: { "stock": -1 * quantity } }
                 await this.productRepository.findByIdAndUpdate(productId, increment);
-                return cart;
             }
+            return cart;
         }
         catch (error) {
             throw error
@@ -101,39 +99,39 @@ export class CartService {
 
     async editCart(body: any, userId: ObjectId, productId: string): Promise<CartInterface | null> {
         let cart: CartInterface | null;
-        
+
         let quantity: number = parseInt(body.quantity);
-        
+
         let size: string = body.size;
-        
+
         let currentQuantity: number = 0;
-        
+
         const whereCart = { user: userId, status: "active" }
-        
+
         try {
             cart = await this.repository.findOne(whereCart);
-        
+
             let { total } = cart
-        
+
             if (cart && cart.description) {
                 // Since the existing product is in the cart, then just can edit quanity.
                 cart.products.forEach(async function (value, index,) {
                     if (value.toString() === productId && cart?.description[index].size === size) {
                         currentQuantity = quantity;
-                
+
                         cart.description[index].quantity = quantity;
-                
+
                         cart.total -= cart.description[index].subtotal
-                
+
                         cart.description[index].subtotal = cart.description[index].price * quantity
-                
+
                         cart.total += cart.description[index].subtotal
                     }
                 });
                 await cart?.save();
                 // Update the stock
                 const increment = { $inc: { "stock": currentQuantity + (-1 * quantity) } }
-                
+
                 await this.productRepository.findByIdAndUpdate(productId, increment);
             }
             return cart;
@@ -148,7 +146,7 @@ export class CartService {
 
         let quantity: number | null;
 
-        let productId: string | null;
+        let productId: string;
 
         const whereCart = { user: userId, status: "active" }
 
@@ -169,7 +167,7 @@ export class CartService {
                 await cart.save();
             }
 
-            else throw new APIError("Malformed cart")
+            else throw new HTTP404NotFoundError();
 
             const incrementBody = { $inc: { "stock": quantity } };
 
@@ -178,9 +176,7 @@ export class CartService {
             return deleteProductIndex;
         }
         catch (error) {
-            if (!cart) throw new HTTP404NotFoundError();
-
-            throw new HTTP500InternalServerrror("Unable to delete carts");
+            throw error
         }
     }
 }

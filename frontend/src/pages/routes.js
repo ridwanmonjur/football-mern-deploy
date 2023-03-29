@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { Route, useHistory, useParams } from 'react-router-dom';
 
 import Home from './Home';
 import Cart from './Cart';
@@ -10,9 +10,7 @@ import Profile from './Profile';
 import JerseysPartTwo from './Listing';
 import Purchases from './Purchases';
 import DescriptionPage from './Description';
-
 function Routes() {
-
   return (
     <>
       <Route exact path="/">

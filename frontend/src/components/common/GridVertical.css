@@ -1,7 +1,7 @@
 .loadGrid__gridItems {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin: 5vh auto;
+    margin: 0vh auto 5vh;
     padding: 0 15vw;
 }
 

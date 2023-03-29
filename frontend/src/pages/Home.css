@@ -1,12 +1,46 @@
-@font-face {
-    font-family: permenantMarker;
-    src: url('../assets/PermanentMarker-Regular.ttf');
+.hero-1{
+    margin: 0;
+    background-color: #552654;
+    height: 70vh;
+    width: 110vw;
+    position: relative;
+    left: -10vw;
+    background-image: url("../assets/sport-mobile-apps-screen.png");
+    background-repeat: no-repeat;
+    background-position: right;
 }
 
-.font-myfirstFont {
-    font-family: permenantMarker;
-    font-size: 80px;
+.hero-1 > div{
+    position: absolute;
+    position: absolute;
+    top: 50%;  /* position the top  edge of the element at the middle of the parent */
+    left: 20%; /* position the left edge of the element at the middle of the parent */
+
+    transform: translate(0%, -50%); /* This is a shorthand of
+                                         translateX(-50%) and translateY(-50%) */
 }
+
+.hero-1 h1 {
+    font-size: 6rem;
+    color: #e9ebe4;
+    font-weight: 1000;
+}
+
+.hero-1 h5 {
+    font-size: 4.5rem;
+    font-weight: 1000;
+    color: rgb(243, 43, 43);
+    letter-spacing: 10px;
+    display: inline-block;
+    padding: 5px 20px;
+    background-color: #3a0e11;
+}
+
+.hero-1 p {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
 
 .carousel-wrapper {
     padding-left: 10%;
@@ -19,15 +53,6 @@
     aspect-ratio: 1600/800 !important;
 }
 
-.carousel-wrapper>div {
-    position: relative;
-}
-
-.carousel-wrapper p {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
 
 .gridNew {
     margin: auto;
