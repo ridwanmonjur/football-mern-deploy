@@ -86,13 +86,13 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
 
   return (
     <>
-      <FullPageIntroWithNonFixedNavbar />
-      <MDBContainer fluid className="main-container">
-        <div style={{ ...(!isPartOfPurchaseView && { minHeight: "100vh", marginTop: "100px" }) }}>
+      {!isPartOfPurchaseView && <FullPageIntroWithNonFixedNavbar /> }
+      {/* <MDBContainer fluid className="main-container"> */}
+        <div style={{ ...(!isPartOfPurchaseView && { minHeight: "100vh", marginTop: "150px" }) }}>
           <MDBRow className="my-2 special-margin" center>
             <MDBCard border="light" style={{ marginTop: "50px", boxShadow: "0px 0px black !important", borderWidth: "0", outlineWidth: "0 important" }} shadow="0">
               <MDBCardBody>
-                {!isPartOfPurchaseView && <h3 className="text-warning my-2 text-center"> Shopping Cart </h3>}
+                {!isPartOfPurchaseView && <h3 className="text-warning my-2 text-center font-myfirstFont"> Shopping Cart </h3>}
                 {isPartOfPurchaseView && <h5 className="text-warning my-2 text-center"> {returnDateFormatted(data.paidAt)} </h5>}
 
                 <br />
@@ -134,7 +134,7 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
             </MDBCard>
           </MDBRow>
         </div >
-      </MDBContainer>
+      {/* </MDBContainer> */}
       <Footer />
     </>
   );

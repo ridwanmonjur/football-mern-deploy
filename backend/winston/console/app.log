@@ -27765,3 +27765,24 @@ undefined
 [31m  level: 'error',[39m
 [31m  timestamp: '3/29/2023, 8:18:51 AM'[39m
 [31m}[39m
+[31m{[39m
+[31m  name: 'BAD REQUEST',[39m
+[31m  httpCode: 400,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Token is not valid',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/29/2023, 8:19:17 AM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'BAD REQUEST',[39m
+[31m  httpCode: 400,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Token is not valid',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/29/2023, 8:19:58 AM'[39m
+[31m}[39m
+[31m{[39m
+[31m  message: 'Attempting a graceful shutdown with code 0',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '3/29/2023, 8:24:54 AM'[39m
+[31m}[39m
