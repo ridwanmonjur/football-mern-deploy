@@ -1,15 +1,15 @@
 .overlay-div {
-    height: 70vh;
+    height: 75vh;
     background-position: bottom;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
-    padding: 25vh;
+    padding: 25vh 0 0;
     width: 110vw;
     position: relative;
     left: -10vw;
-    top: -10vh;
+    top: -5vh;
 }
 
 .overlay-text {
@@ -17,13 +17,13 @@
 }
 
 .overlay-text h1 {
-    font-size: 6rem;
+    font-size: 3rem;
     color: #e9ebe4;
     font-weight: 1000;
 }
 
 .overlay-text h5 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 1000;
     color: rgb(243, 43, 43);
     letter-spacing: 10px;
@@ -37,11 +37,14 @@
     font-weight: 800;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (min-width: 1000px) {
 
-    .overlay-text h1,
-    .overlay-text h5 {
-        font-size: 2.8rem;
+    .overlay-text h1{
+        font-size: 3rem;
+    }
+
+    .overlay-text h5{
+        font-size: 4rem;
     }
 
     .overlay-text p {
@@ -49,19 +52,7 @@
     }
 
     .overlay-div {
-        max-height: 45vh;
+        height: 60vh;
     }
 }
 
-@media only screen and (max-width: 600px) {
-
-    .overlay-text h1,
-    .overlay-text h5 {
-        font-size: 3rem;
-        padding: 0 20px;
-    }
-
-    .overlay-text p {
-        font-size: 2rem;
-    }
-}

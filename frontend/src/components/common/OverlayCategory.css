@@ -1,5 +1,5 @@
 .overlay-category-div {
-    height: 70vh;
+    height: 50vh;
     display: block;
     background-position: center;
     background-attachment: fixed;
@@ -15,43 +15,14 @@
     z-index: 100;
 }
 
-.overlay-category-text h1,
-.overlay-category-text h5 {
-    font-size: 4rem;
-    font-weight: 1000;
-}
-
 .overlay-category-text p {
     font-size: 2rem;
     font-weight: 800;
 }
 
-@media only screen and (max-width: 1000px) {
-
-    .overlay-category-text h1,
-    .overlay-category-text h5 {
-        font-size: 2.8rem;
-    }
+@media only screen and (min-width: 1000px) {
 
     .overlay-category-text p {
         font-size: 2rem;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-
-    .overlay-category-text h1,
-    .overlay-category-text h5 {
-        font-size: 3rem;
-        padding: 0 20px;
-    }
-
-    .overlay-category-text p {
-        font-size: 2rem;
-    }
-
-    .overlay-category-div {
-        background-size: contain;
-        background-repeat: repeat;
     }
 }

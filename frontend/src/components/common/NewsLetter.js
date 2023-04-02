@@ -36,16 +36,16 @@ class Newsletter extends Component {
                 !this.state.isSubmit && !this.state.error && 
                 <form name="contact" method="post" onSubmit={this.handleSubmit}>
                     <input type="hidden" name="form-name" value="contact" />
-                    <p>
-                        <input type="text" id="name" name="name" required placeholder='Enter your name...' />
-                        <input type="email" id="email" name="email" required placeholder='Enter your email...' />
+                    <p className='form-outline'>
+                        <input type="text" id="name" className='form-control formWidth' name="name" required placeholder='Enter your name...' />
+                        <input type="email" id="email" className='form-control formWidth' name="email" required placeholder='Enter your email...' />
                     </p>
                    
-                    <p>
-                        <textarea id="message" name="message" required placeholder='Enter your message...'></textarea>
+                    <p className='form-outline mt-4'>
+                        <textarea id="message" className='form-control' name="message" required placeholder='Enter your message...'></textarea>
                     </p>
-                    <p>
-                        <input type="submit" value="Submit message" />
+                    <p className='form-outline mt-4'>
+                        <input type="submit" className='btn btn-warning' value="Submit message" />
                     </p>
                 </form>
                 }

@@ -1,6 +1,6 @@
 .loadGrid__gridItems {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
     margin: 0vh auto 5vh;
     padding: 0 15vw;
 }
@@ -62,30 +62,13 @@
 
 /* button */
 
-/* On screens that are 900px wide or more */
-
-
-/* On screens that are 1200px wide or less */
-
-@media only screen and (max-width: 1000px) {
-    .loadGrid__gridItems {
-        grid-template-columns: repeat(2, 1fr);
-        padding: auto 5vw;
-        margin: 5vh 0;
-    }
-
-    .card-image {
-        margin: auto
-    }
-}
-
-
 /* On screens that are 600px wide or less */
 
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 600px) {
 
     .loadGrid__gridItems {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+
     }
 
     hr {
@@ -94,3 +77,23 @@
     }
 
 }
+
+/* On screens that are 1200px wide or less */
+
+@media only screen and (min-width: 1000px) {
+    .loadGrid__gridItems {
+        grid-template-columns: repeat(4, 1fr);
+        padding: auto 5vw;
+        margin: -5vh 0;
+    }
+
+    .card-image {
+        margin: auto
+    }
+
+    .heading{
+        margin: -5vh 0;
+    }
+}
+
+

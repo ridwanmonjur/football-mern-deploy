@@ -33,7 +33,7 @@ const Footer = () => {
         </MDBCol>
         <MDBCol sm="12" md="6" className="py-0">
           <div className="text-center py-2 text-danger font-weight-boldr">
-            &copy; {new Date().getFullYear()} Copyright:{" "}
+            &copy; 2020 Copyright:{" "}
             <a href="https://www.instagram.com/monjur.ridwan/" className="text-danger"> Ridwan Bin Monjur</a>
           </div>
         </MDBCol>

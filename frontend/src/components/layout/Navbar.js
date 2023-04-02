@@ -54,7 +54,8 @@ function FullPageIntroWithNonFixedNavbar() {
         var myNav = document.getElementById('mynav');
         const location = history.location.pathname
         const isNavTransparent = location === "/" || (location.includes("products") && !('userId' in params))
-        if (isNavTransparent){
+        var isLargeScreen = window.matchMedia("(min-width: 1000px)")
+        if (isNavTransparent && isLargeScreen){
             myNav.classList.add("nav-transparent");
             window.onscroll = function () {
                 if (document.body.scrollTop >= 200 || document.documentElement.scrollTop >= 200) {
@@ -82,12 +83,11 @@ function FullPageIntroWithNonFixedNavbar() {
                             <img className="header-img" src={NavbarBrandImg} alt="Firefootball" />
                             <strong className="d-none d-sm-inline">GLOBAL FOOTBALL STORE</strong>
                             <strong className="d-inline d-sm-none" style={{ fontSize: "17px" }}>GLOBAL FOOTBALL STORE</strong>
-
                         </MDBNavbarBrand>
                         <MDBNavbarToggler size="sm" onClick={onClick} />
                         <MDBCollapse onClick={onClick} isOpen={state.collapse} navbar className="py-3" >
                             <MDBNavbarNav right >
-                                <MDBNavItem >
+                                <MDBNavItem>
                                     <MDBNavLink to="/">Home</MDBNavLink>
                                 </MDBNavItem>
                                 <MDBNavItem>
@@ -99,8 +99,6 @@ function FullPageIntroWithNonFixedNavbar() {
                                 <MDBNavItem>
                                     <MDBNavLink to="/products/accessories">Accessories</MDBNavLink>
                                 </MDBNavItem>
-
-
                                 <MDBNavItem>
                                     <MDBNavLink to="/purchases">Purchases</MDBNavLink>
                                 </MDBNavItem>

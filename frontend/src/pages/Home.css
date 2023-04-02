@@ -5,29 +5,25 @@
     width: 110vw;
     position: relative;
     left: -10vw;
-    background-image: url("../assets/sport-mobile-apps-screen.png");
-    background-repeat: no-repeat;
-    background-position: right;
+    background-image: url("../assets/mobile-main.jpg");
 }
 
 .hero-1 > div{
     position: absolute;
     position: absolute;
     top: 50%;  /* position the top  edge of the element at the middle of the parent */
-    left: 20%; /* position the left edge of the element at the middle of the parent */
-
-    transform: translate(0%, -50%); /* This is a shorthand of
-                                         translateX(-50%) and translateY(-50%) */
+    transform: translate(0%, -50%); /* This is a shorthand oft ranslateX(-50%) and translateY(-50%) */
+    left: 12vw;
 }
 
 .hero-1 h1 {
-    font-size: 6rem;
+    font-size: 3rem;
     color: #e9ebe4;
     font-weight: 1000;
 }
 
 .hero-1 h5 {
-    font-size: 4.5rem;
+    font-size: 2rem;
     font-weight: 1000;
     color: rgb(243, 43, 43);
     letter-spacing: 10px;
@@ -43,8 +39,8 @@
 
 
 .carousel-wrapper {
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 20%;
+    padding-right: 20%;
 }
 
 .carousel-wrapper img {
@@ -53,38 +49,66 @@
     aspect-ratio: 1600/800 !important;
 }
 
+.image-hero{
+    border-radius: 15px;
+    object-fit: contain;
+}
 
 .gridNew {
     margin: auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    justify-content: center;
     gap: 0px 100px;
+    align-items: center;
+    grid-template-columns: 1fr;
+    justify-content: center;
     align-items: center;
 }
 
 .gridNew img {
-    width: 100px;
+    width: 150px;
 }
 
-@media only screen and (max-width: 900px) {
+.order-fix-mobile{
+    order: 2;
+}
+
+@media only screen and (min-width: 1000px) {
     .gridNew {
-        grid-template-columns: 1fr;
+        display: flex;
         justify-content: center;
-        align-items: center;
+        flex-wrap: nowrap;
+        /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; */
     }
 
     .gridNew img {
-        width: 150px;
+        width: 100px;
+    }   
+
+    .hero-1{
+        background-image: url("../assets/sport-mobile-apps-screen.png");
+        background-repeat: no-repeat;
+        background-position: 60vw 80px;
     }
 
-    .font-myfirstFont {
-        font-family: permenantMarker;
-        font-size: 30px;
+    .hero1 > div{
+        left: 20%; /* position the left edge of the element at the middle of the parent */
+    }
+   
+    .hero-1 h1 {
+        font-size: 6rem;
+    }
+    
+    .hero-1 h5 {
+        font-size: 4.5rem;
+     
+    }
+    
+    .hero-1 p {
+        font-size: 3rem;
     }
 
-    /* .carousel-wrapper img {
-        aspect-ratio: 1600/1000 !important;
-    } */
+    .order-fix-mobile{
+        order: 0;
+    }
 }
 

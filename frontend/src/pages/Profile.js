@@ -42,24 +42,31 @@ function Profile() {
                                     }
                                     {
                                         user && statusProfile === "success" &&
-                                        <>
-                                            <MDBRow className="px-5 my-0 mx-auto w-75 ">
-                                                <MDBNav pills className="mx-auto amber-text my-0 prepostTitle d-flex flex-column justify-content-center">
-                                                    <h2> PERSONAL DETAILS</h2>
-                                                </MDBNav>
-                                                <MDBCol md="12" className="my-0">
-                                                    <div className="">
-                                                        <label htmlFor="name" className="my-2">Name</label>
-                                                        <input type="text" id="name" value={user.name} className="form-control" />
-                                                        <label htmlFor="role" className="my-2">Role</label>
-                                                        <input type="text" id="role" value={String(user?.role)} className="form-control" />
-                                                        <label htmlFor="email" className="my-2">Email address</label>
-                                                        <input type="text" id="email" className="form-control" value={user.email} placeholder="youremail@example.com" />
-                                                    </div>
+                                        <div className="px-5 pt-4 pb-5">
+                                            <MDBNav pills className="amber-text my-0">
+                                                <h1 className="customFont"> PERSONAL DETAILS</h1>
+                                            </MDBNav>
+                                            <div className="px-3 mt-3 my-0">
+                                                <h2 className="text-warning text-left">
+                                                    Particulars
+                                                </h2>
+                                            </div>
+                                            <MDBRow className="px-5 my-0 mx-auto">
+                                                <MDBCol xs="12" md="6" className="my-0">
+                                                    <label htmlFor="name" className="my-2 font-larger">Name</label>
+                                                    <input type="text" id="name" value={user.name} className="form-control font-larger" />
+                                                </MDBCol>
+                                                <MDBCol xs="12" md="6" className="my-0">
+                                                    <label htmlFor="role" className="my-2 font-larger">Role</label>
+                                                    <input type="text" id="role" value={String(user?.role)} className="form-control font-larger" />
+                                                </MDBCol>
+                                                <MDBCol xs="12" md="6" className="my-0">
+                                                    <label htmlFor="email" className="my-2 font-larger">Email address</label>
+                                                    <input type="text" id="email" className="form-control font-larger" value={user.email} placeholder="youremail@example.com" />
                                                 </MDBCol>
                                             </MDBRow>
                                             <form onSubmit={handleSubmit1(updateAddress)}>
-                                                <MDBRow className="px-5 mx-auto my-0 w-75">
+                                                <MDBRow className="px-5 mx-auto my-0">
                                                     <MDBCol md="12">
                                                         <div>
                                                             <MDBNav pills className="amber-text nav-justified">
@@ -72,15 +79,15 @@ function Profile() {
                                                                             onClick={toggleCollapse1("basicCollapse1")}
                                                                         />
                                                                     </h3>
-                                                                    <MDBBtn type="submit"
-                                                                        className='mx-2' color="warning" outline>
+                                                                    <button type="submit"
+                                                                        className='mx-2 btn btn-sm btn-outline-warning font-larger' color="warning" outline>
                                                                         Submit
-                                                                    </MDBBtn>
+                                                                    </button>
 
                                                                 </div>
                                                             </MDBNav>
                                                             <div id="basicCollapse1" className="d-none ">
-                                                                <div className="my-3">
+                                                                <div className="my-0">
                                                                     <>
                                                                         {(!user.addressFirst || !user.addressSecond) &&
                                                                             <MDBAlert color="info" dismiss>
@@ -91,7 +98,7 @@ function Profile() {
                                                                             <label htmlFor="addressFirst" className="my-2">Street Address</label>
                                                                             <input
                                                                                 type="text"
-                                                                                {...register1("addressFirst")} className=" form-control"
+                                                                                {...register1("addressFirst")} className="form-control font-larger"
                                                                                 defaultValue={user.addressFirst}
                                                                                 {...(user.addressFirst && { placeholder: "Haven't added address yet!" })}
                                                                             />
@@ -101,7 +108,7 @@ function Profile() {
                                                                             <input
                                                                                 type="text"
                                                                                 {...register1("addressSecond")}
-                                                                                className="form-control"
+                                                                                className="form-control font-larger"
                                                                                 defaultValue={user.addressSecond}
                                                                                 {...(user.addressSecond && { placeholder: "Add your password" })}
                                                                             />
@@ -114,9 +121,9 @@ function Profile() {
                                                 </MDBRow>
                                             </form>
                                             <form onSubmit={handleSubmit2(updateCard)}>
-                                                <MDBRow className="my-0 px-5 mx-auto w-75">
-                                                    <MDBCol md="12">
-                                                        <MDBNav pills className="nav-justified amber-text">
+                                                <MDBRow className="my-0 px-5 mx-auto py-0">
+                                                    <MDBCol md="12" className="py-0 my-0">
+                                                        <MDBNav pills className="amber-text">
                                                             <div className="d-block d-lg-flex justify-content-between w-100">
                                                                 <h3>
                                                                     <span>Billing</span>
@@ -126,54 +133,56 @@ function Profile() {
                                                                         onClick={toggleCollapse1("basicCollapse2")}
                                                                     />
                                                                 </h3>
-                                                                <MDBBtn type="submit"
-                                                                    className='mx-2 mt-2' color="warning" outline>
+                                                                <button type="submit"
+                                                                    className='mx-2 mt-2 btn btn-sm btn-outline-warning font-larger'>
                                                                     Submit
-                                                                </MDBBtn>
+                                                                </button>
                                                             </div>
                                                         </MDBNav>
-                                                        <div id="basicCollapse2" className="d-none">
-                                                            <div className="my-3">
-                                                                <>
-                                                                    {(!user.creditCardNumber || !user.creditCardCVV) &&
-                                                                        <MDBAlert color="info" dismiss>
-                                                                            Credit card is required! Please add.
-                                                                        </MDBAlert>
-                                                                    }
-                                                                    <div className="mb-2">
-                                                                        <label htmlFor="cc-number123">Credit card number</label>
-                                                                        <input type="text"
-                                                                            {...(user.creditCardNumber && { placeholder: "Add your password" })}
-                                                                            className="form-control"
-                                                                            defaultValue={user.creditCardNumber}
-                                                                            {...register2("creditCardNumber")}
-                                                                            placeholder={"Card Number"}
-                                                                            required />
-                                                                    </div>
-                                                                    <div className="">
-                                                                        <label htmlFor="cc-cvv123">CVV</label>
-                                                                        <input type="text"
-                                                                            {...(user.creditCardCVV && { placeholder: "Add your password" })}
-                                                                            defaultValue={user.creditCardCVV}
-                                                                            className="form-control"
-                                                                            {...register2("creditCardCVV")}
-                                                                            placeholder={"Card CVV"}
-                                                                            required />
-                                                                    </div>
-                                                                </>
-                                                            </div>
-                                                        </div>
                                                     </MDBCol>
                                                 </MDBRow>
+                                                <div id="basicCollapse2" className="d-none mt-n4 py-0">
+                                                    <MDBRow className="my-0 px-0 px-5 py-0 mx-auto">
+                                                        {(!user.creditCardNumber || !user.creditCardCVV) &&
+                                                            <MDBCol xs="12" md="12" className="my-0 py-0">
+                                                                <MDBAlert color="info" dismiss>
+                                                                    Credit card is required! Please add.
+                                                                </MDBAlert>
+                                                            </MDBCol>
+                                                        }
+                                                        <MDBCol xs="12" md="6" className="my-0 py-0">
+                                                            <label htmlFor="cc-number123">Credit card number</label>
+                                                            <input type="text"
+                                                                {...(user.creditCardNumber && { placeholder: "Add your password" })}
+                                                                className="form-control font-larger"
+                                                                defaultValue={user.creditCardNumber}
+                                                                {...register2("creditCardNumber")}
+                                                                placeholder={"Card Number"}
+                                                                required />
+                                                        </MDBCol>
+                                                        <MDBCol xs="12" md="6" className="my-0 py-0">
+                                                            <label htmlFor="cc-cvv123">CVV</label>
+                                                            <input type="text"
+                                                                {...(user.creditCardCVV && { placeholder: "Add your password" })}
+                                                                defaultValue={user.creditCardCVV}
+                                                                className="form-control font-larger"
+                                                                {...register2("creditCardCVV")}
+                                                                placeholder={"Card CVV"}
+                                                                required />
+                                                        </MDBCol>
+
+                                                    </MDBRow>
+
+                                                </div>
                                             </form>
-                                        </>
+                                        </div>
                                     }
                                 </MDBCard>
                             </MDBRow >
                         </div>
                     </MDBContainer >
-                </div>
-            </MDBContainer>
+                </div >
+            </MDBContainer >
             <Footer />
         </>
     );

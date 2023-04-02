@@ -16,13 +16,16 @@
   src: url('./assets/PermanentMarker-Regular.ttf');
 }
 
-.font-myfirstFont {
+.customFont {
   font-family: permenantMarker;
-  font-size: 80px;
 }
 
 .wrapper{
   margin-top: 150px;
+}
+
+.wrapper-2{
+  margin-top: 200px;
 }
 
 body {
@@ -45,7 +48,7 @@ input {
   margin-left: 10px;
 }
 
-input:focus, select:focus {
+input:focus, select:focus, textarea:focus {
   outline: none !important;
   border: 1px solid goldenrod !important;
   box-shadow: 0 0 3px silver !important;

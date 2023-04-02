@@ -46,14 +46,6 @@
     }
 }
 
-.prepostTitle::before{
-    content: "";
-    border: 1px solid gold;
-    display: block;
-}
-
-.prepostTitle::after{
-    content: "";
-    border: 1px solid gold;
-    display: block;
+.font-larger{
+    font-size: 15px !important;
 }

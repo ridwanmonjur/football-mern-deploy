@@ -2,34 +2,22 @@
     margin: 0 0 -20px;
     background-color: transparent;
     padding: 3vh 5vw;
-
-
 }
 
-.newsletter-container p * {
+.newsletter-container p input, .newsletter-container p textarea{
     font-size: 18px;
-    padding: 15px;
+    background-color: transparent;
 }
 
-.newsletter-container p input {
-    font-size: 18px;
-    width: 50%;
+.newsletter-container p input:focus, .newsletter-container p textarea:focus{
+    background-color: transparent;
 }
 
 .newsletter-container p input[type="submit"] {
     width: 200px;
     font-size: 18px;
-    background-color: transparent;
-    border: 0px solid white;
-    color: black;
     padding: 10px;
 
-}
-
-.newsletter-container p input[type="submit"]:hover {
-    background-color: transparent;
-    color: black;
-    border: 3px solid black;
 }
 
 .newsletter-container p textarea {
@@ -37,8 +25,8 @@
     height: 20vh;
 }
 
-.newsletter-container p {
-    font-family: 'Raleway', sans-serif;
+.formWidth {
+    width: 100%;
 }
 
 @media (min-width: 1000px) {
@@ -46,11 +34,12 @@
         padding: 2em 30vw;
     }
 
-    .newsletter-container * {
-        padding: 15px;
-    }
-
     .newsletter-container p textarea {
         height: 13vh;
     }
+
+    .formWidth {
+        width: 50%;
+    }   
+    
 }

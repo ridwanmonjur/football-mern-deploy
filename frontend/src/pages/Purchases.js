@@ -47,13 +47,13 @@ export default function Purchases() {
   return <>
     <FullPageIntroWithNonFixedNavbar />
     <MDBContainer fluid className="main-container">
-      <div className="wrapper">
+      <div className="wrapper-2">
         <MDBContainer fluid>
           <MDBRow className="my-4 special-margin" center>
             <MDBCol size="10">
               <MDBCard className="w-100" style={{ boxShadow: "none !important", borderWidth: "0 !important" }} shadow="0">
                 <MDBCardBody className="w-100">
-                  <h3 className="w-100 text-warning mb-4 text-center font-myfirstFont"> Purchases </h3>
+                  <h1 className="w-100 text-warning mb-4 text-center customFont"> Purchases </h1>
                   {!isSignedIn ?
                     <Empty /> : (
                       <>

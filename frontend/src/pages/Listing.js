@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import GridVertical from '../components/common/GridVertical'
+import GridVertical from '../components/listing/GridVertical'
 import Overlay from '../components/listing/Overlay'
 import JerseyImg from "../assets/Jerseys.jpg"
 import AccessoriesImg from "../assets/Accessories.jpg"

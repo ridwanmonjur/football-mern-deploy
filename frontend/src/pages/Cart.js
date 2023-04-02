@@ -92,9 +92,8 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
           <MDBRow className="my-2 special-margin" center>
             <MDBCard border="light" style={{ marginTop: "50px", boxShadow: "0px 0px black !important", borderWidth: "0", outlineWidth: "0 important" }} shadow="0">
               <MDBCardBody>
-                {!isPartOfPurchaseView && <h3 className="text-warning my-2 text-center font-myfirstFont"> Shopping Cart </h3>}
+                {!isPartOfPurchaseView && <h1 className="text-warning my-2 text-center customFont"> Shopping Cart </h1>}
                 {isPartOfPurchaseView && <h5 className="text-warning my-2 text-center"> {returnDateFormatted(data.paidAt)} </h5>}
-
                 <br />
                 <MDBTable className="product-table d-none d-lg-table w-80">
                   <MDBTableHead className="form-control font-weight-bold" color="amber lighten-5" columns={columns} />
@@ -135,7 +134,7 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
           </MDBRow>
         </div >
       {/* </MDBContainer> */}
-      <Footer />
+     {  !isPartOfPurchaseView &&<Footer /> }
     </>
   );
 }
