@@ -45,16 +45,17 @@ function FullPageIntroWithNonFixedNavbar() {
         setCookie(cookieKey, null, 1)
     }
 
-    useEffect(() => {
-        let button = document.querySelector('.navbar-toggler');
-        button.classList.add('navbar-toggler-special')
-    }, [state]);
+    // useEffect(() => {
+    //     let button = document.querySelector('.navbar-toggler');
+    //     button.classList.add('navbar-toggler-special')
+    // }, [state]);
 
     useEffect(() => {
         var myNav = document.getElementById('mynav');
         const location = history.location.pathname
         const isNavTransparent = location === "/" || (location.includes("products") && !('userId' in params))
-        var isLargeScreen = window.matchMedia("(min-width: 1000px)")
+        var isLargeScreen = window.matchMedia("(min-width: 1200px)").matches
+        console.log({isLargeScreen})
         if (isNavTransparent && isLargeScreen){
             myNav.classList.add("nav-transparent");
             window.onscroll = function () {
@@ -77,7 +78,7 @@ function FullPageIntroWithNonFixedNavbar() {
     return (
         <div>
             <header>
-                <MDBNavbar fixed="top" light expand="lg" id="mynav">
+                <MDBNavbar fixed="top" light expand="xl" id="mynav">
                     <MDBContainer>
                         <MDBNavbarBrand href="/" className="text-danger">
                             <img className="header-img" src={NavbarBrandImg} alt="Firefootball" />
@@ -108,17 +109,17 @@ function FullPageIntroWithNonFixedNavbar() {
                                     </MDBNavLink>
                                     {
                                         !isSignedIn &&
-                                        <MDBNavLink to="/signIn" className="d-inline">
+                                        <MDBNavLink to="/signIn" className="d-inline ml-2">
                                             <MDBIcon icon="sign-in-alt" />
                                         </MDBNavLink>
                                     }
                                     {
                                         isSignedIn &&
-                                        <MDBIcon icon="sign-out-alt" onClick={(evt) => { resetUser(evt) }} />
+                                        <MDBIcon icon="sign-out-alt" className='d-inline ml-2' onClick={(evt) => { resetUser(evt) }} />
                                     }
                                     {
                                         isSignedIn &&
-                                        <MDBNavLink to="/profile" className="d-inline">
+                                        <MDBNavLink to="/profile" className="d-inline ml-2">
                                             <MDBIcon far icon="user-circle" />
                                         </MDBNavLink>
                                     }

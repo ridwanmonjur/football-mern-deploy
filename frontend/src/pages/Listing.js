@@ -12,21 +12,23 @@ import Footer from "../components/layout/Footer";
 import { MDBContainer } from 'mdbreact'
 import Spinner from '../components/notifications/spinner'
 import Error from '../components/notifications/error'
+import Hero2 from '../components/common/Hero2'
+import Hero0 from '../components/common/Hero0'
 
 const description = {
     jerseys: {
         img: JerseyImg,
-        h1: "WEAR YOUR BEST",
+        h1: "Wear your best",
         h5: "IN THE FIELD"
     },
     boots: {
         img: BootsImg,
-        h1: "PREMIUM QUALITY",
-        h5: "BOOTS AND FOOTWEAR"
+        h1: "Premium Quality",
+        h5: "FOOTWEAR"
     },
     accessories: {
         img: AccessoriesImg,
-        h1: "THE VERY BEST",
+        h1: "The very best",
         h5: "FOOTBALL ACCESSORIES"
     },
 }
@@ -46,6 +48,7 @@ function Listing() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+  
 
     return (
         <>
@@ -53,8 +56,8 @@ function Listing() {
             <MDBContainer fluid className="main-container">
                 <div>
                     <Overlay imgSrc={description[productName]['img']} alt={productName} >
-                        {description[productName]['h1'] && <h5>{description[productName]['h1']}</h5>}
-                        <h1>{description[productName]['h5'] ?? ""}</h1>
+                        <h1>{description[productName]['h1'] ?? ""}</h1>
+                        {description[productName]['h5'] && <h5>{description[productName]['h5']}</h5>}
                     </Overlay>
                     {
                         !error && !loading ?
@@ -64,10 +67,10 @@ function Listing() {
                             ) :
                             <>
                                 {
-                                    error && <> <Error /> </>
+                                    error && <div className="main-container"> <Error /> </div>
                                 }
                                 {
-                                    loading && <> <Spinner /> </>
+                                    loading && <div className="main-container"> <Spinner /> </div>
                                 }
 
                             </>
@@ -75,6 +78,9 @@ function Listing() {
                     <br />
                 </div>
             </MDBContainer>
+            <Hero2 />
+            <Hero0 />
+
             <Footer />
         </>
     )

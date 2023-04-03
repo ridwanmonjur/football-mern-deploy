@@ -80,3 +80,41 @@ table.product-table tr:last-child td{
   border-bottom: 1px solid gold !important;
 } */
 
+
+.font-larger{
+  font-size: 15px !important;
+}
+
+
+.font-xl{
+  font-size: 34px !important;
+}
+
+h1 {
+  font-size: 2 em;
+}
+
+h5 {
+  font-size: 1.5 em;
+}
+
+p {
+  font-size: 1 em;
+}
+
+
+@media only screen and (min-width: 1000px) {
+  h1 {
+      font-size: 6 em;
+  }
+
+  h5 {
+      font-size: 4.5 em;
+
+  }
+
+  p {
+      font-size: 3 em;
+  }
+
+}

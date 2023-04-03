@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import "./GridVertical.css"
 import { hostNameWithoutAPI } from '../../api/env';
 // JS for loop doesnt work inside html
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function GridVertical({ productName, data }) {
     let [begin, setBegin] = useState(0);
@@ -32,8 +33,8 @@ function GridVertical({ productName, data }) {
 
     return (
         <Fragment>
-            <div>
-                <h1 className="text-center text-uppercase font-weight-bolder text-warning mb-5 pb-3 customFont heading"> Our {productName} </h1>
+            <div className='mt-n4'>
+                <h1 className="text-center text-uppercase font-weight-bolder text-warning customFont mb-4"> Our {productName} </h1>
                 <div className="loadGrid__gridItems">
                     {
                         data !== null &&
@@ -43,8 +44,12 @@ function GridVertical({ productName, data }) {
                                 <Fragment key={`${index}${value._id}`}>
                                     <MDBCard className="px-0 mx-0" style={{ border: "1px solid gold" }}>
 
-                                        <NavLink to={`/products/${productName}/${value._id}`} className="image-hyperlink">
-                                            <MDBCardImage className="card-image" src={`${hostNameWithoutAPI}assets/${productName}/image${index}.jpg`} alt={`image${index}`} waves />
+                                        <NavLink to={`/products/${productName}/${value._id}`} className="image-hyperlink text-center">
+                                            <LazyLoadImage 
+                                                placeholder={
+                                                    <img src="../../assets/Adidas.png" width={300} height={300} alt="lazy"/>
+                                                }
+                                                className="card-image" src={`${hostNameWithoutAPI}assets/${productName}/image${index}.jpg`} alt={`${index}`} waves />
 
                                             <MDBCardBody className="d-flex flex-column justify-content-center align-items-center">
                                                 <MDBCardTitle >
@@ -67,8 +72,9 @@ function GridVertical({ productName, data }) {
                         })
                     }
                 </div>
-                <div className="divBtnOutline text-center py-5">
+                <div className="divBtnOutline text-center py-5 mt-5">
                     <MDBBtn
+                        className='btn btn-sm font-larger text-white'
                         onClick={
                             () => increment(-1)
                         }
@@ -76,7 +82,7 @@ function GridVertical({ productName, data }) {
                     {
                         arr.map((value) => {
                             return (
-                                <MDBBtn key={`${value}button`} onClick={() => {
+                                <MDBBtn key={`${value}button`} className='btn btn-sm text-white font-weight-bold font-larger' onClick={() => {
                                     setBegin(length * value)
                                 }
                                 }>
@@ -87,6 +93,7 @@ function GridVertical({ productName, data }) {
                         )
                     }
                     <MDBBtn
+                        className='btn btn-sm font-larger text-white'
                         onClick={
                             () => increment(1)
                         }> Next </MDBBtn>

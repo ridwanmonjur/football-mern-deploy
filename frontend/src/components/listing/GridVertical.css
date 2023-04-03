@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 1fr;
     margin: 0vh auto 5vh;
-    padding: 0 15vw;
+    padding: 0 5vw;
 }
 
 /* CARD */
@@ -15,8 +15,7 @@
 }
 
 .card-image {
-    width: 80%;
-    margin: 5% 10%;
+    width: 90%;
     /* height: 200px; */
     object-fit: center;
     object-position: center;
@@ -64,11 +63,11 @@
 
 /* On screens that are 600px wide or less */
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 600px) and (max-width: 999px) {
 
     .loadGrid__gridItems {
         grid-template-columns: repeat(2, 1fr);
-
+        padding: 0 10vw;
     }
 
     hr {
@@ -83,16 +82,12 @@
 @media only screen and (min-width: 1000px) {
     .loadGrid__gridItems {
         grid-template-columns: repeat(4, 1fr);
-        padding: auto 5vw;
-        margin: -5vh 0;
+        padding: 0 15vw;
+        margin: 0vh 0;
     }
 
     .card-image {
-        margin: auto
-    }
-
-    .heading{
-        margin: -5vh 0;
+        margin: auto;
     }
 }
 

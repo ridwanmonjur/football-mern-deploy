@@ -4,9 +4,9 @@ import { MDBCol, MDBRow } from "mdbreact";
 const Footer = () => {
   return (
 
-    <div className="mx-auto mb-5" style={{ borderRadius: "10px", width: "80%", boxShadow: "0px 0px 10px 0px silver", backgroundColor: "white" }}>
-      <MDBRow className="py-0">
-        <MDBCol sm="12" md="6"  className="py-0">
+    <div className="mx-auto mb-5 mx-auto text-center shadow" style={{ borderRadius: "10px", width: "80%", backgroundColor: "white" }}>
+      <div className="row py-5 mx-auto text-center">
+        <div className="col-12 col-lg-6 pb-2">
           <div className="flex-center text-danger">
             <a className="fb-ic" href="https://www.facebook.com/ridwan.monjur.1/" alt="Facebook">
               <i className="fab fa-facebook-f fa-lg  mr-md-5 mr-3 fa-2x text-danger">
@@ -30,15 +30,15 @@ const Footer = () => {
             </a>
           </div>
 
-        </MDBCol>
-        <MDBCol sm="12" md="6" className="py-0">
-          <div className="text-center py-2 text-danger font-weight-boldr">
+        </div>
+        <div className="col-12 col-lg-6 pt-2">
+          <div className="text-center text-danger font-weight-boldr">
             &copy; 2020 Copyright:{" "}
             <a href="https://www.instagram.com/monjur.ridwan/" className="text-danger"> Ridwan Bin Monjur</a>
           </div>
-        </MDBCol>
+        </div>
 
-      </MDBRow>
+      </div>
 
 
     </div >

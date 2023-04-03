@@ -116,6 +116,7 @@ p {
 
 .rate:not(:checked)>label:before {
     content: '★ ';
+    font-size: 20px;
 }
 
 .rate>input:checked~label {
