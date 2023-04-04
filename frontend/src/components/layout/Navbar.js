@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setProfileNull, selectIsSignedIn } from "../../redux/slices/ProfileSlice";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBContainer, MDBIcon } from 'mdbreact';
-import NavbarBrandImg from "../../assets/navbarBrand.gif"
+import NavbarBrandImg from "../../assets/icon.png"
 import "./Navbar.css"
 import { setCookie } from '../../api/api';
 import { cookieKey } from '../../api/env';
@@ -45,10 +45,12 @@ function FullPageIntroWithNonFixedNavbar() {
         setCookie(cookieKey, null, 1)
     }
 
-    // useEffect(() => {
-    //     let button = document.querySelector('.navbar-toggler');
-    //     button.classList.add('navbar-toggler-special')
-    // }, [state]);
+    useEffect(() => {
+        var isSmallScreen = window.matchMedia("(min-width: 1000px)").matches
+        if (!isSmallScreen) return;
+        let button = document.querySelector('.navbar-toggler');
+        button.classList.add('navbar-toggler-special')
+    }, [state]);
 
     useEffect(() => {
         var myNav = document.getElementById('mynav');

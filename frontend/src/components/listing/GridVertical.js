@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 import "./GridVertical.css"
 import { hostNameWithoutAPI } from '../../api/env';
 // JS for loop doesnt work inside html
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadImage, trackWindowScroll } from 'react-lazy-load-image-component';
 
-function GridVertical({ productName, data }) {
+function GridVertical({ productName, data, scrollPosition }) {
     let [begin, setBegin] = useState(0);
     let length = 16;
     let dataLength = data.length;
@@ -38,16 +38,17 @@ function GridVertical({ productName, data }) {
                 <div className="loadGrid__gridItems">
                     {
                         data !== null &&
-                        data.map((value, index) => {
+                        data.map(( value , index) => {
                             if (index < begin || index >= length + begin) return null
                             else return (
                                 <Fragment key={`${index}${value._id}`}>
                                     <MDBCard className="px-0 mx-0" style={{ border: "1px solid gold" }}>
 
                                         <NavLink to={`/products/${productName}/${value._id}`} className="image-hyperlink text-center">
-                                            <LazyLoadImage 
+                                            <LazyLoadImage
+                                                scrollPosition={scrollPosition}
                                                 placeholder={
-                                                    <img src="../../assets/Adidas.png" width={300} height={300} alt="lazy"/>
+                                                    <img src="../../assets/Adidas.png" width={300} height={300} alt="lazy" />
                                                 }
                                                 className="card-image" src={`${hostNameWithoutAPI}assets/${productName}/image${index}.jpg`} alt={`${index}`} waves />
 
@@ -72,7 +73,7 @@ function GridVertical({ productName, data }) {
                         })
                     }
                 </div>
-                <div className="divBtnOutline text-center py-5 mt-5">
+                <div className="divBtnOutline text-center pt-3  pb-5 mt-2">
                     <MDBBtn
                         className='btn btn-sm font-larger text-white'
                         onClick={
@@ -103,4 +104,4 @@ function GridVertical({ productName, data }) {
     )
 }
 
-export default GridVertical
+export default trackWindowScroll(GridVertical)

@@ -4,7 +4,7 @@ import {
     MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBBtn,
 } from "mdbreact";
 import "./SignIn.css"
-import NavbarBrandImg from "../assets/navbarBrand.gif"
+import NavbarIcon from "../assets/navbarBrand.gif"
 import { Link } from "react-router-dom";
 import { Login } from "../api/auth";
 import { setCookie } from "../api/api";
@@ -63,7 +63,7 @@ function SignIn() {
                     <div className="scaffold">
                         <MDBRow className="my-2 px-2" center>
                             <MDBCard className="mx-auto real-signin-container">
-                                <MDBCardImage className="img-edit" waves src={NavbarBrandImg} />
+                                <MDBCardImage className="img-edit" waves src={NavbarIcon} />
                                 <MDBCardTitle className="text-align-center">
                                     <b > GLOBAL SOCCER SHOP </b>
                                 </MDBCardTitle>
