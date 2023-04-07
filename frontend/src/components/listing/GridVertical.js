@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react'
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBTooltip } from 'mdbreact';
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBTooltip } from 'mdbreact';
 import { NavLink } from 'react-router-dom';
 import "./GridVertical.css"
 import { hostNameWithoutAPI } from '../../api/env';

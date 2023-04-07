@@ -9,7 +9,6 @@ import Charly from "../assets/Charly.png"
 import KwikGoal from "../assets/KwikGoal.png"
 import Adidas from "../assets/Adidas.png"
 import { MDBRow } from 'mdbreact'
-import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Newsletter from '../components/common/NewsLetter'
 import Hero1 from '../components/common/Hero1'

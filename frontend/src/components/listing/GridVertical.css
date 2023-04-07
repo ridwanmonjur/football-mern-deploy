@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 1fr;
     margin: 0vh auto 5vh;
-    padding: 0 5vw;
+    padding: 0 20vw;
 }
 
 /* CARD */
@@ -79,10 +79,9 @@
 
 /* On screens that are 1200px wide or less */
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1000px) and (max-width: 1200px) {
     .loadGrid__gridItems {
-        grid-template-columns: repeat(4, 1fr);
-        padding: 0 15vw;
+        grid-template-columns: repeat(3, 1fr);
         margin: 0vh 0;
     }
 
@@ -91,4 +90,11 @@
     }
 }
 
+
+@media only screen and (min-width: 1200px) {
+    .loadGrid__gridItems {
+        grid-template-columns: repeat(4, 1fr);
+        padding: 0 15vw;
+    }
+}
 

@@ -1,7 +1,4 @@
-import { MDBContainer } from 'mdbreact';
 import React, {useEffect} from 'react';
-import Footer from './components/layout/Footer';
-import Navbar from './components/layout/Navbar';
 import Routes from './pages/routes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

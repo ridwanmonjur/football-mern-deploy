@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import { Route, useHistory, useParams } from 'react-router-dom';
+import React from 'react';
+import { Route } from 'react-router-dom';
 
 import Home from './Home';
 import Cart from './Cart';

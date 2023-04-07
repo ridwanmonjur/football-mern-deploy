@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MDBRow, MDBCard, MDBCardBody, MDBTable, MDBTableBody, MDBTableHead, MDBContainer } from "mdbreact";
+import { MDBRow, MDBCard, MDBCardBody, MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCart, editProduct, fetchCart, deleteProduct, selectCartStatus } from "../redux/slices/CartSlice";
 import { useHistory } from "react-router";

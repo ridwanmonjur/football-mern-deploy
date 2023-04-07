@@ -1,10 +1,7 @@
 import React from 'react'
 import HeroImg from "../../assets/mobile-main-big-screen.jpg"
 
-import { useHistory } from 'react-router-dom'
-
 function Hero0() {
-    const history = useHistory()
     const section = {
         hero: HeroImg,
         elem1: [{

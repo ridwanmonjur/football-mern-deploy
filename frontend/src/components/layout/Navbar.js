@@ -46,10 +46,10 @@ function FullPageIntroWithNonFixedNavbar() {
     }
 
     useEffect(() => {
-        var isSmallScreen = window.matchMedia("(min-width: 1000px)").matches
-        if (!isSmallScreen) return;
-        let button = document.querySelector('.navbar-toggler');
-        button.classList.add('navbar-toggler-special')
+        // var isSmallScreen = window.matchMedia("(min-width: 1000px)").matches
+        // if (!isSmallScreen) return;
+        // let button = document.querySelector('.navbar-toggler');
+        // button.classList.add('navbar-toggler-special')
     }, [state]);
 
     useEffect(() => {
@@ -84,8 +84,7 @@ function FullPageIntroWithNonFixedNavbar() {
                     <MDBContainer>
                         <MDBNavbarBrand href="/" className="text-danger">
                             <img className="header-img" src={NavbarBrandImg} alt="Firefootball" />
-                            <strong className="d-none d-sm-inline">GLOBAL FOOTBALL STORE</strong>
-                            <strong className="d-inline d-sm-none" style={{ fontSize: "17px" }}>GLOBAL FOOTBALL STORE</strong>
+                            <strong className="d-none d-lg-inline">GLOBAL FOOTBALL STORE</strong>
                         </MDBNavbarBrand>
                         <MDBNavbarToggler size="sm" onClick={onClick} />
                         <MDBCollapse onClick={onClick} isOpen={state.collapse} navbar className="py-3" >

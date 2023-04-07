@@ -34,13 +34,20 @@
     background-color: #3a0e11;
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1000px) and (min-width: 1200px) {
     .overlay-div {
-        height: 60vh;
-        padding: 25vh 0 0;
+        height: 70vh;
+        padding: 15vh 0 0;
     }
     .overlay-text h1, .overlay-text h5{
         transform: scale(1.5, 1.5);
     }
+}
+
+@media only screen and (min-width: 1300px) {
+    .overlay-div {
+        height: 60vh;
+    }
+   
 }
 
