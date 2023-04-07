@@ -9,7 +9,7 @@ function Hero1() {
 
     return (
         <div className='w-100 text-center bg-mass-circles py-5'>
-            <div className='w-50s mx-auto'>
+            <div className='w-65vwmd-50vwlg mx-auto'>
                 <div className='row'>
                     <div className='col-xl-6 d-flex order-fix-mobile flex-column justify-content-center text-center'>
                         <h1 className='text-warning customFont my-2'> Welcome </h1>

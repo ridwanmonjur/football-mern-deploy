@@ -6,33 +6,33 @@ function Hero0() {
         hero: HeroImg,
         elem1: [{
             icon: "far fa-futbol",
-            h1: "Soccer shop",
+            h1: "Soccer store",
             p: "The game will never let you down! Enjoy the game."
         },
         {
-            icon: "far fa-futbol",
-            h1: "Soccer shop",
-            p: "The game will never let you down! Enjoy the game."
+            icon: "fab fa-google-play",
+            h1: "Play hard",
+            p: "Work hard, play hard. Whatever makes you happy."
         },
         {
-            icon: "far fa-futbol",
+            icon: "fas fa-wave-square",
             h1: "Soccer shop",
-            p: "The game will never let you down! Enjoy the game."
+            p: "Don't stop! Life will challenge you. Ace them..."
         }],
         elem2: [{
-            icon: "far fa-futbol",
-            h1: "Soccer shop",
-            p: "The game will never let you down! Enjoy the game."
+            icon: "fas fa-briefcase-medical",
+            h1: "Medical",
+            p: "Maintain your physical health"
         },
         {
-            icon: "far fa-futbol",
-            h1: "Soccer shop",
-            p: "The game will never let you down! Enjoy the game."
+            icon: "fab fa-amazon",
+            h1: "Connected",
+            p: "Connected to major retailers like Amazon, Shoppee or Lazada."
         },
         {
-            icon: "far fa-futbol",
-            h1: "Soccer shop",
-            p: "The game will never let you down! Enjoy the game."
+            icon: "fas fa-truck",
+            h1: "Delviery",
+            p: "24/7 delivery for customers"
         }]
     }
     return (
@@ -43,8 +43,8 @@ function Hero0() {
                     <div className='col-12 col-lg-4 d-flex flex-column justify-content-center mb-3'>
                         {
                             section.elem1.map((elem) => (
-                                <div className='mb-3 d-flex justify-content-center align-items-center'>
-                                    <div className='bg-white d-inline-flex justify-content-center flex-column py-2 px-2 mx-auto shadow rounded-circle mb-2'>
+                                <div className='mb-3 d-flex justify-content-start align-items-center'>
+                                    <div className='bg-white d-inline-flex justify-content-center flex-column py-2 px-2 shadow rounded-circle mb-2'>
                                         <i className={`${elem.icon} text-warning font-xl`}></i>
                                     </div>
                                     <div>
@@ -55,14 +55,14 @@ function Hero0() {
                             ))
                         }
                     </div>
-                    <div className='col-12 col-lg-4 mb-3 text-center'>
-                        <img src={HeroImg} className='w-75 mx-auto rounded-pill' alt="hero" />
+                    <div className='col-12 col-lg-4 mb-3 text-center justify-content-center '>
+                        <img src={HeroImg} className='w-50vwxs-w-75lg mx-auto rounded-pill' alt="hero" />
                     </div>
                     <div className='col-12 col-lg-4 d-flex flex-column justify-content-center mb-3'>
                         {
                             section.elem2.map((elem) => (
-                                <div className='mb-3 d-flex justify-content-center align-items-center'>
-                                    <div className='bg-white d-inline-flex justify-content-center flex-column py-2 px-2 mx-auto shadow rounded-circle mb-2'>
+                                <div className='mb-3 d-flex justify-content-start align-items-center'>
+                                    <div className='bg-white d-inline-flex justify-content-center flex-column py-2 px-2 shadow rounded-circle mb-2'>
                                         <i className={`${elem.icon} text-warning font-xl`}></i>
                                     </div>
                                     <div>

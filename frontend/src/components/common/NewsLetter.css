@@ -4,23 +4,23 @@
     padding: 3vh 5vw;
 }
 
-.newsletter-container p input, .newsletter-container p textarea{
+.newsletter-container span input, .newsletter-container span textarea{
     font-size: 18px;
     background-color: transparent;
 }
 
-.newsletter-container p input:focus, .newsletter-container p textarea:focus{
+.newsletter-container span input:focus, .newsletter-container span textarea:focus{
     background-color: transparent;
 }
 
-.newsletter-container p input[type="submit"] {
+.newsletter-container span input[type="submit"] {
     width: 200px;
     font-size: 18px;
     padding: 10px;
 
 }
 
-.newsletter-container p textarea {
+.newsletter-container span textarea {
     width: 100%;
     height: 20vh;
 }
@@ -34,7 +34,7 @@
         padding: 2em 30vw;
     }
 
-    .newsletter-container p textarea {
+    .newsletter-container span textarea {
         height: 13vh;
     }
 

@@ -12,14 +12,14 @@ function Hero0() {
             p: "The game will never let you down! Enjoy the game."
         },
         {
-            icon: "far fa-futbol",
-            h5: "Most beloved game",
-            p: "The game will never let you down! Enjoy the game."
+            icon: "fab fa-google-play",
+            h5: "Play hard",
+            p: "Work hard, play hard. Whatever makes you happy."
         },
         {
-            icon: "far fa-futbol",
-            h5: "Most beloved game",
-            p: "The game will never let you down! Enjoy the game."
+            icon: "fas fa-wave-square",
+            h5: "Soccer shop",
+            p: "Don't stop! Life will challenge you. Ace them..."
         }]
     }
 
@@ -27,7 +27,7 @@ function Hero0() {
         <div className='w-100 text-center py-5'>
             <h1 className="customFont text-warning text-center mt-4 mb-4 mx-auto">{section.h1}</h1>
             <h5 className="mt-4 mb-2 mx-auto">{section.h5}</h5>
-            <div className='w-50s mx-auto'>
+            <div className='w-65vwmd-50vwlg mx-auto'>
                 <div className='row'>
                     {
                         section.elems.map((elem) => (
