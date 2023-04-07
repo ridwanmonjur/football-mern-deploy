@@ -14,7 +14,7 @@ function Hero1() {
                     <div className='col-xl-6 d-flex order-fix-mobile flex-column justify-content-center text-center'>
                         <h1 className='text-warning customFont my-2'> Welcome </h1>
                         <h4 className='mb-2'> Welcome to Global Football Store </h4>
-                        <h5>Ours is a 1 in a 1000 Football store, serving all the needs of customers 24/7</h5>
+                        <h5>Ours is a 1 in a 1000 Football store, serving all the needs of customers</h5>
                         <button onClick={() => {
                             history.push("/products/jerseys");
                         }} className='btn d-block font-weight-bold font-larger mx-auto btn-sm btn-outline-warning mb-5'>
@@ -32,7 +32,7 @@ function Hero1() {
                     <div className='col-xl-6 d-flex flex-column justify-content-center text-center'>
                         <h1 className='text-warning customFont my-2'> Stylish Fashion </h1>
                         <h4 className='mb-2'> Enjoy the best fashion trends </h4>
-                        <h5>Ours is a 1 in a 1000 Football store, serving all the needs of customers 24/7</h5>
+                        <h5>The best fashion trends delivered to you!</h5>
                         <button onClick={() => {
                             history.push("/products/boots");
                         }} className='btn d-block font-weight-bold btn-sm font-larger mx-auto btn-outline-warning mb-5'>
