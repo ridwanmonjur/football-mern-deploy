@@ -3,7 +3,6 @@ export function api(methodName, endpoint, { body, ...customConfig } = {}) {
     
     const headers = { 'content-type': 'application/json' }
     const token = getCookie(cookieKey)
-    // console.log({ token })
     if (token) {
         headers.authorization = token
     }

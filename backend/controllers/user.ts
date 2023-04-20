@@ -121,7 +121,7 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
             httpOnly: true
         };
 
-        res.status(StatusCodes.OK).cookie('signInToken', token, options).json({ success: true, token, user });
+        res.status(StatusCodes.OK).cookie(process.env.COOKIE_NAME, token, options).json({ success: true, token, user });
     }
     catch (error) {
         next(error);

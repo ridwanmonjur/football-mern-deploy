@@ -48,7 +48,7 @@ function CheckOutConfirm() {
 
 
     let updateAddressCard = async () => {
-        if (user.addressFirst && user.addressSecond && user.creditCardNumber && user.creditCardCVV) {
+        if (user.address.first && user.address.second && user.creditCard.number && user.creditCard.CVV) {
             if (input.changed) {
                 await dispatch(editProfile({ body: { addressFirst: input.addressFirst, addressSecond: input.addressSecond, creditCardNumber: input.creditCardNumber, creditCardCVV: input.creditCardCVV } }))
             }
@@ -69,10 +69,10 @@ function CheckOutConfirm() {
             try {
                 await dispatch(fetchProfile())
                 setInput({
-                    addressFirst: user.addressFirst,
-                    addressSecond: user.addressSecond,
-                    creditCardCVV: user.creditCardCVV,
-                    creditCardNumber: user.creditCardNumber
+                    addressFirst: user.address.first,
+                    addressSecond: user.address.second,
+                    creditCardCVV: user.creditCard.CVV,
+                    creditCardNumber: user.creditCard.number
                 })
             } catch (error) {
                 toast.error(error.message)
@@ -89,7 +89,7 @@ function CheckOutConfirm() {
 
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user.creditCardNumber])
+    }, [user.creditCard.number])
 
     return (
         <>

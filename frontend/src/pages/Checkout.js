@@ -37,12 +37,12 @@ function CheckOut() {
         async function fetchData() {
             try {
                 await dispatch(fetchProfile())
-                setInput({
-                    addressFirst: user.addressFirst,
-                    addressSecond: user.addressSecond,
-                    creditCardCVV: user.creditCardCVV,
-                    creditCardNumber: user.creditCardNumber
-                })
+                // setInput({
+                //     addressFirst: user.address.first,
+                //     addressSecond: user.address.second,
+                //     creditCardCVV: user.creditCard.CVV,
+                //     creditCardNumber: user.creditCard.number
+                // })
             } catch (error) {
                 toast.error(error.message)
             }
@@ -58,7 +58,7 @@ function CheckOut() {
 
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user.creditCardNumber])
+    }, [user.creditCard.number])
 
     return (
         <>

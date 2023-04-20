@@ -22,10 +22,10 @@ function Profile() {
     const { register: register2, handleSubmit: handleSubmit2 } = useForm();
 
     let updateAddress = async ({ addressFirst, addressSecond }) => {
-        await dispatch(editProfile({ body: { addressFirst, addressSecond } }))
+        await dispatch(editProfile({ body: { address: {first: addressFirst, second: addressSecond } } }))
     }
     let updateCard = async ({ creditCardNumber, creditCardCVV }) => {
-        await dispatch(editProfile({ body: { creditCardNumber, creditCardCVV } }))
+        await dispatch(editProfile({ body: { creditCard: {number: creditCardNumber, CVV: creditCardCVV }} }))
     }
     return (
         <>
@@ -89,7 +89,7 @@ function Profile() {
                                                             <div id="basicCollapse1" className="d-none ">
                                                                 <div className="my-0">
                                                                     <>
-                                                                        {(!user.addressFirst || !user.addressSecond) &&
+                                                                        {(!user.address.first || !user.address.second) &&
                                                                             <MDBAlert color="info" dismiss>
                                                                                 Address is required! Please add.
                                                                             </MDBAlert>
@@ -99,8 +99,8 @@ function Profile() {
                                                                             <input
                                                                                 type="text"
                                                                                 {...register1("addressFirst")} className="form-control font-larger"
-                                                                                defaultValue={user.addressFirst}
-                                                                                {...(user.addressFirst && { placeholder: "Haven't added address yet!" })}
+                                                                                defaultValue={user.address.first}
+                                                                                {...(user.address.first && { placeholder: "Haven't added address yet!" })}
                                                                             />
                                                                         </div>
                                                                         <div className="">
@@ -109,8 +109,8 @@ function Profile() {
                                                                                 type="text"
                                                                                 {...register1("addressSecond")}
                                                                                 className="form-control font-larger"
-                                                                                defaultValue={user.addressSecond}
-                                                                                {...(user.addressSecond && { placeholder: "Add your password" })}
+                                                                                defaultValue={user.address.second}
+                                                                                {...(user.address.second && { placeholder: "Add your password" })}
                                                                             />
                                                                         </div>
                                                                     </>
@@ -143,7 +143,7 @@ function Profile() {
                                                 </MDBRow>
                                                 <div id="basicCollapse2" className="d-none mt-n4 py-0">
                                                     <MDBRow className="my-0 px-0 px-5 py-0 mx-auto">
-                                                        {(!user.creditCardNumber || !user.creditCardCVV) &&
+                                                        {(!user.creditCard.number || !user.creditCard.CVV) &&
                                                             <MDBCol xs="12" md="12" className="my-0 py-0">
                                                                 <MDBAlert color="info" dismiss>
                                                                     Credit card is required! Please add.
@@ -153,9 +153,9 @@ function Profile() {
                                                         <MDBCol xs="12" md="6" className="my-0 py-0">
                                                             <label htmlFor="cc-number123">Credit card number</label>
                                                             <input type="text"
-                                                                {...(user.creditCardNumber && { placeholder: "Add your password" })}
+                                                                {...(user.creditCard.number && { placeholder: "Add your password" })}
                                                                 className="form-control font-larger"
-                                                                defaultValue={user.creditCardNumber}
+                                                                defaultValue={user.creditCard.number}
                                                                 {...register2("creditCardNumber")}
                                                                 placeholder={"Card Number"}
                                                                 required />
@@ -163,8 +163,8 @@ function Profile() {
                                                         <MDBCol xs="12" md="6" className="my-0 py-0">
                                                             <label htmlFor="cc-cvv123">CVV</label>
                                                             <input type="text"
-                                                                {...(user.creditCardCVV && { placeholder: "Add your password" })}
-                                                                defaultValue={user.creditCardCVV}
+                                                                {...(user.creditCard.CVV && { placeholder: "Add your password" })}
+                                                                defaultValue={user.creditCard.CVV}
                                                                 className="form-control font-larger"
                                                                 {...register2("creditCardCVV")}
                                                                 placeholder={"Card CVV"}

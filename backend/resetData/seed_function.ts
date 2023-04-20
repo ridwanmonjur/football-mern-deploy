@@ -44,10 +44,11 @@ const importData = async () => {
       email: faker.internet.email(),
       password: hashSync("123456", saltRounds),
       role: "Buyer",
-      addressFirst: faker.address.streetAddress(),
-      addressSecond:  "London, UK",
-      creditCardNumber: faker.finance.creditCardNumber(),
-      creditCardCVV: faker.finance.creditCardCVV()
+      address: {first: faker.address.streetAddress(),
+      second:  "London, UK"},
+      creditCard: {number: faker.finance.creditCardNumber(),
+      CVV: faker.finance.creditCardCVV()
+      }
     })
     )
     carts.push(new Cart({
