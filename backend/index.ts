@@ -13,7 +13,7 @@ const routesProduct = require('./routes/product')
 const routesCart = require('./routes/cart')
 const routesHome = require('./routes/home')
 import './process';
-dotenv.config({ path: './env/config.env' })
+dotenv.config({ path: './config.env' })
 const port = process.env.PORT || 8000
 
 /************************************************************* */

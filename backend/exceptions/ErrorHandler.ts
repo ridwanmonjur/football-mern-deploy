@@ -4,7 +4,7 @@ import { BaseError } from './AppError';
 import { exitHandler } from "./ExitHandler";
 import { winstonLogger } from "../winston/logger";
 import * as dotenv from "dotenv";
-dotenv.config({ path: __dirname + "/env/config.env" });
+dotenv.config({ path: __dirname + "/config.env" });
 
 class ErrorHandler {
   public handleError(error: Error | BaseError, response?: Response): void {

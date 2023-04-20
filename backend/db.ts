@@ -1,7 +1,7 @@
 import { connect } from 'mongoose';
 import * as dotenv from "dotenv";
 import { winstonLogger } from './winston/logger';
-dotenv.config({ path: __dirname + "/env/config.env" });  // THIS IS UBUNTU. WINDOWS USER : dotenv.config({ path: __dirname+ "\env\\config.env" })
+dotenv.config({ path: __dirname + "/config.env" });  // THIS IS UBUNTU. WINDOWS USER : dotenv.config({ path: __dirname+ "\env\\config.env" })
 
 let connectionString = process.env['DB_CONNECTION'] as any as string;
 

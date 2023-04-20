@@ -2,6 +2,7 @@
   "compilerOptions": {
       "experimentalDecorators": true,
       "typeRoots": ["./types"],
+        "outDir": "build", // Types should go into this directory. 
   },
   "exclude": [
 		"node_modules/",

@@ -27841,3 +27841,83 @@ undefined
 [31m  level: 'error',[39m
 [31m  timestamp: '4/1/2023, 2:07:33 AM'[39m
 [31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '4/20/2023, 5:10:38 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '4/20/2023, 5:10:40 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '4/20/2023, 5:10:40 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Attempting a graceful shutdown with code 0',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '4/20/2023, 5:10:54 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '4/20/2023, 5:11:38 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Failed to connect to Database',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '4/20/2023, 5:11:38 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  message: 'Failed to connect to Database',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '4/20/2023, 5:11:38 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  message: 'Attempting a graceful shutdown with code 0',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '4/20/2023, 5:12:30 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '4/20/2023, 5:17:13 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '4/20/2023, 5:17:15 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '4/20/2023, 5:17:15 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Attempting a graceful shutdown with code 0',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '4/20/2023, 5:18:22 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '4/20/2023, 5:18:40 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '4/20/2023, 5:18:42 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '4/20/2023, 5:18:42 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Attempting a graceful shutdown with code 0',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '4/20/2023, 5:18:44 PM'[39m
+[31m}[39m
