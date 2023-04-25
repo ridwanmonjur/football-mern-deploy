@@ -2,7 +2,7 @@ export const cookieKey = process.env.COOKIE_NAME;
 export const ENV = process.env.REACT_APP_ENV;
 export let hostNameWithoutAPI = ""
 export let hostName=""
-const hostNamePart = new Date.getDate()>15 ? "football-mern-shop2" : "football-mern-shop"
+const hostNamePart = new Date().getDate()>15 ? "football-mern-shop2" : "football-mern-shop"
 
 switch(ENV) {
     case "local":
