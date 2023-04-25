@@ -12,5 +12,5 @@ frontend/.eslintcache
 winston/console/app.log
 frontend/.eslintcache
 winston/console/app.log
-config.env
+backend/config.env
 .env
