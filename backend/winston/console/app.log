@@ -29677,3 +29677,18 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '5/1/2023, 4:35:58 PM'[39m
 [32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/1/2023, 4:47:21 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/1/2023, 4:47:23 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/1/2023, 4:47:23 PM'[39m
+[32m}[39m

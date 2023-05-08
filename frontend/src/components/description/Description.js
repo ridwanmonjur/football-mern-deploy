@@ -70,7 +70,7 @@ export function Description({ data }) {
                     <MDBContainer className="pt-0">
                         <MDBRow style={{ marginTop: 0, paddingTop: 0 }} className="pt-0">
                             <MDBCol xs="12" lg="6" className="col-xs-12-imageWraper" >
-                                <img src={`${hostNameWithoutAPI}assets/${data.type}/imageL${data.image.substring(5)}`} alt={`${data.name}`}
+                                <img src={`${hostNameWithoutAPI}assets/${data.type}/imageL${data.image.match(/\d/g).join("")}`} alt={`${data.name}`}
                                     className="description-img frame"
                                 />
                             </MDBCol>
