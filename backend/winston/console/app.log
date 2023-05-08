@@ -29692,3 +29692,26 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '5/1/2023, 4:47:23 PM'[39m
 [32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/8/2023, 5:05:28 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/8/2023, 5:05:31 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/8/2023, 5:05:31 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNAUTHORIZED',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: "Cannot find the user's email.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/8/2023, 5:05:47 PM'[39m
+[31m}[39m
