@@ -56,7 +56,7 @@ function Listing() {
             <MDBContainer fluid className="main-container">
                 <div>
                     <Overlay imgSrc={description[productName]['img']} alt={productName} >
-                        <h1>{description[productName]['h1'] ?? ""}</h1>
+                        <h1 style={productName==="accessories"? {color: 'goldenrod'}: {}}>{description[productName]['h1'] ?? ""}</h1>
                         {description[productName]['h5'] && <h5>{description[productName]['h5']}</h5>}
                     </Overlay>
                     {

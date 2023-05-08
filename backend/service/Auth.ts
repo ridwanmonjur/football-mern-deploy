@@ -13,13 +13,11 @@ var jwt = require('jsonwebtoken');
 
 interface IVerifyUserOutput {
     user: UserInterface;
-
     token: string;
 }
 
 interface ISignupUserOutput {
     user: UserInterface;
-
     cart: CartInterface;
 }
 

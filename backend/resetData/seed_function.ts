@@ -24,7 +24,7 @@ function readFiles(_fileName: string): Array<ProductInterface> {
       name: value['name'],
       manufacturer: value['productOwner'],
       type: _fileName,
-      image: `image${index}.jpg`,
+      image: value['image'],
       stock: 20,
       price: Number(value['price'].toString().substring(1)),
       slug: faker.helpers.slugify(value.name)
