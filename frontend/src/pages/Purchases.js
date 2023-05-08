@@ -36,7 +36,7 @@ export default function Purchases() {
 
     let controller = new AbortController();
     if (isSignedIn) fetchData().catch((error) => {
-      toast.error(error.message)
+      toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
       setLoading(false)
       setError(true)
     })

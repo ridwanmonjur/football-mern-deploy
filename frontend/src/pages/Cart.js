@@ -39,16 +39,12 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
       await dispatch(fetchCart())
     }
     if (isSignedIn) fetchData().catch((error) => {
-      toast.error(error.message)
+      toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
     })
     let controller = new AbortController();
-    try {
       !isPartOfPurchaseView && isSignedIn && fetchData().catch((error) => {
         toast.error(error.message)
       })
-    } catch (error) {
-      toast.error(error)
-    }
     return () => {
       controller?.abort();
     }

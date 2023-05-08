@@ -17,7 +17,7 @@ import Hero2 from '../components/common/Hero2'
 import Hero0 from '../components/common/Hero0'
 
 function Home() {
-  
+
     return (
         <>
             <FullPageIntroWithNonFixedNavbar />
@@ -31,7 +31,7 @@ function Home() {
                         </div>
                     </div>
                     <Hero1 />
-                    <OverlayHome/>
+                    <OverlayHome />
                     <div className='py-5 bg-mass-circles'>
                         <h1 className="text-center my-0 customFont text-warning">Contact Us!</h1>
                         <Newsletter />
@@ -48,11 +48,9 @@ function Home() {
                                 <img className="align-middle" src={NewBalance} alt="NewBalance Logo" />
                             </div>
                         </MDBRow>
-                    </div>
-                    <br />
-                    <br />
+                    </div> <br /> <br />
                     <Hero2 />
-            <Hero0 />
+                    <Hero0 />
                 </div >
             </div>
             <Footer />

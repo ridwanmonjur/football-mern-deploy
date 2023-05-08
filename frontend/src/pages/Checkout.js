@@ -26,7 +26,7 @@ function CheckOut() {
             .then(data => {
                 alert(`We are in business, ${data.email}`);
             }).catch((error) => {
-                toast.error(error.message)
+                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
             })
     }
 
@@ -44,14 +44,14 @@ function CheckOut() {
                 //     creditCardNumber: user.creditCard.number
                 // })
             } catch (error) {
-                toast.error(error.message)
+                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
             }
         }
 
         try {
             fetchData()
         } catch (error) {
-            toast.error(error.message)
+            toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
         }
         return () => {
             controller?.abort();

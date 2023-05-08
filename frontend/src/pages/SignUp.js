@@ -51,7 +51,7 @@ function SignUp() {
             }
         }
         catch (error) {
-            toast.error(error.message);
+            toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
         }
     }
 

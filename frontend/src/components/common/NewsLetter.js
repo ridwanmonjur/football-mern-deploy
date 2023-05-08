@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './NewsLetter.css'
+import { toast } from 'react-toastify';
 class Newsletter extends Component {
 
     constructor() {
@@ -27,6 +28,7 @@ class Newsletter extends Component {
             })
             .catch((error) => {
                 this.setState({ isSubmit: false, error: true })
+                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
             });
     };
     render() {
@@ -42,7 +44,6 @@ class Newsletter extends Component {
                         <span className='form-outline'>
                             <input type="email" id="email" className='form-control formWidth' name="email" required placeholder='Enter your email...' />
                         </span>
-
                         <span className='form-outline mt-4'>
                             <textarea id="message" className='form-control' name="message" required placeholder='Enter your message...'></textarea>
                         </span>

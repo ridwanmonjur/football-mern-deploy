@@ -17,7 +17,7 @@ const useLoadingFetchError = (fetchFunction, args) => {
             })
             .catch((error) => {
                 setState({ loading: false, error: error, data: null })
-                toast.error(error.message)
+                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
             })
         // .finally(() => { setState((prev) => { return { data: prev.data, loading: false, eror: true } }) });
 

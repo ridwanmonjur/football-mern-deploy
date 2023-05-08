@@ -11,8 +11,8 @@ const useLoadingError = (action) => {
     return action(...args)
       .catch((error) => {
         setState({ loading: false, error })
-        toast.error(error.message)
-    })
+        toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+      })
       // .finally(() => setState({ loading: false, eror: true }));
   }, [action]
   )

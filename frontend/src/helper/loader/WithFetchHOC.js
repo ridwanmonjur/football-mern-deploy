@@ -15,7 +15,7 @@ const WithFetchHOC = (WrappedComponent, fetchFunction, args) => {
                 .then((data) => setState({ data, loading: false, error: false }))
                 .catch((error) => {
                     setState({ data: [], loading: false, error })
-                    toast.error(error.message)
+                    toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
                 })
             // .finally(() => { setState((prev) => { return { data: prev.data, loading: false, error: true } }) });
         }, []);

@@ -50,7 +50,7 @@ function SignIn() {
         }
         catch (error) {
             toast.dismiss()
-            toast.error(error.message);
+            toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
         }
     }
 

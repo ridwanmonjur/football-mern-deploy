@@ -75,14 +75,14 @@ function CheckOutConfirm() {
                     creditCardNumber: user.creditCard.number
                 })
             } catch (error) {
-                toast.error(error.message)
+                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
             }
         }
 
         try {
             fetchData()
         } catch (error) {
-            toast.error(error.message)
+            toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
         }
         return () => {
             controller?.abort();
