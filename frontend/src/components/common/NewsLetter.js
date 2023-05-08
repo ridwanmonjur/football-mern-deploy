@@ -38,16 +38,19 @@ class Newsletter extends Component {
                     !this.state.isSubmit && !this.state.error &&
                     <form name="contact" method="post" onSubmit={this.handleSubmit}>
                         <input type="hidden" name="form-name" value="contact" />
+                        <span className='d-inline'>
+                            <input type="text" id="name" className='form-control border-warning' name="name" required placeholder='Enter your name...' />
+                        </span>
+                        <br  /> <br  />
+                        <span className='d-inline'>
+                            <input type="email" id="email" className='mt-4 form-control border-warning' name="email" required placeholder='Enter your email...' />
+                        </span>
+                        <br  /> <br  />
+                        <span className=''>
+                            <textarea id="message" className='form-control mt-4 border-warning' name="message" required placeholder='Enter your message...'></textarea>
+                        </span>
+                        <br  /> <br  />
                         <span className='form-outline'>
-                            <input type="text" id="name" className='form-control formWidth' name="name" required placeholder='Enter your name...' />
-                        </span>
-                        <span className='form-outline'>
-                            <input type="email" id="email" className='form-control formWidth' name="email" required placeholder='Enter your email...' />
-                        </span>
-                        <span className='form-outline mt-4'>
-                            <textarea id="message" className='form-control' name="message" required placeholder='Enter your message...'></textarea>
-                        </span>
-                        <span className='form-outline mt-4'>
                             <input type="submit" className='btn btn-warning' value="Submit message" />
                         </span>
                     </form>

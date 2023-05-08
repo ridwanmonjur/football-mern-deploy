@@ -1,7 +1,11 @@
 .newsletter-container {
     margin: 0 0 -20px;
     background-color: transparent;
-    padding: 3vh 5vw;
+    padding: 3vh 10vw;
+}
+
+.newsletter-container form span {
+    margin-top: 10px !important;
 }
 
 .newsletter-container span input, .newsletter-container span textarea{
@@ -11,6 +15,7 @@
 
 .newsletter-container span input:focus, .newsletter-container span textarea:focus{
     background-color: transparent;
+    padding: 10px;
 }
 
 .newsletter-container span input[type="submit"] {
@@ -25,9 +30,6 @@
     height: 20vh;
 }
 
-.formWidth {
-    width: 100%;
-}
 
 @media (min-width: 1000px) {
     .newsletter-container {
@@ -37,9 +39,5 @@
     .newsletter-container span textarea {
         height: 13vh;
     }
-
-    .formWidth {
-        width: 50%;
-    }   
     
 }
