@@ -63,7 +63,7 @@ function SignIn() {
                     <div className="scaffold">
                         <MDBRow className="my-2 px-2" center>
                             <MDBCard className="mx-auto real-signin-container">
-                                <MDBCardImage className="img-edit" waves src={NavbarIcon} />
+                                <MDBCardImage className="img-edit" waves="true" src={NavbarIcon} />
                                 <MDBCardTitle className="text-align-center">
                                     <b > GLOBAL SOCCER SHOP </b>
                                 </MDBCardTitle>

@@ -50,7 +50,7 @@ function GridVertical({ productName, data, scrollPosition }) {
                                                 placeholder={
                                                     <img src="../../assets/Adidas.png" width={300} height={300} alt="lazy" />
                                                 }
-                                                className="card-image" src={`${hostNameWithoutAPI}assets/${productName}/image${index}.jpg`} alt={`${index}`} waves />
+                                                className="card-image" src={`${hostNameWithoutAPI}assets/${productName}/image${index}.jpg`} alt={`${index}`} waves="true" />
 
                                             <MDBCardBody className="d-flex flex-column justify-content-center align-items-center">
                                                 <MDBCardTitle >

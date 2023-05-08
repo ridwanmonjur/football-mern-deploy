@@ -60,7 +60,12 @@ export function Description({ data }) {
         }
     }
 
+    const imageExtension = data.image.substr(data.image.lastIndexOf('.') + 1)
+    const imageNumber = data.image.match(/\d/g).join("");
+    console.log({imageNumber, url: `${hostNameWithoutAPI}assets/${data.type}/imageL${imageNumber}`})
+
     return (
+
 
         <Fragment>
             {data.name !== undefined &&
@@ -70,7 +75,7 @@ export function Description({ data }) {
                     <MDBContainer className="pt-0">
                         <MDBRow style={{ marginTop: 0, paddingTop: 0 }} className="pt-0">
                             <MDBCol xs="12" lg="6" className="col-xs-12-imageWraper" >
-                                <img src={`${hostNameWithoutAPI}assets/${data.type}/imageL${data.image.match(/\d/g).join("")}`} alt={`${data.name}`}
+                                <img src={`${hostNameWithoutAPI}assets/${data.type}/imageL${imageNumber}.${imageExtension}`} alt={`${data.name}`}
                                     className="description-img frame"
                                 />
                             </MDBCol>
