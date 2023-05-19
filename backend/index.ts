@@ -11,6 +11,7 @@ const cors = require('cors')
 const routesAuth = require('./routes/auth')
 const routesProduct = require('./routes/product')
 const routesCart = require('./routes/cart')
+// const routesBkash = require('./routes/bkash')
 const routesHome = require('./routes/home')
 import './process';
 dotenv.config({ path: './config.env' })
@@ -34,6 +35,7 @@ app.use('/', routesHome);
 app.use('/api/v1', routesAuth)
 app.use('/api/v1/product', routesProduct)
 app.use('/api/v1/cart', routesCart)
+// app.use('/api/v1/bkash', routesBkash)
 
 /************************************************************* */
 // error handling

@@ -41,7 +41,7 @@ function Profile() {
                                         <div><Spinner /></div>
                                     }
                                     {
-                                        user && statusProfile === "success" &&
+                                        user &&
                                         <div className="px-5 pt-4 pb-5">
                                             <MDBNav pills className="amber-text my-0">
                                                 <h1 className="customFont"> PERSONAL DETAILS</h1>

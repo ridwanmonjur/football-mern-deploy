@@ -15,6 +15,7 @@ function CheckOutConfirm() {
 
     let user = useSelector(selectProfileDetails)
     let cart = useSelector(selectCart)
+    console.log({ user, cart })
 
     let history = useHistory()
     const dispatch = useDispatch()
@@ -48,9 +49,19 @@ function CheckOutConfirm() {
 
 
     let updateAddressCard = async () => {
-        if (user.address.first && user.address.second && user.creditCard.number && user.creditCard.CVV) {
+        if (user?.address?.first && user?.address?.second && user?.creditCard?.number && user?.creditCard?.CVV) {
             if (input.changed) {
-                await dispatch(editProfile({ body: { addressFirst: input.addressFirst, addressSecond: input.addressSecond, creditCardNumber: input.creditCardNumber, creditCardCVV: input.creditCardCVV } }))
+                await dispatch(
+                    editProfile(
+                        {
+                            body:
+                            {
+                                addressFirst: input.addressFirst,
+                                addressSecond: input.addressSecond,
+                                creditCardNumber: input.creditCardNumber,
+                                creditCardCVV: input.creditCardCVV
+                            }
+                        }))
             }
             await api('POST', 'cart', {
                 mode: 'cors'
@@ -64,37 +75,32 @@ function CheckOutConfirm() {
 
 
     useEffect(() => {
-        let controller = new AbortController();
-        async function fetchData() {
-            try {
-                await dispatch(fetchProfile())
-                setInput({
-                    addressFirst: user.address.first,
-                    addressSecond: user.address.second,
-                    creditCardCVV: user.creditCard.CVV,
-                    creditCardNumber: user.creditCard.number
-                })
-            } catch (error) {
-                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
-            }
-        }
+    //     let controller = new AbortController();
+    setInput({
+        addressFirst: user?.address.first || "",
+        addressSecond: user?.address.second || "",
+        creditCardCVV: user?.creditCard.CVV || "",
+        creditCardNumber: user?.creditCard.number || ""
+    })
 
-        try {
-            fetchData()
-        } catch (error) {
-            toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
-        }
-        return () => {
-            controller?.abort();
+}, [user?.address.first, user?.address.second, user?.creditCard.CVV, user?.creditCard.number])
+//     try {
+//         fetchData()
+//     } catch (error) {
+//         toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+//     }
+//     return () => {
+//         controller?.abort();
 
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user.creditCard.number])
+//     }
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
 
-    return (
-        <>
-            <FullPageIntroWithNonFixedNavbar />
-            <MDBContainer fluid className="main-container">
+return (
+    <>
+        <FullPageIntroWithNonFixedNavbar />
+        <MDBContainer fluid style={{ minHeight: "70vh", marginTop: "150px" }}>
+            {
+                user?.creditCard &&
                 <MDBContainer className="mb-5">
                     <MDBRow className="my-2" center>
                         <MDBCard className="w-100">
@@ -157,7 +163,7 @@ function CheckOutConfirm() {
                                                         Total Purchases
                                                     </MDBCol>
                                                     <MDBCol sm="4">
-                                                        £ {roundOff(cart.total)}
+                                                        {/* £ {roundOff(cart?.total)} */}
                                                     </MDBCol>
                                                     <hr />
                                                     <MDBCol sm="8">
@@ -172,7 +178,7 @@ function CheckOutConfirm() {
                                                         <strong>Total</strong>
                                                     </MDBCol>
                                                     <MDBCol sm="4">
-                                                        <strong> £ {roundOff(cart.total) + 50.00}</strong>
+                                                        {/* <strong> £ {roundOff(cart?.total) + 50.00}</strong> */}
                                                     </MDBCol>
                                                 </MDBRow>
                                                 <br />
@@ -188,10 +194,11 @@ function CheckOutConfirm() {
                         </MDBCard>
                     </MDBRow >
                 </MDBContainer >
-            </MDBContainer>
-            <Footer />
-        </>
-    );
+            }
+        </MDBContainer>
+        <Footer />
+    </>
+);
 
 }
 

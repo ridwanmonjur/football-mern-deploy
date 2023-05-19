@@ -1,6 +1,6 @@
 import { IsCreditCard, IsEmail, IsOptional, IsString, Length } from "class-validator";
 import { ValidateNested } from 'class-validator';
-import { Type } from 'class-transformer';
+// import { Type } from 'class-transformer';
 
 
 class Address {
@@ -44,12 +44,12 @@ export class UserLoginInput {
 export class EditUserProfileInput {
 
     @IsOptional()
-    @ValidateNested()
+    // @ValidateNested()
     // @Type(() => CreditCard)
     creditCard: CreditCard;
 
     @IsOptional()
-    
+    // @ValidateNested()
     // @Type(() => Address)
     address: Address;
 }

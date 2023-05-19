@@ -1,5 +1,4 @@
 import { ObjectId } from "mongoose";
-import { HTTP401UnauthorizedError } from "../exceptions/AppError";
 import { ProductInterface } from "../models/Product";
 import { ProductRepository } from "../repository/Product";
 

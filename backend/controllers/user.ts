@@ -67,11 +67,18 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
 
     let user: UserInterface | null = null;
 
+    console.log({body: req.body})
+
     const editInputs = plainToClass(EditUserProfileInput, req.body);
 
     const validationError = await validate(editInputs, { validationError: { target: true } });
 
+    console.log({validationError})
+
+
     validateAndThrowError(validationError);
+
+    console.log({editInputs})
 
     try {
         userId = ObjectID(req.user);
@@ -81,6 +88,7 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
         res.status(StatusCodes.CREATED).json({ success: true, user, userId: req.user, number: 0 });
     }
     catch (error) {
+        console.log({error: error.message})
         if (!userId) throw new HTTP422UnproccessableEntity("Current user is missing in the request header.");
 
         else next(error);
