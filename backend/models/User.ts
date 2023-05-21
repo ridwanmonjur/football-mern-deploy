@@ -5,9 +5,10 @@ import { CartInterface } from "./Cart"
 // ** extends Document **
 
 interface TokenInterface {
-    refreshJWT: string,
+    refreshToken: string,
     resetPassword: string,
-    forgotPassword: string
+    verifyEmail: string,
+    isVerified: boolean
 }
 
 interface AddressInterface {
@@ -54,9 +55,13 @@ const schema = new Schema<UserInterface>({
         required: true
     },
     token: {
-        refreshJWT: String,
+        refreshToken: String,
         resetPassword: String,
-        forgotPassword: String,
+        verifyEmail: String,
+        isVerified : {
+            type: Boolean,
+            default: false
+        }
     },
     address: {
         first: String,

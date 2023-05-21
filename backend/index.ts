@@ -8,9 +8,10 @@ import * as http from 'http'
 import { logError } from './middleware/error/logError'
 import { handleError } from './middleware/error/handleError'
 const cors = require('cors')
-const routesAuth = require('./routes/auth')
+const routesUser = require('./routes/user')
 const routesProduct = require('./routes/product')
 const routesCart = require('./routes/cart')
+const routesAuth = require('./routes/auth')
 // const routesBkash = require('./routes/bkash')
 const routesHome = require('./routes/home')
 import './process';
@@ -23,7 +24,10 @@ const port = process.env.PORT || 8000
 const app: Application = express()
 export const server = http.createServer(app);
 export const httpTerminator = createHttpTerminator({ server });
-app.use(cors()) // For all fetch requests for JSON  Must specify Content-Type: application/json in fetch
+app.use(cors({
+    origin: ["http://localhost:3000" , "https://football-mern-shop.netlify.app"],
+    credentials: true
+})) // For all fetch requests for JSON  Must specify Content-Type: application/json in fetch
 app.use(express.json()) // for Form body parsing application/x-www-form-urlencoded I.E. FORMDATA
 app.use(express.urlencoded({ extended: true })); // for parsing multipart/form-data I.E. FILES // app.use(upload.array()); 
 connectDB()
@@ -33,6 +37,7 @@ connectDB()
 app.use('/assets', express.static(__dirname + '/assets'));
 app.use('/', routesHome);
 app.use('/api/v1', routesAuth)
+app.use('/api/v1', routesUser)
 app.use('/api/v1/product', routesProduct)
 app.use('/api/v1/cart', routesCart)
 // app.use('/api/v1/bkash', routesBkash)

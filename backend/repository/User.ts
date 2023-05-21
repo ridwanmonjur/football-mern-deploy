@@ -1,6 +1,6 @@
 import { ObjectId } from "mongoose";
 import { HTTP500InternalServerrror } from "../exceptions/AppError";
-import { EditUserProfileInput } from "../inputs/user";
+import { EditUserProfileDto } from "../dto/user";
 import { User, UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
 
 export class UserRepository {
@@ -46,7 +46,7 @@ export class UserRepository {
         }
     }
 
-    async findByIdAndUpdate(userId: ObjectId, body: EditUserProfileInput): Promise<UserInterface> {
+    async findByIdAndUpdate(userId: ObjectId, body: EditUserProfileDto): Promise<UserInterface> {
         try {
             return await User.findByIdAndUpdate(userId, { ...body }, { new: true });
         }

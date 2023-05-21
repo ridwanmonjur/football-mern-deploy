@@ -1,9 +1,9 @@
 import { cookieKey, hostName } from "./env"
-export function api(methodName, endpoint, { body, ...customConfig } = {}) {
-    
+export async function api(methodName, endpoint, { body, ...customConfig } = {}) {
+
     const headers = { 'content-type': 'application/json' }
     const token = getCookie(cookieKey)
-    console.log({token, cookieKey, hostName})
+    console.log({ token, cookieKey, hostName })
     if (token) {
         headers.authorization = token
     }
@@ -20,14 +20,30 @@ export function api(methodName, endpoint, { body, ...customConfig } = {}) {
         config.body = JSON.stringify(body)
     }
 
-    return window
+    const { response } = await window
         .fetch(`${hostName}/${endpoint}`, config)
-        .then(response => response.json())
-        .then(response=> response)
-        // .then(response => {
-        //     console.log(response)
-        //     return response
-        // })
+
+    return response
+        .then(response => {
+            if (response.status === 401) {
+                return window
+                    .fetch(`${hostName}/refreshToken}`)
+                    .then((res) => res.json())
+                    .then((refreshResponse) => {
+                        console.log({ refreshResponse })
+                        headers.authorization = refreshResponse['accessToken']
+                    })
+                    .then(() => {
+                        return window.fetch(`${hostName}/${endpoint}`, config).then((res) => res.json())
+                    })
+            }
+            else return response.json()
+        })
+    // .then(response=> response)
+    // .then(response => {
+    //     console.log(response)
+    //     return response
+    // })
 
 }
 
@@ -39,13 +55,13 @@ export function getCookie(cName) {
     cArr.forEach(val => {
         if (val.indexOf(name) === 0) res = val.substring(name.length);
     })
-    
+
     return res
 }
 
-export function setCookie(cname, cvalue, exdays) {
+export function setCookie(cname, cvalue, exhours) {
     const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    d.setTime(d.getTime() + (exhours * 60 * 60 * 1000));
     let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }

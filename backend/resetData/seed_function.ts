@@ -43,7 +43,7 @@ const importData = async () => {
       name: faker.name.findName(),
       email: faker.internet.email(),
       password: hashSync("123456", saltRounds),
-      role: "Buyer",
+      role: "seller",
       address: {first: faker.address.streetAddress(),
       second:  "London, UK"},
       creditCard: {number: faker.finance.creditCardNumber(),
@@ -59,11 +59,19 @@ const importData = async () => {
   }
 
   users.push(new User({
-    name: "admin",
-    email: "Admin@gmail.com",
+    name: "admin123",
+    email: "admin123@gmail.com",
     password: hashSync("123456", saltRounds),
     role: "admin"
   }))
+
+  users.push(new User({
+    name: "customer123",
+    email: "customer123@gmail.com",
+    password: hashSync("123456", saltRounds),
+    role: "customer"
+  }))
+
 
   try{
   await User.create(users)
@@ -118,7 +126,9 @@ export const resetData = async () => {
   try {
     await deleteData()
     await importData()
+    const users = await User.find({})
     winstonLogger.info("Data replaced...")
+    return users;
   } catch (err) {
     winstonLogger.error(err)
   }

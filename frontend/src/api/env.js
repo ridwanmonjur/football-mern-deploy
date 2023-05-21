@@ -1,4 +1,4 @@
-export const cookieKey = "signInToken";
+export const cookieKey = "accessToken";
 export const ENV = process.env.REACT_APP_ENV;
 export let hostNameWithoutAPI = ""
 export let hostName=""

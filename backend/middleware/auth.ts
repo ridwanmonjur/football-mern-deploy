@@ -13,8 +13,8 @@ const protect = (req: Request, res: Response, next: NextFunction) => {
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);  // Verify token
-        let { user, role } = decoded;  // Add user from payload
-        req.user = user;
+        let { userID, role } = decoded;  // Add userID from payload
+        req.userID = userID;
         req.role = role;
         next();
     } catch (e) {

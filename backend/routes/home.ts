@@ -19,9 +19,8 @@ router.get('/', (req: Request, res: Response) => {
         });
 })
 
-router.get('/api/v1/resetData', function (_req: Request, res: Response) {
-    resetData()
-    res.status(StatusCodes.OK).json({ success: true })
+router.get('/api/v1/resetData', async function (_req: Request, res: Response) {
+    res.status(StatusCodes.OK).json({ success: true, users: await resetData() })
 })
 
 router.get('/api/v1/deleteData', function (_req: Request, res: Response) {

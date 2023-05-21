@@ -1,23 +1,11 @@
-const express = require('express');
-import { signup, login,  getUser, getUsers, getCurrentUser, editCurrentUser } from "../controllers/user";
-import { protect } from "../middleware/auth";
-const cartRouter = require("./cart");
-const router = express.Router();
+import { login, refreshToken, logout } from "../controllers/auth";
 
-router.post('/signup', signup);
+const express = require('express');
+const router = express.Router();
 
 router.post('/login', login);
 
-router.use('/user/cart/', cartRouter);
+router.post('/refreshToken', refreshToken);
 
-router.route('/user')
-    .get(getUsers);
-
-router.route('/user/:userId')
-    .get(getUser);
-
-router.route('/current')
-    .get(protect, getCurrentUser)
-    .put(protect, editCurrentUser);
-
+router.post('/login', logout);
 module.exports = router

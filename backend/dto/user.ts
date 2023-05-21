@@ -1,7 +1,6 @@
-import { IsCreditCard, IsEmail, IsOptional, IsString, Length } from "class-validator";
-import { ValidateNested } from 'class-validator';
+import { IsCreditCard, IsEmail, IsNotEmpty, IsOptional, IsString, Length } from "class-validator";
+// import { ValidateNested } from 'class-validator';
 // import { Type } from 'class-transformer';
-
 
 class Address {
     @Length(20,100)
@@ -20,7 +19,7 @@ class CreditCard {
     @Length(3, 4)
     CVV: string;
 }
-export class CreateUserInput {
+export class CreateUserDto {
     @IsEmail()
     email: string;
     
@@ -32,16 +31,25 @@ export class CreateUserInput {
     password: string;
 }
 
-export class UserLoginInput {
+export class UserLoginDto {
     @IsEmail()
     email: string;
     
     @Length(6,12)
+    // @IsNotEmpty()
     password: string;
 }
 
+export class UserTokenDto {
+    @IsEmail()
+    email: string;
+    
+    @Length(6,12)
+    // @IsNotEmpty()
+    password: string;
+}
 
-export class EditUserProfileInput {
+export class EditUserProfileDto {
 
     @IsOptional()
     // @ValidateNested()

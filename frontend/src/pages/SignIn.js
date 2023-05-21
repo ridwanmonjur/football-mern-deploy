@@ -39,7 +39,8 @@ function SignIn() {
             })
 
             if (response.success === true) {
-                setCookie("signInToken", response.token, 4)
+                //  set cookie 10 minutes
+                setCookie("accessToken", response.token, 1/60)
                 dispatch(setSignedIn());
                 toast.dismiss()
                 toast.success('Logged in! Now you can make your purchases.');

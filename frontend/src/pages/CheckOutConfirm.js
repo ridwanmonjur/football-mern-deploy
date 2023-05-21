@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import { MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody, MDBBtn, MDBNav } from "mdbreact";
 import "./CheckOut.css";
 import { useSelector, useDispatch } from "react-redux";
-import { selectProfileDetails, fetchProfile, editProfile } from "../redux/slices/ProfileSlice";
+import { selectProfileDetails, fetchProfile, editProfile, selectIsSignedIn } from "../redux/slices/ProfileSlice";
 import { useHistory } from "react-router";
 import { api } from "../api/api";
 import { toast } from "react-toastify"
-import { selectCart } from "../redux/slices/CartSlice";
+import { fetchCart, selectCart, selectCartStatus } from "../redux/slices/CartSlice";
 import { roundOff } from "../helper/roundOff";
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -47,6 +47,22 @@ function CheckOutConfirm() {
         }
     }
 
+    let isSignedIn = useSelector(selectIsSignedIn)
+
+    useEffect(() => {
+        async function fetchData() {
+          await dispatch(fetchCart())
+        }
+        
+        let controller = new AbortController();
+        if (isSignedIn) fetchData().catch((error) => {
+            toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+          })
+        return () => {
+          controller?.abort();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [isSignedIn])
 
     let updateAddressCard = async () => {
         if (user?.address?.first && user?.address?.second && user?.creditCard?.number && user?.creditCard?.CVV) {

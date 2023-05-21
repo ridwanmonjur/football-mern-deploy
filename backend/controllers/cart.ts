@@ -12,7 +12,7 @@ export async function getCart(req: Request, res: Response, next: NextFunction): 
 
     let cart: undefined | CartInterface;
     try {
-        cart = await service.findOneCart({ user: req.user, status: "active" });
+        cart = await service.findOneCart({ user: req.userID, status: "active" });
 
         res.status(StatusCodes.OK).json({ success: true, cart });
     } catch (error) {
@@ -24,7 +24,7 @@ export async function getCarts(req: Request, res: Response, next: NextFunction):
 
     let cart: undefined | Array<CartInterface>;
     try {
-        cart = await service.findAllCarts({ user: req.user });
+        cart = await service.findAllCarts({ user: req.userID });
 
         res.status(StatusCodes.OK).json({ success: true, cart });
     } catch (error) {
@@ -37,9 +37,9 @@ export async function addProduct(req: Request, res: Response, next: NextFunction
 
     let productId = req.params.productId;
     try {
-        userId = ObjectID(req.user);
+        userId = ObjectID(req.userID);
 
-        if (req.params.productId && req.user) {
+        if (req.params.productId && req.userID) {
             let cart: CartInterface | null = await service.addToCart(req.body, userId, productId);
 
             res.status(StatusCodes.CREATED).json({ cart, success: true });
@@ -56,9 +56,9 @@ export async function editProductQuantity(req: Request, res: Response, next: Nex
 
     let productId = req.params.productId;
     try {
-        userId = ObjectID(req.user);
+        userId = ObjectID(req.userID);
 
-        if (req.params.productId && req.user) {
+        if (req.params.productId && req.userID) {
 
             let cart: CartInterface | null = await service.editCart(req.body, userId, productId);
 
@@ -84,7 +84,7 @@ export async function deleteCartProduct(req: Request, res: Response, next: NextF
     try {
         deleteProductIndex = parseInt(req.params.deleteProductIndex);
 
-        userId = ObjectID(req.user);
+        userId = ObjectID(req.userID);
 
         console.log({ deleteProductIndex, userId })
 
@@ -108,7 +108,7 @@ export async function getNewCart(req: Request, res: Response, next: NextFunction
     let userId: undefined | ObjectId;
 
     try {
-        userId = ObjectID(req.user);
+        userId = ObjectID(req.userID);
 
         let cart = await service.createCart(userId);
 

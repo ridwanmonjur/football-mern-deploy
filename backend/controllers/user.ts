@@ -3,12 +3,13 @@ const ObjectID = require("mongodb").ObjectID;
 import {  UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
 import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { ObjectId } from 'mongoose';
-import { UserService } from '../service/Auth';
+import { UserService } from '../service/User';
 import { plainToClass } from 'class-transformer';
-import { CreateUserInput, EditUserProfileInput, UserLoginInput } from '../inputs/user';
+import { CreateUserDto, EditUserProfileDto, UserLoginDto } from '../dto/user';
 import { validate } from 'class-validator';
 import { validateAndThrowError } from '../helper/validateAndThrowError';
 import { StatusCodes } from 'http-status-codes';
+import { validationOptions } from '../helper/validatorOptions';
 
 // controller: just deal with request and response object 
 
@@ -37,7 +38,7 @@ export async function getCurrentUser(req: Request, res: Response, next: NextFunc
 
     let user: undefined | UserInterface;
     try {
-        userId = ObjectID(req.user);
+        userId = ObjectID(req.userID);
 
         user = await service.getUserById(userId);
 
@@ -69,23 +70,23 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
 
     console.log({body: req.body})
 
-    const editInputs = plainToClass(EditUserProfileInput, req.body);
+    const editDtos = plainToClass(EditUserProfileDto, req.body);
 
-    const validationError = await validate(editInputs, { validationError: { target: true } });
+    const validationError = await validate(editDtos, validationOptions);
 
     console.log({validationError})
 
 
     validateAndThrowError(validationError);
 
-    console.log({editInputs})
+    console.log({editDtos})
 
     try {
-        userId = ObjectID(req.user);
+        userId = ObjectID(req.userID);
 
-        user = await service.findByIdAndUpdate(userId, { ...editInputs });
+        user = await service.findByIdAndUpdate(userId, { ...editDtos });
 
-        res.status(StatusCodes.CREATED).json({ success: true, user, userId: req.user, number: 0 });
+        res.status(StatusCodes.CREATED).json({ success: true, user, userId: req.userID, number: 0 });
     }
     catch (error) {
         console.log({error: error.message})
@@ -98,42 +99,18 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
 
 export async function signup(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const signupInputs = plainToClass(CreateUserInput, req.body);
+        const signupDtos = plainToClass(CreateUserDto, req.body);
 
-        const validationError = await validate(signupInputs, { validationError: { target: true } });
+        const validationError = await validate(signupDtos, validationOptions);
 
         validateAndThrowError(validationError);
 
-        const { user, cart } = await service.signupUser(signupInputs);
+        const { user, cart } = await service.signupUser(signupDtos);
 
         res.status(StatusCodes.CREATED).json({ user, cart, success: true });
     }
     catch (error) {
         next(error);
     }
-
-}
-
-export async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
-    try {
-        const loginInputs = plainToClass(UserLoginInput, req.body);
-
-        const validationError = await validate(loginInputs, { validationError: { target: true } });
-
-        validateAndThrowError(validationError);
-
-        const { user, token } = await service.verifyUser(loginInputs);
-
-        const options = {
-            expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),// 30 days
-            httpOnly: true
-        };
-
-        res.status(StatusCodes.OK).cookie(process.env.COOKIE_NAME, token, options).json({ success: true, token, user });
-    }
-    catch (error) {
-        next(error);
-    }
-
 }
 
