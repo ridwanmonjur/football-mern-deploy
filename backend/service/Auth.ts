@@ -1,4 +1,4 @@
-import { HTTP401UnauthorizedError, HTTP404NotFoundError } from "../exceptions/AppError";
+import { HTTP401UnauthorizedError, HTTP403ForbiddenError, HTTP404NotFoundError } from "../exceptions/AppError";
 import { UserLoginDto } from "../dto/user";
 import { UserInterface } from "../models/User";
 import { CartRepository } from "../repository/Cart";
@@ -58,10 +58,9 @@ export class AuthService {
     async verifyRefeshToken(refreshToken: string): Promise<string> {
 
         try {
-
             let user = await this.findOneUser({ token: { refreshJWT: refreshToken } });
 
-            if (!user) throw new HTTP404NotFoundError("Cannot find the user's email.");
+            if (!user) throw new HTTP403ForbiddenError("Cannot find the user's email.");
 
             try {
                 const decoded = jwt.verify(refreshToken, JWT_SECRET);
@@ -77,16 +76,16 @@ export class AuthService {
                     return accessToken
                 }
 
-                if (!user) throw new HTTP404NotFoundError("Unkown user found in JWT.");
+                if (!user) throw new HTTP403ForbiddenError("Unkown user found in JWT.");
 
             }
             catch (error) {
-                throw new HTTP401UnauthorizedError(error.message || "Failed to find tojen");
+                throw new HTTP403ForbiddenError(error.message || "Failed to find tojen");
             }
 
         } catch (err) {
             throw err;
-        }
+        }   
     }
 
     public async findOneUser(body: any, select?: any): Promise<UserInterface> {

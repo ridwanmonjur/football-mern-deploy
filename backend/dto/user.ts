@@ -1,4 +1,4 @@
-import { IsCreditCard, IsEmail, IsNotEmpty, IsOptional, IsString, Length } from "class-validator";
+import { IsCreditCard, IsEmail, IsOptional, IsString, Length } from "class-validator";
 // import { ValidateNested } from 'class-validator';
 // import { Type } from 'class-transformer';
 
@@ -22,6 +22,10 @@ class CreditCard {
 export class CreateUserDto {
     @IsEmail()
     email: string;
+
+    @IsOptional()
+    @Length(6,12)
+    confirmPassword: string;
     
     @IsString()
     @Length(3,32)

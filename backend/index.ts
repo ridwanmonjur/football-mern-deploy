@@ -1,13 +1,14 @@
 import * as express from 'express'
 import { Application, Request, Response, NextFunction } from 'express'
+import * as http from 'http'
+import * as cookies from "cookie-parser";
+import * as cors from 'cors';
+import { createHttpTerminator } from 'http-terminator';
 import * as dotenv from "dotenv"
 import { connectDB } from './db'
 import { winstonLogger } from './winston/logger'
-import { createHttpTerminator } from 'http-terminator';
-import * as http from 'http'
 import { logError } from './middleware/error/logError'
 import { handleError } from './middleware/error/handleError'
-const cors = require('cors')
 const routesUser = require('./routes/user')
 const routesProduct = require('./routes/product')
 const routesCart = require('./routes/cart')
@@ -24,8 +25,9 @@ const port = process.env.PORT || 8000
 const app: Application = express()
 export const server = http.createServer(app);
 export const httpTerminator = createHttpTerminator({ server });
+app.use(cookies());
 app.use(cors({
-    origin: ["http://localhost:3000" , "https://football-mern-shop.netlify.app"],
+    origin: ["http://localhost:3000", "http://localhost:3000", "https://football-mern-shop.netlify.app"],
     credentials: true
 })) // For all fetch requests for JSON  Must specify Content-Type: application/json in fetch
 app.use(express.json()) // for Form body parsing application/x-www-form-urlencoded I.E. FORMDATA

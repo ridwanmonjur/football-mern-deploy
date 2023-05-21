@@ -2,26 +2,29 @@ import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 import { toast } from 'react-toastify';
 import configuredAxios from "../../api/configuredAxios";
+import { Button, Input, Label } from "./sharing/form";
 
 export const SignupForm = ({ switchToSignin }) => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [loading, setLoading] = useState(false);
     const signupFormRef = useRef(null)
     const onSubmit = async (data, event) => {
         setLoading(true);
         event.preventDefault();
         try {
-            const response = await configuredAxios.post("/signup", { ...data })
+            await configuredAxios.post("/signup", { ...data })
             await setTimeout(() => {
                 setLoading(false);
-                toast.success(response.message, {
+                toast.success("Successfully signed up. Now login", {
                     position: toast.POSITION.TOP_RIGHT
                 });
+                switchToSignin();
             }, 3000);
         }
         catch (error) {
             if (loading) setLoading(false);
-            toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+            console.log({error, message: error?.response?.data?.message })
+            toast.error(`${error?.response?.status || "Client"} Error: ${error?.response?.data?.message || error.message}`)
         }
     }
     return (
@@ -35,25 +38,25 @@ export const SignupForm = ({ switchToSignin }) => {
                     ref={signupFormRef}
                     onSubmit={handleSubmit(onSubmit)}>
                     <div>
-                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
-                        <input type="text" {...register("name")} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+                        <Label htmlFor="name">Your name</Label>
+                        <Input type="text" {...register("name")} id="name" placeholder="Your name" required="" />
                     </div>
                     <div>
-                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                        <input type="email" {...register("email")} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+                        <Label htmlFor="email">Your email</Label>
+                        <Input type="email" {...register("email")} id="email" placeholder="Your company" required="" />
                     </div>
                     <div>
-                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input type="password" {...register("password")} id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                        <Label htmlFor="password">Password</Label>
+                        <Input type="password" {...register("password")} id="password" placeholder="••••••••" required="" />
                     </div>
                     <div>
-                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm Password</label>
-                        <input type="password" {...register("confirmPassword")} id="retype=password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+                        <Label htmlFor="confirmPassword">Confirm Password</Label>
+                        <Input type="password" {...register("confirmPassword")} id="confirmPassword" placeholder="••••••••" required="" />
                     </div>
-                    <button type="submit"
-                        className={`${loading ? "loading" : ""} w-full text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800`}>
+                    <Button type="submit"
+                        classNames={`${loading ? "loading" : ""}`}>
                         Sign up
-                    </button>
+                    </Button>
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                         Already have an accoun? <a onClick={() => { switchToSignin() }} className="font-medium text-green-600 cursor-pointer hover:underline dark:text-green-500">Sign in</a>
                     </p>

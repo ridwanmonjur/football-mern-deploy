@@ -22,12 +22,12 @@ class ErrorHandler {
   }
 
   private handleTrustedError(error: BaseError, response: Response): void {
-    response.status(error.httpCode).json({ success: false, error, message: error.message });
+    response.status(error.httpCode).json({ success: false, error, message: error.description });
   }
 
-  private handleUntrustedError(error: Error | BaseError, response?: Response): void {
+  private handleUntrustedError(error: Error, response?: Response): void {
     if (response) {
-      response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error: error, message: error.message || "Internal server error" });
+      response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ success: false, error, message: error.message || "Internal server error" });
     }
     winstonLogger.error('Application encountered an untrusted error.');
     winstonLogger.error(error);

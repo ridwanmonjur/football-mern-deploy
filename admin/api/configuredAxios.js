@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const configuredAxios = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: "http://localhost:8000/api/v1",
     headers: {
         "Content-Type": "application/json",
         'Accept': 'application/json'
@@ -23,42 +23,32 @@ configuredAxios.interceptors.request.use(
     });
 
 const refreshToken = async () => {
-    return await configuredAxios.post("/refresh", {
+    return await configuredAxios.post("/refreshToken", {
     });
 }
 
-
 configuredAxios.interceptors.response.use(
     (response) => {
+        console.log({response})
         return response.data
+    },
+    async (err) => {
+        const originalConfig = err.config;
+        if (err.response && err.response.status === 401 && !originalConfig._retry) {
+            originalConfig._retry = true;
+            const rs = await refreshToken();
+            if (rs !== undefined && rs.status && rs.status === 200){
+                console.log({rs})
+                const { accessToken } = rs.data;
+                setCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN, accessToken);
+                config.headers = {
+                    'Authorization': accessToken,
+                }
+                return instance(originalConfig);
+            }
+        }
+        return Promise.reject(err);
     }
-    // async (err) => {
-    //     const originalConfig = err.config;
-    //     if (err.response) {
-    //         // Access Token was expired
-    //         if (err.response.status === 401 && !originalConfig._retry) {
-    //             originalConfig._retry = true;
-    //             try {
-    //                 const rs = await refreshToken();
-    //                 const { accessToken } = rs.data;
-    //                 setCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN, accessToken);
-    //                 config.headers = {
-    //                     'Authorization': accessToken,
-    //                 }
-    //                 return instance(originalConfig);
-    //             } catch (_error) {
-    //                 if (_error.response && _error.response.data) {
-    //                     return Promise.reject(_error.response.data);
-    //                 }
-    //                 return Promise.reject(_error);
-    //             }
-    //         }
-
-    //         if (err.response.status === 403 && err.response.data) {
-    //             return Promise.reject(err.response.data);
-    //         }
-    //     }
-    // }
 );
 
 export default configuredAxios;

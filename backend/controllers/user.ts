@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 const ObjectID = require("mongodb").ObjectID;
-import {  UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
+import { UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
 import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { ObjectId } from 'mongoose';
 import { UserService } from '../service/User';
@@ -68,18 +68,16 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
 
     let user: UserInterface | null = null;
 
-    console.log({body: req.body})
+    console.log({ body: req.body })
 
     const editDtos = plainToClass(EditUserProfileDto, req.body);
 
     const validationError = await validate(editDtos, validationOptions);
 
-    console.log({validationError})
+    console.log({ validationError })
 
 
     validateAndThrowError(validationError);
-
-    console.log({editDtos})
 
     try {
         userId = ObjectID(req.userID);
@@ -89,7 +87,7 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
         res.status(StatusCodes.CREATED).json({ success: true, user, userId: req.userID, number: 0 });
     }
     catch (error) {
-        console.log({error: error.message})
+        console.log({ error: error.message })
         if (!userId) throw new HTTP422UnproccessableEntity("Current user is missing in the request header.");
 
         else next(error);
@@ -102,6 +100,10 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
         const signupDtos = plainToClass(CreateUserDto, req.body);
 
         const validationError = await validate(signupDtos, validationOptions);
+
+        if (signupDtos.password!== signupDtos.confirmPassword) {
+            throw new HTTP422UnproccessableEntity("Password and confirmed password must match!")
+        }
 
         validateAndThrowError(validationError);
 

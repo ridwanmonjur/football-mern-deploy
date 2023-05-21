@@ -63,15 +63,15 @@ export async function getServerSideProps(context) {
             props: {},
         }
     }
-    const todoList = (await axiosFetch.get("/todo", {
-        withCredentials: true,
-        headers: {
-            "Authorization": parsedCookies[process.env.CLIENT_COOKIE_ACCESS_TOKEN]
-        }
-    })).data.data
+    // const todoList = (await axiosFetch.get("/todo", {
+    //     withCredentials: true,
+    //     headers: {
+    //         "Authorization": parsedCookies[process.env.CLIENT_COOKIE_ACCESS_TOKEN]
+    //     }
+    // })).data.data
     return {
         props: {
-            _todoList: todoList,
+            _todoList: [],
             cookie: parsedCookies,
             auth: parsedCookies[process.env.CLIENT_COOKIE_ACCESS_TOKEN]
         },
