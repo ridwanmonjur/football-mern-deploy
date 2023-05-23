@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const TodoToggle = ({
+export const ProductToggle = ({
     toggleFunction
 }) => {
     const [open, setOpen] = useState(false);

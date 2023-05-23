@@ -1,12 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { plainToClass } from 'class-transformer';
 import { UserLoginDto } from '../dto/user';
-import { validate } from 'class-validator';
-import { validateAndThrowError } from '../helper/validateAndThrowError';
 import { StatusCodes } from 'http-status-codes';
 import { AuthService } from '../service/Auth';
-import { validationOptions } from '../helper/validatorOptions';
-import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
+import { validationHelper } from '../helper/validationHelper';
 
 // controller: just deal with request and response object 
 
@@ -14,9 +10,7 @@ const service = new AuthService();
 
 export async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const loginDtos = plainToClass(UserLoginDto, req.body);
-        const validationError = await validate(loginDtos, validationOptions);
-        validateAndThrowError(validationError);
+        const loginDtos: UserLoginDto = await validationHelper(UserLoginDto, req.body);
         const { user, accessToken: token, refreshToken } = await service.verifyUser(loginDtos);
         const options = {
             expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),// 30 days

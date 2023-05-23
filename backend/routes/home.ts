@@ -2,7 +2,7 @@ var express = require('express');
 import { Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes';
 import { APIError } from '../exceptions/AppError';
-import { deleteData, resetData } from '../resetData/seed_function'
+import { deleteData, resetData, resetProduct } from '../resetData/seed_function'
 const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
@@ -21,6 +21,10 @@ router.get('/', (req: Request, res: Response) => {
 
 router.get('/api/v1/resetData', async function (_req: Request, res: Response) {
     res.status(StatusCodes.OK).json({ success: true, users: await resetData() })
+})
+
+router.get('/api/v1/resetProduct', async function (_req: Request, res: Response) {
+    res.status(StatusCodes.OK).json({ success: true, products: await resetProduct() })
 })
 
 router.get('/api/v1/deleteData', function (_req: Request, res: Response) {

@@ -1,5 +1,4 @@
-import { Schema, model, Document, PopulatedDoc } from 'mongoose';
-import { CartInterface } from "./Cart"
+import { Schema, model, Document } from 'mongoose';
 
 // not written in the docs but must be written!!!
 // ** extends Document **
@@ -26,7 +25,6 @@ interface UserInterface extends Document {
     email: string
     password: string,
     role: string,
-    cart: PopulatedDoc<CartInterface>,
     address: AddressInterface,
     creditCard: CreditCardInterface,
     token: TokenInterface

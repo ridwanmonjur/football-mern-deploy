@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 import { toast } from 'react-toastify';
-import configuredAxios from "../../api/configuredAxios";
+import fetchWithCookie from "../../api/fetchWithCookie";
 import { Button, Input, Label } from "./sharing/form";
 
 export const SignupForm = ({ switchToSignin }) => {
@@ -12,7 +12,7 @@ export const SignupForm = ({ switchToSignin }) => {
         setLoading(true);
         event.preventDefault();
         try {
-            await configuredAxios.post("/signup", { ...data })
+            await fetchWithCookie.post("/signup", { ...data })
             await setTimeout(() => {
                 setLoading(false);
                 toast.success("Successfully signed up. Now login", {

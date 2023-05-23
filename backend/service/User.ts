@@ -32,9 +32,10 @@ export class UserService {
         }
     }
 
-    async getAllUsers(): Promise<Array<UserInterface>> {
+    async getAllUsers(where?: any): Promise<Array<UserInterface>> {
+        where ??= {}
         try {
-            return await this.repository.find();
+            return await this.repository.find(where);
         } catch (err) {
             throw err;
         }
@@ -67,5 +68,12 @@ export class UserService {
         }
     }
 
+    async deleteUsers(ids: Array<string>) {
+        try {
+            await this.repository.deleteUsers(ids);
+        } catch (err) {
+            throw err;
+        }
+    }
 }
 

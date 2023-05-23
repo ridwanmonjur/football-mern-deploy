@@ -2,7 +2,7 @@ import { getCookie, deleteCookie, setCookie } from 'cookies-next';
 import axios from "axios";
 
 
-const configuredAxios = axios.create({
+const fetchWithCookie = axios.create({
     baseURL: "http://localhost:8000/api/v1",
     headers: {
         "Content-Type": "application/json",
@@ -11,7 +11,7 @@ const configuredAxios = axios.create({
     withCredentials: true
 });
 
-configuredAxios.interceptors.request.use(
+fetchWithCookie.interceptors.request.use(
     async config => {
         config.headers = {
             'Authorization': getCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN),
@@ -23,11 +23,11 @@ configuredAxios.interceptors.request.use(
     });
 
 const refreshToken = async () => {
-    return await configuredAxios.post("/refreshToken", {
+    return await fetchWithCookie.post("/refreshToken", {
     });
 }
 
-configuredAxios.interceptors.response.use(
+fetchWithCookie.interceptors.response.use(
     (response) => {
         console.log({response})
         return response.data
@@ -51,4 +51,4 @@ configuredAxios.interceptors.response.use(
     }
 );
 
-export default configuredAxios;
+export default fetchWithCookie;

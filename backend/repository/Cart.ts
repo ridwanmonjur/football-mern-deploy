@@ -22,8 +22,7 @@ export class CartRepository {
         }
     }
 
-    async find(where?: any, populate?: Array<string>): Promise<Array<CartInterface>> {
-        where ??= {};
+    async find(where: any, populate?: Array<string>): Promise<Array<CartInterface>> {
 
         const [_, __] = populate;
         try {
@@ -81,7 +80,21 @@ export class CartRepository {
         }
     }
 
+    async deleteCarts(ids: Array<string>): Promise<void> {
+        try {
+            console.log({ids})
 
+            const carts = await Cart.deleteMany({_id: { $in: ids}});
+
+            console.log({ids, carts})
+        }
+        catch(error) {
+
+            console.log({error})
+
+            throw new HTTP500InternalServerrror("Unable to update carts");
+        }
+    }
 
 
 }

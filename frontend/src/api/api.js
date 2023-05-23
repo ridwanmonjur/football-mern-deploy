@@ -20,10 +20,8 @@ export async function api(methodName, endpoint, { body, ...customConfig } = {}) 
         config.body = JSON.stringify(body)
     }
 
-    const { response } = await window
+    const response = await window
         .fetch(`${hostName}/${endpoint}`, config)
-
-    return response
         .then(response => {
             if (response.status === 401) {
                 return window
@@ -44,6 +42,7 @@ export async function api(methodName, endpoint, { body, ...customConfig } = {}) 
     //     console.log(response)
     //     return response
     // })
+    return response;
 
 }
 

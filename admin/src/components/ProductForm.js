@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
-import configuredAxios from "../../api/configuredAxios";
-export const TodoForm = ({
-    currentTodo,
+import fetchWithCookie from "../../api/fetchWithCookie";
+export const ProductForm = ({
+    currentProduct,
     mode,
-    handleCurrentTodoIndex,
-    addTodo,
-    editTodo
+    handleCurrentProductIndex,
+    addProduct,
+    editProduct
 }) => {
     const [loading, setLoading] = useState(false);
     const { register, handleSubmit, reset } = useForm();
@@ -16,13 +16,13 @@ export const TodoForm = ({
         event.preventDefault();
         if (mode === "ADD") {
             try {
-                const response = await configuredAxios.post('/todo', data)
+                const response = await fetchWithCookie.post('/product', data)
                 await setTimeout(() => {
                     setLoading(false);
                     toast.success(response.message, {
                         position: toast.POSITION.TOP_RIGHT
                     });
-                    addTodo({ ...response.data });
+                    addProduct({ ...response.data });
                 }, 3000);
             }
             catch (error) {
@@ -32,7 +32,7 @@ export const TodoForm = ({
         }
         else {
             try {
-                const response = await configuredAxios.put(`/todo/${currentTodo._id}`, {
+                const response = await fetchWithCookie.put(`/product/${currentProduct._id}`, {
                     ...data,
                 })
                 await setTimeout(() => {
@@ -40,7 +40,7 @@ export const TodoForm = ({
                     toast.success(response.message, {
                         position: toast.POSITION.TOP_RIGHT
                     });
-                    editTodo({ ...currentTodo, ...data });
+                    editProduct({ ...currentProduct, ...data });
                 }, 3000);
             } catch (error) {
                 setLoading(false);
@@ -53,7 +53,7 @@ export const TodoForm = ({
     return (
         <div>
             <h1 className='pt-12 pb-5 text-xl font-bold'>
-                {mode === "ADD" ? <> Add Todos... </> : <> Edit Todos... </>}
+                {mode === "ADD" ? <> Add Products... </> : <> Edit Products... </>}
             </h1>
 
             <form
@@ -64,14 +64,14 @@ export const TodoForm = ({
                 <div className="mx-auto">
                     <input
                         type="text"
-                        defaultValue={currentTodo.title}
+                        defaultValue={currentProduct.title}
                         {...register("title")}
                         required
                         placeholder="Enter your title..."
                         className="input input-bordered dark:bg-white inline w-full  mb-2"
                     />
                     <textarea id="message"
-                        defaultValue={currentTodo.description}
+                        defaultValue={currentProduct.description}
                         {...register("description")}
                         required
                         title="Enter your desc please"
@@ -84,17 +84,17 @@ export const TodoForm = ({
                             mode === "ADD" ?
                                 <>
                                     <button className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit" >
-                                        Add Todo
+                                        Add Product
                                     </button>
                                 </>
                                 :
                                 <>
                                     <button className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit">
-                                        Edit Todo
+                                        Edit Product
 
                                     </button>
                                     <button className={`btn btn-primary mt-4 ml-5 ${loading ? "loading" : ""}`}
-                                        onClick={() => { reset(); handleCurrentTodoIndex(-1); }}>
+                                        onClick={() => { reset(); handleCurrentProductIndex(-1); }}>
                                         Add mode
                                     </button>
                                 </>

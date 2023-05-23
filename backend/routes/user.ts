@@ -1,5 +1,5 @@
 const express = require('express');
-import { signup,  getUser, getUsers, getCurrentUser, editCurrentUser } from "../controllers/user";
+import { signup,  getUser, getUsers, getCurrentUser, editCurrentUser, deleteUsers } from "../controllers/user";
 import { protect } from "../middleware/auth";
 const cartRouter = require("./cart");
 const router = express.Router();
@@ -9,7 +9,8 @@ router.post('/signup', signup);
 router.use('/user/cart/', cartRouter);
 
 router.route('/user')
-    .get(getUsers);
+    .get(getUsers)
+    .delete(deleteUsers);
 
 router.route('/user/:userId')
     .get(getUser);

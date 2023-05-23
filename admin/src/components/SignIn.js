@@ -3,7 +3,7 @@ import { useContext, useRef, useState } from "react";
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router'
 import { AuthContext } from "@/context/auth";
-import configuredAxios from "../../api/configuredAxios";
+import fetchWithCookie from "../../api/fetchWithCookie";
 import { Input, Label, Button } from '@/components/sharing/form'
 
 export const SigninForm = ({ switchToSignup }) => {
@@ -15,14 +15,14 @@ export const SigninForm = ({ switchToSignup }) => {
     const onSubmit = (data, event) => {
         setLoading(true);
         event.preventDefault();
-        configuredAxios.post("/login", { ...data })
+        fetchWithCookie.post("/login", { ...data })
             .then((response) => {
                 setLoading(false);
                 toast.success("Successful login", {
                     position: toast.POSITION.TOP_RIGHT
                 });
                 setUserAuthInfo(response)
-                router.push("/todo")
+                router.push("/product")
             })
             .catch((error) => {
                 console.log({error, message: error?.response?.data?.message })

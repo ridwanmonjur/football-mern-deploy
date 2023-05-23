@@ -14,9 +14,9 @@ export class UserRepository {
         }
     }
 
-    async find(): Promise<Array<UserInterface>> {
+    async find(where?: any): Promise<Array<UserInterface>> {
         try {
-            return await User.find({});
+            return await User.find(where);
         }
         catch {
             throw new HTTP500InternalServerrror("Unable to query all users");
@@ -55,6 +55,14 @@ export class UserRepository {
         }
     }
 
+    async deleteUsers(ids: Array<string>) {
+        try {
+            await User.deleteMany({_id: { $in: ids}});
+        }
+        catch(error) {
+            throw error;
+        }
+    }
 
 }
 

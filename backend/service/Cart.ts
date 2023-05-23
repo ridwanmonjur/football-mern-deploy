@@ -44,10 +44,10 @@ export class CartService {
         }
     }
 
-    async findAllCarts(where: any): Promise<Array<CartInterface>> {
+    async findAllCarts(where?: any): Promise<Array<CartInterface>> {
         const populate = ['products', 'name image price type'];
         try {
-            return await this.repository.find(where, populate);
+            return await this.repository.find(where || {}, populate);
         } catch (err) {
             throw err;
         }
@@ -109,8 +109,6 @@ export class CartService {
 
         try {
             cart = await this.repository.findOne(whereCart);
-
-            let { total } = cart
 
             if (cart && cart.description) {
                 // Since the existing product is in the cart, then just can edit quanity.
@@ -176,6 +174,15 @@ export class CartService {
         }
         catch (error) {
             throw error
+        }
+    }
+
+    async deleteCarts(ids: Array<string>) {
+        try {
+            await this.repository.deleteCarts(ids);
+        } 
+        catch (err) {
+            throw err;
         }
     }
 }

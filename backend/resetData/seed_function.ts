@@ -72,7 +72,6 @@ const importData = async () => {
     role: "customer"
   }))
 
-
   try{
   await User.create(users)
   await Cart.create(carts)
@@ -80,9 +79,9 @@ const importData = async () => {
   catch{
     winstonLogger.error("error")
   }
-  let JSONStringToObject: Array<ProductInterface> = [...readFiles("accessories"), ...readFiles("boots"), ...readFiles("jerseys")]
+  let JSONStringProducts: Array<ProductInterface> = [...readFiles("accessories"), ...readFiles("boots"), ...readFiles("jerseys")]
 
-  JSONStringToObject.forEach(function (value) {
+  JSONStringProducts.forEach(function (value) {
 
     let comments: Array<CommentInterface> = []
     for (loop = 0; loop < 5; loop++) {
@@ -94,13 +93,46 @@ const importData = async () => {
     value['comment'] = comments as Types.DocumentArray<CommentInterface>
   })
   try {
-    await Product.create(JSONStringToObject)
-    winstonLogger.info(JSONStringToObject)
+    await Product.create(JSONStringProducts)
+    winstonLogger.info(JSONStringProducts)
     winstonLogger.info("Data imported.... ")
   } catch (err) {
     winstonLogger.error(err)
   }
 };
+
+export const resetProduct = async ()=>{
+
+  await Product.deleteMany()
+
+  const users = await User.find({});
+  
+  // console.log({users: users})
+
+  let JSONStringProducts: Array<ProductInterface> = await [...readFiles("accessories"), ...readFiles("boots"), ...readFiles("jerseys")]
+
+  // console.log({JSONStringProducts})
+
+  JSONStringProducts.forEach(function (value) {
+
+    let comments: Array<CommentInterface> = []
+    let loop: number = 0;
+    for (loop = 0; loop < 5; loop++) {
+      comments.push({
+        userId: users[faker.datatype.number({ 'min': 0, 'max': 9 })]._id,
+        comment: faker.commerce.productDescription()
+      } as CommentInterface)
+    }
+    value['comment'] = comments as Types.DocumentArray<CommentInterface>
+  })
+  // console.log({JSONStringProducts})
+
+  try {
+    return await Product.create(JSONStringProducts)
+  } catch (err) {
+    winstonLogger.error(err)
+  }
+}
 
 // Delete data
 export const deleteData = async () => {

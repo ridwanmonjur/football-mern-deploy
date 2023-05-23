@@ -1,8 +1,6 @@
 import { Schema, model, Document,  PopulatedDoc } from 'mongoose'
 import { ProductInterface } from './Product';
 import { UserInterface } from './User';
-// var slugify = require('slugify')
-var faker = require('faker')
 
 interface CartInterface extends Document {
     user: PopulatedDoc<UserInterface>,

@@ -1,4 +1,4 @@
-import { IsCreditCard, IsEmail, IsOptional, IsString, Length } from "class-validator";
+import { IsArray, IsCreditCard, IsEmail, IsMongoId, IsOptional, IsString, Length, MinLength } from "class-validator";
 // import { ValidateNested } from 'class-validator';
 // import { Type } from 'class-transformer';
 
@@ -66,3 +66,11 @@ export class EditUserProfileDto {
     address: Address;
 }
  
+export class DeleteUserDtos {
+    @IsArray()
+    @MinLength(1, {
+      each: true,
+    })
+    @IsMongoId({ each: true })
+    ids: string[];
+  }

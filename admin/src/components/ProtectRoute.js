@@ -11,7 +11,7 @@ export const ProtectRoute = ({ children }) => {
             router.push("/");
         }
         if (isLoggedIn && router.pathname === "/") {
-            router.push("/todo");
+            router.push("/product");
         } 
     }, [router.pathname])
     return children;

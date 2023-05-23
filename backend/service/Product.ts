@@ -36,5 +36,13 @@ export class ProductService {
         }
     }
 
+    async deleteProducts(ids: Array<string>) {
+        try {
+            await this.repository.deleteProducts(ids);
+        } catch (err) {
+            throw err;
+        }
+    }
+
 }
 

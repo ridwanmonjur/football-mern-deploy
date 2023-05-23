@@ -2,14 +2,14 @@ import { AuthContext } from "@/context/auth";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { toast } from 'react-toastify';
-import configuredAxios from "../../../api/configuredAxios";
+import fetchWithCookie from "../../../api/fetchWithCookie";
 
 const links = [
-    { href: '/todo', label: 'Todo' },
+    { href: '/product', label: 'Product' },
     { href: '#logout', label: 'Logout' },
 ];
 
-const myName = 'Todo App';
+const myName = 'Product App';
 
 const NavbarLinks = ({ handleLogout }) => {
     return (
@@ -40,7 +40,7 @@ export default function Header() {
     const { setAuthStateNull } = useContext(AuthContext);
     const handleLogout = async () => {
         try {
-            const response = await configuredAxios.post("/logout", {})
+            const response = await fetchWithCookie.post("/logout", {})
             await setTimeout(() => {
                 toast.success(response.message, {
                     position: toast.POSITION.TOP_RIGHT

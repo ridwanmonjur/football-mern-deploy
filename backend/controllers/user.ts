@@ -4,12 +4,9 @@ import { UserInterface } from "../models/User";    // need to specify the object
 import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { ObjectId } from 'mongoose';
 import { UserService } from '../service/User';
-import { plainToClass } from 'class-transformer';
-import { CreateUserDto, EditUserProfileDto, UserLoginDto } from '../dto/user';
-import { validate } from 'class-validator';
-import { validateAndThrowError } from '../helper/validateAndThrowError';
+import { CreateUserDto, DeleteUserDtos, EditUserProfileDto, UserLoginDto } from '../dto/user';
 import { StatusCodes } from 'http-status-codes';
-import { validationOptions } from '../helper/validatorOptions';
+import { validationHelper } from '../helper/validationHelper';
 
 // controller: just deal with request and response object 
 
@@ -68,16 +65,7 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
 
     let user: UserInterface | null = null;
 
-    console.log({ body: req.body })
-
-    const editDtos = plainToClass(EditUserProfileDto, req.body);
-
-    const validationError = await validate(editDtos, validationOptions);
-
-    console.log({ validationError })
-
-
-    validateAndThrowError(validationError);
+    const editDtos: EditUserProfileDto = await validationHelper(EditUserProfileDto, req.body);
 
     try {
         userId = ObjectID(req.userID);
@@ -97,15 +85,11 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
 
 export async function signup(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const signupDtos = plainToClass(CreateUserDto, req.body);
-
-        const validationError = await validate(signupDtos, validationOptions);
+        const signupDtos: CreateUserDto = await validationHelper(CreateUserDto, req.body);
 
         if (signupDtos.password!== signupDtos.confirmPassword) {
             throw new HTTP422UnproccessableEntity("Password and confirmed password must match!")
         }
-
-        validateAndThrowError(validationError);
 
         const { user, cart } = await service.signupUser(signupDtos);
 
@@ -116,3 +100,15 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
     }
 }
 
+export async function deleteUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+        await validationHelper(DeleteUserDtos, req.body);
+
+        await service.deleteUsers(req.body.ids);
+
+        res.status(StatusCodes.NO_CONTENT).json({})
+    }
+    catch (error) {
+        next(error);
+    }
+}

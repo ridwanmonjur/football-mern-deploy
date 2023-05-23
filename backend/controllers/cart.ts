@@ -5,10 +5,12 @@ import { CartService } from '../service/Cart';
 import { ObjectId } from 'mongoose';
 import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { StatusCodes } from 'http-status-codes';
+import { DeleteCartDtos } from '../dto/cart';
+import { validationHelper } from '../helper/validationHelper';
 
 const service = new CartService();
 
-export async function getCart(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function getOneCart(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     let cart: undefined | CartInterface;
     try {
@@ -20,11 +22,23 @@ export async function getCart(req: Request, res: Response, next: NextFunction): 
     }
 }
 
-export async function getCarts(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function getCartsOfSignedIn(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     let cart: undefined | Array<CartInterface>;
     try {
         cart = await service.findAllCarts({ user: req.userID });
+
+        res.status(StatusCodes.OK).json({ success: true, cart });
+    } catch (error) {
+        next(error);
+    }
+}
+
+export async function getAllCarts(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+    let cart: undefined | Array<CartInterface>;
+    try {
+        cart = await service.findAllCarts();
 
         res.status(StatusCodes.OK).json({ success: true, cart });
     } catch (error) {
@@ -119,5 +133,20 @@ export async function getNewCart(req: Request, res: Response, next: NextFunction
 
         else next(error);
     }
+}
+export async function deleteCarts(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+        console.log({hit: true})
 
+        await validationHelper(DeleteCartDtos, req.body)
+
+        console.log({hit: true})
+        await service.deleteCarts(req.body.ids);
+        console.log({hit: true})
+
+        res.status(StatusCodes.NO_CONTENT).json({})
+    }
+    catch (error) {
+        next(error);
+    }
 }

@@ -13,11 +13,11 @@ export class ProductRepository {
         }
     }
 
-    async find(where?: any, select?: any): Promise<Array<ProductInterface>> {
+    async find(where: any, select?: any): Promise<Array<ProductInterface>> {
         where ??= {}
 
         try {
-            return select ? await Product.find({ ...where }).select(select) : await Product.find({ ...where });
+            return select ? await Product.find({ where }).select(select) : await Product.find({ ...where });
         }
         catch (error) {
             
@@ -44,7 +44,14 @@ export class ProductRepository {
         }
     }
 
-
+    async deleteProducts(ids: Array<string>) {
+        try {
+            await Product.deleteMany({_id: { $in: ids}});
+        }
+        catch(error) {
+            throw error;
+        }
+    }
 
 }
 
