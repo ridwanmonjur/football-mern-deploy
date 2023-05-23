@@ -41,11 +41,21 @@ export const logout = async (req, res, next) => {
                 }
             }
             finally {
-                res.clearCookie(process.env.WEB_COOKIE_REFRESH_TOKEN);
-                return res.status(StatusCodes.OK).json({ success: true });
+                res.status(StatusCodes.OK)
+                    .cookie(process.env.REFRESH_TOKEN_COOKIE_NAME, "",  {
+                        expires: new Date(0),
+                        httpOnly: true
+                    })
+                    .json({ success: true, removed: true });
             }
         }
-        return res.status(StatusCodes.OK).json({ success: true });
+        return res
+            .status(StatusCodes.OK)
+            .cookie(process.env.REFRESH_TOKEN_COOKIE_NAME, "",  {
+                expires: new Date(0),
+                httpOnly: true
+            })
+            .json({ success: true, notRemoved: true });
     } catch (error) {
         next(error)
     }

@@ -1,5 +1,6 @@
-import { Schema, model, Document, Types } from 'mongoose'
+import { Schema, model, Document, Types, PopulatedDoc } from 'mongoose'
 import { winstonLogger } from '../winston/logger';
+import { UserInterface } from './User';
 // var slugify = require('slugify')
 var faker = require('faker')
 
@@ -13,6 +14,7 @@ interface ProductInterface extends Document {
     slug: string,
     type: string,
     manufacturer: string,
+    sellerId: PopulatedDoc<UserInterface>
     price: number,
     ratings: number,
     image: string,
@@ -66,6 +68,9 @@ const ProductSchema = new Schema<ProductInterface>({
     amount: {
         type: Number,
         default: 0
+    },
+    sellerId: {
+        type: Schema.Types.ObjectId, ref: 'User', required: true
     },
     comment: [CommentSchema]
 },

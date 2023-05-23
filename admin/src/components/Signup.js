@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 import { toast } from 'react-toastify';
-import fetchWithCookie from "../../api/fetchWithCookie";
+import fetchWithCookie from "../../api/fetchClient";
 import { Button, Input, Label } from "./sharing/form";
 
 export const SignupForm = ({ switchToSignin }) => {

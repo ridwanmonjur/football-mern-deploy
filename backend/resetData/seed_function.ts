@@ -38,6 +38,7 @@ const importData = async () => {
   let loop: number = 0
   let users: Array<UserInterface> = []
   let carts: Array<CartInterface> = []
+  //  1st 10 users are customers
   for (loop = 0; loop < 10; loop++) {
     users.push(new User({
       name: faker.name.findName(),
@@ -57,23 +58,47 @@ const importData = async () => {
     )
 
   }
-
+  // 11th user is admin
   users.push(new User({
     name: "admin123",
     email: "admin123@gmail.com",
     password: hashSync("123456", saltRounds),
     role: "admin"
   }))
-
+  // 12th user is customer
   users.push(new User({
     name: "customer123",
     email: "customer123@gmail.com",
     password: hashSync("123456", saltRounds),
     role: "customer"
   }))
+  // 13th-22th users are customers
+  for (loop = 0; loop < 10; loop++) {
+    users.push(new User({
+      name: faker.name.findName(),
+      email: faker.internet.email(),
+      password: hashSync("123456", saltRounds),
+      role: "customer",
+      address: {first: faker.address.streetAddress(),
+      second:  "London, UK"},
+      creditCard: {number: faker.finance.creditCardNumber(),
+      CVV: faker.finance.creditCardCVV()
+      }
+    })
+    )
+    carts.push(new Cart({
+      user: users[loop]._id,
+    })
+    )
+  }
+  // 12th user customer123
+  carts.push(new Cart({
+    user: users[11]._id,
+  })
+  )
 
   try{
-  await User.create(users)
+  users = await User.create(users)
   await Cart.create(carts)
   }
   catch{
@@ -90,6 +115,8 @@ const importData = async () => {
         comment: faker.commerce.productDescription()
       } as CommentInterface)
     }
+      // 13th-22th users are customers
+    value['sellerId'] = users[faker.datatype.number({ 'min': 13, 'max': 20 })]._id,
     value['comment'] = comments as Types.DocumentArray<CommentInterface>
   })
   try {
@@ -105,7 +132,7 @@ export const resetProduct = async ()=>{
 
   await Product.deleteMany()
 
-  const users = await User.find({});
+  const users = await User.find({role: "customer"});
   
   // console.log({users: users})
 

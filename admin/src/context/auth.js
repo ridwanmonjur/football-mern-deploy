@@ -1,29 +1,34 @@
 import { createContext, useState } from "react";
 import { getCookie, setCookie, deleteCookie } from 'cookies-next';
+import { refreshToken } from "../../api/fetchClient";
+import { maxAgeAccessoken } from "@/utils/const";
 
 const AuthContext = createContext();
 const { Provider } = AuthContext;
 
 const AuthProvider = ({ children }) => {
-  const [authState, setAuthState] = useState(getCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN));
+  const [refreshToken, setRefreshToken] = useState(getCookie(process.env.CLIENT_COOKIE_REFRESH_TOKEN));
 
-  const setUserAuthInfo = (myToken) => {
-    setCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN, myToken);
-    setAuthState(myToken);
+  const setAccessTokenClient = (myToken) => {
+    setCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN, myToken, {maxAge: maxAgeAccessoken});
+    setRefreshToken(getCookie(process.env.CLIENT_COOKIE_REFRESH_TOKEN));
   };
 
-  const setAuthStateNull = () => { 
-    setAuthState(null); 
+  console.log({refreshToken})
+
+  const deleteBothTokens = () => {
     deleteCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN)
+    // http-only cookie can be only cleared server-side with server-side method
+    // deleteCookie(process.env.CLIENT_COOKIE_REFRESH_TOKEN)
+    setRefreshToken(null);
   }
 
   return (
     <Provider
       value={{
-        authState,
-        setUserAuthInfo,
-        setAuthStateNull: ()=> setAuthStateNull(),
-        isUserAuthenticated: !!authState,
+        setAccessTokenClient,
+        deleteBothTokens,
+        refreshToken,
       }}
     >
       {children}

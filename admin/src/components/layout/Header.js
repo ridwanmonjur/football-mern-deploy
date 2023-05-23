@@ -2,7 +2,7 @@ import { AuthContext } from "@/context/auth";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { toast } from 'react-toastify';
-import fetchWithCookie from "../../../api/fetchWithCookie";
+import fetchClient from "../../../api/fetchClient";
 
 const links = [
     { href: '/product', label: 'Product' },
@@ -37,17 +37,12 @@ const Company = () => {
 
 export default function Header() {
     const router = useRouter()
-    const { setAuthStateNull } = useContext(AuthContext);
+    const { deleteBothTokens } = useContext(AuthContext);
     const handleLogout = async () => {
         try {
-            const response = await fetchWithCookie.post("/logout", {})
-            await setTimeout(() => {
-                toast.success(response.message, {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-                setAuthStateNull();
-                router.replace("/")
-            }, 1000);
+            await fetchClient.post("/logout")
+            await deleteBothTokens();
+            await router.replace("/")
         }
         catch (error) {
             toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)

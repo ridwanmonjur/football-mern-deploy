@@ -22,16 +22,6 @@ const protect = (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-const authorize = (...roles: string[]) => {
-    return (req: Request, res: Response, next: NextFunction) => {
-        if (!roles.includes(req.role)) {
-            throw new APIError('Token is not valid', StatusCodes.BAD_REQUEST);
-        }
 
-        else {
-            next();
-        }
-    };
-};
 
-export { authorize, protect };
+export { protect };

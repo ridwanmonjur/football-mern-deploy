@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
-import fetchWithCookie from "../../api/fetchWithCookie";
+import fetchWithCookie from "../../api/fetchClient";
 export const ProductForm = ({
     currentProduct,
     mode,

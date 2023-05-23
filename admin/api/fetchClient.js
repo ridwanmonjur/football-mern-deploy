@@ -1,8 +1,9 @@
-import { getCookie, deleteCookie, setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import axios from "axios";
+import { maxAgeAccessoken } from '@/utils/const';
 
 
-const fetchWithCookie = axios.create({
+const fetchClient = axios.create({
     baseURL: "http://localhost:8000/api/v1",
     headers: {
         "Content-Type": "application/json",
@@ -11,7 +12,7 @@ const fetchWithCookie = axios.create({
     withCredentials: true
 });
 
-fetchWithCookie.interceptors.request.use(
+fetchClient.interceptors.request.use(
     async config => {
         config.headers = {
             'Authorization': getCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN),
@@ -22,12 +23,11 @@ fetchWithCookie.interceptors.request.use(
         Promise.reject(error)
     });
 
-const refreshToken = async () => {
-    return await fetchWithCookie.post("/refreshToken", {
-    });
+export const refreshToken = async () => {
+    return await fetchClient.post("/refreshToken");
 }
 
-fetchWithCookie.interceptors.response.use(
+fetchClient.interceptors.response.use(
     (response) => {
         console.log({response})
         return response.data
@@ -40,7 +40,7 @@ fetchWithCookie.interceptors.response.use(
             if (rs !== undefined && rs.status && rs.status === 200){
                 console.log({rs})
                 const { accessToken } = rs.data;
-                setCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN, accessToken);
+                setCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN, accessToken,  { req, res,  maxAge: maxAgeAccessoken  });
                 config.headers = {
                     'Authorization': accessToken,
                 }
@@ -51,4 +51,4 @@ fetchWithCookie.interceptors.response.use(
     }
 );
 
-export default fetchWithCookie;
+export default fetchClient;

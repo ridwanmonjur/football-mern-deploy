@@ -3,13 +3,13 @@ import { useContext, useRef, useState } from "react";
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router'
 import { AuthContext } from "@/context/auth";
-import fetchWithCookie from "../../api/fetchWithCookie";
+import fetchWithCookie from "../../api/fetchClient";
 import { Input, Label, Button } from '@/components/sharing/form'
 
 export const SigninForm = ({ switchToSignup }) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const signinFormRef = useRef(null)
-    const { setUserAuthInfo } = useContext(AuthContext);
+    const { setAccessTokenClient } = useContext(AuthContext);
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const onSubmit = (data, event) => {
@@ -21,7 +21,7 @@ export const SigninForm = ({ switchToSignup }) => {
                 toast.success("Successful login", {
                     position: toast.POSITION.TOP_RIGHT
                 });
-                setUserAuthInfo(response)
+                setAccessTokenClient(response)
                 router.push("/product")
             })
             .catch((error) => {
