@@ -28,16 +28,16 @@ export const slice = createSlice({
     profileDetails: null,
     isSignedIn: false,
     status: "idle",
-    error: null
+    error: null,
   },
   reducers: {
     setProfile: (state, action) => {
-      let object = action.payload;
-      state.profileDetails = object;
+      state.profileDetails = action.payload;
       state.isSignedIn = true;
+      state.error = null;
     },
     setProfileNull: (state) => {
-      state.profileDetails = {};
+      state.profileDetails = null;
       state.isSignedIn = false;
     },
     setSignedIn: (state) => {
@@ -46,14 +46,16 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProfile.fulfilled, (state, { payload }) => {
-      if (payload.success ) {
+      if ( payload.success === true && 'user' in payload && payload?.user!= null ) {
         state.profileDetails = { ...payload.user }
         state.isSignedIn = true;
         state.status = "success";
       }
       else {
         state.isSignedIn = false;
+        state.profileDetails = null;
         state.status = "failed";
+        state.error= "Couldn't retrieve user";
       }
     })
     builder.addCase(fetchProfile.pending, (state, { payload }) => {
@@ -61,24 +63,27 @@ export const slice = createSlice({
     })
     builder.addCase(fetchProfile.rejected, (state, { error }) => {
       state.profileDetails = "rejected";
+      state.isSignedIn = false;
+      state.status = "failed";
       state.error = error
     })
 
     builder.addCase(editProfile.fulfilled, (state, { payload }) => {
-      if (payload.success) {
+      if (payload.success  && 'user' in payload && payload?.user!= null ) {
         state.profileDetails = { ...payload.user }
         state.status = "success";
       }
       else {
         state.status = "failed";
+        state.error= "Couldn't retrieve user";
       }
     })
-    builder.addCase(editProfile.pending, (state, { payload }) => {
+    builder.addCase(editProfile.pending, (state) => {
       state.status = "loading";
     })
     builder.addCase(editProfile.rejected, (state, { error }) => {
-      state.profileDetails = "rejected";
       state.error = error
+      state.status = "failed";
     })
   }
   },

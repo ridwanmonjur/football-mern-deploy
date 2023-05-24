@@ -17,13 +17,13 @@ export class ProductRepository {
         }
     }
 
-    async find(where: any, select?: any): Promise<Array<ProductInterface>> {
+    async find(where?: any, select?: any): Promise<Array<ProductInterface>> {
         where ??= {}
-
+        console.log({where})
         try {
             return select ? 
-                await Product.find({ where }).select(select).populate(this.populate) : 
-                await Product.find({ }).populate(this.populate);
+                await Product.find({ ...where }).select(select).populate(this.populate) : 
+                await Product.find({ ...where }).populate(this.populate);
         }
         catch (error) {
             

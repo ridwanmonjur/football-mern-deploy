@@ -3,7 +3,7 @@ const ObjectID = require("mongodb").ObjectID;
 import { CartInterface } from "../models/Cart";    // need to specify the object imported from the module to use it later
 import { CartService } from '../service/Cart';
 import { ObjectId } from 'mongoose';
-import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
+import { HTTP404NotFoundError, HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { StatusCodes } from 'http-status-codes';
 import { DeleteCartDtos } from '../dto/cart';
 import { validationHelper } from '../helper/validationHelper';

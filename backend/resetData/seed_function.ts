@@ -8,6 +8,9 @@ import { User, UserInterface } from '../models/User'
 import { Cart, CartInterface } from '../models/Cart'
 import { connectDB } from '../db'
 import { winstonLogger } from '../winston/logger';
+import * as dotenv from "dotenv"
+
+dotenv.config({ path: '../config.env' })
 
 interface ProductObject {
   name: string, price: number | string, productOwner: string, manufacturer: string, type: string, quantity: number,
@@ -19,12 +22,12 @@ function readFiles(_fileName: string): Array<ProductInterface> {
 
   let JSONObject: Array<ProductObject> = JSON.parse(JSONString)
 
-  return JSONObject.map((value: ProductObject, index: number) => {
+  return JSONObject.map((value: ProductObject) => {
     return {
       name: value['name'],
       manufacturer: value['productOwner'],
       type: _fileName,
-      image: value['image'],
+      image: `${process.env.BACKEND}assets/${_fileName}/${value['img']}`,
       stock: 20,
       price: Number(value['price'].toString().substring(1)),
       slug: faker.helpers.slugify(value.name)

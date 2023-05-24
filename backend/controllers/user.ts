@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 const ObjectID = require("mongodb").ObjectID;
 import { UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
-import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
+import { HTTP404NotFoundError, HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { ObjectId } from 'mongoose';
 import { UserService } from '../service/User';
 import { CreateUserDto, DeleteUserDtos, EditUserProfileDto, UserLoginDto } from '../dto/user';
@@ -39,12 +39,12 @@ export async function getCurrentUser(req: Request, res: Response, next: NextFunc
 
         user = await service.getUserById(userId);
 
+        if (user== null) throw new HTTP422UnproccessableEntity("Current user is missing in the request header.");
+
         res.status(StatusCodes.OK).json({ success: true, user });
     }
     catch (error) {
-        if (!userId) throw new HTTP422UnproccessableEntity("Current user is missing in the request header.");
-
-        else next(error);
+        next(error);
     }
 }
 
@@ -52,6 +52,8 @@ export async function getUsers(_req: Request, res: Response, next: NextFunction)
     let user: undefined | Array<UserInterface>;
     try {
         user = await service.getAllUsers();
+
+        if (user== null) throw new HTTP404NotFoundError("Can't find users");
 
         res.status(StatusCodes.OK).json({ success: true, user });
     }
@@ -71,6 +73,8 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
         userId = ObjectID(req.userID);
 
         user = await service.findByIdAndUpdate(userId, { ...editDtos });
+
+        if (user== null) throw new HTTP404NotFoundError("Can't find users");
 
         res.status(StatusCodes.CREATED).json({ success: true, user, userId: req.userID, number: 0 });
     }

@@ -14,6 +14,8 @@ export async function getProducts(_req: Request, res: Response, next: NextFuncti
     try {
         let product = await service.getAllProducts();
 
+        if (product == null) throw new HTTP404NotFoundError("Product is not found");
+
         res.status(StatusCodes.OK).json({ success: true, product });
     }
     catch (err) {
@@ -30,7 +32,7 @@ export async function getProductById(req: Request, res: Response, next: NextFunc
 
         product = await service.getProductById(productId);
 
-        if (!product) throw new HTTP404NotFoundError("Product is not found");
+        if (product == null) throw new HTTP404NotFoundError("Product is not found");
 
         res.status(StatusCodes.OK).json({ success: true, product });
     }
@@ -48,9 +50,11 @@ export async function getProductBytType(req: Request, res: Response, next: NextF
     try {
         type = req.params.productType;
 
+        console.log({type})
+
         product = await service.getAllProducts({ type });
 
-        if (!product) throw new HTTP404NotFoundError("Products are not found");
+        if (product==null) throw new HTTP404NotFoundError("Products are not found");
 
         res.status(StatusCodes.OK).json({ success: true, product });
     }

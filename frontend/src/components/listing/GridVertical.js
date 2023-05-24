@@ -38,19 +38,23 @@ function GridVertical({ productName, data, scrollPosition }) {
                 <div className="loadGrid__gridItems">
                     {
                         data !== null &&
-                        data.map(( value , index) => {
+                        data.map((value, index) => {
+                            const imageExtension = value?.image?.substr(value?.image.lastIndexOf('.') + 1)
+                            const imageNumber = value?.image?.match(/\d/g).join("");
+                            console.log({ imageNumber, url: `${hostNameWithoutAPI}assets/${value?.type}/imageL${imageNumber}` })
                             if (index < begin || index >= length + begin) return null
+
                             else return (
-                                <Fragment key={`${index}${value._id}`}>
+                                <Fragment key={`${index}${value?._id}`}>
                                     <MDBCard className="px-0 mx-0" style={{ border: "1px solid gold" }}>
 
-                                        <NavLink to={`/products/${productName}/${value._id}`} className="image-hyperlink text-center">
+                                        <NavLink to={`/products/${productName}/${value?._id}`} className="image-hyperlink text-center">
                                             <LazyLoadImage
                                                 scrollPosition={scrollPosition}
                                                 placeholder={
                                                     <img src="../../assets/Adidas.png" width={300} height={300} alt="lazy" />
                                                 }
-                                                className="card-image" src={`${hostNameWithoutAPI}assets/${productName}/image${index}.jpg`} alt={`${index}`} waves="true" />
+                                                className="card-image" src={value?.image} alt={`${index}`} waves="true" />
 
                                             <MDBCardBody className="d-flex flex-column justify-content-center align-items-center">
                                                 <MDBCardTitle >
@@ -58,12 +62,12 @@ function GridVertical({ productName, data, scrollPosition }) {
                                                         domElement tag="span"
                                                         placement="top"
                                                     >
-                                                        <p className="card-text-custom text"> {value.name} </p>
-                                                        <span> {value.name} </span>
+                                                        <p className="card-text-custom text"> {value?.name} </p>
+                                                        <span> {value?.name} </span>
                                                     </MDBTooltip>
                                                 </MDBCardTitle>
                                                 <p className="card-text-custom text-bold">
-                                                    £ {value.price}
+                                                    £ {value?.price}
                                                 </p>
                                             </MDBCardBody>
                                         </NavLink>

@@ -60,9 +60,9 @@ export function Description({ data }) {
         }
     }
 
-    const imageExtension = data.image.substr(data.image.lastIndexOf('.') + 1)
-    const imageNumber = data.image.match(/\d/g).join("");
-    console.log({imageNumber, url: `${hostNameWithoutAPI}assets/${data.type}/imageL${imageNumber}`})
+    // const imageExtension = data.image.substr(data.image.lastIndexOf('.') + 1)
+    // const imageNumber = data.image.match(/\d/g).join("");
+    // console.log({imageNumber, url: `${hostNameWithoutAPI}assets/${data.type}/imageL${imageNumber}`})
 
     return (
 
@@ -75,17 +75,17 @@ export function Description({ data }) {
                     <MDBContainer className="pt-0">
                         <MDBRow style={{ marginTop: 0, paddingTop: 0 }} className="pt-0">
                             <MDBCol xs="12" lg="6" className="col-xs-12-imageWraper" >
-                                <img src={`${hostNameWithoutAPI}assets/${data.type}/imageL${imageNumber}.${imageExtension}`} alt={`${data.name}`}
+                                <img src={data?.image} alt={`${data.name}`}
                                     className="description-img frame"
                                 />
                             </MDBCol>
                             <MDBCol xs="12" lg="6">
                                 <div className="special-font font-weight-bold mq-center">
                                     <h5 className="font-weight-bold ">
-                                        {data.name}
+                                        {data?.name}
                                     </h5>
                                     <h5 className="font-weight-bold ">
-                                        £ {data.price}
+                                        £ {data?.price}
                                     </h5>
                                     <div className="rate" onChange={(evt) => { handleInputChange(evt) }}>
                                         <input type="radio" id="star5" name="rate" value="5" />
