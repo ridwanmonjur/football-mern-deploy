@@ -4,7 +4,6 @@ import { Schema, model, Document } from 'mongoose';
 // ** extends Document **
 
 interface TokenInterface {
-    refreshToken: string,
     resetPassword: string,
     verifyEmail: string,
     isVerified: boolean
@@ -14,7 +13,6 @@ interface AddressInterface {
     first: string,
     second: string,
 }
-
 
 interface CreditCardInterface {
     number: string,
@@ -49,11 +47,10 @@ const schema = new Schema<UserInterface>({
     },
     role: {
         type: String,
-        default: 'Buyer',
+        default: 'customer',
         required: true
     },
     token: {
-        refreshToken: String,
         resetPassword: String,
         verifyEmail: String,
         isVerified : {

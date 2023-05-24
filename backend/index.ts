@@ -1,7 +1,6 @@
 import * as express from 'express'
 import { Application, Request, Response, NextFunction } from 'express'
 import * as http from 'http'
-import * as cookies from "cookie-parser";
 import * as cors from 'cors';
 import { createHttpTerminator } from 'http-terminator';
 import * as dotenv from "dotenv"
@@ -25,10 +24,9 @@ const port = process.env.PORT || 8000
 const app: Application = express()
 export const server = http.createServer(app);
 export const httpTerminator = createHttpTerminator({ server });
-app.use(cookies());
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:3000", "https://football-mern-shop.netlify.app"],
-    credentials: true
+    origin: ["http://localhost:3000", "http://localhost:3001", "https://football-mern-shop.netlify.app"],
+    credentials: true,
 })) // For all fetch requests for JSON  Must specify Content-Type: application/json in fetch
 app.use(express.json()) // for Form body parsing application/x-www-form-urlencoded I.E. FORMDATA
 app.use(express.urlencoded({ extended: true })); // for parsing multipart/form-data I.E. FILES // app.use(upload.array()); 

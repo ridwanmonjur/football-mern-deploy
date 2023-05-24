@@ -11,14 +11,14 @@ router.post('/signup', signup);
 router.use('/user/cart/', cartRouter);
 
 router.route('/user')
-    .get(authorize(Roles.Admin), getUsers)
-    .delete(deleteUsers);
+    .get(protect, authorize(Roles.Admin), getUsers)
+    .delete(protect, authorize(Roles.Admin), deleteUsers);
 
 router.route('/user/:userId')
-    .get(authorize(Roles.Admin), getUser);
+    .get(protect, authorize(Roles.Admin), getUser);
 
 router.route('/current')
-    .get(protect,   getCurrentUser)
+    .get(protect, getCurrentUser)
     .put(protect, editCurrentUser);
 
 module.exports = router

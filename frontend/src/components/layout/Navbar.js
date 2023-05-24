@@ -43,7 +43,7 @@ function FullPageIntroWithNonFixedNavbar() {
         dispatch(setCartNull())
         toast.info("Logged out successfully")
         // 10minutes
-        setCookie(cookieKey, null, 1/60)
+        setCookie(cookieKey, null, 24)
     }
 
     useEffect(() => {

@@ -10,7 +10,7 @@ class Bkash {
     baseUrl: string;
     token?: any;
     tokenType?: any;
-    refreshToken?: any;
+    accessToken?: any;
     agreementID?: any;
     trxID?: any;
   
@@ -54,7 +54,7 @@ class Bkash {
         if (res?.statusCode === '0000') {
           this.token = res?.id_token;
           this.tokenType = res?.token_type;
-          this.refreshToken = res?.refresh_token;
+          this.accessToken = res?.access_token;
         }
   
         return res;

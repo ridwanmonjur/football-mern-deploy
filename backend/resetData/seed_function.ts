@@ -116,7 +116,7 @@ const importData = async () => {
       } as CommentInterface)
     }
       // 13th-22th users are customers
-    value['sellerId'] = users[faker.datatype.number({ 'min': 13, 'max': 20 })]._id,
+    value['seller'] = users[faker.datatype.number({ 'min': 13, 'max': 20 })]._id,
     value['comment'] = comments as Types.DocumentArray<CommentInterface>
   })
   try {
@@ -150,6 +150,7 @@ export const resetProduct = async ()=>{
         comment: faker.commerce.productDescription()
       } as CommentInterface)
     }
+    value['seller'] = users[faker.datatype.number({ 'min': 0, 'max': 8 })]._id,
     value['comment'] = comments as Types.DocumentArray<CommentInterface>
   })
   // console.log({JSONStringProducts})

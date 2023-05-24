@@ -25,11 +25,11 @@ export async function api(methodName, endpoint, { body, ...customConfig } = {}) 
         .then(response => {
             if (response.status === 401) {
                 return window
-                    .fetch(`${hostName}/refreshToken}`)
+                    .fetch(`${hostName}/accessToken}`)
                     .then((res) => res.json())
-                    .then((refreshResponse) => {
-                        console.log({ refreshResponse })
-                        headers.authorization = refreshResponse['accessToken']
+                    .then((accessResponse) => {
+                        console.log({ accessResponse })
+                        headers.authorization = accessResponse['accessToken']
                     })
                     .then(() => {
                         return window.fetch(`${hostName}/${endpoint}`, config).then((res) => res.json())

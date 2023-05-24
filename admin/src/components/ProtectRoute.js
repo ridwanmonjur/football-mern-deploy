@@ -5,13 +5,13 @@ import { useContext, useEffect } from "react";
 export const ProtectRoute = ({ children }) => {
     const router = useRouter();
     const authContext = useContext(AuthContext);
-    const { refreshToken } = authContext;
-    console.log({refreshToken})
+    const { accessToken } = authContext;
+    console.log({accessToken})
     useEffect(() => {
-        if (refreshToken===null && router.pathname !== "/") {
+        if (accessToken==undefined && router.pathname !== "/") {
             router.push("/");
         }
-        if (refreshToken!==null && router.pathname === "/") {
+        if (accessToken!=undefined && router.pathname === "/") {
             router.push("/product");
         } 
     }, [router.pathname])

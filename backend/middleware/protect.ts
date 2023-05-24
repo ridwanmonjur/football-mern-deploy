@@ -7,8 +7,7 @@ let JWT_SECRET = process.env.JWT_SECRET;
 
 const protect = (req: Request, res: Response, next: NextFunction) => {
     const token = req.header('authorization');
-    console.log({token});
-    if (!token)     // Check for token
+    if (!token || String(token).trim() === "")     // Check for token
         throw new HTTP401UnauthorizedError(); // return res.status(StatusCodes.UNAUTHORIZED).json({ msg: 'No token, authorization denied' });
 
     try {
@@ -18,7 +17,7 @@ const protect = (req: Request, res: Response, next: NextFunction) => {
         req.role = role;
         next();
     } catch (e) {
-        throw new APIError('Token is not valid', StatusCodes.BAD_REQUEST);
+        throw new APIError('Token is not valid', StatusCodes.UNAUTHORIZED);
     }
 };
 

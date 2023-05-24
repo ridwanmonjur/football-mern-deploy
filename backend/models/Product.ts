@@ -14,12 +14,10 @@ interface ProductInterface extends Document {
     slug: string,
     type: string,
     manufacturer: string,
-    sellerId: PopulatedDoc<UserInterface>
+    seller: PopulatedDoc<UserInterface>
     price: number,
-    ratings: number,
     image: string,
     stock: number,
-    amount: number,
     comment: Types.DocumentArray<CommentInterface>;
 }
 
@@ -57,19 +55,11 @@ const ProductSchema = new Schema<ProductInterface>({
         type: Number,
         required: true
     },
-    ratings: {
-        type: Number,
-        default: 0
-    },
     stock: {
         type: Number,
         default: 0
     },
-    amount: {
-        type: Number,
-        default: 0
-    },
-    sellerId: {
+    seller: {
         type: Schema.Types.ObjectId, ref: 'User', required: true
     },
     comment: [CommentSchema]

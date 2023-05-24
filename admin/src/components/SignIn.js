@@ -21,11 +21,12 @@ export const SigninForm = ({ switchToSignup }) => {
                 toast.success("Successful login", {
                     position: toast.POSITION.TOP_RIGHT
                 });
-                setAccessTokenClient(response)
+                console.log({response})
+                setAccessTokenClient(response.token)
                 router.push("/product")
             })
             .catch((error) => {
-                console.log({error, message: error?.response?.data?.message })
+                // console.log({error, message: error?.response?.data?.message })
                 if (loading) setLoading(false);
                 toast.error(`${error?.response?.status || "Client"} Error: ${error?.response?.data?.message || error.message}`)
             })

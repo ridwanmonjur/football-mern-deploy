@@ -1,12 +1,8 @@
 import { AuthContext } from "@/context/auth";
-import { useRouter } from "next/router";
 import { useContext } from "react";
-import { toast } from 'react-toastify';
-import fetchClient from "../../../api/fetchClient";
 
 const links = [
-    { href: '/product', label: 'Product' },
-    { href: '#logout', label: 'Logout' },
+    // { href: '#logout', label: 'Logout' },
 ];
 
 const myName = 'Product App';
@@ -14,11 +10,19 @@ const myName = 'Product App';
 const NavbarLinks = ({ handleLogout }) => {
     return (
         <>
+            {
+                links.map(
+                    (value) => (
+                        <>
+                            <li>
+                                <Link href={value.href}>{value.label}</Link>
+                            </li>
+                        </>
+                    )
+                )
+            }
             <li>
-                <a href={links[0].href}>{links[0].label}</a>
-            </li>
-            <li>
-                <a onClick={handleLogout} href={links[1].href}>{links[1].label}</a>
+                <a onClick={()=> handleLogout()} href="#">Logout</a>
             </li>
         </>
     );
@@ -36,18 +40,8 @@ const Company = () => {
 }
 
 export default function Header() {
-    const router = useRouter()
-    const { deleteBothTokens } = useContext(AuthContext);
-    const handleLogout = async () => {
-        try {
-            await fetchClient.post("/logout")
-            await deleteBothTokens();
-            await router.replace("/")
-        }
-        catch (error) {
-            toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
-        }
-    }
+    const { handleLogout } = useContext(AuthContext);
+
     return (
         <div className='border-gray navbar border-b bg-slate-50 shadow-lg '>
             <div className='navbar-start'>

@@ -12,7 +12,6 @@ var jwt = require('jsonwebtoken');
 interface IVerifyUserOutput {
     user: UserInterface;
     accessToken: string;
-    refreshToken: string;
 }
 export class AuthService {
 
@@ -41,29 +40,25 @@ export class AuthService {
             user._id = user._id.toString();
 
             const accessToken = jwt.sign({ "userID": user._id, "role": user.role }, JWT_SECRET, {
-                expiresIn: '10m'
-            });
-
-            const refreshToken = jwt.sign({ "userID": user._id, "role": user.role }, JWT_SECRET, {
                 expiresIn: '1d'
             });
 
-            return { user, accessToken, refreshToken };
+            return { user, accessToken };
 
         } catch (err) {
             throw err;
         }
     }
 
-    async verifyRefeshToken(refreshToken: string): Promise<string> {
+    async verifyRefeshToken(accessToken: string): Promise<string> {
 
         try {
-            let user = await this.findOneUser({ token: { refreshJWT: refreshToken } });
+            let user = await this.findOneUser({ token: { accessJWT: accessToken } });
 
             if (!user) throw new HTTP403ForbiddenError("Cannot find the user's email.");
 
             try {
-                const decoded = jwt.verify(refreshToken, JWT_SECRET);
+                const decoded = jwt.verify(accessToken, JWT_SECRET);
 
                 let { userID: userIDDecoded, role } = decoded;
 
@@ -80,7 +75,7 @@ export class AuthService {
 
             }
             catch (error) {
-                throw new HTTP403ForbiddenError(error.message || "Failed to find tojen");
+                throw new HTTP403ForbiddenError(error.message || "Failed to find token");
             }
 
         } catch (err) {

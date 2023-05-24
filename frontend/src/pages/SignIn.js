@@ -40,7 +40,7 @@ function SignIn() {
 
             if (response.success === true) {
                 //  set cookie 10 minutes
-                setCookie("accessToken", response.token, 1/60)
+                setCookie("accessToken", response.token, 24)
                 dispatch(setSignedIn());
                 toast.dismiss()
                 toast.success('Logged in! Now you can make your purchases.');

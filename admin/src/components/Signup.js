@@ -23,7 +23,7 @@ export const SignupForm = ({ switchToSignin }) => {
         }
         catch (error) {
             if (loading) setLoading(false);
-            console.log({error, message: error?.response?.data?.message })
+            // console.log({error, message: error?.response?.data?.message })
             toast.error(`${error?.response?.status || "Client"} Error: ${error?.response?.data?.message || error.message}`)
         }
     }

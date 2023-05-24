@@ -5,7 +5,7 @@ import { APIError } from '../exceptions/AppError';
 const authorize = (...roles: string[]) => {
     return (req: Request, _res: Response, next: NextFunction) => {
         if (!roles.includes(req.role)) {
-            throw new APIError('Token is not valid', StatusCodes.FORBIDDEN);
+            throw new APIError('Role is not valid', StatusCodes.FORBIDDEN);
         }
         else {
             next();

@@ -48,9 +48,6 @@ export async function getProductBytType(req: Request, res: Response, next: NextF
     try {
         type = req.params.productType;
 
-        // const populate = ['products', 'name image price type'];
-
-
         product = await service.getAllProducts({ type });
 
         if (!product) throw new HTTP404NotFoundError("Products are not found");
