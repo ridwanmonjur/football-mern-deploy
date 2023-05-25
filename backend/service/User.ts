@@ -54,11 +54,11 @@ export class UserService {
 
         try {
 
-            let { name, email, password } = signupDtos;
+            let { name, email, password, role } = signupDtos;
 
             let hashedPassword = await hash(password, saltRounds);
 
-            let user = await this.repository.createOne({ name, email, password: hashedPassword, role: "buyer" });
+            let user = await this.repository.createOne({ name, email, password: hashedPassword, role });
 
             let cart = await this.cartReposity.createOne({ user: user._id, });
 

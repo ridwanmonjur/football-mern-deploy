@@ -22,11 +22,15 @@ export class CartRepository {
         }
     }
 
-    async find(where: any, populate?: Array<string>): Promise<Array<CartInterface>> {
+    async find(where: any, populate?: Array<string>, populateSecond?: Array<string>): Promise<Array<CartInterface>> {
 
-        const [_, __] = populate;
         try {
 
+            if (populate && populateSecond) {
+                const [_, __] = populate;
+                const [_second, __second] = populateSecond;
+                return await Cart.find({ ...where }).populate(_, __).populate(_second, __second);
+            }
             if (populate) {
                 const [_, __] = populate;
 

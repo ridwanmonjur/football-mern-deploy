@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { Table } from "../sharing/table/Table";
+import { Input } from "../sharing/form";
 
 export const UserList = ({
     userList, setCurrentIndex, deletUser
 }) => {
+    console.log({userList})
     const [loadingIndex, setLoadingIndex] = useState(-1)
     return (
         <div className="">
@@ -17,9 +19,13 @@ export const UserList = ({
                                     <th>{index + 1}</th>
                                     <td>{value.name}</td>
                                     <td>{value.email}</td>
-                                    <td>{String(value.role).toU()} $</td>
-                                    <td>{value.verified}</td>
-                                    <td>{value.address?.first} {value.address?.second}</td>
+                                    <td className="uppercase">{String(value.role)}</td>
+                                    <td>
+                                        <Input type="checkbox" 
+                                        className={`toggle ${value.token.isVerified == true ? 'toggle-success' : '' }`} 
+                                        disabled checked={value.token.isVerified == true} />
+                                    </td>
+                                    <td>{value.address?.first || "N/A"} {value.address?.second}</td>
                                     <td>
                                         <div className={`${loadingIndex === index ? "opacity-40 pointer-events-none" : ""}`}>
                                             <>

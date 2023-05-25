@@ -48,7 +48,8 @@ const schema = new Schema<UserInterface>({
     role: {
         type: String,
         default: 'customer',
-        required: true
+        required: true,
+        enum: ['customer', 'admin', 'seller'],
     },
     token: {
         resetPassword: String,

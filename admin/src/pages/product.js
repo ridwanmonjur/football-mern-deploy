@@ -1,10 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { fetchSSR } from '../../api/fetchSSR';
 import Layout from '@/components/layout/Layout';
 import { ProductList } from '@/components/product/ProductList';
 import { Heading1 } from '@/components/sharing/typography/Heading1';
 import { Pagination } from '@/components/sharing/table/Pagination';
-import { Modal } from '@/components/sharing/form';
+import { Button, Modal } from '@/components/sharing/form';
 import { ProductForm } from '@/components/product/ProductForm';
 import Drawer from '@/components/layout/Drawer';
 
@@ -22,22 +22,31 @@ export default function ProductPage({ _productList }) {
         )
     }
     const deletProduct = (id) => setProductList(productList.filter(value => value._id !== id))
-    return useMemo(() => (
+    return (
         <Layout>
             <main
-                className={`font-primary`}
             >
                 <Modal>
                     <ProductForm
                         setCurrentIndex={setCurrentIndex}
                         addToProduct={addToProduct}
                         editProduct={editProduct}
+                        currentIndex={currentIndex}
                         currentProduct={currentIndex > -1 ? productList[currentIndex] : null}
                     />
                 </Modal>
                 <Drawer>
-                    <div className=''>
+                    <div>
                         <Heading1 classNames="">Products</Heading1>
+                        <Button
+                            classNames="btn btn-primary w-64 pt-4 text-white hover:cursor-pointer"
+                            onClick={() => {
+                                setCurrentIndex(-1);
+                                document.getElementById("my-modal").checked = !document.getElementById("my-modal").checked
+                            }}
+                        >
+                            Add Product
+                        </Button>
                         <Pagination />
                         <ProductList
                             productList={productList}
@@ -49,12 +58,12 @@ export default function ProductPage({ _productList }) {
 
             </main>
         </Layout>
-    ))
+    )
 }
-export async function getServerSideProps({req, res}) {
+export async function getServerSideProps({ req, res }) {
     try {
-        const productList = await fetchSSR({req, res}).get("product")
-        console.log({productList})
+        const productList = await fetchSSR({ req, res }).get("product")
+        console.log({ productList })
         return {
             props: {
                 _productList: productList?.product || [],
@@ -64,7 +73,7 @@ export async function getServerSideProps({req, res}) {
     catch (error) {
         return {
             props: {
-                _productList:[],
+                _productList: [],
             },
         }
         // return {

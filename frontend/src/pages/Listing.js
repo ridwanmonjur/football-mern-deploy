@@ -38,18 +38,7 @@ function Listing() {
     const { productName } = useParams();
 
     let { data, error, loading } = useLoadingFetchError(FetchAll, productName)
-
-    useEffect(() => {
-        let controller = new AbortController();
-
-        return () => {
-            return () => controller?.abort();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-
-
+    
     return (
         <>
             <FullPageIntroWithNonFixedNavbar />

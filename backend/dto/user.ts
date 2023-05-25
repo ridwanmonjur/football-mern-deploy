@@ -1,6 +1,10 @@
-import { IsArray, IsCreditCard, IsEmail, IsMongoId, IsOptional, IsString, Length, MinLength } from "class-validator";
+import { IsArray, IsCreditCard, IsEmail, IsEnum, IsMongoId, IsOptional, IsString, Length, MinLength } from "class-validator";
 // import { ValidateNested } from 'class-validator';
 // import { Type } from 'class-transformer';
+
+enum Roles{
+    admin, customer, seller
+}
 
 class Address {
     @Length(20,100)
@@ -33,6 +37,9 @@ export class CreateUserDto {
     
     @Length(6,12)
     password: string;
+
+    @IsEnum(Roles)
+    role: string
 }
 
 export class UserLoginDto {
@@ -65,7 +72,7 @@ export class EditUserProfileDto {
     // @Type(() => Address)
     address: Address;
 }
- 
+
 export class DeleteUserDtos {
     @IsArray()
     @MinLength(1, {

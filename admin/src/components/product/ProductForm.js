@@ -1,11 +1,13 @@
 import fetchClient from "../../../api/fetchClient";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
+import { Input, LabelModal, Select } from "../sharing/form";
 
 export const ProductForm = ({
-    currentProduct, setCurrentIndex, addToProduct, editProduct
+    currentProduct, setCurrentIndex, addToProduct, editProduct, currentIndex
 }) => {
+    console.log({ currentProduct })
     const isAddMode = currentProduct === null;
     const { register, handleSubmit, reset } = useForm();
     const [loading, setLoading] = useState(false);
@@ -47,7 +49,10 @@ export const ProductForm = ({
         }
     }
     const formRef = useRef(null)
-
+    useEffect(() => {
+        if (document.getElementById('type')!= undefined) document.getElementById('type').value = currentProduct?.type;
+        // setValue("status", currentCart?.status)
+    }, [currentIndex])
     return (
         <div>
             <h1 className='pb-5 text-xl font-bold'>
@@ -60,88 +65,112 @@ export const ProductForm = ({
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <div className="mx-auto">
+
                     {/* Product name */}
-                    <label className="label">
-                        <span className="label-text">Product name</span>
-                    </label>
-                    <input
+                    {!isAddMode
+                        &&
+                        <>
+                            <LabelModal text="Product id" />
+                            <Input
+                                type="text"
+                                defaultValue={currentProduct?._id}
+                                disabled={true}
+                            />
+                        </>
+                    }
+                    <LabelModal text="Product name" />
+                    <Input
                         type="text"
                         defaultValue={currentProduct?.name}
                         {...register("name")}
                         required
                         placeholder="Enter product name..."
-                        className="input input-bordered dark:bg-white inline w-full  mb-2"
                     />
-                    {/* Seller name */}
-                    <label className="label">
-                        <span className="label-text">Seller name</span>
-                    </label>
-                    <input
+                    {/* Seller id */}
+                    <LabelModal text="Seller id" />
+                    <Input
                         type="text"
-                        defaultValue={currentProduct?.seller?.name}
-                        {...register("seller.name")}
+                        {...register("seller")}
                         required
-                        placeholder="Enter seller name..."
-                        className="input input-bordered dark:bg-white inline w-full  mb-2"
+                        defaultValue={currentProduct?.seller?._id}
+                        placeholder="Enter seller id..."
                     />
+
+                    {/* Seller name */}
+                    {!isAddMode
+                        &&
+                        <>
+                            <LabelModal text="Seller name" />
+                            <Input
+                                type="text"
+                                defaultValue={currentProduct?.seller?.name}
+                                {...register("seller.name")}
+                                disabled={true}
+                            />
+                        </>
+                    }
                     <div className="grid lg:grid-cols-2">
                         <div>
                             {/* Type */}
-                            <label className="label">
-                                <span className="label-text">Type</span>
-                            </label>
-                            <input
-                                type="text"
-                                defaultValue={currentProduct?.type}
-                                {...register("manufacturer")}
-                                required
-                                placeholder="Enter product type..."
-                                className="input input-bordered dark:bg-white inline w-full  mb-2"
-                            />
+                            {isAddMode
+                                &&
+                                <>
+                                    <LabelModal text="Type" />
+                                    <Select
+                                        optionNames={["Jerseys", "Accessories", "Boots"]}
+                                        optionValues={["jerseys", "accessories", "boots"]}
+                                    />
+                                </>
+                            }
+                            {!isAddMode
+                                &&
+                                <>
+                                    <LabelModal text="Type" />
+                                    <Select
+                                    // daisyui broken so need it
+                                        id="type"
+                                        defaultValue={currentProduct?.type}
+                                        optionNames={["Jerseys", "Accessories", "Boots"]}
+                                        optionValues={["jerseys", "accessories", "boots"]}
+                                    />
+                                </>
+                            }
                         </div>
                         <div>
                             {/* Manufacturer */}
-                            <label className="label">
-                                <span className="label-text">Manufacturer</span>
-                            </label>
-                            <input
+                            <LabelModal text="Manufacturer" />
+                            <Input
                                 type="text"
                                 defaultValue={currentProduct?.manufacturer}
                                 {...register("manufacturer")}
                                 required
                                 placeholder="Enter product manufacturer..."
-                                className="input input-bordered dark:bg-white inline w-full  mb-2"
+
                             />
                         </div>
                         <div>
                             {/* Price */}
-                            <label className="label">
-                                <span className="label-text">Price</span>
-                            </label>
-                            <input
+                            <LabelModal text="Price (£)" />
+                            <Input
                                 type="text"
                                 defaultValue={currentProduct?.price}
                                 {...register("price")}
                                 required
                                 placeholder="Enter price..."
-                                className="input input-bordered dark:bg-white inline w-full  mb-2"
+
                             />
                         </div>
                         <div>
                             {/* Manufacturer */}
-                            <label className="label">
-                                <span className="label-text">Stock</span>
-                            </label>
-                            <input
+                            <LabelModal text="Stock" />
+                            <Input
                                 type="text"
                                 defaultValue={currentProduct?.stock}
                                 {...register("stock")}
                                 required
                                 placeholder="Enter stock..."
-                                className="input input-bordered dark:bg-white inline w-full  mb-2"
                             />
                         </div>
-
                     </div>
 
                     <div className="flex justify-center">

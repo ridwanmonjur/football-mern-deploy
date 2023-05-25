@@ -7,24 +7,42 @@ import SignIn from './SignIn';
 import CheckOutConfirm from './CheckOutConfirm';
 import SignUp from './SignUp';
 import Profile from './Profile';
-import JerseysPartTwo from './Listing';
+import Listing from './Listing';
 import Purchases from './Purchases';
 import DescriptionPage from './Description';
+import { useSelector } from 'react-redux';
+import { selectProfileDetails } from '../redux/slices/ProfileSlice';
+import { Manage } from './Manage';
 function Routes() {
+  const user = useSelector(selectProfileDetails);
+
   return (
     <>
       <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/cart">
-        <Cart />
-      </Route>
-      <Route path="/purchases">
-        <Purchases />
-      </Route>
-      <Route path="/confirmCheckOut">
-        <CheckOutConfirm />
-      </Route>
+      {
+        user?.role === "customer" &&
+        <>
+          <Route path="/purchases">
+            <Purchases />
+          </Route>
+          <Route path="/confirmCheckOut">
+            <CheckOutConfirm />
+          </Route>
+          <Route path="/cart">
+            <Cart />
+          </Route>
+        </>
+      }
+      {
+        user?.role === "seller" &&
+        <>
+          <Route path="/manage">
+            <Manage />
+          </Route>
+        </>
+      }
       <Route path="/signIn">
         <SignIn />
       </Route>
@@ -35,10 +53,10 @@ function Routes() {
         <Profile />
       </Route>
       <Route exact path="/products/:productName">
-        <JerseysPartTwo />
+        <Listing />
       </Route>
       <Route path="/products/:productName/:userId">
-        <DescriptionPage/>
+        <DescriptionPage />
       </Route>
     </>
 

@@ -1,13 +1,14 @@
 import fetchClient from "../../../api/fetchClient";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
+import { Input, LabelModal } from "../sharing/form";
 
 export const UserForm = ({
-    currentUser, setCurrentIndex, addToUser, editUser
+    currentUser, setCurrentIndex, addToUser, editUser, currentIndex
 }) => {
     const isAddMode = currentUser === null;
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, setValue } = useForm();
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data, event) => {
         setLoading(true);
@@ -47,7 +48,9 @@ export const UserForm = ({
         }
     }
     const formRef = useRef(null)
-
+    useEffect(() => {
+        setValue("token.isVerified", currentUser?.token?.isVerified)
+    }, [currentIndex])
     return (
         <div>
             <h1 className='pb-5 text-xl font-bold'>
@@ -61,112 +64,105 @@ export const UserForm = ({
             >
                 <div className="mx-auto">
                     {/* User name */}
-                    <label className="label">
-                        <span className="label-text">User name</span>
-                    </label>
-                    <input
+                    {!isAddMode
+                        &&
+                        <>
+                            <LabelModal text="User id" />
+                            <Input
+                                type="text"
+                                defaultValue={currentUser?._id}
+                                disabled
+                                placeholder="Enter user name..."
+
+                            />
+                        </>
+                    }
+                    <LabelModal text="User name" />
+                    <Input
                         type="text"
                         defaultValue={currentUser?.name}
                         {...register("name")}
                         required
                         placeholder="Enter user name..."
-                        className="input input-bordered dark:bg-white inline w-full  mb-2"
+
                     />
                     {/* Email */}
-                    <label className="label">
-                        <span className="label-text">Email</span>
-                    </label>
-                    <input
+                    <LabelModal text="Email" />
+                    <Input
                         type="text"
                         defaultValue={currentUser?.email}
                         {...register("email")}
                         required
                         placeholder="Enter email..."
-                        className="input input-bordered dark:bg-white inline w-full  mb-2"
+
                     />
                     <div className="grid lg:grid-cols-2">
                         <div>
                             {/* IsVerified */}
-                            <label className="label">
-                                <span className="label-text">Verified</span>
-                            </label>
-                            <input
-                                type="text"
-                                defaultValue={currentUser?.token?.isVerified}
+                            <LabelModal text="Verified" />
+                            <Input
+                                type="checkbox"
+                                className="toggle toggle-success"
                                 {...register("token.isVerified")}
-                                required
-                                placeholder="Enter user is verified..."
-                                className="input input-bordered dark:bg-white inline w-full  mb-2"
+                                {
+                                ...(currentUser?.token?.isVerified ? { defaultChecked: true } : {})
+                                }
                             />
                         </div>
                         <div>
                             {/* Role */}
-                            <label className="label">
-                                <span className="label-text">Role</span>
-                            </label>
-                            <input
+                            <LabelModal text="Role" />
+                            <Input
                                 type="text"
                                 defaultValue={currentUser?.role}
                                 {...register("role")}
                                 required
                                 placeholder="Enter user role..."
-                                className="input input-bordered dark:bg-white inline w-full  mb-2"
+
                             />
                         </div>
                         <div>
                             {/* Address First */}
-                            <label className="label">
-                                <span className="label-text">Address First Line</span>
-                            </label>
-                            <input
+                            <LabelModal text="Address First Line" />
+                            <Input
                                 type="text"
                                 defaultValue={currentUser?.address?.first}
                                 {...register("address.first")}
-                                required
                                 placeholder="Enter address first line..."
-                                className="input input-bordered dark:bg-white inline w-full  mb-2"
+
                             />
                         </div>
                         <div>
                             {/* Manufacturer */}
-                            <label className="label">
-                                <span className="label-text">Address Second Line</span>
-                            </label>
-                            <input
+                            <LabelModal text="Address Second Line" />
+                            <Input
                                 type="text"
                                 defaultValue={currentUser?.address?.second}
                                 {...register("address.second")}
-                                required
                                 placeholder="Enter address second line..."
-                                className="input input-bordered dark:bg-white inline w-full  mb-2"
+
                             />
                         </div>
                         <div>
                             {/* Credit card number */}
-                            <label className="label">
-                                <span className="label-text">Credit Card Number</span>
-                            </label>
-                            <input
+                            <LabelModal text="Credit Card Number" />
+                            <Input
                                 type="text"
                                 defaultValue={currentUser?.creditCard?.number}
                                 {...register("creditCard.number")}
-                                required
                                 placeholder="Enter Credit Card Number..."
-                                className="input input-bordered dark:bg-white inline w-full  mb-2"
+
                             />
                         </div>
                         <div>
-                            {/* Credit Card CVVcreditCard */}
-                            <label className="label">
-                                <span className="label-text">Credit Card CVV</span>
-                            </label>
-                            <input
+                            {/* Credit Card CVV */}
+                            <LabelModal text="Credit Card CVV" />
+                            <Input
                                 type="text"
                                 defaultValue={currentUser?.creditCard?.CVV}
                                 {...register("creditCard.CVV")}
-                                required
                                 placeholder="Enter Credit Card CVV..."
-                                className="input input-bordered dark:bg-white inline w-full  mb-2"
+
                             />
                         </div>
                     </div>

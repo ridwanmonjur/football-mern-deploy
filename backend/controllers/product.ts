@@ -4,15 +4,19 @@ import { ObjectId } from 'mongoose';
 import { HTTP404NotFoundError, HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { ProductInterface } from '../models/Product';
 import { ProductService } from '../service/Product';
-import { DeleteProductDtos } from '../dto/product';
+import { CreateProductDto, DeleteProductDtos, EditProductDto, ProductFilter } from '../dto/product';
 import { validationHelper } from '../helper/validationHelper';
 const ObjectID = require("mongodb").ObjectID;
 
 const service = new ProductService();
 
-export async function getProducts(_req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function getProducts(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        let product = await service.getAllProducts();
+        await validationHelper(ProductFilter, req.query)
+
+        const query = Object.keys(req.query).length > 0? req.query : {} as ProductFilter
+
+        let product = await service.getAllProducts(query);
 
         if (product == null) throw new HTTP404NotFoundError("Product is not found");
 
@@ -50,8 +54,6 @@ export async function getProductBytType(req: Request, res: Response, next: NextF
     try {
         type = req.params.productType;
 
-        console.log({type})
-
         product = await service.getAllProducts({ type });
 
         if (product==null) throw new HTTP404NotFoundError("Products are not found");
@@ -62,6 +64,38 @@ export async function getProductBytType(req: Request, res: Response, next: NextF
         if (!type) throw new HTTP422UnproccessableEntity("Type of product must be passed in request parameter correctly.");
 
         else next(error);
+    }
+}
+
+export async function createProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
+
+    try {
+        const productDto: CreateProductDto = await validationHelper(CreateProductDto, req.body);
+
+        const product = await service.createProduct( productDto );
+
+        res.status(StatusCodes.OK).json({ success: true, product });
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function editProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
+    
+    let productId: undefined | ObjectId;
+
+    try {
+        productId = ObjectID(req.params.productId);
+
+        const productDto: EditProductDto = await validationHelper(EditProductDto, req.body);
+
+        const product = await service.editProduct(productId, productDto );
+
+        res.status(StatusCodes.OK).json({ success: true, product });
+    }
+    catch (error) {
+        next(error);
     }
 }
 

@@ -1,5 +1,4 @@
 import { roundOff } from "../../helper/roundOff";
-import { hostNameWithoutAPI } from "../../api/env";
 import { MDBIcon } from "mdbreact";
 
 export function generateRows({ isPartOfPurchaseView, data, deleteCart, handleInputChange }) {
@@ -10,7 +9,7 @@ export function generateRows({ isPartOfPurchaseView, data, deleteCart, handleInp
           let totalPrice  = roundOff(data.description[index].subtotal)
           rows.push(
             {
-              'imageSrc': <img src={`${hostNameWithoutAPI}assets/${value.type}/${value.image}`} alt="" style={{ width: "50px" }} />,
+              'imageSrc': <img src={value?.image} alt="" style={{ width: "50px" }} />,
               'name': <strong> {value.name}</strong>,
               'size': <strong> {data.description[index].size} </strong>,
               'price': <strong> £ {roundOff(value.price)} </strong>,

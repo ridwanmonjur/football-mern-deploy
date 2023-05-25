@@ -1,6 +1,8 @@
 import { ObjectId } from "mongoose";
 import { ProductInterface } from "../models/Product";
 import { ProductRepository } from "../repository/Product";
+import { CreateProductDto } from "../dto/product";
+import { UserInterface } from "../models/User";
 
 // All Business logic will be here
 
@@ -35,6 +37,31 @@ export class ProductService {
             throw err;
         }
     }
+
+    async createProduct(productDto: CreateProductDto): Promise<ProductInterface> {
+
+        try {
+
+            const product = await this.repository.createOne(productDto);
+
+            return product;
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    async editProduct(id: ObjectId, productDto: CreateProductDto): Promise<ProductInterface> {
+
+        try {
+
+            const product = await this.repository.findByIdAndUpdate(id, productDto);
+
+            return product;
+        } catch (err) {
+            throw err;
+        }
+    }
+
 
     async deleteProducts(ids: Array<string>) {
         try {

@@ -1,11 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { fetchSSR } from '../../api/fetchSSR';
 import Layout from '@/components/layout/Layout';
 import { UserList } from '@/components/user/UserList';
 import { Heading1 } from '@/components/sharing/typography/Heading1';
 import { Pagination } from '@/components/sharing/table/Pagination';
-import { Modal } from '@/components/sharing/form';
+import { Modal, Button } from '@/components/sharing/form';
 import { UserForm } from '@/components/user/UserForm';
+import Drawer from '@/components/layout/Drawer';
 
 export default function UserPage({ _userList }) {
     const [userList, setUserList] = useState(_userList)
@@ -21,54 +22,60 @@ export default function UserPage({ _userList }) {
         )
     }
     const deletUser = (id) => setUserList(userList.filter(value => value._id !== id))
-    return useMemo(()=>(
+    return (
         <Layout>
             <main
-                className={`min-h-screen font-primary w-11/12 lg:w-7/12 mx-auto`}
             >
                 <Modal>
                     <UserForm
+                        currentIndex={currentIndex}
                         setCurrentIndex={setCurrentIndex}
                         addToUser={addToUser}
                         editUser={editUser}
                         currentUser={currentIndex > -1 ? userList[currentIndex] : null}
                     />
                 </Modal>
-                <Heading1 classNames="mt-12">Users</Heading1>
-                <Pagination />
-                <UserList
-                    userList={userList}
-                    deletUser={deletUser}
-                    setCurrentIndex={setCurrentIndex}
-                />
+                <Drawer>
+                    <div>
+                        <Heading1 classNames="">Users</Heading1>
+                        <Button
+                            classNames="btn btn-primary w-64 pt-4 text-white hover:cursor-pointer"
+                            onClick={() => {
+                                setCurrentIndex(-1);
+                                document.getElementById("my-modal").checked = !document.getElementById("my-modal").checked
+                            }}
+                        >
+                            Add User
+                        </Button>
+                        <Pagination />
+                        <UserList
+                            userList={userList}
+                            deletUser={deletUser}
+                            setCurrentIndex={setCurrentIndex}
+                        />
+                    </div>
+                </Drawer>
+
             </main>
         </Layout>
-    ))
+    )
 }
-export async function getServerSideProps({ req, res }) {
+export async function getServerSideProps({req, res}) {
     try {
-        const userList = await fetchSSR({ req, res }).get("user")
+        const userList = await fetchSSR({req, res}).get("user")
+        console.log({userList})
         return {
             props: {
-                _userList: userList.user,
+                _userList: userList?.user || [],
             },
-
         }
     }
     catch (error) {
-        // console.log({ error })
         return {
             props: {
-                _userList: [],
+                _userList:[],
             },
-
         }
-        // return {
-        //     redirect: {
-        //         permanent: false,
-        //         destination: "/",
-        //     },
-        //     props: {},
-        // }
+      
     }
 }

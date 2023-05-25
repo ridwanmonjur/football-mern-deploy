@@ -18,7 +18,6 @@ interface CartInterface extends Document {
 }
 
 const CartSchema = new Schema<CartInterface>({
-
     user: {
         type: Schema.Types.ObjectId, ref: 'User'
     },
@@ -41,7 +40,6 @@ const CartSchema = new Schema<CartInterface>({
     paidAt: Date, 
     deliveredAt: Date,
     total: Number,
-    creation_date: { type: Date, default: new Date() }
 },
     // The strict option, (enabled by default), ensures that values passed to our model constructor that were not 
     //  specified in our schema do not get saved to the db.

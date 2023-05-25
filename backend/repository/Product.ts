@@ -62,5 +62,17 @@ export class ProductRepository {
         }
     }
 
+    async createOne(body: any): Promise<ProductInterface> {
+        try {
+            let product = new Product({ ...body });
+
+            await product.save();
+
+            return product;
+        }
+        catch {
+            throw new HTTP500InternalServerrror("Unable to create product ");
+        }
+    }
 }
 

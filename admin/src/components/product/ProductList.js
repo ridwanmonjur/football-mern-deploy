@@ -6,18 +6,19 @@ export const ProductList = ({
 }) => {
     const [loadingIndex, setLoadingIndex] = useState(-1)
     return (
-        <div className="">
+        <div>
             <Table
-                tableHeading={["Name", "Manufacturer", "Price", "Stock", "Seller", ""]}
+                tableHeading={["Name", "Manufacturer", "Type", "Price", "Stock", "Seller", ""]}
                 render={
                     () => (
                         <>
                             {productList.map((value, index) => (
                                 <tr key={value._id}>
                                     <th>{index + 1}</th>
-                                    <td>{value.name}</td>
+                                    <td className="max-w-[300px] truncate pr-6">{value.name}</td>
                                     <td>{value.manufacturer}</td>
-                                    <td>{value.price} $</td>
+                                    <td>{value.type}</td>
+                                    <td>£ {value.price}</td>
                                     <td>{value.stock}</td>
                                     <td>{value.seller.name}</td>
                                     <td>

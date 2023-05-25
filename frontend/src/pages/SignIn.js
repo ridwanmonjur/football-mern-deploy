@@ -10,8 +10,6 @@ import { Login } from "../api/auth";
 import { setCookie } from "../api/api";
 import { useDispatch } from "react-redux";
 import { fetchProfile, setSignedIn } from "../redux/slices/ProfileSlice";
-import { GetOneUser } from "../api/profile";
-import useLoadingFetchError from "../helper/loader/useFetchHook";
 import Rodal from 'rodal';
 import { toast } from "react-toastify";
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
@@ -19,15 +17,14 @@ import Footer from "../components/layout/Footer";
 
 function SignIn() {
 
-    const { loading: loadingUser, data: user, error: errorUser } = useLoadingFetchError(GetOneUser)
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const dispatch = useDispatch()
     const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
-        !loadingUser && !errorUser && setModalVisible(true)
-    }, [errorUser, loadingUser])
+       setModalVisible(true)
+    }, [])
 
     let onSubmit = async (event) => {
         event.preventDefault();
@@ -103,12 +100,32 @@ function SignIn() {
                             </MDBCard>
                         </MDBRow >
                         <Rodal visible={modalVisible} onClose={() => setModalVisible(false)}>
-                            <h5 className="pb-2 border-bottom border-warning">Visitor view</h5>
-                            <h5 className="pt-5 text-align-center mb-5  bot">Access without sign in/ sign up...</h5>
-                            <div className="d-flex justify-content-center mt-1 pt-2 border-warning border-top">
-                                <MDBBtn size='md' outline color="warning" onClick={(event) => {
+                            <h5 className="pb-2 border-bottom border-warning">Demo login in  by clicking the button</h5>
+                            <div className="d-flex justify-content-center mt-1">
+                                <MDBBtn size='md' style={{fontSize: "14px", padding: "5px", fontWeight: "bold"}} outline color="warning" onClick={(event) => {
                                     setModalVisible(false);
-                                    emailRef.current.value = user.email;
+                                    toast.success("Viewing as admin. Can also view as customer and seller")
+                                    emailRef.current.value = "mjrrdn@gmail.com";
+                                    passwordRef.current.value = "123456"
+                                    onSubmit(event);
+                                }}  > Admin View
+                                </MDBBtn>
+                            </div>
+                            <div className="d-flex justify-content-center mt-1 pt-2">
+                                <MDBBtn size='md' style={{fontSize: "14px", padding: "5px", fontWeight: "bold"}} outline color="warning" onClick={(event) => {
+                                    setModalVisible(false);
+                                    toast.success("Viewing as customer. Can also view as admin and seller")
+                                    emailRef.current.value = "ridwanmonjur@gmail.com";
+                                    passwordRef.current.value = "123456"
+                                    onSubmit(event);
+                                }}  > Seller View
+                                </MDBBtn>
+                            </div>
+                            <div className="d-flex justify-content-center mt-1 pt-2">
+                                <MDBBtn size='md' style={{fontSize: "14px", padding: "5px", fontWeight: "bold"}} outline color="warning" onClick={(event) => {
+                                    setModalVisible(false);
+                                    toast.success("Viewing as seller. Can also view as admin and customer")
+                                    emailRef.current.value = "mjrrdnasm@gmail.com";
                                     passwordRef.current.value = "123456"
                                     onSubmit(event);
                                 }}  > Customer View

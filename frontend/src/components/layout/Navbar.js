@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setProfileNull, selectIsSignedIn } from "../../redux/slices/ProfileSlice";
+import { setProfileNull, selectIsSignedIn, selectProfileDetails } from "../../redux/slices/ProfileSlice";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBContainer, MDBIcon } from 'mdbreact';
 import NavbarBrandImg from "../../assets/icon.png"
 import "./Navbar.css"
@@ -16,8 +16,10 @@ function FullPageIntroWithNonFixedNavbar() {
 
     let params = useParams()
 
-    let isSignedIn = useSelector(selectIsSignedIn);
+    const isSignedIn = useSelector(selectIsSignedIn);
 
+    const user = useSelector(selectProfileDetails);
+    
     const dispatch = useDispatch()
     let [state, setState] = useState({
         collapse: false,
@@ -58,8 +60,8 @@ function FullPageIntroWithNonFixedNavbar() {
         const location = history.location.pathname
         const isNavTransparent = location === "/" || (location.includes("products") && !('userId' in params))
         var isLargeScreen = window.matchMedia("(min-width: 1200px)").matches
-        console.log({isLargeScreen})
-        if (isNavTransparent && isLargeScreen){
+        console.log({ isLargeScreen })
+        if (isNavTransparent && isLargeScreen) {
             myNav.classList.add("nav-transparent");
             window.onscroll = function () {
                 if (document.body.scrollTop >= 400 || document.documentElement.scrollTop >= 400) {
@@ -72,10 +74,10 @@ function FullPageIntroWithNonFixedNavbar() {
                 }
             };
         }
-        else{
+        else {
             myNav.classList.add("nav-colored");
         }
-       
+
     }, [history.location.pathname, params])
 
     return (
@@ -102,13 +104,25 @@ function FullPageIntroWithNonFixedNavbar() {
                                 <MDBNavItem>
                                     <MDBNavLink to="/products/accessories">Accessories</MDBNavLink>
                                 </MDBNavItem>
-                                <MDBNavItem>
-                                    <MDBNavLink to="/purchases">Purchases</MDBNavLink>
-                                </MDBNavItem>
+                                {
+                                    user?.role === "customer" &&
+                                    <MDBNavItem>
+                                        <MDBNavLink to="/purchases">Purchases</MDBNavLink>
+                                    </MDBNavItem>
+                                }
+                                {
+                                    user?.role === "seller" &&
+                                    <MDBNavItem>
+                                        <MDBNavLink to="/manage">Manage</MDBNavLink>
+                                    </MDBNavItem>
+                                }
                                 <MDBNavItem style={{ position: "relative", top: "1vh" }} className="ml-2">
-                                    <MDBNavLink to="/cart" className="d-inline cart-icon">
-                                        <MDBIcon icon="cart-arrow-down" />
-                                    </MDBNavLink>
+                                    {
+                                        user?.role === "customer" &&
+                                        <MDBNavLink to="/cart" className="d-inline cart-icon">
+                                            <MDBIcon icon="cart-arrow-down" />
+                                        </MDBNavLink>
+                                    }
                                     {
                                         !isSignedIn &&
                                         <MDBNavLink to="/signIn" className="d-inline ml-2">

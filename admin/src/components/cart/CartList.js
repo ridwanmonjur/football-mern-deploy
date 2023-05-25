@@ -1,25 +1,27 @@
 import { useState } from "react"
 import { Table } from "../sharing/table/Table";
+import { convertMongoToHumanDate } from "@/utils/convertMongoToHumanDate";
+import { roundOff } from "@/utils/roundOff";
 
 export const CartList = ({
     cartList, setCurrentIndex, deletCart
 }) => {
     const [loadingIndex, setLoadingIndex] = useState(-1)
     return (
-        <div className="">
+        <div>
             <Table
-                tableHeading={["Name", "Manufacturer", "Price", "Stock", "Seller", ""]}
+                tableHeading={["Customer name", "Updated", "Created", "Status", "Total", ""]}
                 render={
                     () => (
                         <>
                             {cartList.map((value, index) => (
                                 <tr key={value._id}>
                                     <th>{index + 1}</th>
-                                    <td>{value.name}</td>
-                                    <td>{value.manufacturer}</td>
-                                    <td>{value.price} $</td>
-                                    <td>{value.stock}</td>
-                                    <td>{value.seller.name}</td>
+                                    <td className="max-w-[300px] truncate pr-6">{value.user.name}</td>
+                                    <td>{convertMongoToHumanDate(value.updatedAt)}</td>
+                                    <td>{convertMongoToHumanDate(value.createdAt)}</td>
+                                    <td>{value.status} </td>
+                                    <td>{ value.total > 0 ? "£ " +roundOff(value.total) : "-"}</td>
                                     <td>
                                         <div className={`${loadingIndex === index ? "opacity-40 pointer-events-none" : ""}`}>
                                             <>

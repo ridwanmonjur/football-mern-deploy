@@ -46,8 +46,10 @@ export class CartService {
 
     async findAllCarts(where?: any): Promise<Array<CartInterface>> {
         const populate = ['products', 'name image price type'];
+        const populateSecond = ['user', 'name email'];
+
         try {
-            return await this.repository.find(where || {}, populate);
+            return await this.repository.find(where || {}, populate, populateSecond);
         } catch (err) {
             throw err;
         }

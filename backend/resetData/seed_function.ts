@@ -42,39 +42,48 @@ const importData = async () => {
   let users: Array<UserInterface> = []
   let carts: Array<CartInterface> = []
   //  1st 10 users are customers
-  for (loop = 0; loop < 10; loop++) {
+  for (loop = 0; loop < 9; loop++) {
     users.push(new User({
       name: faker.name.findName(),
       email: faker.internet.email(),
       password: hashSync("123456", saltRounds),
       role: "seller",
-      address: {first: faker.address.streetAddress(),
-      second:  "London, UK"},
-      creditCard: {number: faker.finance.creditCardNumber(),
-      CVV: faker.finance.creditCardCVV()
+      address: {
+        first: faker.address.streetAddress(),
+        second: "London, UK"
+      },
+      creditCard: {
+        number: faker.finance.creditCardNumber(),
+        CVV: faker.finance.creditCardCVV()
       }
     })
     )
-    carts.push(new Cart({
-      user: users[loop]._id,
-    })
-    )
-
   }
+  users.push(new User({
+    name: "seller123",
+    email: "ridwanmonjur@gmail.com",
+    password: hashSync("123456", saltRounds),
+    role: "seller"
+  })
+  )
   // 11th user is admin
   users.push(new User({
     name: "admin123",
-    email: "admin123@gmail.com",
+    email: "mjrrdn@gmail.com",
     password: hashSync("123456", saltRounds),
     role: "admin"
   }))
   // 12th user is customer
   users.push(new User({
     name: "customer123",
-    email: "customer123@gmail.com",
+    email: "mjrrdnasm@gmail.com",
     password: hashSync("123456", saltRounds),
     role: "customer"
   }))
+  carts.push(new Cart({
+    user: users[11]._id,
+  })
+  )
   // 13th-22th users are customers
   for (loop = 0; loop < 10; loop++) {
     users.push(new User({
@@ -82,10 +91,13 @@ const importData = async () => {
       email: faker.internet.email(),
       password: hashSync("123456", saltRounds),
       role: "customer",
-      address: {first: faker.address.streetAddress(),
-      second:  "London, UK"},
-      creditCard: {number: faker.finance.creditCardNumber(),
-      CVV: faker.finance.creditCardCVV()
+      address: {
+        first: faker.address.streetAddress(),
+        second: "London, UK"
+      },
+      creditCard: {
+        number: faker.finance.creditCardNumber(),
+        CVV: faker.finance.creditCardCVV()
       }
     })
     )
@@ -100,11 +112,11 @@ const importData = async () => {
   })
   )
 
-  try{
-  users = await User.create(users)
-  await Cart.create(carts)
+  try {
+    users = await User.create(users)
+    await Cart.create(carts)
   }
-  catch{
+  catch {
     winstonLogger.error("error")
   }
   let JSONStringProducts: Array<ProductInterface> = [...readFiles("accessories"), ...readFiles("boots"), ...readFiles("jerseys")]
@@ -118,9 +130,9 @@ const importData = async () => {
         comment: faker.commerce.productDescription()
       } as CommentInterface)
     }
-      // 13th-22th users are customers
+    // 13th-22th users are customers
     value['seller'] = users[faker.datatype.number({ 'min': 13, 'max': 20 })]._id,
-    value['comment'] = comments as Types.DocumentArray<CommentInterface>
+      value['comment'] = comments as Types.DocumentArray<CommentInterface>
   })
   try {
     await Product.create(JSONStringProducts)
@@ -131,12 +143,12 @@ const importData = async () => {
   }
 };
 
-export const resetProduct = async ()=>{
+export const resetProduct = async () => {
 
   await Product.deleteMany()
 
-  const users = await User.find({role: "customer"});
-  
+  const users = await User.find({ role: "customer" });
+
   // console.log({users: users})
 
   let JSONStringProducts: Array<ProductInterface> = await [...readFiles("accessories"), ...readFiles("boots"), ...readFiles("jerseys")]
@@ -154,7 +166,7 @@ export const resetProduct = async ()=>{
       } as CommentInterface)
     }
     value['seller'] = users[faker.datatype.number({ 'min': 0, 'max': 8 })]._id,
-    value['comment'] = comments as Types.DocumentArray<CommentInterface>
+      value['comment'] = comments as Types.DocumentArray<CommentInterface>
   })
   // console.log({JSONStringProducts})
 
