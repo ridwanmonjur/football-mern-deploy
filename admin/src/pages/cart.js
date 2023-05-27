@@ -4,15 +4,15 @@ import Layout from '@/components/layout/Layout';
 import { CartList } from '@/components/cart/CartList';
 import { Heading1 } from '@/components/sharing/typography/Heading1';
 import { Pagination } from '@/components/sharing/table/Pagination';
-import { Modal, Button } from '@/components/sharing/form';
+import { Modal, ButtonPanel } from '@/components/sharing/form';
 import { CartForm } from '@/components/cart/CartForm';
 import Drawer from '@/components/layout/Drawer';
 
 export default function CartPage({ _cartList }) {
-    const [cartList, setCartList] = useState(_cartList)
+    const [cartList, setCartList] = useState(_cartList.docs)
     const [currentIndex, setCurrentIndex] = useState(-1)
     const addToCart = (newCart) => {
-        setCartList([...cartList, newCart])
+        setCartList((oldCart) => ([...oldCart, newCart]))
     }
     const editCart = (id, newCart) => {
         setCartList(
@@ -38,16 +38,18 @@ export default function CartPage({ _cartList }) {
                 <Drawer>
                     <div>
                         <Heading1 classNames="">Carts</Heading1>
-                        <Button
-                            classNames="btn btn-primary w-64 pt-4 text-white hover:cursor-pointer"
+                        <ButtonPanel
+                            classNames="mb-3"
                             onClick={() => {
                                 setCurrentIndex(-1);
                                 document.getElementById("my-modal").checked = !document.getElementById("my-modal").checked
                             }}
                         >
-                            Add Product
-                        </Button>
-                        <Pagination />
+                            Add Cart
+                        </ButtonPanel>
+                        <div className='mb-4'>
+                            <Pagination />
+                        </div>
                         <CartList
                             cartList={cartList}
                             deletCart={deletCart}
@@ -66,7 +68,7 @@ export async function getServerSideProps({ req, res }) {
         console.log({ cartList })
         return {
             props: {
-                _cartList: cartList?.cart || [],
+                _cartList: cartList || [],
             },
         }
     }

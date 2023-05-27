@@ -1,6 +1,6 @@
-import { IsArray, IsCreditCard, IsEmail, IsEnum, IsMongoId, IsOptional, IsString, Length, MinLength } from "class-validator";
-// import { ValidateNested } from 'class-validator';
-// import { Type } from 'class-transformer';
+import { Type } from "class-transformer";
+import { IsArray, IsBoolean, IsCreditCard, IsEmail, IsEnum, IsMongoId, IsOptional, IsString, Length, MinLength, ValidateNested } from "class-validator";
+import "reflect-metadata";
 
 enum Roles{
     admin, customer, seller
@@ -22,6 +22,10 @@ class CreditCard {
     number: string;
     @Length(3, 4)
     CVV: string;
+    // constructor(c) {
+    //     this.creditCard = new CreditCard(creditCard);
+    // }
+
 }
 export class CreateUserDto {
     @IsEmail()
@@ -30,6 +34,9 @@ export class CreateUserDto {
     @IsOptional()
     @Length(6,12)
     confirmPassword: string;
+
+    @IsOptional()
+    isVerified: boolean;
     
     @IsString()
     @Length(3,32)
@@ -38,8 +45,18 @@ export class CreateUserDto {
     @Length(6,12)
     password: string;
 
+    @IsOptional()
+    @Type(() => CreditCard)
+    creditCard: CreditCard;
+
+    @IsOptional()
+    address: Address;
+
     @IsEnum(Roles)
     role: string
+
+    @IsOptional()
+    token: Token;
 }
 
 export class UserLoginDto {
@@ -47,7 +64,6 @@ export class UserLoginDto {
     email: string;
     
     @Length(6,12)
-    // @IsNotEmpty()
     password: string;
 }
 
@@ -56,21 +72,41 @@ export class UserTokenDto {
     email: string;
     
     @Length(6,12)
-    // @IsNotEmpty()
     password: string;
 }
 
-export class EditUserProfileDto {
+export class Token {
+    @IsOptional()
+    @IsString()
+    resetPassword: string;
 
     @IsOptional()
-    // @ValidateNested()
-    // @Type(() => CreditCard)
+    @IsString()
+    verifyEmail: string;
+
+    @IsBoolean()
+    isVerified: boolean;
+}
+
+export class EditUserProfileDto {
+    @IsOptional()
+    token: Token;
+
+    @IsOptional()
     creditCard: CreditCard;
 
     @IsOptional()
-    // @ValidateNested()
-    // @Type(() => Address)
     address: Address;
+
+    @IsEmail()
+    email: string;
+
+    @IsString()
+    @Length(3,32)
+    name: string;
+    
+    @IsEnum(Roles)
+    role: string
 }
 
 export class DeleteUserDtos {

@@ -4,20 +4,20 @@ import Layout from '@/components/layout/Layout';
 import { ProductList } from '@/components/product/ProductList';
 import { Heading1 } from '@/components/sharing/typography/Heading1';
 import { Pagination } from '@/components/sharing/table/Pagination';
-import { Button, Modal } from '@/components/sharing/form';
+import { ButtonPanel, Modal } from '@/components/sharing/form';
 import { ProductForm } from '@/components/product/ProductForm';
 import Drawer from '@/components/layout/Drawer';
 
 export default function ProductPage({ _productList }) {
-    const [productList, setProductList] = useState(_productList)
+    const [productList, setProductList] = useState(_productList.docs)
     const [currentIndex, setCurrentIndex] = useState(-1)
     const addToProduct = (newProduct) => {
-        setProductList([...productList, newProduct])
+        setProductList((oldList) => ([...oldList, newProduct]))
     }
     const editProduct = (id, newProduct) => {
-        setProductList(
-            productList.map(value => {
-                return value._id === id ? value : newProduct
+        setProductList((oldList) =>
+            oldList.map(value => {
+                return value._id !== id ? value : newProduct
             })
         )
     }
@@ -38,16 +38,20 @@ export default function ProductPage({ _productList }) {
                 <Drawer>
                     <div>
                         <Heading1 classNames="">Products</Heading1>
-                        <Button
-                            classNames="btn btn-primary w-64 pt-4 text-white hover:cursor-pointer"
-                            onClick={() => {
-                                setCurrentIndex(-1);
-                                document.getElementById("my-modal").checked = !document.getElementById("my-modal").checked
-                            }}
-                        >
-                            Add Product
-                        </Button>
-                        <Pagination />
+                        <div>
+                            <ButtonPanel
+                                classNames="mb-3"
+                                onClick={() => {
+                                    setCurrentIndex(-1);
+                                    document.getElementById("my-modal").checked = !document.getElementById("my-modal").checked
+                                }}
+                            >
+                                Add Product
+                            </ButtonPanel>
+                        </div>
+                        <div className="mb-4">
+                            <Pagination />
+                        </div>
                         <ProductList
                             productList={productList}
                             deletProduct={deletProduct}
@@ -55,7 +59,6 @@ export default function ProductPage({ _productList }) {
                         />
                     </div>
                 </Drawer>
-
             </main>
         </Layout>
     )
@@ -66,7 +69,7 @@ export async function getServerSideProps({ req, res }) {
         console.log({ productList })
         return {
             props: {
-                _productList: productList?.product || [],
+                _productList: productList || [],
             },
         }
     }

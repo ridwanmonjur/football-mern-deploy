@@ -1,12 +1,14 @@
+import { ButtonPanel } from "../form";
+
 export const Pagination = ({
     isActive
 })=> (
 <div className="btn-group btn-primary">
-  <button class="btn">«</button>
-  <button className="btn btn-md">1</button>
-  <button className="btn btn-md">2</button>
-  <button className="btn btn-md">3</button>
-  <button className="btn btn-md">4</button>
-  <button class="btn">»</button>
+  <ButtonPanel classNames="btn">«</ButtonPanel>
+  <ButtonPanel classNames="btn btn-md">1</ButtonPanel>
+  <ButtonPanel classNames="btn btn-md">2</ButtonPanel>
+  <ButtonPanel classNames="btn btn-md">3</ButtonPanel>
+  <ButtonPanel classNames="btn btn-md">4</ButtonPanel>
+  <ButtonPanel classNames="btn">»</ButtonPanel>
 </div>
 )

@@ -2,56 +2,84 @@ import fetchClient from "../../../api/fetchClient";
 import { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
-import { Input, LabelModal, Select } from "../sharing/form";
+import { Input, LabelModal, Select, ButtonPanel } from "../sharing/form";
 
 export const ProductForm = ({
     currentProduct, setCurrentIndex, addToProduct, editProduct, currentIndex
 }) => {
     console.log({ currentProduct })
     const isAddMode = currentProduct === null;
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, setValue, reset } = useForm();
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data, event) => {
         setLoading(true);
         event.preventDefault();
         if (isAddMode) {
             try {
-                const response = await fetchClient.post('/product', data)
-                await setTimeout(() => {
-                    setLoading(false);
-                    toast.success(response.message, {
-                        position: toast.POSITION.TOP_RIGHT
-                    });
-                    addToProduct({ ...response.data });
-                }, 3000);
+                const typeSwitcher = document.getElementById('type')
+                const response = await fetchClient.post('/product', {
+                    ...data,
+                    // daisyui select removes from dom tree
+                    type: typeSwitcher.value
+                })
+                setLoading(false);
+                toast.success("Added product", {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+                addToProduct(response.product);
             }
             catch (error) {
-                if (loading) setLoading(false);
+                setLoading(false);
                 toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
             }
         }
         else {
             try {
+                const typeSwitcher = document.getElementById('type')
+                // daisyui select removes from dom tree
+                console.log({ data, typeSwitcher, value: typeSwitcher.value })
                 const response = await fetchClient.put(`/product/${currentProduct._id}`, {
                     ...data,
+                    // daisyui select removes from dom tree
+                    type: typeSwitcher.value
                 })
-                await setTimeout(() => {
-                    setLoading(false);
-                    toast.success(response.message, {
-                        position: toast.POSITION.TOP_RIGHT
-                    });
-                    editProduct({ ...currentProduct, ...data });
-                }, 3000);
+                console.log({ data })
+                setLoading(false);
+                toast.success("Edited product", {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+                editProduct(currentProduct._id, response.product);
             } catch (error) {
                 setLoading(false);
-                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+                toastError(error);
             }
         }
     }
     const formRef = useRef(null)
     useEffect(() => {
-        if (document.getElementById('type')!= undefined) document.getElementById('type').value = currentProduct?.type;
-        // setValue("status", currentCart?.status)
+        const typeSwitcher = document.getElementById('type')
+        if (typeSwitcher != undefined) typeSwitcher.value = currentProduct?.type;
+        if (isAddMode) {
+            typeSwitcher.value = "no-value"
+            reset({
+                type: 'no-value',
+                manufacturer: '',
+                name: "",
+                price: 0,
+                seller: "",
+                stock: 0,
+            })
+        }
+        else {
+            reset({
+                type: currentProduct?.type,
+                manufacturer: currentProduct?.manufacturer,
+                name: currentProduct?.name,
+                price: currentProduct?.price,
+                seller: currentProduct?.seller?._id,
+                stock: currentProduct?.stock,
+            })
+        }
     }, [currentIndex])
     return (
         <div>
@@ -104,7 +132,6 @@ export const ProductForm = ({
                             <Input
                                 type="text"
                                 defaultValue={currentProduct?.seller?.name}
-                                {...register("seller.name")}
                                 disabled={true}
                             />
                         </>
@@ -112,29 +139,18 @@ export const ProductForm = ({
                     <div className="grid lg:grid-cols-2">
                         <div>
                             {/* Type */}
-                            {isAddMode
-                                &&
-                                <>
-                                    <LabelModal text="Type" />
-                                    <Select
-                                        optionNames={["Jerseys", "Accessories", "Boots"]}
-                                        optionValues={["jerseys", "accessories", "boots"]}
-                                    />
-                                </>
-                            }
-                            {!isAddMode
-                                &&
-                                <>
-                                    <LabelModal text="Type" />
-                                    <Select
+                            <>
+                                <LabelModal text="Type" />
+                                <Select
                                     // daisyui broken so need it
-                                        id="type"
-                                        defaultValue={currentProduct?.type}
-                                        optionNames={["Jerseys", "Accessories", "Boots"]}
-                                        optionValues={["jerseys", "accessories", "boots"]}
-                                    />
-                                </>
-                            }
+                                    id="type"
+                                    name="type"
+                                    {...register("type")}
+                                    {...(!isAddMode && { defaultValue: currentProduct?.type })}
+                                    optionNames={["Jerseys", "Accessories", "Boots"]}
+                                    optionValues={["jerseys", "accessories", "boots"]}
+                                />
+                            </>
                         </div>
                         <div>
                             {/* Manufacturer */}
@@ -152,9 +168,12 @@ export const ProductForm = ({
                             {/* Price */}
                             <LabelModal text="Price (£)" />
                             <Input
-                                type="text"
+                                type="number"
                                 defaultValue={currentProduct?.price}
-                                {...register("price")}
+                                {...register("price",
+                                    {
+                                        valueAsNumber: true,
+                                    })}
                                 required
                                 placeholder="Enter price..."
 
@@ -164,9 +183,12 @@ export const ProductForm = ({
                             {/* Manufacturer */}
                             <LabelModal text="Stock" />
                             <Input
-                                type="text"
+                                type="number"
                                 defaultValue={currentProduct?.stock}
-                                {...register("stock")}
+                                {...register("stock",
+                                    {
+                                        valueAsNumber: true,
+                                    })}
                                 required
                                 placeholder="Enter stock..."
                             />
@@ -177,19 +199,19 @@ export const ProductForm = ({
                         {
                             isAddMode ?
                                 <>
-                                    <button className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit" >
+                                    <ButtonPanel classNames={`mt-4 ${loading ? "loading" : ""}`} type="submit" >
                                         Add Product
-                                    </button>
+                                    </ButtonPanel>
                                 </>
                                 :
                                 <>
-                                    <button className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit">
+                                    <ButtonPanel classNames={`mt-4 ${loading ? "loading" : ""}`} type="submit">
                                         Edit Product
-                                    </button>
-                                    <button className={`btn btn-primary mt-4 ml-5 ${loading ? "loading" : ""}`}
+                                    </ButtonPanel>
+                                    <ButtonPanel classNames={`mt-4 ml-5`}
                                         onClick={() => { reset(); setCurrentIndex(-1); }}>
                                         Add mode
-                                    </button>
+                                    </ButtonPanel>
                                 </>
                         }
                     </div>

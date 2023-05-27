@@ -1,14 +1,15 @@
 import { Label, LabelModal } from  './Label'
 import { Input } from  './Input'
-import { Button } from  './Button'
+import { ButtonSignIn, ButtonPanel } from  './Button'
 import { Modal } from  './Modal'
 import { Select } from  './Select'
 
 export {
     Input,
     Label,
-    Button,
+    ButtonSignIn,
     Modal,
     LabelModal,
-    Select
+    Select,
+    ButtonPanel
 }

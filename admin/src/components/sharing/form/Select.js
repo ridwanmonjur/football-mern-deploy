@@ -12,7 +12,7 @@ export const Select = ({
                 + `dark:focus:border-blue-500 ${classNames !== undefined ? classNames : ""}`}
             {...props}
         >
-            <option disabled></option>
+            <option disabled value="no-value"></option>
             {optionValues.map((value, index) =>
                 (<>
                     <option value={value}> {optionNames[index]} </option>

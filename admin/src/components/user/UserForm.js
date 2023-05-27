@@ -2,7 +2,7 @@ import fetchClient from "../../../api/fetchClient";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
-import { Input, LabelModal } from "../sharing/form";
+import { ButtonPanel, Input, LabelModal } from "../sharing/form";
 
 export const UserForm = ({
     currentUser, setCurrentIndex, addToUser, editUser, currentIndex
@@ -18,15 +18,16 @@ export const UserForm = ({
                 const response = await fetchClient.post('/user', data)
                 await setTimeout(() => {
                     setLoading(false);
-                    toast.success(response.message, {
+                    toast.success("Successfully added user", {
                         position: toast.POSITION.TOP_RIGHT
                     });
-                    addToUser({ ...response.data });
+                    addToUser({ ...response.user });
                 }, 3000);
             }
             catch (error) {
-                if (loading) setLoading(false);
-                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+                console.log({error: error?.response})
+                setLoading(false);
+                toastError(error);
             }
         }
         else {
@@ -36,20 +37,42 @@ export const UserForm = ({
                 })
                 await setTimeout(() => {
                     setLoading(false);
-                    toast.success(response.message, {
+                    toast.success("Managed to edit user", {
                         position: toast.POSITION.TOP_RIGHT
                     });
-                    editUser({ ...currentUser, ...data });
+                    editUser(currentUser._id, response.user);
                 }, 3000);
             } catch (error) {
                 setLoading(false);
-                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+                console.log({error: error.response})
+                toastError(error);
             }
         }
     }
     const formRef = useRef(null)
     useEffect(() => {
-        setValue("token.isVerified", currentUser?.token?.isVerified)
+        if (isAddMode) {
+            reset({
+                address: { first: '', second: '' },
+                creditCard: { number: '', CVV: '' },
+                email: '',
+                name: '',
+                role: '',
+                token :{ isVerified: false }
+            })
+            setValue("token.isVerified", false)
+        }
+        else {
+            setValue("token.isVerified", currentUser?.token?.isVerified || false)
+            reset({
+                address: { first: currentUser?.address?.first, second: currentUser?.address?.second },
+                creditCard: { number: currentUser?.creditCard?.number, CVV: currentUser?.creditCard?.CVV },
+                email: currentUser?.email,
+                name: currentUser?.name,
+                role: currentUser?.role,
+                token : { isVerified: currentUser?.token?.isVerified }
+            })
+        }
     }, [currentIndex])
     return (
         <div>
@@ -97,6 +120,28 @@ export const UserForm = ({
 
                     />
                     <div className="grid lg:grid-cols-2">
+                        {isAddMode &&
+                            <>
+                                <div>
+                                    {/* Password */}
+                                    <LabelModal text="Password" />
+                                    <Input
+                                        type="password"
+                                        placeholder="*********"
+                                        {...register("password")}
+                                    />
+                                </div>
+                                <div>
+                                    {/* Confirm Password */}
+                                    <LabelModal text="Confirm Password" />
+                                    <Input
+                                        type="password"
+                                        placeholder="*********"
+                                        {...register("confirmPassword")}
+                                    />
+                                </div>
+                            </>
+                        }
                         <div>
                             {/* IsVerified */}
                             <LabelModal text="Verified" />
@@ -171,19 +216,19 @@ export const UserForm = ({
                         {
                             isAddMode ?
                                 <>
-                                    <button className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit" >
+                                    <ButtonPanel classNames={`mt-4 ${loading ? "loading" : ""}`} type="submit" >
                                         Add User
-                                    </button>
+                                    </ButtonPanel>
                                 </>
                                 :
                                 <>
-                                    <button className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit">
+                                    <ButtonPanel classNames={`mt-4 ${loading ? "loading" : ""}`} type="submit">
                                         Edit User
-                                    </button>
-                                    <button className={`btn btn-primary mt-4 ml-5 ${loading ? "loading" : ""}`}
+                                    </ButtonPanel>
+                                    <ButtonPanel classNames={`mt-4 ml-5}`}
                                         onClick={() => { reset(); setCurrentIndex(-1); }}>
                                         Add mode
-                                    </button>
+                                    </ButtonPanel>
                                 </>
                         }
                     </div>

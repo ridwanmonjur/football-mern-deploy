@@ -30,6 +30,9 @@ export class CreateProductDto {
   @IsBase64()
   image: string;
 
+  @IsMongoId()
+  seller: string;
+
   @IsNumber()
   @IsPositive()
   stock: number;
@@ -48,6 +51,9 @@ export class EditProductDto {
 
   @IsString()
   type: string;
+
+  @IsMongoId()
+  seller: string;
 
   @IsOptional()
   @IsBase64()

@@ -1,8 +1,9 @@
-import { Schema, model, Document, Types, PopulatedDoc } from 'mongoose'
+import { Schema, model, Document, Types, PopulatedDoc, PaginateModel } from 'mongoose'
 import { winstonLogger } from '../winston/logger';
 import { UserInterface } from './User';
 // var slugify = require('slugify')
 var faker = require('faker')
+import * as mongoosePaginate from 'mongoose-paginate-v2'
 
 interface CommentInterface extends Document {
     userId: string,
@@ -24,7 +25,7 @@ interface ProductInterface extends Document {
 // not written in the docs but must be written!!!
 // ** extends Document **
 
-const CommentSchema = new Schema<CommentInterface>({
+const CommentSchema = new Schema({
     userId: {
         type: String,
         required: true
@@ -36,7 +37,7 @@ const CommentSchema = new Schema<CommentInterface>({
 
 })
 
-const ProductSchema = new Schema<ProductInterface>({
+const ProductSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -64,28 +65,19 @@ const ProductSchema = new Schema<ProductInterface>({
     },
     comment: [CommentSchema]
 },
-    // The strict option, (enabled by default), ensures that values passed to our model constructor that were not 
-    //  specified in our schema do not get saved to the db.
     { strict: true }
 )
 
+ProductSchema.plugin(mongoosePaginate);
 
-const Comment = model<CommentInterface>('Comment', CommentSchema)
-const Product = model<ProductInterface>('Product', ProductSchema)
 
-ProductSchema.pre('save', function () {
+const Comment = model<CommentInterface, PaginateModel<CommentInterface>>('Comment', CommentSchema)
+const Product = model<ProductInterface, PaginateModel<ProductInterface>>('Product', ProductSchema)
+
+ProductSchema.pre<ProductInterface>('save', function () {
     this.slug = faker.helpers.slugify(this.name)
-    winstonLogger.info(this.slug)
 })
 
-// ProductSchema.post('save',  function (error: Error , doc: Document) {
-//     if (error.name === 'MongoError' && error.code === 11000) {
-//         next(new Error('email must be unique'));
-//     } else {
-//         next(error);
-//     }
-// })
 export { Comment, Product, ProductInterface, CommentInterface }
-// exports 'Product' interface
 
 

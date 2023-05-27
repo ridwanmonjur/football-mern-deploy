@@ -2,7 +2,8 @@ import fetchClient from "../../../api/fetchClient";
 import { useRef, useState, useEffect, Fragment } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { toast } from 'react-toastify';
-import { Button, Input, LabelModal, Select } from "../sharing/form";
+import { ButtonSignIn, Input, LabelModal, Select } from "../sharing/form";
+import { toastError } from "@/utils/toastError";
 
 export const CartForm = ({
     currentCart, setCurrentIndex, addToCart, editCart, currentIndex
@@ -18,7 +19,7 @@ export const CartForm = ({
     const onSubmit = async (data, event) => {
         setLoading(true);
         event.preventDefault();
-        if (isAddMode) {
+        if (isAddMode == true) {
             try {
                 const response = await fetchClient.post('/cart', data)
                 await setTimeout(() => {
@@ -30,8 +31,8 @@ export const CartForm = ({
                 }, 3000);
             }
             catch (error) {
-                if (loading) setLoading(false);
-                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+                setLoading(false);
+                toastError(error)
             }
         }
         else {
@@ -70,6 +71,16 @@ export const CartForm = ({
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <div className="mx-auto">
+                    {
+                        isAddMode &&
+                        <>
+                        <LabelModal text="Cart user id" />
+                            <Input
+                                type="text"
+                                placeholder="Add user id"
+                            />
+                        </>
+                    }
                     {!isAddMode &&
                         (<>
                             {/* Cart id */}
@@ -138,7 +149,7 @@ export const CartForm = ({
                             >
                                 <div className="my-2">
                                     <span className="badge badge-primary mr-3"> {index + 1} </span>
-                                    <span className="mr-3">{field.name}</span>
+                                    <span className="mr-3">{field?.name}</span>
                                     <span className="badge badge-success"> {currentCart?.description[index]?.size} </span>
                                 </div>
 
@@ -146,7 +157,7 @@ export const CartForm = ({
                                     <div>
                                         <LabelModal text="Product price" />
                                         <Input
-                                            defaultValue={field.price}
+                                            defaultValue={field?.price}
                                             disabled
                                         />
                                     </div>
@@ -166,19 +177,19 @@ export const CartForm = ({
                         {
                             isAddMode ?
                                 <>
-                                    <Button classNames={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit" >
+                                    <ButtonSignIn classNames={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit" >
                                         Add Cart
-                                    </Button>
+                                    </ButtonSignIn>
                                 </>
                                 :
                                 <>
-                                    <button className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit">
+                                    <ButtonSignIn className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit">
                                         Edit Cart
-                                    </button>
-                                    <button className={`btn btn-primary mt-4 ml-5`}
+                                    </ButtonSignIn>
+                                    <ButtonSignIn className={`btn btn-primary mt-4 ml-5`}
                                         onClick={() => { reset(); setCurrentIndex(-1); }}>
                                         Add mode
-                                    </button>
+                                    </ButtonSignIn>
                                 </>
                         }
                     </div>

@@ -49,13 +49,13 @@ export async function getCurrentUser(req: Request, res: Response, next: NextFunc
 }
 
 export async function getUsers(_req: Request, res: Response, next: NextFunction): Promise<void> {
-    let user: undefined | Array<UserInterface>;
+    let user: undefined | PaginateResult<UserInterface>;
     try {
         user = await service.getAllUsers();
 
         if (user== null) throw new HTTP404NotFoundError("Can't find users");
 
-        res.status(StatusCodes.OK).json({ success: true, user });
+        res.status(StatusCodes.OK).json({ success: true, ...user });
     }
     catch (error) {
         next(error);
@@ -65,7 +65,7 @@ export async function getUsers(_req: Request, res: Response, next: NextFunction)
 export async function editCurrentUser(req: Request, res: Response, next: NextFunction): Promise<void> {
     let userId: undefined | ObjectId;
 
-    let user: UserInterface | null = null;
+    let user: UserInterface | null;
 
     const editDtos: EditUserProfileDto = await validationHelper(EditUserProfileDto, req.body);
 
@@ -81,6 +81,29 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
     catch (error) {
         console.log({ error: error.message })
         if (!userId) throw new HTTP422UnproccessableEntity("Current user is missing in the request header.");
+
+        else next(error);
+    }
+}
+
+export async function editUserById(req: Request, res: Response, next: NextFunction): Promise<void> {
+    let userId: undefined | ObjectId;
+
+    let user: UserInterface | null;
+
+    try {
+        userId = ObjectID(req.params.userId);
+
+        const editDtos: EditUserProfileDto = await validationHelper(EditUserProfileDto, req.body);
+
+        user = await service.findByIdAndUpdate(userId, { ...editDtos });
+
+        if (user== null) throw new HTTP404NotFoundError("Can't find users");
+
+        res.status(StatusCodes.CREATED).json({ success: true, user, userId: req.userID, number: 0 });
+    }
+    catch (error) {
+        if (userId == null) throw new HTTP422UnproccessableEntity("Current user is missing in the request header.");
 
         else next(error);
     }

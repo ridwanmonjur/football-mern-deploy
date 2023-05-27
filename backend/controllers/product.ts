@@ -20,7 +20,7 @@ export async function getProducts(req: Request, res: Response, next: NextFunctio
 
         if (product == null) throw new HTTP404NotFoundError("Product is not found");
 
-        res.status(StatusCodes.OK).json({ success: true, product });
+        res.status(StatusCodes.OK).json({ success: true, ...product });
     }
     catch (err) {
         next(err);
@@ -50,7 +50,7 @@ export async function getProductById(req: Request, res: Response, next: NextFunc
 export async function getProductBytType(req: Request, res: Response, next: NextFunction): Promise<void> {
     let type: undefined | string;
 
-    let product: undefined | Array<ProductInterface>;
+    let product: undefined | PaginateResult<ProductInterface>;
     try {
         type = req.params.productType;
 
@@ -58,7 +58,7 @@ export async function getProductBytType(req: Request, res: Response, next: NextF
 
         if (product==null) throw new HTTP404NotFoundError("Products are not found");
 
-        res.status(StatusCodes.OK).json({ success: true, product });
+        res.status(StatusCodes.OK).json({ success: true, ...product });
     }
     catch (error) {
         if (!type) throw new HTTP422UnproccessableEntity("Type of product must be passed in request parameter correctly.");

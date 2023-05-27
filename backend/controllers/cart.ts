@@ -24,11 +24,11 @@ export async function getOneCart(req: Request, res: Response, next: NextFunction
 
 export async function getCartsOfSignedIn(req: Request, res: Response, next: NextFunction): Promise<void> {
 
-    let cart: undefined | Array<CartInterface>;
+    let cart: undefined | PaginateResult<CartInterface>;
     try {
         cart = await service.findAllCarts({ user: req.userID });
 
-        res.status(StatusCodes.OK).json({ success: true, cart });
+        res.status(StatusCodes.OK).json({ success: true, ...cart });
     } catch (error) {
         next(error);
     }
@@ -36,11 +36,11 @@ export async function getCartsOfSignedIn(req: Request, res: Response, next: Next
 
 export async function getAllCarts(req: Request, res: Response, next: NextFunction): Promise<void> {
 
-    let cart: undefined | Array<CartInterface>;
+    let cart: undefined | PaginateResult<CartInterface>;
     try {
         cart = await service.findAllCarts();
 
-        res.status(StatusCodes.OK).json({ success: true, cart });
+        res.status(StatusCodes.OK).json({ success: true, ...cart });
     } catch (error) {
         next(error);
     }

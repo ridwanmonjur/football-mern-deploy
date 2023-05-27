@@ -1,4 +1,5 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, PaginateModel } from 'mongoose';
+import * as mongoosePaginate from 'mongoose-paginate-v2'
 
 // not written in the docs but must be written!!!
 // ** extends Document **
@@ -28,7 +29,7 @@ interface UserInterface extends Document {
     token: TokenInterface
 }
 
-const schema = new Schema<UserInterface>({
+const UserSchema = new Schema({
     name:
     {
         type: String,
@@ -65,11 +66,16 @@ const schema = new Schema<UserInterface>({
     },
     creditCard: {
         number: String,
-        CVV: String
+        CVV: {
+            type: String,
+            required: false,
+        }
     },
 })
 
+UserSchema.plugin(mongoosePaginate);
 
-const User = model('User', schema)
+
+const User = model<UserInterface, PaginateModel<UserInterface>>('User', UserSchema)
 
 export { User, UserInterface }

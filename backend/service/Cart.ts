@@ -44,7 +44,7 @@ export class CartService {
         }
     }
 
-    async findAllCarts(where?: any): Promise<Array<CartInterface>> {
+    async findAllCarts(where?: any): Promise<PaginateResult<CartInterface>> {
         const populate = ['products', 'name image price type'];
         const populateSecond = ['user', 'name email'];
 

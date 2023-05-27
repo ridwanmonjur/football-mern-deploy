@@ -21,7 +21,7 @@ export class ProductService {
         }
     }
 
-    async getAllProducts(where?: any): Promise<Array<ProductInterface>> {
+    async getAllProducts(where?: any): Promise<PaginateResult<ProductInterface>> {
         where ??= {}
         try {
             return await this.repository.find(where);

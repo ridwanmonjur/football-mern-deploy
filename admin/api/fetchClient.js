@@ -12,6 +12,8 @@ const fetchClient = axios.create({
     withCredentials: true,
 });
 
+fetchClient.defaults.timeout = 6000
+
 fetchClient.interceptors.request.use(
     async config => {
         if (getCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN))

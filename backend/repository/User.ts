@@ -14,9 +14,10 @@ export class UserRepository {
         }
     }
 
-    async find(where?: any): Promise<Array<UserInterface>> {
+    async find(where?: any, options?: any): Promise<PaginateResult<UserInterface>> {
+        options??= {}
         try {
-            return await User.find(where);
+            return await User.paginate({...where}, options);
         }
         catch {
             throw new HTTP500InternalServerrror("Unable to query all users");
@@ -48,7 +49,7 @@ export class UserRepository {
 
     async findByIdAndUpdate(userId: ObjectId, body: EditUserProfileDto): Promise<UserInterface> {
         try {
-            return await User.findByIdAndUpdate(userId, { ...body }, { new: true });
+            return await User.findByIdAndUpdate(userId, { ...body }, {returnOriginal: false});
         }
         catch {
             throw new HTTP500InternalServerrror("Unable to update user with the body");

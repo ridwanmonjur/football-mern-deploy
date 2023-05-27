@@ -12,6 +12,8 @@ export const fetchSSR = ({ req, res }) => {
         withCredentials: true
     });
 
+    axiosSSR.defaults.timeout = 6000
+
     axiosSSR.interceptors.request.use(
         async config => {
             if (getCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN, { req, res }))

@@ -1,7 +1,7 @@
 import { ObjectId } from "mongoose";
 import { HTTP500InternalServerrror } from "../exceptions/AppError";
-import { Product, ProductInterface } from "../models/Product";    // need to specify the object imported from the module to use it later
-
+import { Product, ProductInterface } from "../models/Product"; 
+// need to specify the object imported from the module to use it later
 export class ProductRepository {
     populate= {
         path: 'seller',
@@ -17,13 +17,15 @@ export class ProductRepository {
         }
     }
 
-    async find(where?: any, select?: any): Promise<Array<ProductInterface>> {
+    async find(where?: any, select?: any): Promise<PaginateResult<ProductInterface>> {
         where ??= {}
         console.log({where})
+        const options = {
+            populate:this.populate,
+            ...(select!= undefined? {select} : {})
+        }
         try {
-            return select ? 
-                await Product.find({ ...where }).select(select).populate(this.populate) : 
-                await Product.find({ ...where }).populate(this.populate);
+            return await Product.paginate({...where}, options)
         }
         catch (error) {
             
@@ -46,7 +48,7 @@ export class ProductRepository {
     async findByIdAndUpdate(productId: string | ObjectId, body: any): Promise<ProductInterface> {
         try {
 
-            return await Product.findByIdAndUpdate(productId, { ...body }).populate(this.populate);
+            return await Product.findByIdAndUpdate(productId, { ...body }, {returnOriginal: false}).populate(this.populate);
         }
         catch {
             throw new HTTP500InternalServerrror("Unable to query product by body");

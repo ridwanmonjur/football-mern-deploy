@@ -4,7 +4,6 @@ import { Cart, CartInterface } from "../models/Cart";
 
 export class CartRepository {
 
-
     async findOne(where: any, populate?: Array<string>): Promise<CartInterface> {
 
         try {
@@ -22,23 +21,39 @@ export class CartRepository {
         }
     }
 
-    async find(where: any, populate?: Array<string>, populateSecond?: Array<string>): Promise<Array<CartInterface>> {
+    async find(where: any, populate?: Array<string>, populateSecond?: Array<string>, options?: any): Promise<PaginateResult<CartInterface>> {
 
         try {
 
-            if (populate && populateSecond) {
+            options??= {}
+
+            if (populate != undefined && populateSecond != undefined) {
                 const [_, __] = populate;
                 const [_second, __second] = populateSecond;
-                return await Cart.find({ ...where }).populate(_, __).populate(_second, __second);
+                options = {
+                    populate: [{
+                        path: _,
+                        select: __
+                    },
+                    {
+                        path: _second,
+                        select: __second
+                    }],
+                }
             }
-            if (populate) {
-                const [_, __] = populate;
 
-                return await Cart.find({ ...where }).populate(_, __);
+            if (populate != undefined) {
+                const [_, __] = populate;
+                options = {
+                    populate: [{
+                        path: _,
+                        select: __
+                    },],
+                }
             }
-            else {
-                return await Cart.find({ ...where })
-            }
+            
+            return await Cart.paginate({ ...where }, options)
+
         }
         catch {
             throw new HTTP500InternalServerrror("Unable to query user by body");
@@ -60,12 +75,12 @@ export class CartRepository {
 
     async updateOne(where: any, body: any): Promise<void> {
         try {
-            console.log({ where, body})
-            let z= await Cart.updateOne(
+            console.log({ where, body })
+            let z = await Cart.updateOne(
                 { ...where },
                 { ...body }
             );
-            console.log({z, where, body})
+            console.log({ z, where, body })
         }
         catch {
             throw new HTTP500InternalServerrror("Unable to update carts");
@@ -86,15 +101,15 @@ export class CartRepository {
 
     async deleteCarts(ids: Array<string>): Promise<void> {
         try {
-            console.log({ids})
+            console.log({ ids })
 
-            const carts = await Cart.deleteMany({_id: { $in: ids}});
+            const carts = await Cart.deleteMany({ _id: { $in: ids } });
 
-            console.log({ids, carts})
+            console.log({ ids, carts })
         }
-        catch(error) {
+        catch (error) {
 
-            console.log({error})
+            console.log({ error })
 
             throw new HTTP500InternalServerrror("Unable to update carts");
         }

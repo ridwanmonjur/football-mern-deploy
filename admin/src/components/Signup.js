@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 import { toast } from 'react-toastify';
 import fetchWithCookie from "../../api/fetchClient";
-import { Button, Input, Label } from "./sharing/form";
+import { ButtonSignIn, Input, Label } from "./sharing/form";
 
 export const SignupForm = ({ switchToSignin }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -53,10 +53,10 @@ export const SignupForm = ({ switchToSignin }) => {
                         <Label htmlFor="confirmPassword">Confirm Password</Label>
                         <Input type="password" {...register("confirmPassword")} id="confirmPassword" placeholder="••••••••" required="" />
                     </div>
-                    <Button type="submit"
+                    <ButtonSignIn type="submit"
                         classNames={`${loading ? "loading" : ""}`}>
                         Sign up
-                    </Button>
+                    </ButtonSignIn>
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                         Already have an accoun? <a onClick={() => { switchToSignin() }} className="font-medium text-green-600 cursor-pointer hover:underline dark:text-green-500">Sign in</a>
                     </p>

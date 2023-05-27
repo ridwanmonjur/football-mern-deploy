@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router'
 import { AuthContext } from "@/context/auth";
 import fetchWithCookie from "../../api/fetchClient";
-import { Input, Label, Button } from '@/components/sharing/form'
+import { Input, Label, ButtonSignIn } from '@/components/sharing/form'
 
 export const SigninForm = ({ switchToSignup }) => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -53,10 +53,10 @@ export const SigninForm = ({ switchToSignup }) => {
                     <div className="flex items-center justify-between">
                         <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</a>
                     </div>
-                    <Button type="submit"
+                    <ButtonSignIn type="submit"
                         classNames={`${loading ? "loading" : ""}`}>
                         Sign in
-                    </Button>
+                    </ButtonSignIn>
                     <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                         Don’t have an account yet? <a onClick={() => { switchToSignup() }} className="cursor-pointer font-medium text-blue-600 hover:underline dark:text-blue-500">Sign up</a>
                     </p>
