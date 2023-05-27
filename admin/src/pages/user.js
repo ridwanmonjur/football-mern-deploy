@@ -4,20 +4,20 @@ import Layout from '@/components/layout/Layout';
 import { UserList } from '@/components/user/UserList';
 import { Heading1 } from '@/components/sharing/typography/Heading1';
 import { Pagination } from '@/components/sharing/table/Pagination';
-import { Modal, Button } from '@/components/sharing/form';
+import { Modal, ButtonSignIn, ButtonPanel } from '@/components/sharing/form';
 import { UserForm } from '@/components/user/UserForm';
 import Drawer from '@/components/layout/Drawer';
 
 export default function UserPage({ _userList }) {
-    const [userList, setUserList] = useState(_userList)
+    const [userList, setUserList] = useState(_userList.docs)
     const [currentIndex, setCurrentIndex] = useState(-1)
     const addToUser = (newUser) => {
-        setUserList([...userList, newUser])
+        setUserList((oldList) => ([...oldList, newUser]))
     }
     const editUser = (id, newUser) => {
-        setUserList(
-            userList.map(value => {
-                return value._id === id ? value : newUser
+        setUserList((oldList) =>
+            oldList.map(value => {
+                return value._id !== id ? value : newUser
             })
         )
     }
@@ -38,16 +38,18 @@ export default function UserPage({ _userList }) {
                 <Drawer>
                     <div>
                         <Heading1 classNames="">Users</Heading1>
-                        <Button
-                            classNames="btn btn-primary w-64 pt-4 text-white hover:cursor-pointer"
+                        <ButtonPanel
+                            classNames="mb-3"
                             onClick={() => {
                                 setCurrentIndex(-1);
                                 document.getElementById("my-modal").checked = !document.getElementById("my-modal").checked
                             }}
                         >
                             Add User
-                        </Button>
-                        <Pagination />
+                        </ButtonPanel>
+                        <div className="mb-4">
+                            <Pagination />
+                        </div>
                         <UserList
                             userList={userList}
                             deletUser={deletUser}
@@ -60,22 +62,22 @@ export default function UserPage({ _userList }) {
         </Layout>
     )
 }
-export async function getServerSideProps({req, res}) {
+export async function getServerSideProps({ req, res }) {
     try {
-        const userList = await fetchSSR({req, res}).get("user")
-        console.log({userList})
+        const userList = await fetchSSR({ req, res }).get("user")
+        console.log({ userList })
         return {
             props: {
-                _userList: userList?.user || [],
+                _userList: userList || [],
             },
         }
     }
     catch (error) {
         return {
             props: {
-                _userList:[],
+                _userList: [],
             },
         }
-      
+
     }
 }
