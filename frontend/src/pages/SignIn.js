@@ -10,7 +10,7 @@ import { Login } from "../api/auth";
 import { setCookie } from "../api/api";
 import { useDispatch } from "react-redux";
 import { fetchProfile, setSignedIn } from "../redux/slices/ProfileSlice";
-import Rodal from 'rodal';
+// import Rodal from 'rodal';
 import { toast } from "react-toastify";
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -99,7 +99,7 @@ function SignIn() {
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBRow >
-                        <Rodal visible={modalVisible} onClose={() => setModalVisible(false)}>
+                        {/* <Rodal visible={modalVisible} onClose={() => setModalVisible(false)}>
                             <h5 className="pb-2 border-bottom border-warning">Demo login in  by clicking the button</h5>
                             <div className="d-flex justify-content-center mt-1">
                                 <MDBBtn size='md' style={{fontSize: "14px", padding: "5px", fontWeight: "bold"}} outline color="warning" onClick={(event) => {
@@ -131,7 +131,7 @@ function SignIn() {
                                 }}  > Customer View
                                 </MDBBtn>
                             </div>
-                        </Rodal>
+                        </Rodal> */}
                     </div>
                 </MDBContainer >
             </MDBContainer>

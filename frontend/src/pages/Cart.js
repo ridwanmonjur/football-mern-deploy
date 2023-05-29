@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import Empty from "../components/notifications/empty";
 import Spinner from "../components/notifications/spinner";
 import { deepCopyObj } from "../helper/deepCopy";
-import Rodal from "rodal";
+// import Rodal from "rodal";
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { CustomCollpsibleTable, generateColumns, generateRows, GoToCheckout, returnDateFormatted } from "../components/cart";
@@ -117,14 +117,14 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
                   </div>
                 }
               </MDBCardBody>
-              {
+              {/* {
                 !isPartOfPurchaseView &&
                 <Rodal visible={cartStatus === "loading"} >
                   <div className="d-flex justify-content-center align-items-center mt-1 pt-2 h-100">
                     <Spinner />
                   </div>
                 </Rodal>
-              }
+              } */}
               <GoToCheckout {...{ isPartOfPurchaseView, checkOut, total }} />
             </MDBCard>
           </MDBRow>
