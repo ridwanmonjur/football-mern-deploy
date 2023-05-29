@@ -87187,3 +87187,26 @@ undefined
 [32m  level: 'info',[39m
 [32m  timestamp: '5/29/2023, 6:56:24 AM'[39m
 [32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 8:45:40 AM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 8:45:41 AM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 8:45:41 AM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'BAD REQUEST',[39m
+[31m  httpCode: 403,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Role is not valid',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 8:50:00 AM'[39m
+[31m}[39m
