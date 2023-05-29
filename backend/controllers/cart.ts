@@ -3,7 +3,7 @@ const ObjectID = require("mongodb").ObjectID;
 import { CartInterface } from "../models/Cart";    // need to specify the object imported from the module to use it later
 import { CartService } from '../service/Cart';
 import { ObjectId } from 'mongoose';
-import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
+import { HTTP404NotFoundError, HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { StatusCodes } from 'http-status-codes';
 import { DeleteCartDtos } from '../dto/cart';
 import { validationHelper } from '../helper/validationHelper';
@@ -15,7 +15,10 @@ export async function getOneCart(req: Request, res: Response, next: NextFunction
 
     let cart: undefined | CartInterface;
     try {
+        console.log({userID: req.userID})
         cart = await service.findOneCart({ user: req.userID, status: "active" });
+
+        if (cart == null) throw new HTTP404NotFoundError("Cart is not found");
 
         res.status(StatusCodes.OK).json({ success: true, cart });
     } catch (error) {

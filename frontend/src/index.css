@@ -72,14 +72,6 @@ table.product-table tr{
 .main-container{
   min-height: 70vh;
 }
-/* table.product-table th{
-  border: 1px solid gold !important;
-}
-
-table.product-table tr:last-child td{
-  border-bottom: 1px solid gold !important;
-} */
-
 
 .font-larger{
   font-size: 15px !important;

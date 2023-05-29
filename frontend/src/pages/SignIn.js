@@ -10,7 +10,7 @@ import { Login } from "../api/auth";
 import { setCookie } from "../api/api";
 import { useDispatch } from "react-redux";
 import { fetchProfile, setSignedIn } from "../redux/slices/ProfileSlice";
-// import Rodal from 'rodal';
+import Modal from "react-modal";
 import { toast } from "react-toastify";
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -23,7 +23,7 @@ function SignIn() {
     const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
-       setModalVisible(true)
+        setModalVisible(true)
     }, [])
 
     let onSubmit = async (event) => {
@@ -99,39 +99,43 @@ function SignIn() {
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBRow >
-                        {/* <Rodal visible={modalVisible} onClose={() => setModalVisible(false)}>
-                            <h5 className="pb-2 border-bottom border-warning">Demo login in  by clicking the button</h5>
-                            <div className="d-flex justify-content-center mt-1">
-                                <MDBBtn size='md' style={{fontSize: "14px", padding: "5px", fontWeight: "bold"}} outline color="warning" onClick={(event) => {
+
+                        <Modal
+                            isOpen={modalVisible}
+                            onRequestClose={() => setModalVisible(false)}
+                            appElement={document.getElementById('app')}
+                            style={{ content: { width: "300px", height: "300px", overflow: "hidden", margin: "auto" } }}
+                        >
+                            <h5 className="pt-5 pb-2">Demo login  by clicking the button and choosing the view</h5>
+                            <div className="d-flex flex-col flex-wrap justify-content-center mt-1">
+                                <MDBBtn fontWeight='bold' size='md' style={{ fontSize: "15px" }} outline color="warning" onClick={(event) => {
                                     setModalVisible(false);
                                     toast.success("Viewing as admin. Can also view as customer and seller")
                                     emailRef.current.value = "mjrrdn@gmail.com";
                                     passwordRef.current.value = "123456"
                                     onSubmit(event);
-                                }}  > Admin View
+                                }}  > Admin
                                 </MDBBtn>
-                            </div>
-                            <div className="d-flex justify-content-center mt-1 pt-2">
-                                <MDBBtn size='md' style={{fontSize: "14px", padding: "5px", fontWeight: "bold"}} outline color="warning" onClick={(event) => {
+
+                                <MDBBtn size='md' style={{ fontSize: "15px" }} outline color="warning" onClick={(event) => {
                                     setModalVisible(false);
                                     toast.success("Viewing as customer. Can also view as admin and seller")
                                     emailRef.current.value = "ridwanmonjur@gmail.com";
                                     passwordRef.current.value = "123456"
                                     onSubmit(event);
-                                }}  > Seller View
+                                }}  > Seller
                                 </MDBBtn>
-                            </div>
-                            <div className="d-flex justify-content-center mt-1 pt-2">
-                                <MDBBtn size='md' style={{fontSize: "14px", padding: "5px", fontWeight: "bold"}} outline color="warning" onClick={(event) => {
+
+                                <MDBBtn size='md' style={{ fontSize: "15px" }} outline color="warning" onClick={(event) => {
                                     setModalVisible(false);
                                     toast.success("Viewing as seller. Can also view as admin and customer")
                                     emailRef.current.value = "mjrrdnasm@gmail.com";
                                     passwordRef.current.value = "123456"
                                     onSubmit(event);
-                                }}  > Customer View
+                                }}  > Customer
                                 </MDBBtn>
                             </div>
-                        </Rodal> */}
+                        </Modal>
                     </div>
                 </MDBContainer >
             </MDBContainer>

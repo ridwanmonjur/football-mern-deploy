@@ -1,13 +1,13 @@
 import { api } from "./api";
 
-export async function FetchAll(productType) {
-
-    const response = await api('GET', `product/?type=${productType}`, {
+export async function FetchAll(query) {
+    console.log({query})
+    const response = await api('GET', `product/?${query}`, {
         mode: 'cors',
     })
-    if (!response || ("product" in response) === false) throw new Error("Missing product type data")
+    if (!response) throw new Error("Missing product type data")
 
-    else return response.product
+    else return response
 
 }
 
@@ -20,3 +20,34 @@ export async function FetchProduct(productId) {
 
     else return response.product
 }
+
+export async function AddProduct(body) {
+
+    const response = await api('POST', `product`, {
+        mode: 'cors', body
+    })
+    if (!response || ("product" in response) === false) throw new Error("Missing product data")
+
+    else return response.product
+}
+
+export async function EditProduct(id, body) {
+
+    const response = await api('POST', `/product/${id}`, {
+        mode: 'cors', body
+    })
+    if (!response || ("product" in response) === false) throw new Error("Missing product data")
+
+    else return response.product
+}
+
+
+export async function DeleteProductByIds(body) {
+
+    const response = await api('POST', `product/delete`, {
+        mode: 'cors', body
+    })
+
+    return response
+}
+

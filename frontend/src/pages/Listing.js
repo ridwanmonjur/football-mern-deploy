@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import GridVertical from '../components/listing/GridVertical'
 import Overlay from '../components/listing/Overlay'
 import JerseyImg from "../assets/Jerseys.jpg"
@@ -6,7 +6,6 @@ import AccessoriesImg from "../assets/Accessories.jpg"
 import BootsImg from "../assets/Boots.png"
 import { useParams } from 'react-router-dom'
 import { FetchAll } from '../api/product'
-import useLoadingFetchError from '../helper/loader/useFetchHook'
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { MDBContainer } from 'mdbreact'
@@ -14,6 +13,8 @@ import Spinner from '../components/notifications/spinner'
 import Error from '../components/notifications/error'
 import Hero2 from '../components/common/Hero2'
 import Hero0 from '../components/common/Hero0'
+import { Pagination } from '../components/common/Pagination'
+import QueryString from 'query-string';
 
 const description = {
     jerseys: {
@@ -36,9 +37,36 @@ const description = {
 function Listing() {
 
     const { productName } = useParams();
+    const [data, setData] = useState(null);
+    const [query, setQuery] = useState(`type=${productName}&limit=12`);
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
 
-    let { data, error, loading } = useLoadingFetchError(FetchAll, productName)
-    
+    useEffect(()=>{
+        setQuery((oldQuery) => {
+            const searchParamObject = QueryString.parse(oldQuery);
+            searchParamObject['type'] = productName;
+            searchParamObject['page'] = 1;
+            return QueryString.stringify(searchParamObject);
+        })
+    }, [productName])
+
+    useEffect(() => {
+        const refreshProduct = () => {
+            setLoading(true);
+            FetchAll(query).then((data) => {
+                setData(data)
+                setLoading(false)
+            }).catch(() => {
+                setLoading(false)
+                setError(true)
+            })
+        }
+        refreshProduct()
+    }, [query])
+    // useEffect(() => {
+    //     refreshProduct()
+    // }, [query])
     return (
         <>
             <FullPageIntroWithNonFixedNavbar />
@@ -54,8 +82,19 @@ function Listing() {
                     {
                         !error && !loading ?
                             (
-                                data && data[0] !== undefined &&
-                                <GridVertical productName={productName} data={data} />
+                                data && data.docs !== undefined &&
+                                <>
+                                    <h1 className="text-center text-uppercase font-weight-bolder text-warning customFont mb-4"> Our {productName} </h1>
+                                    <Pagination
+                                        hasPrevPage={data?.hasPrevPage}
+                                        hasNextPage={data?.hasNextPage}
+                                        page={data?.page}
+                                        totalPages={data?.totalPages}
+                                        setQuery={setQuery}
+                                        limit={data?.limit || 12}
+                                    />
+                                    <GridVertical productName={productName} data={data} />
+                                </>
                             ) :
                             <>
                                 {
@@ -72,7 +111,6 @@ function Listing() {
             </MDBContainer>
             <Hero2 />
             <Hero0 />
-
             <Footer />
         </>
     )

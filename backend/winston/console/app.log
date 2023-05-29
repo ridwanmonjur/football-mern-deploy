@@ -87210,3 +87210,319 @@ undefined
 [31m  level: 'error',[39m
 [31m  timestamp: '5/29/2023, 8:50:00 AM'[39m
 [31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:33:36 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:33:37 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:33:37 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:45:55 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:45:56 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:45:56 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNPROCESSABLE ENTITY',[39m
+[31m  httpCode: 422,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Current user is missing in the request header.',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 1:46:21 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNPROCESSABLE ENTITY',[39m
+[31m  httpCode: 422,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Current user is missing in the request header.',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 1:46:33 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNPROCESSABLE ENTITY',[39m
+[31m  httpCode: 422,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Current user is missing in the request header.',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 1:47:24 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNPROCESSABLE ENTITY',[39m
+[31m  httpCode: 422,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Current user is missing in the request header.',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 1:48:52 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNPROCESSABLE ENTITY',[39m
+[31m  httpCode: 422,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Current user is missing in the request header.',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 1:49:26 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'NOT FOUND',[39m
+[31m  httpCode: 404,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Cart is not found',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 1:49:39 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'NOT FOUND',[39m
+[31m  httpCode: 404,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Cart is not found',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 1:49:50 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'NOT FOUND',[39m
+[31m  httpCode: 404,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Cart is not found',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 1:50:05 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:50:55 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:50:57 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:50:57 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:51:50 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:51:51 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:51:51 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'NOT FOUND',[39m
+[31m  httpCode: 404,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Cart is not found',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 1:52:03 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:53:43 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:53:45 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 1:53:45 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:20:57 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:20:58 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:20:58 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:21:20 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:21:21 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:21:21 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:21:58 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:21:59 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:21:59 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:22:10 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:22:11 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:22:11 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:22:41 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:22:42 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:22:42 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:28:30 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:28:32 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 2:28:32 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'BAD REQUEST',[39m
+[31m  httpCode: 401,[39m
+[31m  isOperational: true,[39m
+[31m  description: 'Token is not valid',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 2:33:06 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 4:36:14 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 4:36:16 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 4:36:16 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  name: 'UNPROCESSABLE ENTITY',[39m
+[31m  httpCode: 422,[39m
+[31m  isOperational: true,[39m
+[31m  description: "seller must be a mongodb id. \n\n1 property(s): 'seller'  failed validation.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 6:01:54 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNPROCESSABLE ENTITY',[39m
+[31m  httpCode: 422,[39m
+[31m  isOperational: true,[39m
+[31m  description: "seller must be a mongodb id. \n\n1 property(s): 'seller'  failed validation.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 6:01:56 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  name: 'UNPROCESSABLE ENTITY',[39m
+[31m  httpCode: 422,[39m
+[31m  isOperational: true,[39m
+[31m  description: "seller must be a mongodb id. \n\n1 property(s): 'seller'  failed validation.",[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 6:02:01 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'App started at port 8000',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 6:05:31 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Application encountered an untrusted error.',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 6:05:31 PM'[39m
+[31m}[39m
+[31m{[39m
+[31m  errno: -5,[39m
+[31m  syscall: 'write',[39m
+[31m  code: 'EIO',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 6:05:31 PM'[39m
+[31m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 6:05:32 PM'[39m
+[32m}[39m
+[32m{[39m
+[32m  message: 'Connected to Database',[39m
+[32m  level: 'info',[39m
+[32m  timestamp: '5/29/2023, 6:05:32 PM'[39m
+[32m}[39m
+[31m{[39m
+[31m  message: 'Attempting a graceful shutdown with code 0',[39m
+[31m  level: 'error',[39m
+[31m  timestamp: '5/29/2023, 6:06:13 PM'[39m
+[31m}[39m

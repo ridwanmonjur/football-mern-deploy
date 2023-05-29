@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { AddProduct, DeleteProduct, EditProduct, FetchCart } from '../../api/cart';
+import { AddProductToCart, DeleteProduct, EditCartProduct, FetchCart } from '../../api/cart';
 import {toast} from 'react-toastify'
 export const addProduct = createAsyncThunk(
   'cart/addProduct',
   async ({ productId, body }, _thunkAPI) => {
-    const response = await AddProduct(body, productId) 
+    const response = await AddProductToCart(body, productId) 
     return response
   }
 )
@@ -12,7 +12,7 @@ export const addProduct = createAsyncThunk(
 export const editProduct = createAsyncThunk(
   'cart/editProduct',
   async ({ productId, body }, _thunkAPI) => {
-    const response = await EditProduct(body, productId)
+    const response = await EditCartProduct(body, productId)
     return response
   }
 )

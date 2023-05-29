@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import Empty from "../components/notifications/empty";
 import Spinner from "../components/notifications/spinner";
 import { deepCopyObj } from "../helper/deepCopy";
-// import Rodal from "rodal";
+import Modal from 'react-modal';
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { CustomCollpsibleTable, generateColumns, generateRows, GoToCheckout, returnDateFormatted } from "../components/cart";
@@ -34,7 +34,6 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
   const cartStatus = useSelector(selectCartStatus)
 
   useEffect(() => {
-    console.log({ isSignedIn })
     async function fetchData() {
       await dispatch(fetchCart())
     }
@@ -42,9 +41,9 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
     //   toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
     // })
     let controller = new AbortController();
-      !isPartOfPurchaseView && isSignedIn && fetchData().catch((error) => {
-        toast.error(error.message)
-      })
+    !isPartOfPurchaseView && isSignedIn && fetchData().catch((error) => {
+      toast.error(error.message)
+    })
     return () => {
       controller?.abort();
     }
@@ -82,55 +81,59 @@ export default function Cart({ data = null, isPartOfPurchaseView = false }) {
 
   return (
     <>
-      {!isPartOfPurchaseView && <FullPageIntroWithNonFixedNavbar /> }
+      {!isPartOfPurchaseView && <FullPageIntroWithNonFixedNavbar />}
       {/* <MDBContainer fluid className="main-container"> */}
-        <div style={{ ...(!isPartOfPurchaseView && { minHeight: "100vh", marginTop: "150px" }) }}>
-          <MDBRow className="my-2 special-margin" center>
-            <MDBCard border="light" style={{ marginTop: "50px", boxShadow: "0px 0px black !important", borderWidth: "0", outlineWidth: "0 important" }} shadow="0">
-              <MDBCardBody>
-                {!isPartOfPurchaseView && <h1 className="text-warning my-2 text-center customFont"> Shopping Cart </h1>}
-                {isPartOfPurchaseView && <h5 className="text-warning my-2 text-center"> {returnDateFormatted(data.paidAt)} </h5>}
-                <br />
-                <MDBTable className="product-table d-none d-lg-table w-80">
-                  <MDBTableHead className="form-control font-weight-bold" color="amber lighten-5" columns={columns} />
-                  <MDBTableBody rows={rows} />
-                </MDBTable>
+      <div style={{ ...(!isPartOfPurchaseView && { minHeight: "100vh", marginTop: "150px" }) }}>
+        <MDBRow className="my-2 special-margin" center>
+          <MDBCard border="light" style={{ marginTop: "50px", boxShadow: "0px 0px black !important", borderWidth: "0", outlineWidth: "0 important" }} shadow="0">
+            <MDBCardBody>
+              {!isPartOfPurchaseView && <h1 className="text-warning my-2 text-center customFont"> Shopping Cart </h1>}
+              {isPartOfPurchaseView && <h5 className="text-warning my-2 text-center"> {returnDateFormatted(data.paidAt)} </h5>}
+              <br />
+              <MDBTable className="product-table d-none d-lg-table w-80">
+                <MDBTableHead className="form-control font-weight-bold" color="amber lighten-5" columns={columns} />
+                <MDBTableBody rows={rows} />
+              </MDBTable>
 
-                <CustomCollpsibleTable {...{ data, deleteCart, cartStatus, rows, toggleCollapse, collapse }} />
+              <CustomCollpsibleTable {...{ data, deleteCart, cartStatus, rows, toggleCollapse, collapse }} />
 
-                {
-                  (((data.products &&
-                    !data.products[0] && cartStatus === "success") || !isSignedIn) && !isPartOfPurchaseView) &&
-                  <div className="text-align-center mx-auto mt-5">
-                    <Empty />
-                  </div>
-                }
-                {
-                  data.products &&
-                  data.products[0] !== null &&
-                  !isPartOfPurchaseView &&
-                  <div className="pr-5">
-                    <div className="mt-3 d-flex justify-content-end">
-                      <strong>TOTAL : &nbsp;</strong>
-                      <strong className="ml-4">£{roundOff(total)}</strong>
-                    </div>
-                  </div>
-                }
-              </MDBCardBody>
-              {/* {
+              {
+                (((data.products &&
+                  !data.products[0] && cartStatus === "success") || !isSignedIn) && !isPartOfPurchaseView) &&
+                <div className="text-align-center mx-auto mt-5">
+                  <Empty />
+                </div>
+              }
+              {
+                data.products &&
+                data.products[0] !== null &&
                 !isPartOfPurchaseView &&
-                <Rodal visible={cartStatus === "loading"} >
-                  <div className="d-flex justify-content-center align-items-center mt-1 pt-2 h-100">
-                    <Spinner />
+                <div className="pr-5" id="hi">
+                  <div className="mt-3 d-flex justify-content-end">
+                    <strong>TOTAL : &nbsp;</strong>
+                    <strong className="ml-4">£{roundOff(total)}</strong>
                   </div>
-                </Rodal>
-              } */}
-              <GoToCheckout {...{ isPartOfPurchaseView, checkOut, total }} />
-            </MDBCard>
-          </MDBRow>
-        </div >
+                </div>
+              }
+            </MDBCardBody>
+            {
+              !isPartOfPurchaseView &&
+              <Modal
+                isOpen={cartStatus === "loading"}
+                appElement={document.getElementById('hi')}
+                style={{content: {width: "250px", height: "250px", overflow: "hidden", margin: "auto"}}}
+              >
+                <div className="d-flex justify-content-center align-items-center mt-1 pt-2 h-100">
+                  <Spinner />
+                </div>
+              </Modal>
+            }
+            <GoToCheckout {...{ isPartOfPurchaseView, checkOut, total }} />
+          </MDBCard>
+        </MDBRow>
+      </div >
       {/* </MDBContainer> */}
-     {  !isPartOfPurchaseView &&<Footer /> }
+      {!isPartOfPurchaseView && <Footer />}
     </>
   );
 }

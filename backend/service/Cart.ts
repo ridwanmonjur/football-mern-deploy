@@ -35,10 +35,10 @@ export class CartService {
         }
     }
 
-    async findOneCart(body: any): Promise<CartInterface> {
+    async findOneCart(where: any): Promise<CartInterface> {
         const populate = ['products', 'name image price type'];
         try {
-            return await this.repository.findOne(body, populate);
+            return await this.repository.findOne(where, populate);
         } catch (err) {
             throw err;
         }

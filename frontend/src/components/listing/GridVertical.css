@@ -1,3 +1,7 @@
+.padding-20vw{
+    padding: 0 20vw;
+}
+
 .loadGrid__gridItems {
     display: grid;
     grid-template-columns: 1fr;
