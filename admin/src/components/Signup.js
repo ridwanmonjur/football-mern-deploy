@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { toast } from 'react-toastify';
 import fetchWithCookie from "../../api/fetchClient";
 import { ButtonSignIn, Input, Label } from "./sharing/form";
+import { toastError, toastSuccess } from "@/utils/toast";
 
 export const SignupForm = ({ switchToSignin }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -15,16 +16,13 @@ export const SignupForm = ({ switchToSignin }) => {
             await fetchWithCookie.post("/signup", { ...data })
             await setTimeout(() => {
                 setLoading(false);
-                toast.success("Successfully signed up. Now login", {
-                    position: toast.POSITION.TOP_RIGHT
-                });
+                toastSuccess("Signed in. Now login")
                 switchToSignin();
             }, 3000);
         }
         catch (error) {
-            if (loading) setLoading(false);
-            // console.log({error, message: error?.response?.data?.message })
-            toast.error(`${error?.response?.status || "Client"} Error: ${error?.response?.data?.message || error.message}`)
+            setLoading(false);
+            toastError(error)
         }
     }
     return (

@@ -14,10 +14,9 @@ export class UserRepository {
         }
     }
 
-    async find(where?: any, options?: any): Promise<PaginateResult<UserInterface>> {
-        options??= {}
+    async find(query: any, options?: any): Promise<PaginateResult<UserInterface>> {
         try {
-            return await User.paginate({...where}, options);
+            return await User.paginate(query, options);
         }
         catch {
             throw new HTTP500InternalServerrror("Unable to query all users");

@@ -6,17 +6,16 @@ import { ProductInterface } from '../models/Product';
 import { ProductService } from '../service/Product';
 import { CreateProductDto, DeleteProductDtos, EditProductDto, ProductFilter } from '../dto/product';
 import { validationHelper } from '../helper/validationHelper';
+import { extractRequestQueryForPagination } from '../helper/extractRequestQueryForPagination';
 const ObjectID = require("mongodb").ObjectID;
 
 const service = new ProductService();
 
 export async function getProducts(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        await validationHelper(ProductFilter, req.query)
+        const {query, options} = extractRequestQueryForPagination(req.query)
 
-        const query = Object.keys(req.query).length > 0? req.query : {} as ProductFilter
-
-        let product = await service.getAllProducts(query);
+        const product = await service.getAllProducts(query, options) as PaginateResult<ProductInterface>;
 
         if (product == null) throw new HTTP404NotFoundError("Product is not found");
 
@@ -50,11 +49,10 @@ export async function getProductById(req: Request, res: Response, next: NextFunc
 export async function getProductBytType(req: Request, res: Response, next: NextFunction): Promise<void> {
     let type: undefined | string;
 
-    let product: undefined | PaginateResult<ProductInterface>;
     try {
         type = req.params.productType;
 
-        product = await service.getAllProducts({ type });
+        const product = await service.getAllProducts({ type }) as PaginateResult<ProductInterface>;
 
         if (product==null) throw new HTTP404NotFoundError("Products are not found");
 

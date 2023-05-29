@@ -32,10 +32,9 @@ export class UserService {
         }
     }
 
-    async getAllUsers(where?: any): Promise<PaginateResult<UserInterface>> {
-        where ??= {}
+    async getAllUsers(query?: any, options?: any): Promise<PaginateResult<UserInterface>> {
         try {
-            return await this.repository.find(where);
+            return await this.repository.find(query, options);
         } catch (err) {
             throw err;
         }

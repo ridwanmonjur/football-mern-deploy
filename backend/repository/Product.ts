@@ -17,15 +17,11 @@ export class ProductRepository {
         }
     }
 
-    async find(where?: any, select?: any): Promise<PaginateResult<ProductInterface>> {
-        where ??= {}
-        console.log({where})
-        const options = {
-            populate:this.populate,
-            ...(select!= undefined? {select} : {})
-        }
+    async find(query?: any, options?: any): Promise<PaginateResult<ProductInterface>> {
+        
+        if (options?.populate==undefined) options.populate=this.populate
         try {
-            return await Product.paginate({...where}, options)
+            return await Product.paginate(query, options)
         }
         catch (error) {
             

@@ -21,42 +21,26 @@ export class CartRepository {
         }
     }
 
-    async find(where: any, populate?: Array<string>, populateSecond?: Array<string>, options?: any): Promise<PaginateResult<CartInterface>> {
+    async find(query?: any, options?: any): Promise<PaginateResult<CartInterface>> {
 
         try {
 
-            options??= {}
+            if (options?.populate == undefined) options.populate = [
+                {
+                    path: 'products',
+                    select: 'name image price type'
+                },
+                {
+                    path: 'user',
+                    select: 'name email'
+                }]
 
-            if (populate != undefined && populateSecond != undefined) {
-                const [_, __] = populate;
-                const [_second, __second] = populateSecond;
-                options = {
-                    populate: [{
-                        path: _,
-                        select: __
-                    },
-                    {
-                        path: _second,
-                        select: __second
-                    }],
-                }
-            }
-
-            if (populate != undefined) {
-                const [_, __] = populate;
-                options = {
-                    populate: [{
-                        path: _,
-                        select: __
-                    },],
-                }
-            }
-            
-            return await Cart.paginate({ ...where }, options)
+            return await Cart.paginate(query, options)
 
         }
-        catch {
-            throw new HTTP500InternalServerrror("Unable to query user by body");
+        catch(error) {
+            console.log({error})
+            throw error;
         }
     }
 

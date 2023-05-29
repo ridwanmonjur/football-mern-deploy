@@ -6,7 +6,6 @@ export const ProtectRoute = ({ children }) => {
     const router = useRouter();
     const authContext = useContext(AuthContext);
     const { accessToken } = authContext;
-    console.log({accessToken})
     useEffect(() => {
         if (accessToken==undefined && router.pathname !== "/") {
             router.push("/");

@@ -3,10 +3,11 @@ const ObjectID = require("mongodb").ObjectID;
 import { CartInterface } from "../models/Cart";    // need to specify the object imported from the module to use it later
 import { CartService } from '../service/Cart';
 import { ObjectId } from 'mongoose';
-import { HTTP404NotFoundError, HTTP422UnproccessableEntity } from '../exceptions/AppError';
+import { HTTP422UnproccessableEntity } from '../exceptions/AppError';
 import { StatusCodes } from 'http-status-codes';
 import { DeleteCartDtos } from '../dto/cart';
 import { validationHelper } from '../helper/validationHelper';
+import { extractRequestQueryForPagination } from '../helper/extractRequestQueryForPagination';
 
 const service = new CartService();
 
@@ -26,7 +27,7 @@ export async function getCartsOfSignedIn(req: Request, res: Response, next: Next
 
     let cart: undefined | PaginateResult<CartInterface>;
     try {
-        cart = await service.findAllCarts({ user: req.userID });
+        cart = await service.findAllCarts({ user: req.userID }, {});
 
         res.status(StatusCodes.OK).json({ success: true, ...cart });
     } catch (error) {
@@ -38,7 +39,9 @@ export async function getAllCarts(req: Request, res: Response, next: NextFunctio
 
     let cart: undefined | PaginateResult<CartInterface>;
     try {
-        cart = await service.findAllCarts();
+        const {query, options} = extractRequestQueryForPagination(req.query)
+
+        cart = await service.findAllCarts(query, options);
 
         res.status(StatusCodes.OK).json({ success: true, ...cart });
     } catch (error) {
@@ -140,9 +143,7 @@ export async function deleteCarts(req: Request, res: Response, next: NextFunctio
 
         await validationHelper(DeleteCartDtos, req.body)
 
-        console.log({hit: true})
         await service.deleteCarts(req.body.ids);
-        console.log({hit: true})
 
         res.status(StatusCodes.NO_CONTENT).json({})
     }

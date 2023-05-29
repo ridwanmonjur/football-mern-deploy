@@ -21,10 +21,9 @@ export class ProductService {
         }
     }
 
-    async getAllProducts(where?: any): Promise<PaginateResult<ProductInterface>> {
-        where ??= {}
+    async getAllProducts(query?: any, options?: any): Promise<PaginateResult<ProductInterface>> {
         try {
-            return await this.repository.find(where);
+            return await this.repository.find(query, options);
         } catch (err) {
             throw err;
         }
@@ -61,7 +60,6 @@ export class ProductService {
             throw err;
         }
     }
-
 
     async deleteProducts(ids: Array<string>) {
         try {

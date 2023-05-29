@@ -4,7 +4,7 @@ export const Table = ({
     render
 })=>{
     return (
-        <table className={`table table-zebra w-full ${classNames!==undefined ? classNames : ""}`}>
+        <table className={`table table-zebra w-full table-compact ${classNames!==undefined ? classNames : ""}`}>
             <thead>
             <tr>
                 <th></th>

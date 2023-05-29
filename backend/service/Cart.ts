@@ -44,12 +44,10 @@ export class CartService {
         }
     }
 
-    async findAllCarts(where?: any): Promise<PaginateResult<CartInterface>> {
-        const populate = ['products', 'name image price type'];
-        const populateSecond = ['user', 'name email'];
-
+    async findAllCarts(where?: any, options?: any): Promise<PaginateResult<CartInterface>> {
+     
         try {
-            return await this.repository.find(where || {}, populate, populateSecond);
+            return await this.repository.find(where, options);
         } catch (err) {
             throw err;
         }

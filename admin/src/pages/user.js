@@ -1,63 +1,99 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { fetchSSR } from '../../api/fetchSSR';
 import Layout from '@/components/layout/Layout';
 import { UserList } from '@/components/user/UserList';
 import { Heading1 } from '@/components/sharing/typography/Heading1';
 import { Pagination } from '@/components/sharing/table/Pagination';
-import { Modal, ButtonSignIn, ButtonPanel } from '@/components/sharing/form';
+import { ButtonPanel, Modal } from '@/components/sharing/form';
 import { UserForm } from '@/components/user/UserForm';
 import Drawer from '@/components/layout/Drawer';
+import fetchClient from '../../api/fetchClient';
+import { SortUser } from '@/components/user/SortUser';
+import { FilterTab } from '@/components/user/FilterTab';
 
 export default function UserPage({ _userList }) {
-    const [userList, setUserList] = useState(_userList.docs)
+    const [userList, setUserList] = useState(_userList)
     const [currentIndex, setCurrentIndex] = useState(-1)
+    const [query, setQuery] = useState('')
+    const [isFirstTime, setIsFirstTime] = useState(true)
+    const [loading, setLoading] = useState(false)
     const addToUser = (newUser) => {
-        setUserList((oldList) => ([...oldList, newUser]))
+        setUserList((oldList) => ({ ...oldList, docs: [...oldList?.docs, newUser] }))
     }
-    const editUser = (id, newUser) => {
-        setUserList((oldList) =>
-            oldList.map(value => {
-                return value._id !== id ? value : newUser
-            })
+    const refreshUser = async () => {
+        setLoading(true)
+        const userList = await fetchClient.get(`user?${query}`)
+        setTimeout(() => {
+            setLoading(false)
+            setUserList(userList)
+        }, [2000],
         )
     }
-    const deletUser = (id) => setUserList(userList.filter(value => value._id !== id))
+    const editUser = (id, newUser) => {
+        setUserList((oldList) => {
+            return {
+                ...oldList, docs: oldList.docs.map(value => {
+                    return value._id != id ? value : newUser
+                })
+            }
+        })
+    }
+    useEffect(() => {
+        if (!isFirstTime) refreshUser()
+    }, [query])
+    useEffect(() => {
+        setIsFirstTime(false)
+    }, [])
+    const deletUser = (id) => setUserList((oldList) => ({ ...oldList, docs: userList.docs.filter(value => value._id !== id) }))
     return (
         <Layout>
             <main
             >
                 <Modal>
                     <UserForm
-                        currentIndex={currentIndex}
                         setCurrentIndex={setCurrentIndex}
                         addToUser={addToUser}
                         editUser={editUser}
-                        currentUser={currentIndex > -1 ? userList[currentIndex] : null}
+                        currentIndex={currentIndex}
+                        currentUser={currentIndex > -1 ? userList.docs[currentIndex] : null}
                     />
                 </Modal>
                 <Drawer>
-                    <div>
-                        <Heading1 classNames="">Users</Heading1>
-                        <ButtonPanel
-                            classNames="mb-3"
-                            onClick={() => {
-                                setCurrentIndex(-1);
-                                document.getElementById("my-modal").checked = !document.getElementById("my-modal").checked
-                            }}
-                        >
-                            Add User
-                        </ButtonPanel>
-                        <div className="mb-4">
-                            <Pagination />
+                    <div className="px-12 py-12">
+                        <Heading1 classNames="flex">
+                            <span>Users</span>
+                            <span><FilterTab setQuery={setQuery} /></span>
+                            </Heading1>
+                        <div className='flex mb-4'>
+                            <ButtonPanel
+                                classNames="inline mr-4 mt-1"
+                                onClick={() => {
+                                    setCurrentIndex(-1);
+                                    document.getElementById("my-modal").checked = !document.getElementById("my-modal").checked
+                                }}
+                            >
+                                Add User
+                            </ButtonPanel>
+                            <SortUser setQuery={setQuery} />
                         </div>
                         <UserList
-                            userList={userList}
+                            loading={loading}
+                            userList={userList?.docs}
                             deletUser={deletUser}
                             setCurrentIndex={setCurrentIndex}
+                            refreshUser={refreshUser}
                         />
+                        <div className="mt-4">
+                            <Pagination
+                                hasPrevPage={userList?.hasPrevPage}
+                                hasNextPage={userList?.hasNextPage}
+                                page={userList?.page}
+                                totalPages={userList?.totalPages}
+                                setQuery={setQuery}
+                            />
+                        </div>
                     </div>
                 </Drawer>
-
             </main>
         </Layout>
     )
@@ -65,19 +101,20 @@ export default function UserPage({ _userList }) {
 export async function getServerSideProps({ req, res }) {
     try {
         const userList = await fetchSSR({ req, res }).get("user")
-        console.log({ userList })
         return {
-            props: {
-                _userList: userList || [],
-            },
+            props: { _userList: userList || [] },
         }
     }
     catch (error) {
         return {
-            props: {
-                _userList: [],
-            },
+            props: { _userList: [] },
         }
-
+        // return {
+        //     redirect: {
+        //         permanent: false,
+        //         destination: "/",
+        //     },
+        //     props: {},
+        // }
     }
 }

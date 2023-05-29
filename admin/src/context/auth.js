@@ -1,9 +1,8 @@
 import { createContext, useState } from "react";
 import { getCookie, setCookie, deleteCookie } from 'cookies-next';
 import { maxAgeAccessoken } from "@/utils/const";
-import { toast } from "react-toastify";
-import fetchClient from "../../api/fetchClient";
 import { useRouter } from "next/router";
+import { toastError } from "@/utils/toast";
 
 const AuthContext = createContext();
 const { Provider } = AuthContext;
@@ -23,15 +22,11 @@ const AuthProvider = ({ children }) => {
         router.replace("/")
     }
     catch (error) {
-        toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+       toastError(error)
     }
 }
-  console.log({accessToken})
-
   const deleteAcessToken = () => {
     deleteCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN)
-    // http-only cookie can be only cleared server-side with server-side method
-    // deleteCookie(process.env.CLIENT_COOKIE_ACCESS_TOKEN)
     setAccessToken(null);
   }
 

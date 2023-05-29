@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { Response } from 'express';
-import { BaseError } from './AppError';
+import { APIError, BaseError } from './AppError';
 import { exitHandler } from "./ExitHandler";
 import { winstonLogger } from "../winston/logger";
 import * as dotenv from "dotenv";
@@ -21,7 +21,7 @@ class ErrorHandler {
     }
   }
 
-  private handleTrustedError(error: BaseError, response: Response): void {
+    private handleTrustedError(error: BaseError, response: Response): void {
     response.status(error.httpCode).json({ success: false, error, message: error.description });
   }
 

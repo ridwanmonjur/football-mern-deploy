@@ -5,9 +5,10 @@ import { useRouter } from 'next/router'
 import { AuthContext } from "@/context/auth";
 import fetchWithCookie from "../../api/fetchClient";
 import { Input, Label, ButtonSignIn } from '@/components/sharing/form'
+import { toastError, toastSuccess } from "@/utils/toast";
 
 export const SigninForm = ({ switchToSignup }) => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     const signinFormRef = useRef(null)
     const { setAccessTokenClient } = useContext(AuthContext);
     const router = useRouter();
@@ -18,17 +19,13 @@ export const SigninForm = ({ switchToSignup }) => {
         fetchWithCookie.post("/login", { ...data })
             .then((response) => {
                 setLoading(false);
-                toast.success("Successful login", {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-                console.log({response})
+                toastSuccess("Successful login")
                 setAccessTokenClient(response.token)
                 router.push("/product")
             })
             .catch((error) => {
-                // console.log({error, message: error?.response?.data?.message })
-                if (loading) setLoading(false);
-                toast.error(`${error?.response?.status || "Client"} Error: ${error?.response?.data?.message || error.message}`)
+                setLoading(false);
+                toastError(error)
             })
     }
     return (

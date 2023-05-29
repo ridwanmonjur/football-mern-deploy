@@ -19,7 +19,7 @@ export default function Drawer({
             <div className="drawer-content max-h-fit">
                 {children}
             </div>
-            <div className="drawer-side max-h-fit h-auto bg-slate-900">
+            <div className="drawer-side min-h-screen h-auto z-500 shadow-lg">
                 <label htmlFor="my-drawer-2" className="drawer-overlay max-h-fit bg-slate-900" ></label>
                 <ul className="menu p-4 w-80 bg-base-100 text-base-content">
                     {

@@ -1,15 +1,14 @@
 import fetchClient from "../../../api/fetchClient";
 import { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from 'react-toastify';
 import { Input, LabelModal, Select, ButtonPanel } from "../sharing/form";
+import { toastError, toastSuccess } from "@/utils/toast";
 
 export const ProductForm = ({
     currentProduct, setCurrentIndex, addToProduct, editProduct, currentIndex
 }) => {
-    console.log({ currentProduct })
     const isAddMode = currentProduct === null;
-    const { register, handleSubmit, setValue, reset } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data, event) => {
         setLoading(true);
@@ -23,31 +22,25 @@ export const ProductForm = ({
                     type: typeSwitcher.value
                 })
                 setLoading(false);
-                toast.success("Added product", {
-                    position: toast.POSITION.TOP_RIGHT
-                });
+                toastSuccess("Added product successfully");
                 addToProduct(response.product);
             }
             catch (error) {
                 setLoading(false);
-                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+                toastError(error);
             }
         }
         else {
             try {
                 const typeSwitcher = document.getElementById('type')
                 // daisyui select removes from dom tree
-                console.log({ data, typeSwitcher, value: typeSwitcher.value })
                 const response = await fetchClient.put(`/product/${currentProduct._id}`, {
                     ...data,
                     // daisyui select removes from dom tree
                     type: typeSwitcher.value
                 })
-                console.log({ data })
                 setLoading(false);
-                toast.success("Edited product", {
-                    position: toast.POSITION.TOP_RIGHT
-                });
+                toastSuccess("Edited product successfully");
                 editProduct(currentProduct._id, response.product);
             } catch (error) {
                 setLoading(false);

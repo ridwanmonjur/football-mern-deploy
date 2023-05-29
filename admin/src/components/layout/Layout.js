@@ -4,8 +4,10 @@ import Header from '@/components/layout/Header';
 export default function Layout({ children }) {
   return (
     <>
-      <Header />
-      {children}
+      <div className='min-h-[95vh]'>
+        <Header />
+        {children}
+      </div>
       <Footer />
     </>
   );

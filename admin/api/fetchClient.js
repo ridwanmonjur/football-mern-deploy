@@ -28,7 +28,6 @@ fetchClient.interceptors.request.use(
 
 fetchClient.interceptors.response.use(
     (response) => {
-        // console.log({response})
         return response.data
     },
 );

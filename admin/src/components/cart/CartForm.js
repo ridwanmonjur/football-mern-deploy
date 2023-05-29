@@ -3,15 +3,14 @@ import { useRef, useState, useEffect, Fragment } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { ButtonSignIn, Input, LabelModal, Select } from "../sharing/form";
-import { toastError } from "@/utils/toastError";
+import { toastError, toastSuccess } from "@/utils/toast";
 
 export const CartForm = ({
     currentCart, setCurrentIndex, addToCart, editCart, currentIndex
 }) => {
-    console.log({ currentCart })
     const isAddMode = currentCart === null;
     const { control, register, handleSubmit, reset, setValue } = useForm();
-    const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+    const {  } = useFieldArray({
         control,
         name: "description",
     });
@@ -24,9 +23,7 @@ export const CartForm = ({
                 const response = await fetchClient.post('/cart', data)
                 await setTimeout(() => {
                     setLoading(false);
-                    toast.success(response.message, {
-                        position: toast.POSITION.TOP_RIGHT
-                    });
+                    toastSuccess(response.message)
                     addToCart({ ...response.data });
                 }, 3000);
             }
@@ -37,20 +34,17 @@ export const CartForm = ({
         }
         else {
             try {
-                console.log({ data })
                 // const response = await fetchClient.put(`/cart/${currentCart._id}`, {
                 //     ...data,
                 // })
                 // await setTimeout(() => {
                 //     setLoading(false);
-                //     toast.success(response.message, {
-                //         position: toast.POSITION.TOP_RIGHT
-                //     });
+                // toastSuccess(response.message)
                 //     editCart({ ...currentCart, ...data });
                 // }, 3000);
             } catch (error) {
                 setLoading(false);
-                toast.error(`${error.response?.status || ""} Error: ${error.response?.error || error.message}`)
+                toastError(error)
             }
         }
     }
@@ -143,7 +137,6 @@ export const CartForm = ({
                     }
                     {currentCart?.products[0] != undefined && <div className="my-2">Products</div>}
                     {currentCart?.products.map((field, index) => {
-                        console.log({ field })
                         return (
                             <Fragment key={field._id}
                             >

@@ -7,6 +7,7 @@ import { UserService } from '../service/User';
 import { CreateUserDto, DeleteUserDtos, EditUserProfileDto, UserLoginDto } from '../dto/user';
 import { StatusCodes } from 'http-status-codes';
 import { validationHelper } from '../helper/validationHelper';
+import { extractRequestQueryForPagination } from '../helper/extractRequestQueryForPagination';
 
 // controller: just deal with request and response object 
 
@@ -48,10 +49,12 @@ export async function getCurrentUser(req: Request, res: Response, next: NextFunc
     }
 }
 
-export async function getUsers(_req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function getUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
     let user: undefined | PaginateResult<UserInterface>;
     try {
-        user = await service.getAllUsers();
+        const {query, options} = extractRequestQueryForPagination(req.query)
+
+        user = await service.getAllUsers(query, options);
 
         if (user== null) throw new HTTP404NotFoundError("Can't find users");
 

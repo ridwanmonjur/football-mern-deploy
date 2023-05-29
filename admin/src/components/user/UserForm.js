@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 import { ButtonPanel, Input, LabelModal } from "../sharing/form";
+import { toastSuccess } from "@/utils/toast";
 
 export const UserForm = ({
     currentUser, setCurrentIndex, addToUser, editUser, currentIndex
@@ -18,14 +19,11 @@ export const UserForm = ({
                 const response = await fetchClient.post('/user', data)
                 await setTimeout(() => {
                     setLoading(false);
-                    toast.success("Successfully added user", {
-                        position: toast.POSITION.TOP_RIGHT
-                    });
-                    addToUser({ ...response.user });
+                    toastSuccess("Successfully added user")
+                    addToUser({ ...response?.user });
                 }, 3000);
             }
             catch (error) {
-                console.log({error: error?.response})
                 setLoading(false);
                 toastError(error);
             }
@@ -37,14 +35,11 @@ export const UserForm = ({
                 })
                 await setTimeout(() => {
                     setLoading(false);
-                    toast.success("Managed to edit user", {
-                        position: toast.POSITION.TOP_RIGHT
-                    });
+                    toastSuccess("Managed to edit user")
                     editUser(currentUser._id, response.user);
                 }, 3000);
             } catch (error) {
                 setLoading(false);
-                console.log({error: error.response})
                 toastError(error);
             }
         }
