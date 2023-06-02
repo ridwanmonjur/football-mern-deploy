@@ -21,7 +21,7 @@ export const Pagination = ({
     totalPages = Number(totalPages);
     page = Number(page);
     return (
-        <div className='padding-20vw d-flex align-items-center justify-content-start mb-4'>
+        <div className='d-flex align-items-center justify-content-start mb-4'>
             <div className='mt-n4 mr-4'>
                 <select defaultValue={limit} className="form-control font-larger" style={{ width: "100px" }} onChange={(evt) => { editLimit(evt) }} name="limit">
                     <option value={8}>8</option>

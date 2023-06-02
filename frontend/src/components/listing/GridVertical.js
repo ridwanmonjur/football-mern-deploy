@@ -4,9 +4,10 @@ import { NavLink } from 'react-router-dom';
 import "./GridVertical.css"
 // JS for loop doesnt work inside html
 import { LazyLoadImage, trackWindowScroll } from 'react-lazy-load-image-component';
+import { hostNameWithoutAPI } from '../../api/env';
 
 function GridVertical({ productName, data, scrollPosition }) {
-   
+   console.log({data2: data})
     return (
         <Fragment>
             <div className='mt-n4'>
@@ -24,7 +25,7 @@ function GridVertical({ productName, data, scrollPosition }) {
                                                 placeholder={
                                                     <img src="../../assets/Adidas.png" width={300} height={300} alt="lazy" />
                                                 }
-                                                className="card-image" src={value?.image} alt={`${index}`} waves="true" />
+                                                className="card-image" src={`${hostNameWithoutAPI}${value?.image}`} alt={`${index}`} waves="true" />
 
                                             <MDBCardBody className="d-flex flex-column justify-content-center align-items-center">
                                                 <MDBCardTitle >

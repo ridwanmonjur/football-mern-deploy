@@ -67,8 +67,12 @@ export function Manage() {
     return (
         <>
             <FullPageIntroWithNonFixedNavbar />
-            <MDBContainer fluid className="main-container" style={{ marginTop: "150px", minHeight: "100vh" }}>
-                <MDBCard border="light" style={{ marginTop: "50px", boxShadow: "0px 0px black !important", borderWidth: "0", outlineWidth: "0 important" }} shadow="0">
+            <MDBContainer fluid style={{ padding: "150px 20vw 0", minHeight: "100vh" }} 
+                    className='main-container'
+            >
+                <MDBCard
+                    border="light"
+                    style={{ marginTop: "50px", boxShadow: "0px 0px black !important", borderWidth: "0", outlineWidth: "0 important" }} shadow="0">
                     <MDBCardBody>
                         <Modal
                             isOpen={isOpen}
@@ -84,11 +88,11 @@ export function Manage() {
                                 currentProduct={currentIndex > -1 ? data?.docs[currentIndex] : null}
                             />
                         </Modal>
-                        <div>
+                        <div className=''>
                             {
                                 !error && !loading ?
                                     (
-                                        data && data.docs !== undefined &&
+                                        data && data.docs != undefined &&
                                         <>
                                             <h1 className="text-center text-uppercase font-weight-bolder text-warning customFont mb-4"> All Your Products</h1>
                                             <MDBBtn

@@ -42,7 +42,7 @@ function Listing() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
 
-    useEffect(()=>{
+    useEffect(() => {
         setQuery((oldQuery) => {
             const searchParamObject = QueryString.parse(oldQuery);
             searchParamObject['type'] = productName;
@@ -64,9 +64,6 @@ function Listing() {
         }
         refreshProduct()
     }, [query])
-    // useEffect(() => {
-    //     refreshProduct()
-    // }, [query])
     return (
         <>
             <FullPageIntroWithNonFixedNavbar />
@@ -82,17 +79,20 @@ function Listing() {
                     {
                         !error && !loading ?
                             (
-                                data && data.docs !== undefined &&
+                                // eslint-disable-next-line eqeqeq
+                                data &&
                                 <>
                                     <h1 className="text-center text-uppercase font-weight-bolder text-warning customFont mb-4"> Our {productName} </h1>
-                                    <Pagination
-                                        hasPrevPage={data?.hasPrevPage}
-                                        hasNextPage={data?.hasNextPage}
-                                        page={data?.page}
-                                        totalPages={data?.totalPages}
-                                        setQuery={setQuery}
-                                        limit={data?.limit || 12}
-                                    />
+                                    <div className='padding-20vw'>
+                                        <Pagination
+                                            hasPrevPage={data?.hasPrevPage}
+                                            hasNextPage={data?.hasNextPage}
+                                            page={data?.page}
+                                            totalPages={data?.totalPages}
+                                            setQuery={setQuery}
+                                            limit={data?.limit || 12}
+                                        />
+                                    </div>
                                     <GridVertical productName={productName} data={data} />
                                 </>
                             ) :
