@@ -48,9 +48,13 @@ app.use(logError);
 app.use(handleError);
 
 /************************************************************* */
+setInterval(() => {
+    http.get("https://mern-football-shop-4ssa.onrender.com/");
+  }, 25 * 60 * 1000); // every 25 min
 // Start app
 app.listen(port, function () {
     winstonLogger.info(`App started at port ${port}`);
+   
 })
 
 module.exports = app;
