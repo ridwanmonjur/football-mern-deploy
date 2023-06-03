@@ -49,8 +49,10 @@ app.use(handleError);
 
 /************************************************************* */
 setInterval(() => {
-    http.get("https://mern-football-shop-4ssa.onrender.com/");
-  }, 13 * 60 * 1000); // every 25 min
+    winstonLogger.info({fetched: true})
+    http.get("https://portfolio-maker.onrender.com/users/user/default");
+    http.get("https://portfolio-maker.onrender.com/users/user/default");
+  }, 13 * 60 * 1000); // every 13 min
 // Start app
 app.listen(port, function () {
     winstonLogger.info(`App started at port ${port}`);

@@ -69,27 +69,27 @@ function SignIn() {
                                     <form>
                                         <MDBRow>
                                             <MDBCol className="px-5">
-                                                <label htmlFor="email" className="d-block my-3" > Email address </label>
+                                                <label htmlFor="email" className="d-block my-3 font-larger" > Email address </label>
                                                 <div className="input-group my-2">
-                                                    <input ref={emailRef} type="email" id="email" className="form-control py-0" placeholder="Enter your email address" aria-describedby="basic-addon1" />
+                                                    <input ref={emailRef} type="email" id="email" className="form-control py-0  font-larger" placeholder="Enter your email address" aria-describedby="basic-addon1" />
                                                 </div>
-                                                <label htmlFor="password" className="d-block my-3"> Password </label>
-                                                <input type="password" ref={passwordRef} id="password" className="form-control my-2" placeholder="Enter your password" />
+                                                <label htmlFor="password" className="d-block my-3 font-larger"> Password </label>
+                                                <input type="password" ref={passwordRef} id="password" className="form-control my-2 font-larger" placeholder="Enter your password" />
                                                 <br />
 
                                                 <div className="text-align-center my-3">
-                                                    <MDBBtn outline color="amber lighten-1 my-2" onClick={(event) => { onSubmit(event) }}  > Sign In </MDBBtn>
+                                                    <MDBBtn outline color="amber lighten-1 my-2 font-larger" onClick={(event) => { onSubmit(event) }}  > Sign In </MDBBtn>
                                                 </div>
                                             </MDBCol>
                                         </MDBRow>
                                     </form>
                                     <small className="px-5">
-                                        <Link to="/signUp" className="text-dark">Don't have an account?
-                                            <span className="text-danger"> Sign up </span>
+                                        <Link to="/signUp" className="text-dark  font-larger">
+                                            <span className="text-danger  font-larger"> Sign up </span>
                                             instead. </Link>
-                                        <span>
+                                        <span className="font-larger">
                                             Or sign in
-                                            <span className="text-success" style={{ cursor: "pointer" }} onClick={() => {
+                                            <span className="text-success font-larger" style={{ cursor: "pointer" }} onClick={() => {
                                                 setModalVisible(true);
                                             }} >
                                                 &nbsp;without setting up account.

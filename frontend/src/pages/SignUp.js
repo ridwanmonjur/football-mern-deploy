@@ -70,30 +70,28 @@ function SignUp() {
                                     <form  >
                                         <MDBRow>
                                             <MDBCol>
-                                                <label htmlFor="fname" className="d-block mb-3" > First name </label>
-                                                <input type="text" id="fname" name="fname" className="form-control" onChange={(event) => { onChange(event) }} placeholder="Enter your first name" />
+                                                <label htmlFor="fname" className="d-block mb-3 font-larger" > First name </label>
+                                                <input type="text" id="fname" name="fname" className="form-control font-larger" onChange={(event) => { onChange(event) }} placeholder="Enter your first name" />
 
-                                                <label htmlFor="lname" className="d-block my-3" > Last name </label>
-                                                <input type="text" id="lname" name="lname" className="form-control" onChange={(event) => { onChange(event) }} placeholder="Enter your last name" />
+                                                <label htmlFor="lname" className="d-block my-3 font-larger" > Last name </label>
+                                                <input type="text" id="lname" name="lname" className="form-control font-larger" onChange={(event) => { onChange(event) }} placeholder="Enter your last name" />
 
-                                                <label htmlFor="email" className="d-block my-3" > Email address </label>
+                                                <label htmlFor="email" className="d-block my-3 font-larger" > Email address </label>
                                                 <div className="input-group my-3">
-                                                    <input type="email" id="email" name="email" className="form-control py-0" onChange={(event) => { onChange(event) }} placeholder="Enter your email address" aria-describedby="basic-addon1" />
+                                                    <input type="email" id="email" name="email" className="form-control py-0 font-larger" onChange={(event) => { onChange(event) }} placeholder="Enter your email address" aria-describedby="basic-addon1" />
                                                 </div>
-                                                <label htmlFor="password" className="d-block my-3"> Password </label>
+                                                <label htmlFor="password" className="d-block my-3 font-larger"> Password </label>
                                                 <div className="input-group my-3">
-                                                    <input type="password" id="password" name="password" className="form-control" onChange={(event) => { onChange(event) }} placeholder="Enter your password" />
+                                                    <input type="password" id="password" name="password" className="form-control font-larger" onChange={(event) => { onChange(event) }} placeholder="Enter your password" />
                                                 </div>
 
                                                 <div className="text-align-center">
-                                                    <MDBBtn outline color="amber lighten-1" type="submit" onClick={(event) => { onSubmit(event) }} > Sign Up </MDBBtn>
+                                                    <MDBBtn outline color="amber lighten-1" type="submit" className="font-larger" onClick={(event) => { onSubmit(event) }} > Sign Up </MDBBtn>
                                                 </div>
                                             </MDBCol>
                                         </MDBRow>
                                     </form>
-                                    <small>
-                                        <Link className="text-danger" to="/signIn">Already have an account? Sign in instead.</Link>
-                                    </small>
+                                    <Link className="text-danger" to="/signIn">Already have an account? Sign in instead.</Link>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBRow >

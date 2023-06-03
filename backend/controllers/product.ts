@@ -68,6 +68,7 @@ export async function getProductBytType(req: Request, res: Response, next: NextF
 export async function createProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     try {
+        if (req.body.seller==undefined && req.role=="seller") req.body.seller = req.userID
         const productDto: CreateProductDto = await validationHelper(CreateProductDto, req.body);
 
         const product = await service.createProduct( productDto );
@@ -84,6 +85,8 @@ export async function editProduct(req: Request, res: Response, next: NextFunctio
     let productId: undefined | ObjectId;
 
     try {
+        if (req.body.seller==undefined && req.role=="seller") req.body.seller = req.userID
+
         productId = ObjectID(req.params.productId);
 
         const productDto: EditProductDto = await validationHelper(EditProductDto, req.body);
@@ -99,7 +102,7 @@ export async function editProduct(req: Request, res: Response, next: NextFunctio
 
 export async function deleteProducts(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        console.log({ids: req.body.ids})
+        console.log({ids: req.body})
 
         await validationHelper(DeleteProductDtos, req.body)
 

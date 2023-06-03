@@ -33,7 +33,7 @@ export async function AddProduct(body) {
 
 export async function EditProduct(id, body) {
 
-    const response = await api('POST', `/product/${id}`, {
+    const response = await api('PUT', `product/${id}`, {
         mode: 'cors', body
     })
     if (!response || ("product" in response) === false) throw new Error("Missing product data")
@@ -43,11 +43,8 @@ export async function EditProduct(id, body) {
 
 
 export async function DeleteProductByIds(body) {
-
-    const response = await api('POST', `product/delete`, {
+    await api('POST', `product/delete`, {
         mode: 'cors', body
     })
-
-    return response
 }
 

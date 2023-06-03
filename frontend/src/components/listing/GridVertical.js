@@ -40,6 +40,9 @@ function GridVertical({ productName, data, scrollPosition }) {
                                                 <p className="card-text-custom text-bold">
                                                     £ {value?.price}
                                                 </p>
+                                                <p className="card-text-custom mt-2">
+                                                    Seller: {value?.seller?.name}
+                                                </p>
                                             </MDBCardBody>
                                         </NavLink>
                                     </MDBCard>

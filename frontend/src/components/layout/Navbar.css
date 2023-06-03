@@ -20,7 +20,7 @@
    position: absolute;
    top: 0;
    left: 0;
-   z-index: 99;
+   z-index: 98;
    background-color: transparent;
    color: black !important;
 }
@@ -57,7 +57,7 @@ a.nav-link:hover {
    background-color: white;
    border: 1px solid goldenrod;
    border-radius: 50%;
-   z-index: 999;
+   z-index: 98;
 }
 
 @media only screen and (min-width: 1000px) {

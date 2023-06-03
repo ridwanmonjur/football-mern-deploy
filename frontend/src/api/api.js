@@ -35,6 +35,9 @@ export async function api(methodName, endpoint, { body, ...customConfig } = {}) 
                         return window.fetch(`${hostName}/${endpoint}`, config).then((res) => res.json())
                     })
             }
+            else if (response.status === 204) {
+                return
+            }
             else return response.json()
         })
     // .then(response=> response)

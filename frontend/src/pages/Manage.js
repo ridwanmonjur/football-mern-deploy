@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from 'react'
 import GridVertical from '../components/listing/GridVertical'
 import { FetchAll } from '../api/product'
@@ -14,18 +15,23 @@ import { MDBCard, MDBCardBody } from "mdbreact";
 import { TableManage } from '../components/manage/TableManage';
 import Modal from 'react-modal';
 import { ProductForm } from '../components/manage/ProductForm';
-
+import './Manage.css'
 export function Manage() {
 
     const [data, setData] = useState(null);
     const user = useSelector(selectProfileDetails)
     const [query, setQuery] = useState(`seller=${user._id}&limit=12`);
     const [loading, setLoading] = useState(false)
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const [error, setError] = useState(false)
     const [currentIndex, setCurrentIndex] = useState(-1)
     const addToProduct = (newProduct) => {
-        setData((oldList) => ({ ...oldList, docs: [...oldList?.docs, newProduct] }))
+        setData((oldList) => {
+            console.log({ oldList, newProduct })
+            return {
+                ...oldList, docs: [...oldList?.docs, newProduct]
+            }
+        })
     }
     const editProduct = (id, newProduct) => {
         setData((oldList) => {
@@ -36,7 +42,6 @@ export function Manage() {
             }
         })
     }
-
 
     const deletProduct = (id) => setData((oldList) => ({ ...oldList, docs: oldList.docs.filter(value => value._id !== id) }))
 
@@ -52,6 +57,7 @@ export function Manage() {
     const refreshProduct = () => {
         setLoading(true);
         FetchAll(query).then((data) => {
+            console.log({ data })
             setData(data)
             setLoading(false)
         }).catch(() => {
@@ -67,28 +73,33 @@ export function Manage() {
     return (
         <>
             <FullPageIntroWithNonFixedNavbar />
-            <MDBContainer fluid style={{ padding: "150px 20vw 0", minHeight: "100vh" }} 
-                    className='main-container'
+            <Modal
+                isOpen={isOpen}
+                onRequestClose={() => setIsOpen(false)}
+                appElement={document.getElementById('app')}
+                className='modal-over-navbar'
+            >
+                <ProductForm
+                    setCurrentIndex={setCurrentIndex}
+                    addToProduct={addToProduct}
+                    editProduct={editProduct}
+                    currentIndex={currentIndex}
+                    setIsOpen={setIsOpen}
+                    currentProduct={currentIndex > -1 ? data?.docs[currentIndex] : null}
+                />
+            </Modal>
+            <MDBContainer
+                fluid
+                style={{}}
+                className='main-container manage-container'
             >
                 <MDBCard
                     border="light"
-                    style={{ marginTop: "50px", boxShadow: "0px 0px black !important", borderWidth: "0", outlineWidth: "0 important" }} shadow="0">
+                    className='manage-card'
+                    shadow="0">
                     <MDBCardBody>
-                        <Modal
-                            isOpen={isOpen}
-                            onRequestClose={() => setIsOpen(false)}
-                            appElement={document.getElementById('app')}
-                            style={{ content: { width: "500px", height: "800px", overflow: "hidden", margin: "auto" } }}
-                        >
-                            <ProductForm
-                                setCurrentIndex={setCurrentIndex}
-                                addToProduct={addToProduct}
-                                editProduct={editProduct}
-                                currentIndex={currentIndex}
-                                currentProduct={currentIndex > -1 ? data?.docs[currentIndex] : null}
-                            />
-                        </Modal>
-                        <div className=''>
+
+                        <div>
                             {
                                 !error && !loading ?
                                     (
@@ -96,7 +107,8 @@ export function Manage() {
                                         <>
                                             <h1 className="text-center text-uppercase font-weight-bolder text-warning customFont mb-4"> All Your Products</h1>
                                             <MDBBtn
-                                                classNames="inline mr-4 mt-1"
+                                                color='accent'
+                                                className="inline btn-outline-warning mr-4 mt-1 px-4 font-larger"
                                                 onClick={() => {
                                                     setCurrentIndex(-1);
                                                     setIsOpen(true);
