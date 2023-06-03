@@ -1,0 +1,45 @@
+.manage-card{
+    margin-top: 50px; 
+    box-shadow: 0px 0px black !important; 
+    border-width: 0; 
+    outline-width: 0 important; 
+}
+
+.manage-container{
+    padding: 150px 10vw 0; 
+    min-height: 100vh;
+}
+
+.modal-over-navbar {
+    position: fixed;
+    padding: 20px;
+    font: 25px !important;
+    z-index:9999;
+    box-shadow: 20px black;
+    background-color: white;
+    border: 0.1px solid black !important;
+    top : 20vh;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    outline:0 !important;
+}
+
+.modal-over-navbar:focus {outline:0 !important;}
+@media only screen and (min-width: 1000px) {
+    .modal-over-navbar {
+        position: fixed;
+        z-index:9999;
+        top : 18vh;
+        left: 30vw;
+        right: 30vw;
+        bottom: 10vh;
+    }
+  }
+
+  .icon-size{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: inline !important;
+  }
