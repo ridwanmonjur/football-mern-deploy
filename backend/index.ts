@@ -52,7 +52,7 @@ setInterval(() => {
     winstonLogger.info({fetched: true})
     http.get("https://portfolio-maker.onrender.com/users/user/default");
     http.get("https://portfolio-maker.onrender.com/users/user/default");
-  }, 13 * 60 * 1000); // every 13 min
+  }, 8 * 60 * 1000); // every 8 min
 // Start app
 app.listen(port, function () {
     winstonLogger.info(`App started at port ${port}`);
