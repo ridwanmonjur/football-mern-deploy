@@ -1,6 +1,7 @@
 import * as express from 'express'
 import { Application, Request, Response, NextFunction } from 'express'
 import * as http from 'http'
+import * as https from 'https'
 import * as cors from 'cors';
 import { createHttpTerminator } from 'http-terminator';
 import * as dotenv from "dotenv"
@@ -25,7 +26,7 @@ const app: Application = express()
 export const server = http.createServer(app);
 export const httpTerminator = createHttpTerminator({ server });
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:3001", "https://football-mern-shop.netlify.app"],
+    origin: ["http://localhost:3000", "http://localhost:3001", "https://football-mern-shop.netlify.app", "https://portfolio-maker.onrender.com"],
     credentials: true,
 })) // For all fetch requests for JSON  Must specify Content-Type: application/json in fetch
 app.use(express.json()) // for Form body parsing application/x-www-form-urlencoded I.E. FORMDATA
@@ -50,8 +51,8 @@ app.use(handleError);
 /************************************************************* */
 setInterval(() => {
     winstonLogger.info({fetched: true})
-    http.get("https://portfolio-maker.onrender.com/users/user/default");
-    http.get("https://portfolio-maker.onrender.com/users/user/default");
+    https.get("https://portfolio-maker.onrender.com/users/user/default");
+    https.get("https://portfolio-maker.onrender.com/users/user/default");
   }, 8 * 60 * 1000); // every 8 min
 // Start app
 app.listen(port, function () {
