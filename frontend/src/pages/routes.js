@@ -13,6 +13,7 @@ import DescriptionPage from './Description';
 import { useSelector } from 'react-redux';
 import { selectProfileDetails } from '../redux/slices/ProfileSlice';
 import { Manage } from './Manage';
+import ProfileView from './ProfileView';
 function Routes() {
   const user = useSelector(selectProfileDetails);
 
@@ -49,8 +50,11 @@ function Routes() {
       <Route path="/signUp">
         <SignUp />
       </Route>
-      <Route path="/profile">
+      <Route exact path="/profile">
         <Profile />
+      </Route>
+      <Route path="/profile/:userId">
+        <ProfileView />
       </Route>
       <Route exact path="/products/:productName">
         <Listing />

@@ -1,12 +1,12 @@
 .padding-20vw{
-    padding: 0 20vw;
+    padding: 0 3vw;
 }
 
 .loadGrid__gridItems {
     display: grid;
     grid-template-columns: 1fr;
     margin: 0vh auto 5vh;
-    padding: 0 20vw;
+    padding: 0 5vw;
 }
 
 /* CARD */

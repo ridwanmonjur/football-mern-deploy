@@ -5,6 +5,29 @@ import { APIError } from '../exceptions/AppError';
 import { deleteData, resetData, resetProduct } from '../resetData/seed_function'
 import { request } from 'http';
 const router = express.Router();
+const fs = require("fs");
+const path = require("path");
+
+
+router.get('/api/v1/resetFile', (req: Request, res: Response) => {
+    const directoryList = ["./assets/accessories", "./assets/boots", "./assets/jerseys", "./assets/uploads"];
+    for (const directory of directoryList) {
+        fs.readdir(directory, (err, files) => {
+            if (err) throw err;
+
+            for (const file of files) {
+                console.log({ file })
+                if (String(file).match('multerCustomImage')) {
+                    fs.unlink(path.join(directory, file), (err) => {
+                        if (err) throw err;
+                    });
+                }
+            }
+        });
+    }
+    res.status(StatusCodes.OK).json({ done: true })
+})
+
 
 router.get('/', (req: Request, res: Response) => {
     const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -17,7 +40,7 @@ router.get('/', (req: Request, res: Response) => {
     const options = { sort, select, offset, page }
     res.status(StatusCodes.OK).json(
         {
-            query, 
+            query,
             options,
             search,
             params,

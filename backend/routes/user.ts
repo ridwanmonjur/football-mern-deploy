@@ -3,19 +3,20 @@ import { signup, getUser, getUsers, getCurrentUser, editCurrentUser, deleteUsers
 import { Roles } from "../helper/Roles";
 import { authorize } from "../middleware/authorize";
 import { protect } from "../middleware/protect";
+const multer = require("../middleware/multer")
 const cartRouter = require("./cart");
 const router = express.Router();
 
-router.post('/signup', signup);
+router.post('/signup',  signup);
 router.use('/user/cart/', cartRouter);
 
 router.route('/user')
     .get(protect, authorize(Roles.Admin), getUsers)
-    .post(protect, authorize(Roles.Admin), signup)
+    .post(protect, authorize(Roles.Admin),  multer.single("image"), signup)
 
 router.route('/user/:userId')
     .get(getUser)
-    .put(protect, authorize(Roles.Admin), editUserById);
+    .put(protect, authorize(Roles.Admin), multer.single("image"), editUserById);
 
 router
     .post("user/delete", protect, authorize(Roles.Admin), deleteUsers);
@@ -23,6 +24,6 @@ router
 
 router.route('/current')
     .get(protect, getCurrentUser)
-    .put(protect, editCurrentUser);
+    .put(protect, multer.single("image"), editCurrentUser);
 
 module.exports = router

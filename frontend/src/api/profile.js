@@ -10,10 +10,20 @@ export async function GetProfile() {
 
 }
 
-export async function EditProfile(body) {
+export async function GetProfileById(id) {
+
+  const response = await api('GET', `user/${id}`, {
+    mode: 'cors',
+  })
+  console.log({response})
+  return response?.user
+
+}
+
+export async function EditProfile(formData) {
 
   const response = await api('PUT', 'current', {
-    mode: 'cors', body
+    mode: 'cors', formData
   })
   return response
 

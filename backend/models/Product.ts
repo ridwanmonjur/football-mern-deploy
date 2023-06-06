@@ -50,7 +50,10 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
-    image: String,
+    image:  {
+        type: String,
+        required: true
+    },
     slug: String,
     price: {
         type: Number,

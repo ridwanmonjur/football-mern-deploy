@@ -1,9 +1,11 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Input, Label, Select, Button } from "../form";
 import { AddProduct, EditProduct } from "../../api/product";
 import { toast } from "react-toastify";
+import { hostNameWithoutAPI } from "../../api/env";
 
 export const ProductForm = ({
     currentProduct, setCurrentIndex, addToProduct, editProduct, currentIndex, setIsOpen
@@ -14,16 +16,22 @@ export const ProductForm = ({
     const onSubmit = async (data, event) => {
         setLoading(true);
         event.preventDefault();
+        let formData = new FormData()
+        Object.entries(data).forEach(([key, value]) => {
+            console.log({ key, value })
+            formData.append(key, value)
+        })
+        formData.set("image", data.image[0]);
+        const typeSwitcher = document.getElementById('type')
+        console.log({ typeSwitcher })
+        formData.set("type", typeSwitcher.value);
+
+        console.log({ formData })
         if (isAddMode) {
             try {
-                const typeSwitcher = document.getElementById('type')
-                const response = await AddProduct({
-                    ...data,
-                    // daisyui select removes from dom tree
-                    type: typeSwitcher.value
-                })
+                const response = await AddProduct(formData)
                 setLoading(false);
-                console.log({response})
+                console.log({ response })
                 toast.success("Added product successfully");
                 addToProduct(response);
                 await setIsOpen(false)
@@ -35,20 +43,14 @@ export const ProductForm = ({
         }
         else {
             try {
-                const typeSwitcher = document.getElementById('type')
-                // daisyui select removes from dom tree
-                const response = await EditProduct(currentProduct._id, {
-                    ...data,
-                    // daisyui select removes from dom tree
-                    type: typeSwitcher.value
-                })
+                const response = await EditProduct(currentProduct?._id, formData)
                 setLoading(false);
-                console.log({response})
-                // toastSuccess("Edited product successfully");
+                console.log({ response })
+                toast.success("Added product successfully");
                 editProduct(currentProduct._id, response);
             } catch (error) {
                 setLoading(false);
-                // toastError(error);
+                toast.error("Failed to add");
             }
         }
     }
@@ -56,11 +58,11 @@ export const ProductForm = ({
     useEffect(() => {
         const typeSwitcher = document.getElementById('type')
         // eslint-disable-next-line eqeqeq
-        if (typeSwitcher != undefined) typeSwitcher.value = currentProduct?.type;
+        if (typeSwitcher != undefined) { typeSwitcher.value = currentProduct?.type };
         if (isAddMode) {
-            typeSwitcher.value = "no-value"
+            typeSwitcher.value = "jerseys"
             reset({
-                type: 'no-value',
+                type: 'jerseys',
                 manufacturer: '',
                 name: "",
                 price: 0,
@@ -74,6 +76,7 @@ export const ProductForm = ({
                 name: currentProduct?.name,
                 price: currentProduct?.price,
                 stock: currentProduct?.stock,
+                image: currentProduct?.image,
             })
         }
     }, [currentIndex])
@@ -86,8 +89,42 @@ export const ProductForm = ({
             <form
                 formRef={formRef}
                 onSubmit={handleSubmit(onSubmit)}
+                enctype="multipart/form-data"
             >
                 <div className="row">
+                    {
+                        !isAddMode &&
+                        <>
+                            <div className="d-none d-lg-block col-lg-4 mb-2">  </div>
+                            {currentProduct?.image != undefined ?
+                                <>
+                                    <div className="col-10 col-lg-4 mb-2">
+                                        <img
+                                            className="card-image" src={`${hostNameWithoutAPI}${currentProduct?.image}`} alt={`${currentProduct?.name}`} />
+                                    </div>
+                                </> :
+                                <>
+                                    <div className="col-10 col-lg-4 mb-2">
+                                        <Label text="No image" classNames="alert alert-info font-larger" />
+                                    </div>
+
+                                </>}
+                            <div className="d-none d-lg-block col-lg-4 mb-2">  </div>
+                        </>
+                    }
+                    <div className="col-10 col-lg-4 mb-2">
+                        <Label text="Upload Image" />
+                    </div>
+                    <div className="col-10 col-lg-6 mb-2">
+                        <input
+                            type="file"
+                            id="image"
+                            name="image"
+                            className="ml-n1"
+                            multiple={false}
+                            {...register("image")}
+                        />
+                    </div>
 
                     {!isAddMode
                         &&
@@ -179,14 +216,14 @@ export const ProductForm = ({
                     {
                         isAddMode ?
                             <div className="col-10 col-lg-4 mb-2">
-                                <Button classNames={`mt-4 font-larger btn-outline-warning ${loading ? "loading" : ""}`} type="submit" >
+                                <Button classNames={`mt-4 font-larger btn-outline-warning ${loading ? "btn-outline-info" : ""}`} type="submit" >
                                     Add Product
                                 </Button>
                             </div>
                             :
                             <>
                                 <div className="col-12">
-                                    <Button classNames={`mt-4 mr-4 font-larger btn-outline-warning ${loading ? "loading" : ""}`} type="submit">
+                                    <Button classNames={`mt-4 mr-4 font-larger btn-outline-warning ${loading ? "btn-outline-info" : ""}`} type="submit">
                                         Edit Product
                                     </Button>
 
@@ -197,6 +234,13 @@ export const ProductForm = ({
                                 </div>
                             </>
                     }
+                    <div className="col-10 col-lg-4 mb-2">
+                        <Button classNames={`mt-4 font-larger btn-outline-warning`}
+                            onClick={() => setIsOpen(false)}
+                        >
+                            Close modal
+                        </Button>
+                    </div>
                 </div>
                 <div>
                 </div>

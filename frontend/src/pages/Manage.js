@@ -1,6 +1,5 @@
 /* eslint-disable eqeqeq */
 import React, { useEffect, useState } from 'react'
-import GridVertical from '../components/listing/GridVertical'
 import { FetchAll } from '../api/product'
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -12,7 +11,7 @@ import QueryString from 'query-string';
 import { useSelector } from 'react-redux';
 import { selectProfileDetails } from '../redux/slices/ProfileSlice';
 import { MDBCard, MDBCardBody } from "mdbreact";
-import { TableManage } from '../components/manage/TableManage';
+import TableManage from '../components/manage/TableManage';
 import Modal from 'react-modal';
 import { ProductForm } from '../components/manage/ProductForm';
 import './Manage.css'
@@ -78,6 +77,9 @@ export function Manage() {
                 onRequestClose={() => setIsOpen(false)}
                 appElement={document.getElementById('app')}
                 className='modal-over-navbar'
+                style={{content: {
+                    maxHeight:"80vh" //or maxHeight 
+                  }}}
             >
                 <ProductForm
                     setCurrentIndex={setCurrentIndex}
@@ -90,7 +92,6 @@ export function Manage() {
             </Modal>
             <MDBContainer
                 fluid
-                style={{}}
                 className='main-container manage-container'
             >
                 <MDBCard
@@ -108,7 +109,7 @@ export function Manage() {
                                             <h1 className="text-center text-uppercase font-weight-bolder text-warning customFont mb-4"> All Your Products</h1>
                                             <MDBBtn
                                                 color='accent'
-                                                className="inline btn-outline-warning mr-4 mt-1 px-4 font-larger"
+                                                className="inline btn-outline-warning ml-4 mr-4 mt-1 px-4 font-larger"
                                                 onClick={() => {
                                                     setCurrentIndex(-1);
                                                     setIsOpen(true);

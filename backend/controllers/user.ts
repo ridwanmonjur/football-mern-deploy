@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 const ObjectID = require("mongodb").ObjectID;
 import { UserInterface } from "../models/User";    // need to specify the object imported from the module to use it later
-import { HTTP404NotFoundError, HTTP422UnproccessableEntity } from '../exceptions/AppError';
+import { HTTP404NotFoundError, HTTP422UnproccessableEntity, HTTP500InternalServerrror } from '../exceptions/AppError';
 import { ObjectId } from 'mongoose';
 import { UserService } from '../service/User';
 import { CreateUserDto, DeleteUserDtos, EditUserProfileDto, UserLoginDto } from '../dto/user';
@@ -40,7 +40,7 @@ export async function getCurrentUser(req: Request, res: Response, next: NextFunc
 
         user = await service.getUserById(userId);
 
-        if (user== null) throw new HTTP422UnproccessableEntity("Current user is missing in the request header.");
+        if (user == null) throw new HTTP422UnproccessableEntity("Current user is missing in the request header.");
 
         res.status(StatusCodes.OK).json({ success: true, user });
     }
@@ -52,11 +52,11 @@ export async function getCurrentUser(req: Request, res: Response, next: NextFunc
 export async function getUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
     let user: undefined | PaginateResult<UserInterface>;
     try {
-        const {query, options} = extractRequestQueryForPagination(req.query)
+        const { query, options } = extractRequestQueryForPagination(req.query)
 
         user = await service.getAllUsers(query, options);
 
-        if (user== null) throw new HTTP404NotFoundError("Can't find users");
+        if (user == null) throw new HTTP404NotFoundError("Can't find users");
 
         res.status(StatusCodes.OK).json({ success: true, ...user });
     }
@@ -69,15 +69,35 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
     let userId: undefined | ObjectId;
 
     let user: UserInterface | null;
-
-    const editDtos: EditUserProfileDto = await validationHelper(EditUserProfileDto, req.body);
-
     try {
         userId = ObjectID(req.userID);
 
+        const userSearch = await service.getUserById(userId);
+
+        ['token', 'address', 'creditCard'].forEach((value) => {
+            if (value in req.body) req.body[value] = JSON.parse(req.body[value])
+        })
+
+
+        if (userSearch == null) throw new HTTP404NotFoundError("User is not found");
+
+
+        if (req.file == undefined) {
+            if (userSearch?.image != undefined) req.body.image = userSearch?.image;
+            delete req.body.image;
+        }
+        else {
+            if (req.file.path == undefined) throw new HTTP500InternalServerrror("Couldn't get file path after saving!")
+            req.body.image = req.file.path;
+        }
+
+        const editDtos: EditUserProfileDto = await validationHelper(EditUserProfileDto, req.body);
+
+        console.log({userSearch: userSearch.image, req: req.body.image, editDtos: editDtos.image, file: req.file.path})
+
         user = await service.findByIdAndUpdate(userId, { ...editDtos });
 
-        if (user== null) throw new HTTP404NotFoundError("Can't find users");
+        if (user == null) throw new HTTP404NotFoundError("Can't find users");
 
         res.status(StatusCodes.CREATED).json({ success: true, user, userId: req.userID, number: 0 });
     }
@@ -97,11 +117,21 @@ export async function editUserById(req: Request, res: Response, next: NextFuncti
     try {
         userId = ObjectID(req.params.userId);
 
+        const userSearch = await service.getUserById(userId);
+
+        if (userSearch == null) throw new HTTP404NotFoundError("User is not found");
+
+        ['token', 'address', 'creditCard'].forEach((value) => {
+            req.body[value] = JSON.parse(value)
+        })
+
+        console.log({ userSearch, body: req.body })
+
         const editDtos: EditUserProfileDto = await validationHelper(EditUserProfileDto, req.body);
 
         user = await service.findByIdAndUpdate(userId, { ...editDtos });
 
-        if (user== null) throw new HTTP404NotFoundError("Can't find users");
+        if (user == null) throw new HTTP404NotFoundError("Can't find users");
 
         res.status(StatusCodes.CREATED).json({ success: true, user, userId: req.userID, number: 0 });
     }
@@ -112,16 +142,27 @@ export async function editUserById(req: Request, res: Response, next: NextFuncti
     }
 }
 
-
 export async function signup(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const signupDtos: CreateUserDto = await validationHelper(CreateUserDto, req.body);
+        ['token', 'address', 'creditCard'].forEach((value) => {
+            req.body[value] = JSON.parse(value)
+        })
 
-        if (signupDtos.password!== signupDtos.confirmPassword) {
-            throw new HTTP422UnproccessableEntity("Password and confirmed password must match!")
+        if (req.file == undefined) {
+            delete req.body.image;
+        }
+        else {
+            if (req.file.path == undefined) throw new HTTP500InternalServerrror("Couldn't get file path after saving!")
+            req.body.image = req.file.path;
         }
 
+        const signupDtos: CreateUserDto = await validationHelper(CreateUserDto, req.body);
+
         const { user, cart } = await service.signupUser(signupDtos);
+
+        if (signupDtos.password !== signupDtos.confirmPassword) {
+            throw new HTTP422UnproccessableEntity("Password and confirmed password must match!")
+        }
 
         res.status(StatusCodes.CREATED).json({ user, cart, success: true });
     }

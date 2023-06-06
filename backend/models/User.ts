@@ -26,7 +26,8 @@ interface UserInterface extends Document {
     role: string,
     address: AddressInterface,
     creditCard: CreditCardInterface,
-    token: TokenInterface
+    token: TokenInterface,
+    image: string
 }
 
 const UserSchema = new Schema({
@@ -38,7 +39,10 @@ const UserSchema = new Schema({
     email: {
         type: String,
         required: true
-
+    },
+    image:  {
+        type: String,
+        required: false
     },
     password:
     {

@@ -17,14 +17,14 @@
     z-index:9999;
     box-shadow: 20px black;
     background-color: white;
-    border: 0.1px solid black !important;
+    border: 0.1px solid gold !important;
     top : 20vh;
     left: 20px;
     right: 20px;
-    bottom: 20px;
+    bottom: -30vh;
+    overflow-y: scroll !important;
     outline:0 !important;
 }
-
 .modal-over-navbar:focus {outline:0 !important;}
 @media only screen and (min-width: 1000px) {
     .modal-over-navbar {
@@ -34,6 +34,8 @@
         left: 30vw;
         right: 30vw;
         bottom: 10vh;
+        overflow-y: hidden !important;
+
     }
   }
 

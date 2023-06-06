@@ -2,23 +2,36 @@ import { cookieKey, hostName } from "./env"
 export async function api(methodName, endpoint, { body, ...customConfig } = {}) {
 
     const headers = { 'content-type': 'application/json' }
-    const token = getCookie(cookieKey)
-    console.log({ token, cookieKey, hostName })
-    if (token) {
-        headers.authorization = token
-    }
+
     let config = {
+        signal: AbortSignal.timeout(5000),
         ...customConfig,
         method: methodName,
         headers: {
-            ...headers,
             ...customConfig.headers,
         },
     }
 
-    if (body) {
+    if (customConfig.headers == null) {
+        config.headers = headers;
+    }
+
+    if (customConfig.formData != null) {
+        config.body = customConfig.formData
+        delete config.formData
+        config.headers = {};
+    }
+
+    if (body != null) {
         config.body = JSON.stringify(body)
     }
+
+    const token = getCookie(cookieKey)
+    if (token != null) {
+        config.headers.authorization = token
+    }
+
+    console.log({ config })
 
     const response = await window
         .fetch(`${hostName}/${endpoint}`, config)
@@ -40,11 +53,6 @@ export async function api(methodName, endpoint, { body, ...customConfig } = {}) 
             }
             else return response.json()
         })
-    // .then(response=> response)
-    // .then(response => {
-    //     console.log(response)
-    //     return response
-    // })
     return response;
 
 }

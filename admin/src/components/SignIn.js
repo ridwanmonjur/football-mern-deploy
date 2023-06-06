@@ -1,17 +1,19 @@
 import { useForm } from "react-hook-form";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router'
 import { AuthContext } from "@/context/auth";
 import fetchWithCookie from "../../api/fetchClient";
 import { Input, Label, ButtonSignIn } from '@/components/sharing/form'
 import { toastError, toastSuccess } from "@/utils/toast";
+import QueryString from "qs";
 
 export const SigninForm = ({ switchToSignup }) => {
     const { register, handleSubmit } = useForm();
+    const router = useRouter()
+    const { password, username } = router.query
     const signinFormRef = useRef(null)
     const { setAccessTokenClient } = useContext(AuthContext);
-    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const onSubmit = (data, event) => {
         setLoading(true);
@@ -28,6 +30,14 @@ export const SigninForm = ({ switchToSignup }) => {
                 toastError(error)
             })
     }
+    useEffect(() => {
+        if (password != undefined && username != undefined) {
+            reset ({username, password});
+            document.getElementById("submit").click();
+
+        }
+    }
+    , [router.query.password, router.query.name])
     return (
         <div>
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -51,6 +61,7 @@ export const SigninForm = ({ switchToSignup }) => {
                         <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</a>
                     </div>
                     <ButtonSignIn type="submit"
+                        id="submit"
                         classNames={`${loading ? "loading" : ""}`}>
                         Sign in
                     </ButtonSignIn>

@@ -3,16 +3,16 @@ import {getProducts, getProductById, getProductBytType, deleteProducts, createPr
 import { Roles } from "../helper/Roles";
 import { authorize } from "../middleware/authorize";
 import { protect } from "../middleware/protect";
-
-var router = express.Router();
+const multer = require("../middleware/multer")
+const router = express.Router();
 
 router.route('/')
         .get(getProducts)
-        .post(protect, authorize(Roles.Admin, Roles.Seller,), createProduct)
+        .post(protect, authorize(Roles.Admin, Roles.Seller,), multer.single("image"), createProduct)
 
 router.route('/:productId')
         .get(getProductById)
-        .put(protect, authorize(Roles.Seller, Roles.Admin), editProduct)
+        .put(protect, authorize(Roles.Seller, Roles.Admin), multer.single("image"), editProduct)
 
 router.route('/type/:productType')
         .get(getProductBytType)

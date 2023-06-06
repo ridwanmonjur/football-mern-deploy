@@ -1,5 +1,5 @@
-import { Type } from "class-transformer";
-import { IsArray, IsBoolean, IsCreditCard, IsEmail, IsEnum, IsMongoId, IsOptional, IsString, Length, MinLength, ValidateNested } from "class-validator";
+import { plainToClass, plainToInstance, Transform, Type } from 'class-transformer'
+import { IsArray, IsBoolean, IsCreditCard, IsEmail, IsEnum, IsMongoId, IsOptional, IsString, Length, MinLength, ValidateNested, isString } from "class-validator";
 import "reflect-metadata";
 
 enum Roles{
@@ -16,16 +16,11 @@ class Address {
     second: string;
 }
 
-
 class CreditCard {
     @IsCreditCard()
     number: string;
     @Length(3, 4)
     CVV: string;
-    // constructor(c) {
-    //     this.creditCard = new CreditCard(creditCard);
-    // }
-
 }
 export class CreateUserDto {
     @IsEmail()
@@ -41,12 +36,15 @@ export class CreateUserDto {
     @IsString()
     @Length(3,32)
     name: string;
+
+    @IsOptional()
+    @IsString()
+    image: string;
     
     @Length(6,12)
     password: string;
 
     @IsOptional()
-    @Type(() => CreditCard)
     creditCard: CreditCard;
 
     @IsOptional()
@@ -91,6 +89,10 @@ export class Token {
 export class EditUserProfileDto {
     @IsOptional()
     token: Token;
+
+    @IsOptional()
+    @IsString()
+    image: string;
 
     @IsOptional()
     creditCard: CreditCard;

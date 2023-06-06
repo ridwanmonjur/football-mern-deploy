@@ -32,10 +32,14 @@ declare global {
       }
     namespace Express {
         interface Request {
-            userID: string
-            role: string
+            userID: string;
+            role: string;
+            file: any;
+            files: any; 
         }
+        
     }
+    
     namespace NodeJS {
         interface ProcessEnv {
             DB_CONNECTION: string;

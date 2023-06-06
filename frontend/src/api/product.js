@@ -21,20 +21,20 @@ export async function FetchProduct(productId) {
     else return response.product
 }
 
-export async function AddProduct(body) {
+export async function AddProduct(formData) {
 
     const response = await api('POST', `product`, {
-        mode: 'cors', body
+        mode: 'cors', formData,
     })
     if (!response || ("product" in response) === false) throw new Error("Missing product data")
 
     else return response.product
 }
 
-export async function EditProduct(id, body) {
+export async function EditProduct(id, formData) {
 
     const response = await api('PUT', `product/${id}`, {
-        mode: 'cors', body
+        mode: 'cors', formData
     })
     if (!response || ("product" in response) === false) throw new Error("Missing product data")
 

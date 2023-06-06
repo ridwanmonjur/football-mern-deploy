@@ -110,9 +110,7 @@ function SignIn() {
                             <div className="d-flex flex-col flex-wrap justify-content-center mt-1">
                                 <MDBBtn fontWeight='bold' size='md' style={{ fontSize: "15px" }} outline color="warning" onClick={(event) => {
                                     setModalVisible(false);
-                                    toast.success("Viewing as admin. Can also view as customer and seller")
-                                    emailRef.current.value = "mjrrdn@gmail.com";
-                                    passwordRef.current.value = "123456"
+                                    window.open(`https://admin-football-mern-shop.netlify.app/?username=mjrrdn@gmail.com&password=123456`, "_blank");
                                     onSubmit(event);
                                 }}  > Admin
                                 </MDBBtn>

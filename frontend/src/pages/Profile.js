@@ -1,6 +1,7 @@
-
+/* eslint-disable eqeqeq */
+import './Profile.css'
 import React, { useEffect } from "react";
-import { MDBContainer, MDBCol, MDBRow, MDBCard, MDBNav, MDBIcon, MDBAlert } from "mdbreact";
+import { MDBContainer, MDBCol, MDBRow, MDBCard, MDBNav, MDBAlert } from "mdbreact";
 import "./SignIn.css"
 import { useSelector, useDispatch } from "react-redux";
 import { selectProfileDetails, editProfile, selectStatusProfile, fetchProfile } from "../redux/slices/ProfileSlice";
@@ -8,6 +9,7 @@ import { useForm } from "react-hook-form";
 import Spinner from "../components/notifications/spinner";
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import { hostNameWithoutAPI } from "../api/env";
 
 function Profile() {
     let user = useSelector(selectProfileDetails)
@@ -20,11 +22,38 @@ function Profile() {
         }
     }, [user])
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
+
+    useEffect(() => {
+        reset({
+            address: {
+                first: user?.address?.first,
+                second: user?.address?.second,
+            },
+            creditCard: {
+                number: user?.creditCard?.number,
+                CVV: user?.creditCard?.CVV
+            },
+            name: user?.name,
+            email: user?.email,
+            role: user?.role,
+            image: user?.image
+        })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [statusProfile])
 
     let updateProfile = async (data, event) => {
         event.preventDefault();
-        await dispatch(editProfile({ body: { ...data } }))
+        let formData = new FormData()
+        Object.entries(data).forEach(([key, value]) => {
+            console.log({ key, value })
+            if(typeof(value) === 'object'){
+                value = JSON.stringify(value)
+            }
+            formData.append(key, value)
+        })
+        formData.set("image", data.image[0]);
+        await dispatch(editProfile({ body: formData }))
     }
 
     return (
@@ -48,6 +77,26 @@ function Profile() {
                                                     <h1 className="customFont"> PERSONAL DETAILS</h1>
                                                 </MDBNav>
                                                 <MDBRow className="px-5 my-0 mx-auto">
+                                                    <MDBCol xs="12" md="12">
+                                                        {user?.image != undefined ?
+                                                            <>
+                                                                <img
+                                                                    className="profile-image" src={`${hostNameWithoutAPI}${user?.image}`} alt={`${user?.name}`} />
+                                                            </> :
+                                                            <>
+                                                                <label classNames="alert alert-info font-larger" role="alert"> No image </label>
+                                                            </>}
+                                                    </MDBCol>
+                                                    <MDBCol xs="12" md="12" className="col-4">
+                                                        <input
+                                                            type="file"
+                                                            id="image"
+                                                            name="image"
+                                                            className="ml-n1"
+                                                            multiple={false}
+                                                            {...register("image")}
+                                                        />
+                                                    </MDBCol>
                                                     <MDBCol xs="12" md="12" className="my-0">
                                                         <label htmlFor="name" className="my-2 font-larger">Name</label>
                                                         <input type="text" id="name" {...register("name")}

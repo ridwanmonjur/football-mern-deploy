@@ -1,4 +1,4 @@
-import { MDBBtn } from "mdbreact"
+/* eslint-disable eqeqeq */
 
 export const Button = ({
     type,
@@ -7,12 +7,12 @@ export const Button = ({
     onClick
 })=>{
     return (
-        <MDBBtn 
+        <button 
             onClick={onClick}
             color=""
-            className={`${classNames!=undefined ? classNames : ""}`}
-            {...(type!==null ? {type} : {})}                >
+            className={`btn btn-sm ${classNames!=undefined ? classNames : ""}`}
+            {...(type!==null ? {type} : {})}>
                     {children}
-            </MDBBtn>
+            </button>
     )
 }

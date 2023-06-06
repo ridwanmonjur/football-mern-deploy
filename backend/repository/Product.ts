@@ -5,7 +5,7 @@ import { Product, ProductInterface } from "../models/Product";
 export class ProductRepository {
     populate= {
         path: 'seller',
-        select: 'name _id'
+        select: 'name email _id'
     }
 
     async findById(productId: ObjectId): Promise<ProductInterface> {

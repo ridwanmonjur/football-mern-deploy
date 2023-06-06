@@ -31,7 +31,7 @@ const NavbarLinks = ({ handleLogout }) => {
 const Company = () => {
     return (
         <div>
-            <img src='/raydigital.jpeg' className="w-10 h-10 ml-4 rounded-full inline" />
+            <img src='/ms-icon-310x310.png' className="w-10 h-10 ml-4 rounded-full inline" />
             <a className='p-2 text-lg ml-4 font-extrabold normal-case relative top-1'>
                 {myName}
             </a>

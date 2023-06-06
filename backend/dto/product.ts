@@ -1,5 +1,6 @@
 // import { Transform, Type } from "class-transformer";
-import { IsArray, IsBase64, IsMongoId, IsNumber, IsOptional, IsPositive, IsString, MinLength } from "class-validator";
+import { Type } from 'class-transformer'
+import { IsArray, IsMongoId, IsNumber, IsOptional, IsPositive, IsString, MinLength } from "class-validator";
 
 export class DeleteProductDtos {
   @IsArray()
@@ -26,17 +27,18 @@ export class CreateProductDto {
   @IsString()
   type: string;
 
-  @IsOptional()
-  @IsBase64()
+  @IsString()
   image: string;
 
   @IsMongoId()
   seller: string;
 
+  @Type(() => Number) 
   @IsNumber()
   @IsPositive()
   stock: number;
 
+  @Type(() => Number) 
   @IsNumber()
   @IsPositive()
   price: number;
@@ -55,15 +57,17 @@ export class EditProductDto {
   @IsMongoId()
   seller: string;
 
-  @IsOptional()
-  @IsBase64()
+  @IsString()
   image: string;
 
+  @Type(() => Number) 
   @IsNumber()
   @IsPositive()
   stock: number;
 
+  @Type(() => Number) 
   @IsNumber()
   @IsPositive()
   price: number;
 }
+

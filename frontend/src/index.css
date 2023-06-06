@@ -16,6 +16,7 @@
   src: url('./assets/PermanentMarker-Regular.ttf');
 }
 
+
 .customFont {
   font-family: permenantMarker;
 }
@@ -95,6 +96,10 @@ p {
 }
 
 
+.w-80s {
+  width: 90%;
+}
+
 @media only screen and (min-width: 1000px) {
   h1 {
       font-size: 6 em;
@@ -109,4 +114,20 @@ p {
       font-size: 3 em;
   }
 
+  .mt-only-largescreen{
+    margin-top: -20px !important;
+  }
+
+
+.w-80s {
+  width: 80%;
+}
+}
+
+.pagination-button{
+  /* padding: auto 50px !important; */
+}
+
+.mt-only-largescreen{
+  margin-top: 0;
 }

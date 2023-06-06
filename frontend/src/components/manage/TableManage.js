@@ -1,11 +1,12 @@
-import { useState } from "react"
+/* eslint-disable eqeqeq */
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import { DeleteProductByIds } from "../../api/product";
 import { toast } from "react-toastify";
+import { hostNameWithoutAPI } from "../../api/env";
 
-export const TableManage = ({
+function TableManage({
     productList, setCurrentIndex, deletProduct, loading, setIsOpen
-}) => {
+}) {
     const onDelete = async (id) => {
         try {
             await DeleteProductByIds({
@@ -28,7 +29,7 @@ export const TableManage = ({
                 <MDBTable className="product-table d-none d-lg-table w-80">
                     <MDBTableHead className="form-control font-weight-bold" color="amber lighten-5">
                         <tr>
-                            {['Name', 'Type', 'Manufactuer', 'Price', 'Stock', '', ''].map((value) =>
+                            {['Image', 'Name', 'Type', 'Manufactuer', 'Price', 'Stock', '', ''].map((value) =>
                                 <td>{value}</td>
                             )}
                         </tr>
@@ -39,7 +40,19 @@ export const TableManage = ({
                     <MDBTableBody>
                         {(productList || []).map((value, index) => (
                             <tr key={value?._id}>
-                                <td className="max-w-[300px] truncate pr-6">{value?.name}</td>
+                                <td className="">
+                                    {
+                                        value?.image != undefined ?
+                                            <>
+                                                <img
+                                                    className="card-image" src={`${hostNameWithoutAPI}${value?.image}`} alt={`${value?.name}`}
+                                                />
+                                            </> :
+                                            <>N/A</>
+                                    }
+                                </td>
+
+                                <td className="">{value?.name}</td>
                                 <td>{value?.manufacturer}</td>
                                 <td className="uppercase">{value?.type}</td>
                                 <td>£ {value?.price}</td>
@@ -80,7 +93,7 @@ export const TableManage = ({
     );
 };
 
-
+export default TableManage
 
 // eslint-disable-next-line no-lone-blocks
 {/*                     

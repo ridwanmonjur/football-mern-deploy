@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { ObjectId } from 'mongoose';
-import { HTTP404NotFoundError, HTTP422UnproccessableEntity } from '../exceptions/AppError';
+import { HTTP404NotFoundError, HTTP422UnproccessableEntity, HTTP500InternalServerrror } from '../exceptions/AppError';
 import { ProductInterface } from '../models/Product';
 import { ProductService } from '../service/Product';
 import { CreateProductDto, DeleteProductDtos, EditProductDto, ProductFilter } from '../dto/product';
@@ -13,7 +13,7 @@ const service = new ProductService();
 
 export async function getProducts(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        const {query, options} = extractRequestQueryForPagination(req.query)
+        const { query, options } = extractRequestQueryForPagination(req.query)
 
         const product = await service.getAllProducts(query, options) as PaginateResult<ProductInterface>;
 
@@ -54,7 +54,7 @@ export async function getProductBytType(req: Request, res: Response, next: NextF
 
         const product = await service.getAllProducts({ type }) as PaginateResult<ProductInterface>;
 
-        if (product==null) throw new HTTP404NotFoundError("Products are not found");
+        if (product == null) throw new HTTP404NotFoundError("Products are not found");
 
         res.status(StatusCodes.OK).json({ success: true, ...product });
     }
@@ -68,10 +68,19 @@ export async function getProductBytType(req: Request, res: Response, next: NextF
 export async function createProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     try {
-        if (req.body.seller==undefined && req.role=="seller") req.body.seller = req.userID
+        if (req.body.seller == undefined && req.role == "seller") req.body.seller = req.userID
+
+        if (req.file == undefined) {
+            throw new HTTP422UnproccessableEntity("Product image is missing!")
+        }
+        else {
+            if (req.file.path ==undefined) throw new HTTP500InternalServerrror("Couldn't get file path after saving!")
+            req.body.image = req.file.path;
+        }
+
         const productDto: CreateProductDto = await validationHelper(CreateProductDto, req.body);
 
-        const product = await service.createProduct( productDto );
+        const product = await service.createProduct(productDto);
 
         res.status(StatusCodes.OK).json({ success: true, product });
     }
@@ -81,17 +90,29 @@ export async function createProduct(req: Request, res: Response, next: NextFunct
 }
 
 export async function editProduct(req: Request, res: Response, next: NextFunction): Promise<void> {
-    
+
     let productId: undefined | ObjectId;
 
     try {
-        if (req.body.seller==undefined && req.role=="seller") req.body.seller = req.userID
+        if (req.body.seller == undefined && req.role == "seller") req.body.seller = req.userID
 
         productId = ObjectID(req.params.productId);
 
+        const productSearch = await service.getProductById(productId);
+
+        if (productSearch == null) throw new HTTP404NotFoundError("Product is not found");
+
+        if (req.file == undefined) {
+            req.body.image = productSearch?.image;
+        }
+        else {
+            if (req.file.path ==undefined) throw new HTTP500InternalServerrror("Couldn't get file path after saving!")
+            req.body.image = req.file.path;
+        }
+
         const productDto: EditProductDto = await validationHelper(EditProductDto, req.body);
 
-        const product = await service.editProduct(productId, productDto );
+        const product = await service.editProduct(productId, productDto);
 
         res.status(StatusCodes.OK).json({ success: true, product });
     }
@@ -102,7 +123,7 @@ export async function editProduct(req: Request, res: Response, next: NextFunctio
 
 export async function deleteProducts(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        console.log({ids: req.body})
+        console.log({ ids: req.body })
 
         await validationHelper(DeleteProductDtos, req.body)
 

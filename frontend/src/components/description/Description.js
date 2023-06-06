@@ -60,12 +60,7 @@ export function Description({ data }) {
         }
     }
 
-    // const imageExtension = data.image.substr(data.image.lastIndexOf('.') + 1)
-    // const imageNumber = data.image.match(/\d/g).join("");
-    // console.log({imageNumber, url: `${hostNameWithoutAPI}assets/${data.type}/imageL${imageNumber}`})
-
     return (
-
 
         <Fragment>
             {data.name !== undefined &&
@@ -87,6 +82,8 @@ export function Description({ data }) {
                                     <h5 className="font-weight-bold ">
                                         £ {data?.price}
                                     </h5>
+                                    <a href={`/profile/${data?.seller?._id}`} className='text-danger'><p>{data?.seller?.name}</p></a>
+                                    {/* <p>{data?.seller?.email}</p> */}
                                 </div>
                                 <br /> <hr /> <br />
                                 <div className="special-font">
