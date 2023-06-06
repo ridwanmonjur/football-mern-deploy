@@ -110,6 +110,7 @@ function SignIn() {
                             <div className="d-flex flex-col flex-wrap justify-content-center mt-1">
                                 <MDBBtn fontWeight='bold' size='md' style={{ fontSize: "15px" }} outline color="warning" onClick={(event) => {
                                     setModalVisible(false);
+                                    toast.success("Opened url in new tab!")
                                     window.open(`https://admin-football-mern-shop.netlify.app/?username=mjrrdn@gmail.com&password=123456`, "_blank");
                                     onSubmit(event);
                                 }}  > Admin

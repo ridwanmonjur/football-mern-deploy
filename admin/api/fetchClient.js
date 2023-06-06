@@ -4,7 +4,7 @@ import { maxAgeAccessoken } from '@/utils/const';
 
 
 const fetchClient = axios.create({
-    baseURL: "http://localhost:8000/api/v1",
+    baseURL: "https://mern-football-shop-4ssa.onrender.com/api/v1",
     headers: {
         "Content-Type": "application/json",
         'Accept': 'application/json'
