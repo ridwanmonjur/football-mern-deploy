@@ -1,6 +1,5 @@
 import { getCookie, setCookie } from 'cookies-next';
 import axios from "axios";
-import { maxAgeAccessoken } from '@/utils/const';
 
 
 const fetchClient = axios.create({
@@ -9,7 +8,7 @@ const fetchClient = axios.create({
         "Content-Type": "application/json",
         'Accept': 'application/json'
     },
-    withCredentials: true,
+    // withCredentials: true,
 });
 
 fetchClient.defaults.timeout = 6000
