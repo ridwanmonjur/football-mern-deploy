@@ -25,7 +25,7 @@ export const CartForm = ({
                     setLoading(false);
                     toastSuccess(response.message)
                     addToCart({ ...response.data });
-                }, 3000);
+                }, 2000);
             }
             catch (error) {
                 setLoading(false);
@@ -41,7 +41,7 @@ export const CartForm = ({
                 //     setLoading(false);
                 // toastSuccess(response.message)
                 //     editCart({ ...currentCart, ...data });
-                // }, 3000);
+                // }, 2000);
             } catch (error) {
                 setLoading(false);
                 toastError(error)

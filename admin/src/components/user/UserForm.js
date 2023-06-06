@@ -21,7 +21,7 @@ export const UserForm = ({
                     setLoading(false);
                     toastSuccess("Successfully added user")
                     addToUser({ ...response?.user });
-                }, 3000);
+                }, 2000);
             }
             catch (error) {
                 setLoading(false);
@@ -37,7 +37,7 @@ export const UserForm = ({
                     setLoading(false);
                     toastSuccess("Managed to edit user")
                     editUser(currentUser._id, response.user);
-                }, 3000);
+                }, 2000);
             } catch (error) {
                 setLoading(false);
                 toastError(error);

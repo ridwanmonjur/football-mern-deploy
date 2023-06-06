@@ -19,7 +19,7 @@ export const UserList = ({
                 setLoadingIndex(-1);
                 toastSuccess("Deleted data")
                 deletUser(id);
-            }, 3000)
+            }, 2000)
         }
         catch (error) {
             setLoadingIndex(-1);

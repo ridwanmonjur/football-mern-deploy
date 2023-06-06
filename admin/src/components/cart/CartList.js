@@ -19,7 +19,7 @@ export const CartList = ({
                 setLoadingIndex(-1);
                 toastSuccess("Deleted user successfully")
                 deletCart(id);
-            }, 3000)
+            }, 2000)
         }
         catch (error) {
             setLoadingIndex(-1);

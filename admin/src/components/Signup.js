@@ -18,7 +18,7 @@ export const SignupForm = ({ switchToSignin }) => {
                 setLoading(false);
                 toastSuccess("Signed in. Now login")
                 switchToSignin();
-            }, 3000);
+            }, 2000);
         }
         catch (error) {
             setLoading(false);

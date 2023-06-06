@@ -18,7 +18,7 @@ export const ProductList = ({
                 setLoadingIndex(-1);
                 toastSuccess("Deleted successfully")
                 deletProduct(id);
-            }, 3000)
+            }, 2000)
         }
         catch (error) {
             setLoadingIndex(-1);
