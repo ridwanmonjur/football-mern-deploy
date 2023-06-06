@@ -13,6 +13,7 @@
     "axios": "^1.4.0",
     "build-url": "^6.0.1",
     "cookies-next": "^2.1.1",
+    "cors": "^2.8.5",
     "daisyui": "^2.51.6",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
