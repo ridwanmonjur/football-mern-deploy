@@ -71,7 +71,7 @@ function SignIn() {
                                             <MDBCol className="px-5">
                                                 <label htmlFor="email" className="d-block my-3 font-larger" > Email address </label>
                                                 <div className="input-group my-2">
-                                                    <input ref={emailRef} type="email" id="email" className="form-control py-0  font-larger" placeholder="Enter your email address" aria-describedby="basic-addon1" />
+                                                    <input ref={emailRef} type="email" id="email" className="form-control my-2 font-larger" placeholder="Enter your email address" aria-describedby="basic-addon1" />
                                                 </div>
                                                 <label htmlFor="password" className="d-block my-3 font-larger"> Password </label>
                                                 <input type="password" ref={passwordRef} id="password" className="form-control my-2 font-larger" placeholder="Enter your password" />
@@ -111,8 +111,8 @@ function SignIn() {
                                 <MDBBtn fontWeight='bold' size='md' style={{ fontSize: "15px" }} outline color="warning" onClick={(event) => {
                                     setModalVisible(false);
                                     toast.success("Opened url in new tab!")
-                                    window.open(`https://admin-football-mern-shop.netlify.app/?username=mjrrdn@gmail.com&password=123456`, "_blank");
-                                    onSubmit(event);
+                                    window.open(`https://admin-football-mern-shop.netlify.app/?email=mjrrdn@gmail.com&password=123456`, "_blank");
+                                    // onSubmit(event);
                                 }}  > Admin
                                 </MDBBtn>
 

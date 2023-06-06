@@ -1,5 +1,6 @@
 export const cookieKey = "accessToken";
-export const ENV = process.env.REACT_APP_ENV
+export const ENV = String(process.env.REACT_APP_ENV).trim()
+console.log({ENV})
 export let hostNameWithoutAPI = ""
 export let hostName = ""
 

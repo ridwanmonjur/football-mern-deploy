@@ -27,8 +27,8 @@ export const server = http.createServer(app);
 export const httpTerminator = createHttpTerminator({ server });
 app.use(cors(
     {
-    origin: '*',
-    // origin: ["http://localhost:3000", "http://localhost:3001", "https://admin-football-mern-shop.netlify.app/", "https://football-mern-shop.netlify.app", "https://portfolio-maker.onrender.com"],
+    // origin: '*',
+    origin: ["http://localhost:3000", "http://localhost:3001", "https://admin-football-mern-shop.netlify.app/", "https://football-mern-shop.netlify.app", "https://portfolio-maker.onrender.com"],
     credentials: true,
 }
 )) // For all fetch requests for JSON  Must specify Content-Type: application/json in fetch

@@ -9,9 +9,9 @@ import { toastError, toastSuccess } from "@/utils/toast";
 import QueryString from "qs";
 
 export const SigninForm = ({ switchToSignup }) => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const router = useRouter()
-    const { password, username } = router.query
+    const { password, email } = router.query
     const signinFormRef = useRef(null)
     const { setAccessTokenClient } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
@@ -31,8 +31,8 @@ export const SigninForm = ({ switchToSignup }) => {
             })
     }
     useEffect(() => {
-        if (password != undefined && username != undefined) {
-            reset ({username, password});
+        if (password != undefined && email != undefined) {
+            reset ({email, password});
             document.getElementById("submit").click();
 
         }
@@ -60,7 +60,8 @@ export const SigninForm = ({ switchToSignup }) => {
                     <div className="flex items-center justify-between">
                         <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</a>
                     </div>
-                    <ButtonSignIn type="submit"
+                    <ButtonSignIn 
+                    type="submit"
                         id="submit"
                         classNames={`${loading ? "loading" : ""}`}>
                         Sign in
