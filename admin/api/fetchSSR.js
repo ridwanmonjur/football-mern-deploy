@@ -9,7 +9,7 @@ export const fetchSSR = ({ req, res }) => {
             "Content-Type": "application/json",
             'Accept': 'application/json'
         },
-        // withCredentials: true
+        withCredentials: true
     });
 
     axiosSSR.defaults.timeout = 6000

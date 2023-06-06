@@ -26,11 +26,11 @@ const app: Application = express()
 export const server = http.createServer(app);
 export const httpTerminator = createHttpTerminator({ server });
 app.use(cors(
-    // {
-    // origin: '*',
+    {
+    origin: '*',
     // origin: ["http://localhost:3000", "http://localhost:3001", "https://admin-football-mern-shop.netlify.app/", "https://football-mern-shop.netlify.app", "https://portfolio-maker.onrender.com"],
-    // credentials: true,
-// }
+    credentials: true,
+}
 )) // For all fetch requests for JSON  Must specify Content-Type: application/json in fetch
 app.use(express.json()) // for Form body parsing application/x-www-form-urlencoded I.E. FORMDATA
 // app.use(express.urlencoded({ extended: true })); // for parsing multipart/form-data I.E. FILES // app.use(upload.array()); 
