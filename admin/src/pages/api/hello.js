@@ -1,15 +1,16 @@
-import NextCors from 'nextjs-cors';
+import cors from "cors";
+import nc from "next-connect";
 
-async function handler(req, res) {
-   // Run the cors middleware
-   // nextjs-cors uses the cors package, so we invite you to check the documentation https://github.com/expressjs/cors
-   await NextCors(req, res, {
-      // Options
-      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-      origin: '*',
-      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-   });
+const handler = nc()
+  // use connect based middleware
+  .use(cors())
+  .head(async (req, res) => {
+    const query = new URL(req.url ?? '/', `http://${req.headers.host}`).searchParams;
+    const url = query.get('url');
+    if(!url) return res.writeHead(404).end();
+    const response = await fetch(url, { method: 'head' })
+      .catch(() => null);
+    res.writeHead(response?.ok ? 200 : 404).end();
+  });
 
-   // Rest of the API logic
-   res.json({ message: 'Hello NextJs Cors!' });
-}
+export default handler;
