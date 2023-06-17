@@ -29,7 +29,7 @@ app.use(cors(
     {
     origin: '*',
     // origin: ["http://localhost:3000", "http://localhost:3001", "https://admin-football-mern-shop.netlify.app/", "https://football-mern-shop.netlify.app", "https://portfolio-maker.onrender.com"],
-    credentials: true,
+    // credentials: true,
 }
 )) // For all fetch requests for JSON  Must specify Content-Type: application/json in fetch
 app.use(express.json()) // for Form body parsing application/x-www-form-urlencoded I.E. FORMDATA
