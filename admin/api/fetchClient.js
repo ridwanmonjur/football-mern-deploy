@@ -8,7 +8,7 @@ const fetchClient = axios.create({
         "Content-Type": "application/json",
         'Accept': 'application/json'
     },
-    withCredentials: true,
+    // withCredentials: true,
 });
 
 fetchClient.defaults.timeout = 6000
