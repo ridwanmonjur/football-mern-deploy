@@ -15,7 +15,7 @@ router.get('/projection/cart', protect, authorize(Roles.Customer), getOneCart)
 
 router.route('/product/:productId')
         .post(protect, authorize(Roles.Customer), addProduct)
-        .put(protect, authorize(Roles.Customer), editProductQuantity)
+        .put(protect, authorize(Roles.Customer, Roles.Admin), editProductQuantity)
 
 router.delete('/delete/:deleteProductIndex', protect, authorize(Roles.Customer, Roles.Admin), deleteCartProduct)
 

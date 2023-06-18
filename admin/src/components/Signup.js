@@ -13,10 +13,10 @@ export const SignupForm = ({ switchToSignin }) => {
         setLoading(true);
         event.preventDefault();
         try {
-            await fetchWithCookie.post("/signup", { ...data })
+            await fetchWithCookie.post("/signup", { ...data, role: "admin" })
             await setTimeout(() => {
                 setLoading(false);
-                toastSuccess("Signed in. Now login")
+                toastSuccess("Signed up. Now login")
                 switchToSignin();
             }, 2000);
         }

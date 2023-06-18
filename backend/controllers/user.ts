@@ -78,9 +78,7 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
             if (value in req.body) req.body[value] = JSON.parse(req.body[value])
         })
 
-
         if (userSearch == null) throw new HTTP404NotFoundError("User is not found");
-
 
         if (req.file == undefined) {
             if (userSearch?.image != undefined) req.body.image = userSearch?.image;
@@ -93,7 +91,7 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
 
         const editDtos: EditUserProfileDto = await validationHelper(EditUserProfileDto, req.body);
 
-        console.log({userSearch: userSearch.image, req: req.body.image, editDtos: editDtos.image, file: req.file.path})
+        console.log({ userSearch: userSearch.image, req: req.body.image, editDtos: editDtos.image, file: req.file.path })
 
         user = await service.findByIdAndUpdate(userId, { ...editDtos });
 
@@ -115,6 +113,8 @@ export async function editUserById(req: Request, res: Response, next: NextFuncti
     let user: UserInterface | null;
 
     try {
+        console.log({ started: true });
+
         userId = ObjectID(req.params.userId);
 
         const userSearch = await service.getUserById(userId);
@@ -122,8 +122,22 @@ export async function editUserById(req: Request, res: Response, next: NextFuncti
         if (userSearch == null) throw new HTTP404NotFoundError("User is not found");
 
         ['token', 'address', 'creditCard'].forEach((value) => {
-            req.body[value] = JSON.parse(value)
+            console.log({value})
+            if (value in req.body) req.body[value] = JSON.parse(req.body[value])
+            console.log({value})
+
         })
+
+        console.log({ started: true });
+
+        if (req.file == undefined) {
+            if (userSearch?.image != undefined) req.body.image = userSearch?.image;
+            delete req.body.image;
+        }
+        else {
+            if (req.file.path == undefined) throw new HTTP500InternalServerrror("Couldn't get file path after saving!")
+            req.body.image = req.file.path;
+        }
 
         console.log({ userSearch, body: req.body })
 
@@ -144,8 +158,9 @@ export async function editUserById(req: Request, res: Response, next: NextFuncti
 
 export async function signup(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+
         ['token', 'address', 'creditCard'].forEach((value) => {
-            req.body[value] = JSON.parse(value)
+            if (value in req.body) req.body[value] = JSON.parse(value) 
         })
 
         if (req.file == undefined) {
@@ -157,6 +172,8 @@ export async function signup(req: Request, res: Response, next: NextFunction): P
         }
 
         const signupDtos: CreateUserDto = await validationHelper(CreateUserDto, req.body);
+
+        console.log({ signupDtos })
 
         const { user, cart } = await service.signupUser(signupDtos);
 

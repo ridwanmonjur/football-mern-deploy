@@ -14,7 +14,7 @@ export default function Drawer({
     const { handleLogout } = useContext(AuthContext);
 
     return (
-        <div className="drawer drawer-mobile max-h-fit h-auto">
+        <div className="drawer drawer-mobile max-h-fit h-auto text-sm">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content max-h-fit">
                 {children}
@@ -26,7 +26,7 @@ export default function Drawer({
                         links.map(
                             (value) => (
                                 <>
-                                    <li>
+                                    <li key={value.href+ value.label}>
                                         <Link href={value.href}>{value.label}</Link>
                                     </li>
                                 </>

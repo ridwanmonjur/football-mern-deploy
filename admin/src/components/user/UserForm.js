@@ -1,22 +1,31 @@
 import fetchClient from "../../../api/fetchClient";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from 'react-toastify';
 import { ButtonPanel, Input, LabelModal } from "../sharing/form";
-import { toastSuccess } from "@/utils/toast";
+import { toastSuccess, toastError } from "@/utils/toast";
 
 export const UserForm = ({
     currentUser, setCurrentIndex, addToUser, editUser, currentIndex
 }) => {
     const isAddMode = currentUser === null;
-    const { register, handleSubmit, reset, setValue } = useForm();
+    const { register, handleSubmit, watch, reset, setValue, formState: { errors } } = useForm({
+        mode: "all"
+    });
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data, event) => {
         setLoading(true);
         event.preventDefault();
+        let formData = new FormData()
+        Object.entries(data).forEach(([key, value]) => {
+            if (typeof (value) == 'object') {
+                value = JSON.stringify(value);
+            }
+            formData.append(key, value)
+        })
+        formData.set("image", data.image[0]);
         if (isAddMode) {
             try {
-                const response = await fetchClient.post('/user', data)
+                const response = await fetchClient.post('/user', formData)
                 await setTimeout(() => {
                     setLoading(false);
                     toastSuccess("Successfully added user")
@@ -30,9 +39,7 @@ export const UserForm = ({
         }
         else {
             try {
-                const response = await fetchClient.put(`/user/${currentUser._id}`, {
-                    ...data,
-                })
+                const response = await fetchClient.put(`/user/${currentUser._id}`, formData)
                 await setTimeout(() => {
                     setLoading(false);
                     toastSuccess("Managed to edit user")
@@ -53,7 +60,7 @@ export const UserForm = ({
                 email: '',
                 name: '',
                 role: '',
-                token :{ isVerified: false }
+                token: { isVerified: false }
             })
             setValue("token.isVerified", false)
         }
@@ -65,7 +72,7 @@ export const UserForm = ({
                 email: currentUser?.email,
                 name: currentUser?.name,
                 role: currentUser?.role,
-                token : { isVerified: currentUser?.token?.isVerified }
+                token: { isVerified: currentUser?.token?.isVerified }
             })
         }
     }, [currentIndex])
@@ -81,6 +88,49 @@ export const UserForm = ({
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <div className="mx-auto">
+
+                    {!isAddMode ?
+                        <>
+                            {currentUser?.image ?
+                                <img
+                                    className="avatar w-32" src={`${process.env.PRODUCTION}/${currentUser?.image}`} alt={`${currentUser?.name}`} />
+                                :
+                                <>No user image</>
+
+                            }
+                            <LabelModal text="Upload Image" />
+                            <Input
+                                type="file"
+                                id="image"
+                                name="image"
+                                className="ml-n1"
+                                multiple={false}
+                                {...register("image")}
+                            />
+
+                            <LabelModal text="User id" />
+                            <Input
+                                type="text"
+                                defaultValue={currentUser?._id}
+                                disabled={true}
+                            />
+                        </>
+                        :
+                        <>
+                            <Input
+                                type="file"
+                                id="image"
+                                name="image"
+                                className="ml-n1"
+                                multiple={false}
+                                {...register("image", {
+                                    required: "Must be provided"
+                                })}
+                            />
+                            {errors.image && <p className="text-warning">{errors.image.message}</p>}
+
+                        </>
+                    }
                     {/* User name */}
                     {!isAddMode
                         &&
@@ -91,29 +141,38 @@ export const UserForm = ({
                                 defaultValue={currentUser?._id}
                                 disabled
                                 placeholder="Enter user name..."
-
                             />
+
                         </>
                     }
                     <LabelModal text="User name" />
                     <Input
                         type="text"
                         defaultValue={currentUser?.name}
-                        {...register("name")}
-                        required
+                        {...register("name", {
+                            required: "This field is required",
+                            minLength: { value: 3, message: "Minimum length 3" }
+                        })}
                         placeholder="Enter user name..."
-
                     />
+                    {errors.name && <p className="text-warning">{errors.name.message}</p>}
+
                     {/* Email */}
                     <LabelModal text="Email" />
                     <Input
                         type="text"
                         defaultValue={currentUser?.email}
-                        {...register("email")}
-                        required
+                        {...register("email", {
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: "Invalid email address"
+                            },
+                            required: "This field is required",
+                        })}
                         placeholder="Enter email..."
-
                     />
+                    {errors.email && <p className="text-warning">{errors.email.message}</p>}
+
                     <div className="grid lg:grid-cols-2">
                         {isAddMode &&
                             <>
@@ -123,8 +182,12 @@ export const UserForm = ({
                                     <Input
                                         type="password"
                                         placeholder="*********"
-                                        {...register("password")}
+                                        {...register("password", {
+                                            required: "This field is required",
+                                            minLength: { value: 6, message: "Minimum length 6" }
+                                        })}
                                     />
+                                    {errors.password && <p className="text-warning">{errors.password.message}</p>}
                                 </div>
                                 <div>
                                     {/* Confirm Password */}
@@ -132,8 +195,15 @@ export const UserForm = ({
                                     <Input
                                         type="password"
                                         placeholder="*********"
-                                        {...register("confirmPassword")}
+                                        {...register("confirmPassword", {
+                                            validate: (val) => {
+                                                if (watch('password') != val) {
+                                                    return "Your passwords do no match";
+                                                }
+                                            },
+                                        })}
                                     />
+                                    {errors.confirmPassword && <p className="text-warning">{errors.confirmPassword.message}</p>}
                                 </div>
                             </>
                         }
@@ -143,11 +213,14 @@ export const UserForm = ({
                             <Input
                                 type="checkbox"
                                 className="toggle toggle-success"
-                                {...register("token.isVerified")}
+                                {...register("token.isVerified", {
+                                    required: "This is required"
+                                })}
                                 {
                                 ...(currentUser?.token?.isVerified ? { defaultChecked: true } : {})
                                 }
                             />
+                            {errors.token && errors.token.isVerified && <p className="text-warning">{errors.token.isVerified.message}</p>}
                         </div>
                         <div>
                             {/* Role */}
@@ -155,11 +228,17 @@ export const UserForm = ({
                             <Input
                                 type="text"
                                 defaultValue={currentUser?.role}
-                                {...register("role")}
-                                required
+                                {...register("role", {
+                                    required: "This field is required",
+                                    validate: (val) => {
+                                        if (!['admin', 'customer', 'seller'].includes(val)) {
+                                            return "Values can be only: 'admin', 'customer', 'seller'";
+                                        }
+                                    },
+                                })}
                                 placeholder="Enter user role..."
-
                             />
+                            {errors.role && <p className="text-warning">{errors.role.message}</p>}
                         </div>
                         <div>
                             {/* Address First */}
@@ -167,10 +246,14 @@ export const UserForm = ({
                             <Input
                                 type="text"
                                 defaultValue={currentUser?.address?.first}
-                                {...register("address.first")}
+                                {...register("address.first", {
+                                    required: "This field is required",
+                                    minLength: { value: 6, message: "Minimum length 6" }
+                                })}
                                 placeholder="Enter address first line..."
-
                             />
+                            {errors.address && errors.address.first && <p className="text-warning">{errors.address.first.message}</p>}
+
                         </div>
                         <div>
                             {/* Manufacturer */}
@@ -178,10 +261,13 @@ export const UserForm = ({
                             <Input
                                 type="text"
                                 defaultValue={currentUser?.address?.second}
-                                {...register("address.second")}
+                                {...register("address.second", {
+                                    required: "This field is required",
+                                    minLength: { value: 3, message: "Minimum length 3" }
+                                })}
                                 placeholder="Enter address second line..."
-
                             />
+                            {errors.address && errors.address.second && <p className="text-warning">{errors.address.second.message}</p>}
                         </div>
                         <div>
                             {/* Credit card number */}
@@ -189,10 +275,13 @@ export const UserForm = ({
                             <Input
                                 type="text"
                                 defaultValue={currentUser?.creditCard?.number}
-                                {...register("creditCard.number")}
+                                {...register("creditCard.number", {
+                                    required: "This field is required",
+                                })}
                                 placeholder="Enter Credit Card Number..."
-
                             />
+                            {errors.creditCard && errors.creditCard.number && <p className="text-warning">{errors.creditCard.second.message}</p>}
+
                         </div>
                         <div>
                             {/* Credit Card CVV */}
@@ -200,14 +289,19 @@ export const UserForm = ({
                             <Input
                                 type="text"
                                 defaultValue={currentUser?.creditCard?.CVV}
-                                {...register("creditCard.CVV")}
+                                {...register("creditCard.CVV", {
+                                    required: "This field is required",
+                                    minLength: { value: 3, message: "Minimum length 3" },
+                                    maxLength: { value: 4, message: "Maximum length 4" }
+                                })}
                                 placeholder="Enter Credit Card CVV..."
-
                             />
+                            {errors.creditCard && errors.creditCard.CVV && <p className="text-warning">{errors.creditCard.CVV.message}</p>}
+
                         </div>
                     </div>
 
-                    <div className="flex justify-center">
+                    <div className="flex justify-around mt-4">
                         {
                             isAddMode ?
                                 <>

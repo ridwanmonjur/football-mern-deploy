@@ -4,7 +4,7 @@ import { getCookie } from 'cookies-next';
 export const fetchSSR = ({ req, res }) => {
 
     const axiosSSR = axios.create({
-        baseURL: "https://mern-football-shop-4ssa.onrender.com/api/v1",
+        baseURL: `${process.env.BACKEND}/api/v1`,
         headers: {
             "Content-Type": "application/json",
             'Accept': 'application/json'

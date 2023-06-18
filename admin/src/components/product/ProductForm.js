@@ -8,19 +8,24 @@ export const ProductForm = ({
     currentProduct, setCurrentIndex, addToProduct, editProduct, currentIndex
 }) => {
     const isAddMode = currentProduct === null;
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+        mode: "all"
+    });
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data, event) => {
         setLoading(true);
         event.preventDefault();
+        const typeSwitcher = document.getElementById('type')
+        let formData = new FormData()
+        Object.entries(data).forEach(([key, value]) => {
+            console.log({ key, value })
+            formData.append(key, value)
+        })
+        if (data.image[0]) formData.set("image", data.image[0]);
+        formData.set("type", typeSwitcher.value)
         if (isAddMode) {
             try {
-                const typeSwitcher = document.getElementById('type')
-                const response = await fetchClient.post('/product', {
-                    ...data,
-                    // daisyui select removes from dom tree
-                    type: typeSwitcher.value
-                })
+                const response = await fetchClient.post('/product', formData)
                 setLoading(false);
                 toastSuccess("Added product successfully");
                 addToProduct(response.product);
@@ -32,13 +37,7 @@ export const ProductForm = ({
         }
         else {
             try {
-                const typeSwitcher = document.getElementById('type')
-                // daisyui select removes from dom tree
-                const response = await fetchClient.put(`/product/${currentProduct._id}`, {
-                    ...data,
-                    // daisyui select removes from dom tree
-                    type: typeSwitcher.value
-                })
+                const response = await fetchClient.put(`/product/${currentProduct._id}`, formData)
                 setLoading(false);
                 toastSuccess("Edited product successfully");
                 editProduct(currentProduct._id, response.product);
@@ -86,11 +85,25 @@ export const ProductForm = ({
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <div className="mx-auto">
-
-                    {/* Product name */}
-                    {!isAddMode
-                        &&
+                    {!isAddMode ?
                         <>
+                            {currentProduct?.image ?
+                                <img
+                                    className="avatar w-32" src={`${process.env.PRODUCTION}/${currentProduct?.image}`} alt={`${currentProduct?.name}`} />
+                                :
+                                <>No product image</>
+
+                            }
+                            <LabelModal text="Upload Image" />
+                            <Input
+                                type="file"
+                                id="image"
+                                name="image"
+                                className="ml-n1"
+                                multiple={false}
+                                {...register("image")}
+                            />
+
                             <LabelModal text="Product id" />
                             <Input
                                 type="text"
@@ -98,24 +111,47 @@ export const ProductForm = ({
                                 disabled={true}
                             />
                         </>
+                        :
+                        <>
+                            <Input
+                                type="file"
+                                id="image"
+                                name="image"
+                                className="ml-n1"
+                                multiple={false}
+                                {...register("image", {
+                                    required: "Must be provided"
+                                })}
+                            />
+                            {errors.image && <p className="text-warning">{errors.image.message}</p>}
+
+                        </>
                     }
+
                     <LabelModal text="Product name" />
                     <Input
                         type="text"
                         defaultValue={currentProduct?.name}
-                        {...register("name")}
-                        required
+                        {...register("name", {
+                            required: "This field is required",
+                            minLength: { value: 3, message: "Min Length must be 3" },
+                        })}
                         placeholder="Enter product name..."
                     />
+                    {errors.name && <p className="text-warning">{errors.name.message}</p>}
+
                     {/* Seller id */}
                     <LabelModal text="Seller id" />
                     <Input
                         type="text"
-                        {...register("seller")}
-                        required
+                        {...register("seller", {
+                            required: "This field is required",
+                            minLength: { value: 3, message: "Min Length must be 3" },
+                        })}
                         defaultValue={currentProduct?.seller?._id}
                         placeholder="Enter seller id..."
                     />
+                    {errors.seller && <p className="text-warning">{errors.seller.message}</p>}
 
                     {/* Seller name */}
                     {!isAddMode
@@ -139,7 +175,7 @@ export const ProductForm = ({
                                     id="type"
                                     name="type"
                                     {...register("type")}
-                                    {...(!isAddMode && { defaultValue: currentProduct?.type })}
+                                    defaultValue={currentProduct?.type}
                                     optionNames={["Jerseys", "Accessories", "Boots"]}
                                     optionValues={["jerseys", "accessories", "boots"]}
                                 />
@@ -151,11 +187,12 @@ export const ProductForm = ({
                             <Input
                                 type="text"
                                 defaultValue={currentProduct?.manufacturer}
-                                {...register("manufacturer")}
-                                required
+                                {...register("manufacturer", {
+                                    required: "This field is required",
+                                })}
                                 placeholder="Enter product manufacturer..."
-
                             />
+                            {errors.manufacturer && <p className="text-warning">{errors.manufacturer.message}</p>}
                         </div>
                         <div>
                             {/* Price */}
@@ -166,11 +203,13 @@ export const ProductForm = ({
                                 {...register("price",
                                     {
                                         valueAsNumber: true,
-                                    })}
-                                required
-                                placeholder="Enter price..."
+                                        min: { value: 1, message: "Value must be minimum 1" }
 
+                                    })}
+                                placeholder="Enter price..."
                             />
+                            {errors.price && <p className="text-warning">{errors.price.message}</p>}
+
                         </div>
                         <div>
                             {/* Manufacturer */}
@@ -181,10 +220,12 @@ export const ProductForm = ({
                                 {...register("stock",
                                     {
                                         valueAsNumber: true,
+                                        min: { value: 1, message: "Value must be minimum 1" }
                                     })}
-                                required
                                 placeholder="Enter stock..."
                             />
+                            {errors.stock && <p className="text-warning">{errors.stock.message}</p>}
+
                         </div>
                     </div>
 

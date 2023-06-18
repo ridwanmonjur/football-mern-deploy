@@ -2,21 +2,29 @@ import fetchClient from "../../../api/fetchClient";
 import { useRef, useState, useEffect, Fragment } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { toast } from 'react-toastify';
-import { ButtonSignIn, Input, LabelModal, Select } from "../sharing/form";
+import { ButtonPanel, ButtonSignIn, Input, LabelModal, Select } from "../sharing/form";
 import { toastError, toastSuccess } from "@/utils/toast";
 
 export const CartForm = ({
-    currentCart, setCurrentIndex, addToCart, editCart, currentIndex
+    currentCart, setCurrentIndex, addToCart,  currentIndex, editCart
 }) => {
     const isAddMode = currentCart === null;
-    const { control, register, handleSubmit, reset, setValue } = useForm();
-    const {  } = useFieldArray({
+    const { control, register, handleSubmit, reset,  formState: { errors } } = useForm({
+        mode: "all"
+    });
+    const { } = useFieldArray({
         control,
         name: "description",
     });
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data, event) => {
         setLoading(true);
+        if (document.getElementById('status') != undefined) 
+            data.status = currentCart?.status;
+        if (data.status =="no-value" || data.status == null){
+            toast.error ("Cart status is a required value.")
+            return;
+        }
         event.preventDefault();
         if (isAddMode == true) {
             try {
@@ -32,25 +40,10 @@ export const CartForm = ({
                 toastError(error)
             }
         }
-        else {
-            try {
-                // const response = await fetchClient.put(`/cart/${currentCart._id}`, {
-                //     ...data,
-                // })
-                // await setTimeout(() => {
-                //     setLoading(false);
-                // toastSuccess(response.message)
-                //     editCart({ ...currentCart, ...data });
-                // }, 2000);
-            } catch (error) {
-                setLoading(false);
-                toastError(error)
-            }
-        }
     }
     const formRef = useRef(null)
     useEffect(() => {
-        if (document.getElementById('status')!= undefined) document.getElementById('status').value = currentCart?.status;
+        if (document.getElementById('status') != undefined) document.getElementById('status').value = currentCart?.status;
         // setValue("status", currentCart?.status)
     }, [currentIndex])
     return (
@@ -68,7 +61,7 @@ export const CartForm = ({
                     {
                         isAddMode &&
                         <>
-                        <LabelModal text="Cart user id" />
+                            <LabelModal text="Cart user id" />
                             <Input
                                 type="text"
                                 placeholder="Add user id"
@@ -126,11 +119,11 @@ export const CartForm = ({
                                     <Select
                                         defaultValue={currentCart?.status}
                                         {...register("status")}
-                                        required
                                         id="status"
                                         optionNames={["Active", "Paid", "Delivered"]}
                                         optionValues={["active", "paid", "delivered"]}
                                     />
+                                    {errors.status && <p className="text-warning">{errors.status.message}</p>}
                                 </div>
                             </div>
                         </>)
@@ -160,30 +153,25 @@ export const CartForm = ({
                                             defaultValue={currentCart?.description[index]?.quantity}
                                             {...register(`description.${index}.quantity`)}
                                         />
+                                        {errors.description 
+                                        && errors.description[index] 
+                                        && errors.description[index].quantity
+                                        && <p className="text-warning">{errors.description[index].quantity.message}</p>}
                                     </div>
                                 </div>
                             </Fragment>
                         )
                     })}
 
-                    <div className="flex justify-center">
+                    <div className="flex justify-around mt-6">
                         {
-                            isAddMode ?
+                            isAddMode &&
                                 <>
-                                    <ButtonSignIn classNames={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit" >
+                                    <ButtonPanel classNames={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit" >
                                         Add Cart
-                                    </ButtonSignIn>
+                                    </ButtonPanel>
                                 </>
-                                :
-                                <>
-                                    <ButtonSignIn className={`btn btn-primary mt-4 ${loading ? "loading" : ""}`} type="submit">
-                                        Edit Cart
-                                    </ButtonSignIn>
-                                    <ButtonSignIn className={`btn btn-primary mt-4 ml-5`}
-                                        onClick={() => { reset(); setCurrentIndex(-1); }}>
-                                        Add mode
-                                    </ButtonSignIn>
-                                </>
+                                
                         }
                     </div>
 

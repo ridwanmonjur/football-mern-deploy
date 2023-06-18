@@ -32,7 +32,7 @@ const Company = () => {
     return (
         <div>
             <img src='/ms-icon-310x310.png' className="w-10 h-10 ml-4 rounded-full inline" />
-            <a className='p-2 text-lg ml-4 font-extrabold normal-case relative top-1'>
+            <a className='p-2 text-base ml-4 font-extrabold normal-case relative top-1'>
                 {myName}
             </a>
         </div>
@@ -43,7 +43,7 @@ export default function Header() {
     const { handleLogout } = useContext(AuthContext);
 
     return (
-        <div className='border-gray navbar border-b bg-slate-50 shadow-lg '>
+        <div className='border-gray navbar border-b bg-slate-50 shadow-lg text-base'>
             <div className='navbar-start'>
                 <div className='dropdown'>
                     <label tabIndex={0} className='btn-ghost btn lg:hidden'>
@@ -74,7 +74,7 @@ export default function Header() {
                 </div>
             </div>
             <div className='navbar-end hidden lg:flex'>
-                <ul className='menu menu-horizontal px-1 text-lg font-semibold'>
+                <ul className='menu menu-horizontal px-1 text-base font-semibold'>
                     <NavbarLinks handleLogout={handleLogout} />
                 </ul>
             </div>
