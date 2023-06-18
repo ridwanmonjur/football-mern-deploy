@@ -31,7 +31,7 @@ class ErrorHandler {
     }
     winstonLogger.error('Application encountered an untrusted error.');
     winstonLogger.error(error);
-    if (!process.env.DEVELOPMENT) exitHandler.handleExit(1);
+    // if (!process.env.DEVELOPMENT) exitHandler.handleExit(1);
   }
 }
 
