@@ -54,8 +54,8 @@ app.use(handleError);
 /************************************************************* */
 setInterval(() => {
     winstonLogger.info({fetched: true})
-    https.get("https://portfolio-maker.onrender.com/users/user/default");
-    https.get("https://portfolio-maker.onrender.com/users/user/default");
+    https.get("https://portfolio-maker-twey.onrender.com/users/user/default");
+    https.get("https://portfolio-maker-twey.onrender.com/users/user/default");
   }, 8 * 60 * 1000); // every 8 min
 // Start app
 app.listen(port, function () {
