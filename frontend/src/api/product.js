@@ -18,7 +18,7 @@ export async function FetchProduct(productId) {
     })
     if (!response || ("product" in response) === false) throw new Error("Missing product data")
 
-    else return response.product
+    else return response
 }
 
 export async function AddProduct(formData) {

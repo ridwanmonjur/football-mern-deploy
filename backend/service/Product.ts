@@ -1,9 +1,10 @@
-import { ObjectId } from "mongoose";
 import { Product, ProductInterface } from "../models/Product";
 import { ProductRepository } from "../repository/Product";
 import { CreateProductDto } from "../dto/product";
-import { UpdateWriteOpResult } from "mongoose";
 import { User, UserInterface } from "../models/User";
+import { isMongoId } from "class-validator";
+const ObjectID = require("mongodb").ObjectID;
+import { ObjectId } from 'mongoose';
 
 // All Business logic will be here
 
@@ -18,11 +19,25 @@ export class ProductService {
     async getProductById(userId: ObjectId): Promise<{product: ProductInterface, users: UserInterface[]}> {
         try {
             const product = await this.repository.findById(userId);
-            const _users = new Array<UserInterface>();
+            let _users = new Array<UserInterface>();
             product.comment.forEach((comment: any) => {
-                _users.push(comment.userId);
+                _users.push(ObjectID(comment.userId));
             });
-            const users = await User.find({ _id: { $in: _users }}).select('name image _id');
+            let dbUsers: UserInterface[] = await User.aggregate([
+                {$match: {
+                    _id: { $in: _users }
+                 } },
+                {$project: {name: 1, image: 1, _id: 1}},
+            ])  
+            let userKey = {};
+            dbUsers.forEach((value: any)=>{
+                userKey[value?._id] = {
+                    ...value
+                }
+            })  
+            let users = _users.map((value)=> {
+                return userKey[value?._id]
+            })
             return {product, users};
         } catch (err) {
             throw err;
@@ -79,7 +94,6 @@ export class ProductService {
                 { "_id": productId }, { $push: { "comment": commentBody } },
                 { returnOriginal: false }
             );
-            console.log({ product })
             return product;
         } catch (err) {
             throw err;

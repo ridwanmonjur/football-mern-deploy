@@ -7,12 +7,22 @@ import { addProduct } from "../../redux/slices/CartSlice";
 import { cookieKey, hostNameWithoutAPI } from '../../api/env';
 import { getCookie } from '../../api/api';
 import { Breadcrumb } from './Breadcrumb';
-import { generateProductAd } from './generateProductAd';
 import { toast } from 'react-toastify';
 import { CommentSection } from './Comment';
 
-export function Description({ data }) {
-
+export function Description(props) {
+    console.log({props})
+    console.log({props})
+    console.log({props})
+    console.log({props})
+    console.log({props})   
+    const data = props.data.product
+    const users = props.data.users 
+    console.log({data})
+    console.log({data})
+    console.log({data})
+    console.log({data})
+    console.log({data})
     const { userId } = useParams();
     let [cartStateToReducer, setCartStateToReducer] = useState({
         rate: 0,
@@ -127,7 +137,7 @@ export function Description({ data }) {
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
-                    <CommentSection />
+                    <CommentSection comments={data?.comment} users={users}/>
 
                 </div>
             }
