@@ -4,11 +4,7 @@ import { UserInterface } from './User';
 // var slugify = require('slugify')
 var faker = require('faker')
 import * as mongoosePaginate from 'mongoose-paginate-v2'
-
-interface CommentInterface extends Document {
-    userId: string,
-    comment: string
-}
+import { CommentSchema, CommentInterface } from './Comment';
 
 interface ProductInterface extends Document {
     name: string,
@@ -20,22 +16,12 @@ interface ProductInterface extends Document {
     image: string,
     stock: number,
     comment: Types.DocumentArray<CommentInterface>;
+    description?: string;
 }
 
 // not written in the docs but must be written!!!
 // ** extends Document **
 
-const CommentSchema = new Schema({
-    userId: {
-        type: String,
-        required: true
-    },
-    comment: {
-        type: String,
-        required: true
-    },
-
-})
 
 const ProductSchema = new Schema({
     name: {
@@ -66,6 +52,10 @@ const ProductSchema = new Schema({
     seller: {
         type: Schema.Types.ObjectId, ref: 'User', required: true
     },
+    description: {
+        type: String,
+        required: true
+    },
     comment: [CommentSchema]
 },
     { strict: true }
@@ -74,13 +64,12 @@ const ProductSchema = new Schema({
 ProductSchema.plugin(mongoosePaginate);
 
 
-const Comment = model<CommentInterface, PaginateModel<CommentInterface>>('Comment', CommentSchema)
 const Product = model<ProductInterface, PaginateModel<ProductInterface>>('Product', ProductSchema)
 
 ProductSchema.pre<ProductInterface>('save', function () {
     this.slug = faker.helpers.slugify(this.name)
 })
 
-export { Comment, Product, ProductInterface, CommentInterface }
+export { Product, ProductInterface }
 
 

@@ -95,6 +95,9 @@ p {
   font-size: 1 em;
 }
 
+w-100{
+  width: 100% !important;
+}
 
 .w-80s {
   width: 90%;

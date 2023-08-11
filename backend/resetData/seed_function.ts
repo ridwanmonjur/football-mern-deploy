@@ -3,7 +3,8 @@ import { Types } from 'mongoose'
 var faker = require('faker');
 const { hashSync } = require("bcrypt")
 const saltRounds: number = 10
-import { Product, ProductInterface, Comment, CommentInterface } from '../models/Product'
+import { Product, ProductInterface } from '../models/Product'
+import { Comment, CommentInterface } from '../models/Comment'
 import { User, UserInterface } from '../models/User'
 import { Cart, CartInterface } from '../models/Cart'
 import { connectDB } from '../db'
@@ -15,6 +16,21 @@ dotenv.config({ path: '../config.env' })
 interface ProductObject {
   name: string, price: number | string, productOwner: string, manufacturer: string, type: string, quantity: number,
 }
+
+function generateProductAd(productNameForAdd) {
+  let productAd = "";
+  if (productNameForAdd === "boots") {
+    productAd = "Stylish boots| Great coomfort and support| Synthetic | Split grooves "
+  }
+  else if (productNameForAdd === "jerseys") {
+    productAd = "Super-premium fabric| Lycra sleeves | Side Mesh | Silicon Elastic Bottom Grip| Customizable"
+  }
+  else {
+    productAd = "Premium quality accessories| Exported from the best places"
+  }
+  return productAd
+}
+
 
 function readFiles(_fileName: string): Array<ProductInterface> {
 
@@ -29,6 +45,7 @@ function readFiles(_fileName: string): Array<ProductInterface> {
       type: _fileName,
       image: `assets/${_fileName}/${value['img']}`,
       stock: 20,
+      description: generateProductAd(_fileName),
       price: Number(value['price'].toString().substring(1)),
       slug: faker.helpers.slugify(value.name)
       // no need to delete  val['productOwner']
@@ -126,7 +143,7 @@ const importData = async () => {
     let comments: Array<CommentInterface> = []
     for (loop = 0; loop < 5; loop++) {
       comments.push({
-        userId: users[faker.datatype.number({ 'min': 0, 'max': 9 })]._id,
+        userId: users[faker.datatype.number({ 'min': 14, 'max': 20 })]._id,
         comment: faker.commerce.productDescription()
       } as CommentInterface)
     }

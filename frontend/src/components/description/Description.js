@@ -9,6 +9,7 @@ import { getCookie } from '../../api/api';
 import { Breadcrumb } from './Breadcrumb';
 import { generateProductAd } from './generateProductAd';
 import { toast } from 'react-toastify';
+import { CommentSection } from './Comment';
 
 export function Description({ data }) {
 
@@ -64,7 +65,7 @@ export function Description({ data }) {
 
         <Fragment>
             {data.name !== undefined &&
-                < div style={{ marginTop: "-80px", minHeight: "80vh" }}>
+                < div style={{ marginTop: "-80px" }}>
                     <br />
                     <Breadcrumb type={data.type} productName={data.name} productid={data._id} />
                     <MDBContainer className="pt-0">
@@ -74,7 +75,7 @@ export function Description({ data }) {
                                     className="description-img frame"
                                 />
                             </MDBCol>
-                            <MDBCol xs="12" lg="6">
+                            <MDBCol xs="12" lg="6" mb={0}>
                                 <div className="special-font font-weight-bold mq-center">
                                     <h5 className="font-weight-bold ">
                                         {data?.name}
@@ -85,54 +86,49 @@ export function Description({ data }) {
                                     <a href={`/profile/${data?.seller?._id}`} className='text-danger'><p>{data?.seller?.name}</p></a>
                                     {/* <p>{data?.seller?.email}</p> */}
                                 </div>
-                                <br /> <hr /> <br />
+                                <hr /> 
                                 <div className="special-font">
-                                    <p> Premium quality {data.type} </p>
-                                    <p> {generateProductAd(data.type)}</p>
+                                    <p> Premium quality {data.type} <br/> {data.description}</p>
                                     <br />
                                     <p className="text"> Please cross-check your size with the size chart to ensure a good fit. <br /> </p>
                                 </div>
                                 <br />
-                                <table>
-                                    <tbody >
+                                <table className='w-50'>
+                                    <tbody className='w-50'>
                                         <tr className="mb-4">
-                                            <td className="text-left ml-0 px-0"> <span>SIZE: </span> </td>
+                                            <td className="text-left ml-0 px-0 font-weight-bold"> SIZE </td>
                                             <td>
                                                 {data.type !== "accessories" &&
-                                                    <select className="form-control" style={{ width: "100px" }} onChange={(evt) => { handleInputChange(evt) }} name="size">
-                                                        <option>SM</option>
-                                                        <option>L</option>
-                                                        <option>XL</option>
-                                                        <option>XXL</option>
+                                                    <select className="form-control text-center w-100px" onChange={(evt) => { handleInputChange(evt) }} name="size">
+                                                        <option className='text-left'>SM</option>
+                                                        <option className='text-left'>L</option>
+                                                        <option className='text-left'>XL</option>
+                                                        <option className='text-left'>XXL</option>
                                                     </select>
                                                 }
                                                 {data.type === "accessories" &&
-                                                    <select className="form-control" style={{ width: "100px" }} onChange={(evt) => { handleInputChange(evt) }} name="size">
-                                                        <option>Standard</option>
+                                                    <select className="form-control text-center w-100px" onChange={(evt) => { handleInputChange(evt) }} name="size">
+                                                        <option className='text-left'>Standard</option>
                                                     </select>
                                                 }
                                             </td>
                                         </tr>
-                                        <br />
                                         <tr>
-                                            <td className="text-left ml-0 px-0"> <span>QUANTITY: </span> </td>
+                                            <td className="text-left ml-0 px-0 font-weight-bold"> QUANTITY </td>
                                             <td>
-                                                <input type="number" name="quantity" style={{ width: "100px" }} value={cartStateToReducer.quantity} className="form-control" onChange={(evt) => { handleInputChange(evt) }} />,
+                                                <input type="number" name="quantity" value={cartStateToReducer.quantity} className="w-100px form-control text-center" onChange={(evt) => { handleInputChange(evt) }} />,
                                             </td>
                                         </tr>
                                     </tbody>
+                                    <br />
 
                                 </table>
-                                <br /> <br />
-                                <MDBBtn outline color="amber" className="mx-auto" onClick={addToCart}>ADD TO CART</MDBBtn>
+                                    <MDBBtn outline color="amber" className="mx-auto" onClick={addToCart}>ADD TO CART</MDBBtn>
                             </MDBCol>
                         </MDBRow>
-                        <MDBRow>
-                            <MDBCol > </MDBCol>
-                            <MDBCol xs="12" lg="6"> <i> Note: Your Product will be dispatched/ shipped within 7-10 days </i> </MDBCol>
-                        </MDBRow>
-
                     </MDBContainer>
+                    <CommentSection />
+
                 </div>
             }
         </Fragment>

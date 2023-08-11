@@ -2,6 +2,10 @@ div.col-xs-12-imageWraper {
     text-align: center;
 }
 
+.w-100px{
+    width: 100px;
+}
+
 .description-img {
     padding: 0;
     margin-bottom: 20px !important;
