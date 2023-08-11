@@ -1,5 +1,5 @@
 var express = require('express');
-import {getProducts, getProductById, getProductBytType, deleteProducts, createProduct, editProduct} from "../controllers/product"
+import {getProducts, getProductById, getProductBytType, deleteProducts, createProduct, editProduct, createComment, editComment, deleteComment} from "../controllers/product"
 import { Roles } from "../helper/Roles";
 import { authorize } from "../middleware/authorize";
 import { protect } from "../middleware/protect";
@@ -13,6 +13,13 @@ router.route('/')
 router.route('/:productId')
         .get(getProductById)
         .put(protect, authorize(Roles.Seller, Roles.Admin), multer.single("image"), editProduct)
+      
+router.route('/:productId/comment/')
+        .post(createComment)
+
+router.route('/:productId/comment/:commentId')
+        .put(editComment)
+        .delete(deleteComment)
 
 router.route('/type/:productType')
         .get(getProductBytType)

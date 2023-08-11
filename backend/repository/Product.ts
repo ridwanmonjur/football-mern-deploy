@@ -18,19 +18,16 @@ export class ProductRepository {
     }
 
     async find(query?: any, options?: any): Promise<PaginateResult<ProductInterface>> {
-        
         if (options?.populate==undefined) options.populate=this.populate
         try {
             return await Product.paginate(query, options)
         }
         catch (error) {
-            
             throw new HTTP500InternalServerrror("Unable to query all products");
         }
     }
 
     async findOne(where: any, select?: any): Promise<ProductInterface> {
-
         try {
             return select ? 
                 await Product.findOne({ ...where }).select(select).populate(this.populate) 
@@ -43,7 +40,6 @@ export class ProductRepository {
 
     async findByIdAndUpdate(productId: string | ObjectId, body: any): Promise<ProductInterface> {
         try {
-
             return await Product.findByIdAndUpdate(productId, { ...body }, {returnOriginal: false}).populate(this.populate);
         }
         catch {
@@ -63,9 +59,7 @@ export class ProductRepository {
     async createOne(body: any): Promise<ProductInterface> {
         try {
             let product = new Product({ ...body });
-
             await product.save();
-
             return product;
         }
         catch {

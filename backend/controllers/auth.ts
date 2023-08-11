@@ -11,7 +11,6 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
     try {
         const loginDtos: UserLoginDto = await validationHelper(UserLoginDto, req.body);
         const { user, accessToken: token } = await service.verifyUser(loginDtos);
-
         res.status(StatusCodes.OK)
             .json({ success: true, token, user });
     }
