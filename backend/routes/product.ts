@@ -13,17 +13,19 @@ router.route('/')
 router.route('/:productId')
         .get(getProductById)
         .put(protect, authorize(Roles.Seller, Roles.Admin), multer.single("image"), editProduct)
-      
-router.route('/:productId/comment/')
-        .post(createComment)
-
-router.route('/:productId/comment/:commentId')
-        .put(editComment)
-        .delete(deleteComment)
 
 router.route('/type/:productType')
         .get(getProductBytType)
 
 router.post("/delete", protect, authorize(Roles.Admin, Roles.Seller), deleteProducts)
+
+router.route('/:productId/comment/')
+        .post(protect, authorize(Roles.Customer), createComment)
+
+router.route('/:productId/comment/:commentId')
+        .put(protect, authorize(Roles.Customer), editComment)
+
+router.route('/:productId/comment/:commentId/delete')
+        .post(protect, authorize(Roles.Customer), deleteComment)
 
 module.exports= router

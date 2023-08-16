@@ -11,18 +11,8 @@ import { toast } from 'react-toastify';
 import { CommentSection } from './Comment';
 
 export function Description(props) {
-    console.log({props})
-    console.log({props})
-    console.log({props})
-    console.log({props})
-    console.log({props})   
     const data = props.data.product
     const users = props.data.users 
-    console.log({data})
-    console.log({data})
-    console.log({data})
-    console.log({data})
-    console.log({data})
     const { userId } = useParams();
     let [cartStateToReducer, setCartStateToReducer] = useState({
         rate: 0,
@@ -137,7 +127,7 @@ export function Description(props) {
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
-                    <CommentSection comments={data?.comment} users={users}/>
+                    <CommentSection productId= {data._id} comments={data?.comment} users={users}/>
 
                 </div>
             }

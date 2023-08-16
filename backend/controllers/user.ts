@@ -85,13 +85,13 @@ export async function editCurrentUser(req: Request, res: Response, next: NextFun
             delete req.body.image;
         }
         else {
-            if (req.file.path == undefined) throw new HTTP500InternalServerrror("Couldn't get file path after saving!")
+            if (!('path' in req.file)) throw new HTTP500InternalServerrror("Couldn't get file path after saving!")
             req.body.image = req.file.path;
         }
 
         const editDtos: EditUserProfileDto = await validationHelper(EditUserProfileDto, req.body);
 
-        console.log({ userSearch: userSearch.image, req: req.body.image, editDtos: editDtos.image, file: req.file.path })
+        // console.log({ userSearch: userSearch.image, req: req.body.image, editDtos: editDtos.image, file: req.file.path })
 
         user = await service.findByIdAndUpdate(userId, { ...editDtos });
 

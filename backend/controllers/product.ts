@@ -115,7 +115,7 @@ export async function editComment(req: Request, res: Response, next: NextFunctio
     try {
         productId = ObjectID(req.params.productId);
         commentId = ObjectID(req.params.commentId);
-        const comment = await service.editComment(productId, commentId, req.body.commentBody);
+        const comment = await service.editComment(productId, commentId, req.body);
         res.status(StatusCodes.OK).json({ success: true, comment });
     }
     catch (error) {
@@ -141,8 +141,10 @@ export async function deleteComment(req: Request, res: Response, next: NextFunct
     try {
         productId = ObjectID(req.params.productId);
         commentId = ObjectID(req.params.commentId);
-        const comment = await service.deleteComment(productId, commentId);
-        res.status(StatusCodes.OK).json({ success: true, comment });
+        // const product = await service.deleteComment(productId, commentId);
+        // res.status(StatusCodes.OK).json({ success: true, comment: product.comment });
+        await service.deleteComment(productId, commentId);
+        res.status(StatusCodes.OK).json({ success: true });
     }
     catch (error) {
         next(error);

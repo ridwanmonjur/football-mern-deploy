@@ -28,7 +28,6 @@ function SignIn() {
 
     let onSubmit = async (event) => {
         event.preventDefault();
-        toast.warning('Trying to login !');
         try {
             let response = await Login({
                 password: passwordRef.current.value,

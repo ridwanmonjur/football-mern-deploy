@@ -6,6 +6,10 @@ div.col-xs-12-imageWraper {
     width: 100px;
 }
 
+.w-700px{
+    width: 1000px;
+}
+
 .description-img {
     padding: 0;
     margin-bottom: 20px !important;
@@ -106,6 +110,10 @@ p {
         margin-top: 30px;
         text-align: center;
     }
+
+    .w-700px{
+        min-width: 600px;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -114,7 +122,35 @@ p {
     }
     .description-img {
         max-width: 300px;
-       
+    }
+
+    .w-700px{
+        min-width: 400px;
     }
     
+}
+
+@media only screen and (max-width: 400px) {
+    .w-700px{
+        min-width: 300px;
+    }
+    
+}
+
+.add-edit-button{
+    height: 50px; 
+    padding: 0px; 
+    width: 150px;
+}
+
+.edit-delete{
+    cursor: pointer;
+}
+
+.edit-delete:hover{
+    color: #ff4c4c;
+}
+
+.edit-delete:active{
+    color: #ff4c4c;
 }

@@ -48,3 +48,31 @@ export async function DeleteProductByIds(body) {
     })
 }
 
+export async function AddComment(productId, body) {
+    console.log({body})
+    const response = await api('POST', `product/${productId}/comment`, {
+        mode: 'cors', body,
+    })
+    if (!response || ("comment" in response) === false) throw new Error("Missing comment data")
+
+    else return response.comment
+}
+
+export async function EditComment(productId, commentId, body) {
+    // /:productId/comment/:commentId
+    const response = await api('PUT', `product/${productId}/comment/${commentId}`, {
+        mode: 'cors', body
+    })
+    if (!response || ("comment" in response) === false) throw new Error("Missing comment data")
+
+    else return response.comment
+}
+
+
+export async function DeleteCommentById(productId, commentId) {
+    await api('POST', `product/${productId}/comment/${commentId}/delete`, {
+        mode: 'cors'
+    })
+}
+
+

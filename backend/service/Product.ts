@@ -88,13 +88,15 @@ export class ProductService {
     }
 
     async createComment(productId: ObjectId, commentBody: any): Promise<any> {
-        console.log({ commentBody })
         try {
-            const product = await Product.updateOne(
-                { "_id": productId }, { $push: { "comment": commentBody } },
+            await Product.updateOne(
+                { "_id": productId }, { $push: { "comment": {...commentBody} } },
                 { returnOriginal: false }
             );
-            return product;
+            const product = await Product.findById(productId);
+            const commentLength = product?.comment.length;
+            const comment = product?.comment[commentLength - 1];
+            return comment;
         } catch (err) {
             throw err;
         }
@@ -102,13 +104,18 @@ export class ProductService {
 
     async editComment(productId: ObjectId, commentId: ObjectId, commentBody: any): Promise<any> {
         try {
-            const product = await Product.updateOne(
+            await Product.updateOne(
                 { _id: productId },
-                { $set: { "comment.$[element].comment": commentBody } },
+                { $set: { "comment.$[element].comment": commentBody?.comment } },
                 { arrayFilters: [{ "element._id": commentId }], upsert: true },
             );
-            console.log({ product })
-            return product;
+            const product = await Product.findById(productId);
+            const comment = product?.comment.find((comment: any) => {
+                console.log({commentID: comment._id.toString(), commentId})
+                return String(commentId) === comment._id.toString()
+            }
+            );  
+            return comment;  
         } catch (err) {
             throw err;
         }
@@ -116,11 +123,13 @@ export class ProductService {
 
     async deleteComment(productId: ObjectId, commentId: ObjectId,) {
         try {
-            const product = await Product.updateOne(
+            console.log({productId, commentId})
+            await Product.updateOne(
                 { _id: productId },
-                { $pull: { comment: { $elemMatch: { _id: commentId } } } },
+                { $pull: { comment: { _id: commentId }  } },
                 { returnOriginal: false }
             );
+            const product = await Product.findById(productId);
             return product;
         } catch (err) {
             throw err;

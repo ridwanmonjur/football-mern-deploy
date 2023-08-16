@@ -89,18 +89,18 @@ export const slice = createSlice({
         state.cartValues = { ...initialState.cartValues }
         if (payload.error) state.error = payload.error
         toast.dismiss()
-        toast.error("Failed to add! Are you signed in as customer, and not as admin or seller.")
+        toast.error("Failed to add! Are you signed in as customer, and not as admin or seller?")
       }
     })
     builder.addCase(addProduct.pending, (state) => {
       state.status = "loading"
-      toast.info("Adding the product to cart...Hang on please!")
+      // toast.info("Adding the product to cart...Hang on please!")
     })
     builder.addCase(addProduct.rejected, (state, { error }) => {
       state.status = "rejected"
       state.error = error
       toast.dismiss()
-      toast.error("ailed to add! Are you signed in as customer, and not as admin or seller.")
+      toast.error("Failed to add! Are you signed in as customer, and not as admin or seller?")
     })
 
     builder.addCase(editProduct.fulfilled, (state, { payload }) => {

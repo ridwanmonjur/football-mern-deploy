@@ -144,7 +144,7 @@ const importData = async () => {
     for (loop = 0; loop < 5; loop++) {
       comments.push({
         userId: users[faker.datatype.number({ 'min': 14, 'max': 20 })]._id,
-        comment: faker.commerce.productDescription()
+        comment: faker.commerce.productDescription()+ '.'
       } as CommentInterface)
     }
     // 13th-22th users are customers
