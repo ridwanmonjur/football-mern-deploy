@@ -6,7 +6,7 @@
     display: grid;
     grid-template-columns: 1fr;
     margin: 0vh auto 5vh;
-    padding: 0 5vw;
+    padding: 0 20vw;
 }
 
 /* CARD */

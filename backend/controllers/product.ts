@@ -59,10 +59,11 @@ export async function createProduct(req: Request, res: Response, next: NextFunct
             throw new HTTP422UnproccessableEntity("Product image is missing!")
         }
         else {
-            if (req.file.path == undefined) throw new HTTP500InternalServerrror("Couldn't get file path after saving!")
+            if (!('path' in req.file)) throw new HTTP500InternalServerrror("Couldn't get file path after saving!")
             req.body.image = req.file.path;
         }
         const productDto: CreateProductDto = await validationHelper(CreateProductDto, req.body);
+        console.log({productDto})
         const product = await service.createProduct(productDto);
         res.status(StatusCodes.OK).json({ success: true, product });
     }
