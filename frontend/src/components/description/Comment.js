@@ -155,6 +155,7 @@ export const CommentSection = ({ comments, users, productId }) => {
                                                 const textAreaComment = document.getElementById('textAreaComment')
                                                 textAreaComment.value = ''
                                                 setCurrentCommentIndex(-1)
+                                                
                                             }}> Add comment </MDBBtn>
                                         </div>
                                     }
