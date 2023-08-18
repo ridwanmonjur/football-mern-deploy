@@ -1,9 +1,13 @@
-import axios from 'axios';
-
-export default async function fetch({ method, url, headers, data }) {
-  try {
-    return (await axios({ url, method, headers, data }))?.data;
-  } catch (e) {
-    throw new Error(e?.message);
-  }
+const fetchNode = require("node-fetch");
+export const httpCall = ({url, method = 'POST', data = {}}) => {
+    // Default options are marked with *
+    return fetchNode(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, cors, *same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        redirect: 'follow', // manual, *follow, error
+        referrer: 'no-referrer', // no-referrer, *client
+        ...["POST", 'PUT', "PATCH", "UPDATE"].includes(method) && {body: data}, // body data type must match "Content-Type" header
+    }).then(response => response.json()).catch(err => err);
 }

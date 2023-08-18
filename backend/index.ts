@@ -13,6 +13,7 @@ const routesUser = require('./routes/user')
 const routesProduct = require('./routes/product')
 const routesCart = require('./routes/cart')
 const routesAuth = require('./routes/auth')
+const routessslCommerz = require('./routes/sslCommerz')
 // const routesBkash = require('./routes/bkash')
 const routesHome = require('./routes/home')
 import './process';
