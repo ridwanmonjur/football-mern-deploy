@@ -3,19 +3,16 @@ import React, { useState, useEffect } from "react";
 import { MDBContainer, MDBCol, MDBRow, MDBCard, MDBCardBody, MDBBtn, MDBNav } from "mdbreact";
 import "./CheckOut.css";
 import { useSelector, useDispatch } from "react-redux";
-import { selectProfileDetails, fetchProfile, editProfile, selectIsSignedIn } from "../redux/slices/ProfileSlice";
+import { selectProfileDetails,  editProfile, selectIsSignedIn } from "../redux/slices/ProfileSlice";
 import { useHistory } from "react-router";
 import { api } from "../api/api";
 import { toast } from "react-toastify"
-import { fetchCart, selectCart, selectCartStatus } from "../redux/slices/CartSlice";
-import { roundOff } from "../helper/roundOff";
+import { fetchCart, selectCart } from "../redux/slices/CartSlice";
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 function CheckOutConfirm() {
 
     let user = useSelector(selectProfileDetails)
-    let cart = useSelector(selectCart)
-    console.log({ user, cart })
 
     let history = useHistory()
     const dispatch = useDispatch()

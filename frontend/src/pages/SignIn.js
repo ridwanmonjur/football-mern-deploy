@@ -14,9 +14,9 @@ import Modal from "react-modal";
 import { toast } from "react-toastify";
 import FullPageIntroWithNonFixedNavbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
-
+import { useHistory } from "react-router-dom";
 function SignIn() {
-
+    const history = useHistory()
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const dispatch = useDispatch()
@@ -41,6 +41,7 @@ function SignIn() {
                 toast.dismiss()
                 toast.success('Logged in! Now you can make your purchases.');
                 await dispatch(fetchProfile())
+                history.push("/")
             } else {
                 throw new Error("Password and email failed to match.")
             }
