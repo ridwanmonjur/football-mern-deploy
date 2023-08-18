@@ -15,7 +15,7 @@ interface ProductInterface extends Document {
     price: number,
     image: string,
     stock: number,
-    comment: Types.DocumentArray<CommentInterface>;
+    comment?: Types.DocumentArray<CommentInterface>;
     description?: string;
 }
 
@@ -54,9 +54,13 @@ const ProductSchema = new Schema({
     },
     description: {
         type: String,
-        required: true
+        required: false
     },
-    comment: [CommentSchema]
+    comment: {
+        type: [CommentSchema],
+        default: [],
+        required: false
+    }
 },
     { strict: true }
 )

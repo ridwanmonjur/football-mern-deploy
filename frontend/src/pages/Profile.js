@@ -184,7 +184,7 @@ function Profile() {
 
                                                 </MDBRow>
                                                 <button type="submit"
-                                                    className='mx-2 btn btn-sm btn-outline-warning font-larger' color="warning" outline>
+                                                    className='mx-2 mt-4 btn btn-sm btn-outline-warning font-larger' color="warning" outline>
                                                     Submit
                                                 </button>
                                             </div>

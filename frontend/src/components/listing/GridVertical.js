@@ -6,11 +6,12 @@ import "./GridVertical.css"
 import { LazyLoadImage, trackWindowScroll } from 'react-lazy-load-image-component';
 import { hostNameWithoutAPI } from '../../api/env';
 
-function GridVertical({ productName, data, scrollPosition }) {
+function GridVertical({ productName, data, scrollPosition, type="customer" }) {
     return (
         <Fragment>
             <div className='mt-n4'>
-                <div className="loadGrid__gridItems">
+                <div className={`loadGrid__gridItems ${type==='seller'? 'loadGrid__gridItems__seller  ' : ''}`}
+                >
                     {
                         data != null && data?.docs !== null &&
                         data.docs?.map((value, index) => {

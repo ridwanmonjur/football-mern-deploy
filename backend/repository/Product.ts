@@ -42,8 +42,8 @@ export class ProductRepository {
         try {
             return await Product.findByIdAndUpdate(productId, { ...body }, {returnOriginal: false}).populate(this.populate);
         }
-        catch {
-            throw new HTTP500InternalServerrror("Unable to query product by body");
+        catch(error) {
+            throw error;
         }
     }
 
@@ -62,8 +62,8 @@ export class ProductRepository {
             await product.save();
             return product;
         }
-        catch {
-            throw new HTTP500InternalServerrror("Unable to create product ");
+        catch(error) {
+            throw error;
         }
     }
 }

@@ -9,6 +9,11 @@
     padding: 0 20vw;
 }
 
+.loadGrid__gridItems__seller {
+    padding: 0 20vw;
+}
+
+
 /* CARD */
 
 .card-text-custom {
@@ -89,6 +94,10 @@
         margin: 0vh 0;
     }
 
+    .loadGrid__gridItems__seller {
+        padding: 0 10vw;
+    }
+
     .card-image {
         margin: auto;
     }
@@ -99,6 +108,10 @@
     .loadGrid__gridItems {
         grid-template-columns: repeat(4, 1fr);
         padding: 0 15vw;
+    }
+
+    .loadGrid__gridItems__seller {
+        padding: 0 7vw;
     }
 }
 

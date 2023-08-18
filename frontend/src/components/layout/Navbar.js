@@ -19,7 +19,7 @@ function FullPageIntroWithNonFixedNavbar() {
     const isSignedIn = useSelector(selectIsSignedIn);
 
     const user = useSelector(selectProfileDetails);
-    
+
     const dispatch = useDispatch()
     let [state, setState] = useState({
         collapse: false,
@@ -131,7 +131,9 @@ function FullPageIntroWithNonFixedNavbar() {
                                     }
                                     {
                                         isSignedIn &&
-                                        <MDBIcon icon="sign-out-alt" className='d-inline ml-2' onClick={(evt) => { resetUser(evt) }} />
+                                        <span style={{ transform: "rotateX(180deg)" }} >
+                                            <MDBIcon style={{ transform: "rotateX(180deg)" }} icon="sign-out-alt" className='d-inline ml-2' onClick={(evt) => { resetUser(evt) }} />
+                                        </span>
                                     }
                                     {
                                         isSignedIn &&
