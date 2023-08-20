@@ -1,6 +1,6 @@
 import { paymentInitDataProcess } from "../helper/paymentInitDataProcess";
 import { httpCall } from "../helper/httpCall";
-console.log({ paymentInitDataProcess, httpCall })
+import { Request, Response, NextFunction } from 'express';
 
 class SslCommerzPayment {
     baseURL: string;
@@ -13,7 +13,7 @@ class SslCommerzPayment {
     transactionQueryByTransactionIdURL: string;
     store_passwd: any;
 
-    constructor(store_id, store_passwd, live = false) {
+    constructor(live = false) {
         this.baseURL = `https://${live ? 'securepay' : 'sandbox'}.sslcommerz.com`;
         this.initURL = this.baseURL + '/gwprocess/v4/api.php';
         this.validationURL = this.baseURL + '/validator/api/validationserverAPI.php?';
@@ -21,28 +21,36 @@ class SslCommerzPayment {
         this.refundQueryURL = this.baseURL + '/validator/api/merchantTransIDvalidationAPI.php?';
         this.transactionQueryBySessionIdURL = this.baseURL + '/validator/api/merchantTransIDvalidationAPI.php?';
         this.transactionQueryByTransactionIdURL = this.baseURL + '/validator/api/merchantTransIDvalidationAPI.php?';
-        this.store_id = store_id;
-        this.store_passwd = store_passwd;
+        this.store_id = process.env.sslCommerzStoreId;
+        this.store_passwd = process.env.sslCommerzStorePassword;
+        console.log({ store_id: this.store_id, store_passwd: this.store_passwd })
+        this.init = this.init.bind(this);
+        this.validate = this.validate.bind(this);
+        this.transactionQueryByTransactionId = this.transactionQueryByTransactionId.bind(this);
     }
 
-    init(data, url = false, method = "POST") {
-        data.store_id = this.store_id;
-        data.store_passwd = this.store_passwd;
-        return httpCall({ url: url ?? this.initURL, method: method || "POST", data: paymentInitDataProcess(data) });
+    // router.post("/user:userId:/init/", SslCommerzPayment.init);
+    init(req: Request, res: Response, next: NextFunction) {
+        req.body.store_id = this.store_id;
+        req.body.store_passwd = this.store_passwd;
+        // return httpCall({ url: url ?? this.initURL, method: req.method || "POST", data: paymentInitDataProcess(data) });
+        return httpCall({ url: this.initURL, method: req.method || "POST", data: paymentInitDataProcess(req.body) });
+
     }
 
-    validate(data, url = false, method = "GET") {
+    // router.post("/validate/:valId", SslCommerzPayment.validate);
+    validate(req: Request, res: Response, next: NextFunction) {
         return httpCall({
-            url: url ?? this.validationURL + `val_id=${data.val_id}&store_id=${this.store_id}&store_passwd=${this.store_passwd}&v=1&format=json`,
-            method: method || "GET",
+            url: this.validationURL + `val_id=${req.params.val_id}&store_id=${this.store_id}&store_passwd=${this.store_passwd}&v=1&format=json`,
+            method: req.method || "GET",
         });
     }
 
-    transactionQueryByTransactionId(data, url = false, method = "GET") {
+    // router.post("/transaction/:transactionId", SslCommerzPayment.transactionQueryByTransactionId);
+    transactionQueryByTransactionId(req: Request, res: Response, next: NextFunction) {
         return httpCall({
-            url: url ?? this.transactionQueryByTransactionIdURL + `tran_id=${data.tran_id}&store_id=${this.store_id}&store_passwd=${this.store_passwd}&v=1&format=json`,
-            method: method || "GET",
-            data
+            url: this.transactionQueryByTransactionIdURL + `tran_id=${req.params.tran_id}&store_id=${this.store_id}&store_passwd=${this.store_passwd}&v=1&format=json`,
+            method: req.method || "GET",
         });
     }
 }

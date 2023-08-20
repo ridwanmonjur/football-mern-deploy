@@ -1,15 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const {
-    SSLCommerz_payment_init,
-    SSLCommerz_payment_success,
-    SSLCommerz_payment_fail,
-    SSLCommerz_payment_cancel,
-} = require("../controllers/sslCommerz");
+const SslCommerzPayment = require("../controllers/sslCommerz");
+const SslCommerzPaymentInstance = new SslCommerzPayment();
 
-router.post("/checkout", SSLCommerz_payment_init);
-router.post("/checkout/success", SSLCommerz_payment_success);
-router.post("/checkout/fail", SSLCommerz_payment_fail);
-router.post("/checkout/cancel", SSLCommerz_payment_cancel);
+router.post("/user/:userId:/init", SslCommerzPaymentInstance.init);
+router.post("/validate/:valId", SslCommerzPaymentInstance.validate);
+router.post("/transaction/:transactionId", SslCommerzPaymentInstance.transactionQueryByTransactionId);
 
 module.exports = router;
