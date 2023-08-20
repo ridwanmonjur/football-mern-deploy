@@ -1,4 +1,4 @@
-import fetch from "../helper/fetch";
+import fetch from "../helper/httpCall";
 
 class Bkash {
     sandbox = 'https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout';
