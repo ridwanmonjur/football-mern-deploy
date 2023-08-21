@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { MDBRow, MDBCard, MDBCardBody, MDBContainer, MDBCol } from "mdbreact";
 import { useDispatch, useSelector } from "react-redux";
 import "./Cart.css"
+import "./Purchases.css"
 import { GetAllCarts } from "../api/cart";
 import Cart from "./Cart";
 import { toast } from "react-toastify";

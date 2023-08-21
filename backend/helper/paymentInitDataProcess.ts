@@ -1,5 +1,6 @@
 
 export const paymentInitDataProcess = (data) => {
+    console.log({data})
     let postData = {};
     /*  Integration Required Parameters */
     //required//
@@ -19,32 +20,39 @@ export const paymentInitDataProcess = (data) => {
 
     /* Parameters to Handle EMI Transaction */
     // required//
-    postData['emi_option'] = data.emi_option;
+    // postData['emi_option'] = data.emi_option;
+    postData['emi_option'] = 0
     //optional//
     // postData['emi_max_inst_option'] = data.emi_max_inst_option;
     // postData['emi_selected_inst'] = data.emi_selected_inst;
 
     /* Customer Information */
     //required
-    postData['cus_name'] = data.cus_name;
-    postData['cus_email'] = data.cus_email;
-    postData['cus_add1'] = data.cus_add1;
+    // name: string
+    // email: string
+    // password: string,
+    // role: string,
+    // address: AddressInterface,
+    // creditCard: CreditCardInterface,
+    // token: TokenInterface,
+    // image: string
+    postData['cus_name'] = data.user?.name;
+    postData['cus_email'] = data.user?.email;
+    postData['cus_add1'] = data.user?.cus_address;
     // postData['cus_add2'] = data.cus_add2;
     postData['cus_add2'] = "";
 
-    postData['cus_city'] = data.cus_city;
-    postData['cus_state'] = data.cus_state;
-    // postData['cus_postcode'] = data.cus_postcode;
+    postData['cus_city'] = "London";
+    postData['cus_state'] = "London";
     postData['cus_postcode'] = 1212;
-    // postData['cus_country'] = data.cus_country;
     postData['cus_country'] = "Bangladesh";
-    postData['cus_phone'] = data.cus_phone;
+    postData['cus_phone'] = "+880 1952996432";
     //optional
-    postData['cus_fax'] = data.cus_fax;
+    // postData['cus_fax'] = data.cus_fax;
 
     /* Shipment Information */
     //required
-    postData['shipping_method'] = data.shipping_method;
+    postData['shipping_method'] = "NO";
     postData['num_of_item'] = data.num_of_item;
     //optional
     // postData['ship_name'] = data.ship_name;

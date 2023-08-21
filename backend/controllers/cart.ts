@@ -8,14 +8,15 @@ import { StatusCodes } from 'http-status-codes';
 import { DeleteCartDtos } from '../dto/cart';
 import { validationHelper } from '../helper/validationHelper';
 import { extractRequestQueryForPagination } from '../helper/extractRequestQueryForPagination';
+import { PurchaseService } from '../service/Purchase';
 
 const service = new CartService();
+const purchaseService = new PurchaseService();
 
 export async function getOneCart(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     let cart: undefined | CartInterface;
     try {
-        console.log({userID: req.userID})
         cart = await service.findOneCart({ user: req.userID, status: "active" });
 
         if (cart == null) throw new HTTP404NotFoundError("Cart is not found");
@@ -42,7 +43,7 @@ export async function getAllCarts(req: Request, res: Response, next: NextFunctio
 
     let cart: undefined | PaginateResult<CartInterface>;
     try {
-        const {query, options} = extractRequestQueryForPagination(req.query)
+        const { query, options } = extractRequestQueryForPagination(req.query)
 
         cart = await service.findAllCarts(query, options);
 
@@ -124,15 +125,24 @@ export async function deleteCartProduct(req: Request, res: Response, next: NextF
 }
 
 
-export async function getNewCart(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function payCart(req: Request, res: Response, next: NextFunction): Promise<void> {
     let userId: undefined | ObjectId;
 
     try {
         userId = ObjectID(req.userID);
 
-        let cart = await service.createCart(userId);
+        let oldCart = await service.findOneCart({ user: req.userID, status: "active" });
 
-        res.status(StatusCodes.CREATED).json({ success: true, cart });
+        if (oldCart == null) {
+            let cart = await service.payCart(userId, req.body.checkout);
+
+            let purchase = await purchaseService.payPurchase(userId, req.body.purchase);
+
+            res.status(StatusCodes.CREATED).json({ success: true, cart, purchase });
+        }
+        else {
+            throw new HTTP422UnproccessableEntity("Cart is already created");
+        }
     }
     catch (error) {
         if (!userId) throw new HTTP422UnproccessableEntity("UserId must be string");
@@ -142,7 +152,7 @@ export async function getNewCart(req: Request, res: Response, next: NextFunction
 }
 export async function deleteCarts(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-        console.log({hit: true})
+        console.log({ hit: true })
 
         await validationHelper(DeleteCartDtos, req.body)
 

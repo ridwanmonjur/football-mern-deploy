@@ -1,6 +1,9 @@
 import { paymentInitDataProcess } from "../helper/paymentInitDataProcess";
 import { httpCall } from "../helper/httpCall";
 import { Request, Response, NextFunction } from 'express';
+import { User } from "../models/User";
+const ObjectID = require("mongodb").ObjectID;
+import { ObjectId } from 'mongoose';
 
 class SslCommerzPayment {
     baseURL: string;
@@ -31,11 +34,26 @@ class SslCommerzPayment {
 
     // router.post("/user:userId:/init/", SslCommerzPayment.init);
     init(req: Request, res: Response, next: NextFunction) {
-        req.body.store_id = this.store_id;
-        req.body.store_passwd = this.store_passwd;
-        // return httpCall({ url: url ?? this.initURL, method: req.method || "POST", data: paymentInitDataProcess(data) });
-        return httpCall({ url: this.initURL, method: req.method || "POST", data: paymentInitDataProcess(req.body) });
-
+        let userId: undefined | ObjectId;
+        try {
+            userId = ObjectID(req.userID);
+            req.body.store_id = this.store_id;
+            req.body.store_passwd = this.store_passwd;
+            req.body.user = User.findById(userId).select("name email address creditCard");
+            // name: string
+            // email: string
+            // password: string,
+            // role: string,
+            // address: AddressInterface,
+            // creditCard: CreditCardInterface,
+            // token: TokenInterface,
+            // image: string
+            // return httpCall({ url: url ?? this.initURL, method: req.method || "POST", data: paymentInitDataProcess(data) });
+            return httpCall({ url: this.initURL, method: req.method || "POST", data: paymentInitDataProcess(req.body) });
+        }
+        catch (err) {
+            throw new Error(err);
+        }
     }
 
     // router.post("/validate/:valId", SslCommerzPayment.validate);

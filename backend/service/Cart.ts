@@ -16,17 +16,13 @@ export class CartService {
         this.productRepository = new ProductRepository();
     }
 
-    async createCart(userId: ObjectId): Promise<CartInterface> {
+    async payCart(userId: ObjectId, checkout: any): Promise<CartInterface> {
         const where = { user: userId, status: "active" };
 
-        const body = { status: "paid", paidAt: new Date() };
-
-        const newCart = { user: userId, status: "active" };
-
         try {
-            await this.repository.updateMany(where, body);
+            await this.repository.updateMany(where, checkout);
 
-            let cart = await this.repository.createOne(newCart);
+            let cart = await this.repository.findOne(where);
 
             return cart;
         }
@@ -35,7 +31,7 @@ export class CartService {
         }
     }
 
-    async findOneCart(where: any): Promise<CartInterface> {
+    async findOneCart(where: any, sort?: any): Promise<CartInterface> {
         const populate = ['products', 'name image price type'];
         try {
             return await this.repository.findOne(where, populate);

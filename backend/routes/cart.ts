@@ -1,5 +1,5 @@
 var express = require('express');
-import { addProduct, getOneCart, getCartsOfSignedIn, editProductQuantity, deleteCartProduct, getNewCart, getAllCarts, deleteCarts } from "../controllers/cart"
+import { addProduct, getOneCart, getCartsOfSignedIn, editProductQuantity, deleteCartProduct, payCart, getAllCarts, deleteCarts } from "../controllers/cart"
 import { Roles } from "../helper/Roles";
 import { authorize } from "../middleware/authorize";
 import { protect } from "../middleware/protect"
@@ -7,7 +7,7 @@ var router = express.Router({ mergeParams: true }); /* mergeParams: true so this
 
 router.route('/')
         .get(protect, authorize(Roles.Customer), getCartsOfSignedIn)
-        .post(protect, authorize(Roles.Admin), getNewCart);
+        .post(protect, authorize(Roles.Admin), payCart);
 
 router.get('/all', protect, authorize(Roles.Admin), getAllCarts)
 router.post("/delete", protect, authorize(Roles.Admin), deleteCarts);

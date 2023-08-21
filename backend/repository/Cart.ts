@@ -4,16 +4,17 @@ import { Cart, CartInterface } from "../models/Cart";
 
 export class CartRepository {
 
-    async findOne(where: any, populate?: Array<string>): Promise<CartInterface> {
+    async findOne(where: any, populate?: Array<string>, sort?: any): Promise<CartInterface> {
+        sort??= { 'created_at' : -1 }
 
         try {
             if (populate) {
                 const [_, __] = populate;
 
-                return await Cart.findOne({ ...where }).populate(_, __);
+                return await Cart.findOne({ ...where }).sort(sort).populate(_, __);
             }
             else {
-                return await Cart.findOne({ ...where })
+                return await Cart.findOne({ ...where }).sort(sort)
             }
         }
         catch {

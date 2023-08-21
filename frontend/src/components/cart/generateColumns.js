@@ -1,6 +1,10 @@
 export function generateColumns({ isPartOfPurchaseView }) {
     return (
       [
+        ...(!isPartOfPurchaseView ? [{
+          label: <strong></strong>,
+          field: 'button'
+        }] : []),
         {
           label: <strong>Image</strong>,
           field: 'imageSrc',

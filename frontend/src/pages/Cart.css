@@ -32,7 +32,12 @@
 }
 
 
-.product-table :nth-child(2){
+.product-table :nth-child(1){
+    width: 50px !important;   
+    white-space:normal !important; 
+}
+
+.product-table :nth-child(3){
     width: 250px !important;   
     white-space:normal !important; 
 }

@@ -10,6 +10,9 @@ export function generateRows({ isPartOfPurchaseView, data, deleteCart, handleInp
           let totalPrice  = roundOff(data.description[index].subtotal)
           rows.push(
             {
+              ...(!isPartOfPurchaseView && {
+              'checkbox': <input type="checkbox" name="checkbox" className="checkout-checkbox"/>,
+              }),
               'imageSrc': <img src={`${hostNameWithoutAPI}${value?.image}`} alt="" style={{ width: "50px" }} />,
               'name': <strong> {value.name}</strong>,
               'size': <strong> {data.description[index].size} </strong>,
